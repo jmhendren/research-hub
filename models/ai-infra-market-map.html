@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Infrastructure Market Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --bg-alt: #F7F7F4;
+  --ink: #1A1A1A;
+  --ink-soft: #3D3D3D;
+  --muted: #6B6B6B;
+  --rule: #D9D9D6;
+  --rule-soft: #E8E8E5;
+  --navy: #0E2A47;
+  --burgundy: #8B2332;
+  --ochre: #9C7626;
+  --moss: #4A6B3C;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Source Serif 4', 'Times New Roman', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.62;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.container {
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 56px 48px 96px;
+}
+h1, h2, h3, h4 {
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--navy);
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
+  line-height: 1.25;
+}
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 0;
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 18px;
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-size: 22px;
+  margin-top: 2.2em;
+  border-bottom: 1px solid var(--rule-soft);
+  padding-bottom: 10px;
+  color: var(--burgundy);
+}
+h3 {
+  font-size: 18px;
+  color: var(--navy);
+}
+h4 { font-size: 15px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em; }
+p { margin: 0 0 1.05em; }
+strong { color: var(--ink); font-weight: 600; }
+em { color: var(--ink-soft); }
+a {
+  color: var(--burgundy);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(139, 35, 50, 0.25);
+  transition: border-bottom-color 0.15s ease;
+}
+a:hover { border-bottom-color: var(--burgundy); }
+ul, ol { margin: 0 0 1.05em; padding-left: 1.4em; }
+li { margin-bottom: 0.4em; }
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2.4em 0;
+}
+blockquote {
+  margin: 0 0 1.05em;
+  padding: 0.6em 1em;
+  border-left: 3px solid var(--ochre);
+  background: var(--bg-alt);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+code {
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-size: 0.88em;
+  background: var(--bg-alt);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--navy);
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0 1.6em;
+  font-size: 0.94em;
+  font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+th {
+  background: var(--bg-alt);
+  color: var(--navy);
+  font-weight: 600;
+  border-bottom: 2px solid var(--rule);
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tr:last-child td { border-bottom: 1px solid var(--rule); }
+tr.total td { font-weight: 600; background: var(--bg-alt); color: var(--navy); border-top: 2px solid var(--rule); }
+.meta {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule-soft);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.headline {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--navy);
+  line-height: 1.45;
+  padding: 18px 22px;
+  background: var(--bg-alt);
+  border-left: 3px solid var(--burgundy);
+  margin: 0 0 32px;
+}
+.chart-frame {
+  margin: 28px 0 12px;
+  padding: 14px;
+  background: #0d1726;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.chart-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 4px 4px;
+  letter-spacing: -0.005em;
+}
+.chart-subtitle {
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: rgba(255,255,255,0.65);
+  font-size: 12px;
+  margin: 0 4px 12px;
+}
+.chart-footer {
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: rgba(255,255,255,0.55);
+  font-size: 10.5px;
+  margin: 12px 4px 0;
+  line-height: 1.4;
+}
+.marimekko-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+.chart-caption {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12.5px;
+  color: var(--muted);
+  margin: 6px 4px 28px;
+  line-height: 1.5;
+}
+.sidebar {
+  background: var(--bg-alt);
+  border-left: 3px solid var(--moss);
+  padding: 18px 22px;
+  margin: 28px 0;
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+.sidebar h4 {
+  margin-top: 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  color: var(--moss);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sidebar p:last-child { margin-bottom: 0; }
+.provenance {
+  margin-top: 56px;
+  padding-top: 22px;
+  border-top: 1px solid var(--rule);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.provenance code {
+  font-size: 11.5px;
+  word-break: break-all;
+}
+.legend-swatch {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+.archetype-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin: 28px 0;
+}
+.archetype-card {
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 16px 18px;
+  background: var(--bg);
+}
+.archetype-card h4 {
+  font-family: 'IBM Plex Sans', sans-serif;
+  margin: 0 0 4px;
+  color: var(--navy);
+  font-size: 14px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+.archetype-card .total {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.archetype-card .bars {
+  display: flex;
+  height: 24px;
+  width: 100%;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.archetype-card .bars span {
+  display: block;
+  height: 100%;
+}
+.archetype-card .legend {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 8px;
+  line-height: 1.6;
+}
+@media (max-width: 720px) {
+  .container { padding: 32px 22px 64px; }
+  body { font-size: 16px; }
+  h1 { font-size: 26px; }
+  h2 { font-size: 20px; }
+  table { font-size: 0.86em; }
+  th, td { padding: 7px 8px; }
+  .archetype-grid { grid-template-columns: 1fr; }
+}
+@media print {
+  body { font-size: 11pt; line-height: 1.45; }
+  .container { max-width: none; padding: 24pt 36pt; }
+  a { color: var(--ink); border-bottom: 0; }
+  h1, h2, h3 { page-break-after: avoid; }
+  .chart-frame, table, .sidebar { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="meta">Model Extract · 2026-05-26 · AI-Infra CapEx</div>
+<h1>AI-Infrastructure Market Map</h1>
+
+<p>This page is the static snapshot of the <strong>AI-Infrastructure Market Map model</strong> — a driver-based projection of where AI-data-center capex actually flows across the supply chain, anchored to Goldman Sachs' <em>Tracking Trillions</em> (April 2026) capex pool and decomposed into seven categories: Compute Silicon, Memory, Networking + IC, Fiber + Optics, Power Infrastructure, Cooling, and Land + Shell + EPC. The visual encoding is an <strong>L-shape Marimekko</strong> — a vertical Compute column on the left whose width encodes Compute's share of the cluster, plus six horizontal bands stacked on the right whose heights encode each non-compute category's share. Within each band, sub-cells carry the named players. Width and area always equal share; nothing is decorative.</p>
+
+<div class="headline">
+The bottom-up sum of category spend equals the Goldman pool to the dollar by design — <strong>$765B in 2026 and $1,392B in 2029</strong> (Base case) — but the <em>mix</em> shifts: Compute Silicon widens from 33% → 44% of pool while Power Infrastructure compresses 20% → 12%. The DC archetype variants on this page show why one number hides five different bills of materials.
+</div>
+
+<h2 id="reference-chart">Reference chart — Agentic AI archetype, per-cluster BOM</h2>
+
+<p>Of the five DC archetype views, Agentic AI is the most informative single chart: it sits between Training/Core and Inference on compute intensity (50.5% of cluster vs. 53.5% / 44.4%), and the networking band widens to <strong>10.4% of cluster (+3.5pp vs. unified baseline)</strong> — the empirical hook behind the optical-networking thesis. Each band's vertical height is proportional to its share of the $5.19B reference cluster ($35M/MW × 148MW). Tiny bands (Cooling 2.5%, Fiber 3.8%) get a min-height floor so they stay legible; this is encoded in the data, not a layout cheat.</p>
+
+<div class="chart-frame">
+  <div class="chart-title">$100 of Agentic AI CapEx · DC Archetype BOM</div>
+  <div class="chart-subtitle">L-shape Marimekko · area ∝ share of cluster · $5.19B cluster total · $35M/MW · 2026-05-24 BOM model</div>
+  <svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" class="marimekko-svg" role="img" aria-label="L-shape Marimekko of Agentic AI archetype BOM showing Compute Silicon at 50.5 percent of cluster on the left with six horizontal bands on the right.">
+    <rect x="0" y="0" width="900" height="600" fill="#0d1726"/>
+    <rect x="0" y="0" width="454" height="600" fill="#8b1a1a"/>
+    <rect x="0" y="0" width="454" height="46" fill="#6e1212"/>
+    <text x="16" y="22" font-family="IBM Plex Sans, sans-serif" font-size="13" font-weight="600" fill="#ffffff" letter-spacing="0.06em">COMPUTE SILICON</text>
+    <text x="16" y="40" font-family="IBM Plex Sans, sans-serif" font-size="11" fill="rgba(255,255,255,0.72)">$2.62B · 50.5% of cluster</text>
+    <text x="16" y="80" font-family="IBM Plex Sans, sans-serif" font-size="14" font-weight="600" fill="#ffffff">All accelerators + CPU + foundry</text>
+    <text x="16" y="110" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="rgba(255,255,255,0.92)">• NVIDIA (NVDA)</text>
+    <text x="16" y="132" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="rgba(255,255,255,0.92)">• AMD (AMD)</text>
+    <text x="16" y="154" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="rgba(255,255,255,0.92)">• TSMC (TSM)</text>
+    <text x="16" y="186" font-family="IBM Plex Sans, sans-serif" font-size="11" font-style="italic" fill="rgba(255,255,255,0.65)">— delta vs unified baseline: +8.0pp —</text>
+
+    <rect x="454" y="0" width="446" height="64.8" fill="#1a5d2c"/>
+    <rect x="454" y="0" width="446" height="28" fill="rgba(0,0,0,0.28)"/>
+    <text x="468" y="18" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="600" letter-spacing="0.05em" fill="#ffffff">POWER INFRASTRUCTURE · 5.4% of cluster · Δ vs base +1.1pp</text>
+    <text x="468" y="50" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="rgba(255,255,255,0.92)">Vertiv (VRT)  ·  Schneider Electric  ·  Eaton (ETN)</text>
+
+    <rect x="454" y="64.8" width="446" height="124.9" fill="#1f3a56"/>
+    <rect x="454" y="64.8" width="446" height="28" fill="rgba(0,0,0,0.28)"/>
+    <text x="468" y="82.8" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="600" letter-spacing="0.05em" fill="#ffffff">LAND + SHELL + EPC · 10.4% of cluster · Δ vs base −15.3pp</text>
+    <text x="468" y="114.8" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="rgba(255,255,255,0.92)">HOCHTIEF / Turner  ·  AECOM (ACM)  ·  EMCOR (EME)</text>
+    <text x="468" y="144" font-family="IBM Plex Sans, sans-serif" font-size="11" font-style="italic" fill="rgba(255,255,255,0.55)">Largest delta — agentic clusters consume less shell per dollar than legacy</text>
+
+    <rect x="454" y="189.7" width="446" height="204.1" fill="#c45a1f"/>
+    <rect x="454" y="189.7" width="446" height="28" fill="rgba(0,0,0,0.28)"/>
+    <text x="468" y="207.7" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="600" letter-spacing="0.05em" fill="#ffffff">MEMORY · 17.0% of cluster · Δ vs base +0.1pp</text>
+    <text x="468" y="239.7" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="rgba(255,255,255,0.92)">SK Hynix  ·  Samsung Electronics  ·  Micron (MU)</text>
+    <text x="468" y="265.7" font-family="IBM Plex Sans, sans-serif" font-size="11" font-style="italic" fill="rgba(255,255,255,0.55)">HBM intensity stays high — KV-cache + context windows pin demand</text>
+
+    <rect x="454" y="393.8" width="446" height="124.9" fill="#5b3a7e"/>
+    <rect x="454" y="393.8" width="446" height="28" fill="rgba(0,0,0,0.28)"/>
+    <text x="468" y="411.8" font-family="IBM Plex Sans, sans-serif" font-size="12" font-weight="600" letter-spacing="0.05em" fill="#ffffff">NETWORKING + IC · 10.4% of cluster · Δ vs base +3.5pp</text>
+    <text x="468" y="443.8" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="rgba(255,255,255,0.92)">NVIDIA (NVDA)  ·  Arista Networks (ANET)  ·  Astera Labs (ALAB)</text>
+    <text x="468" y="470" font-family="IBM Plex Sans, sans-serif" font-size="11" font-style="italic" fill="rgba(255,255,255,0.55)">Multi-agent topology widens this band — the optical / scale-up story</text>
+
+    <rect x="454" y="518.7" width="446" height="35.7" fill="#3d7a9a"/>
+    <rect x="454" y="518.7" width="446" height="28" fill="rgba(0,0,0,0.28)"/>
+    <text x="468" y="536.7" font-family="IBM Plex Sans, sans-serif" font-size="11.5" font-weight="600" letter-spacing="0.05em" fill="#ffffff">COOLING · 2.5% of cluster · Vertiv · Asetek</text>
+
+    <rect x="454" y="554.4" width="446" height="45.6" fill="#b8862b"/>
+    <rect x="454" y="554.4" width="446" height="28" fill="rgba(0,0,0,0.28)"/>
+    <text x="468" y="572.4" font-family="IBM Plex Sans, sans-serif" font-size="11.5" font-weight="600" letter-spacing="0.05em" fill="#ffffff">FIBER + OPTICS · 3.8% of cluster · Δ +2.6pp · Coherent · Lumentum · Corning</text>
+  </svg>
+  <div class="chart-footer">Source: <code>data/marimekko-specs/dc-archetype-agentic.json</code> · Deltas vs unified baseline (Agentic AI): Power +1.1pp · Compute +8.0pp · Memory +0.1pp · Networking +3.5pp · Fiber +2.6pp · Cooling +0.0pp · Land −15.3pp</div>
+</div>
+
+<div class="chart-caption">The widened Compute column (50.5% vs. unified baseline 42.5%) and the widened Networking band (+3.5pp) are the two material deltas — both push toward AI-native silicon and optical-interconnect exposure rather than shell+EPC contractors.</div>
+
+<div class="sidebar">
+  <h4>Methodology — bottom-up construction</h4>
+  <p>Every category in the 14-tab Excel model is built from primary inputs on the <code>01_Assumptions</code> tab — vendor revenue lines (NVDA DC, AMD, TSMC AI, AVGO AI semi, Vertiv DCPI, Eaton, GEV, etc.), driver inputs (US 2026 AI-DC under-construction 22.4 GW per Eaton Q1'26, 2026→2029 CAGR 28% Base per Eaton anchor), and explicit judgment cells (highlighted yellow). The seven categories sum to exactly the Goldman pool by design after a 2026-05-13 net-pool rework that strips supplier-revenue double-counts: HBM ($145B 2029) moved entirely to Memory; NVLink scale-up (~$25B) moved to Networking; AVGO Tomahawk switching ASIC (~$15B) moved to Networking; Vertiv/Schneider thermal-mgmt (~$21B) stripped from Cooling since it's already in Power Infrastructure DCPI. Three scenarios (Bear / Base / Bull) flex via cell <code>00_Cover!B5</code>.</p>
+</div>
+
+<h2 id="category-rollup">Table 1 — Category roll-up, Base case</h2>
+
+<p>Roll-up by category, 2026 and 2029, expressed in dollars and as share of the Goldman pool. Numbers reproduced from <code>data/marimekko-specs/2026-base-case.json</code> and <code>2029-base-case.json</code> — the canonical companion JSONs to the parent Marimekko chart.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Category</th>
+  <th class="num">2026 ($B)</th>
+  <th class="num">2026 % of pool</th>
+  <th class="num">2029 ($B)</th>
+  <th class="num">2029 % of pool</th>
+  <th class="num">Mix shift (pp)</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><span class="legend-swatch" style="background:#8b1a1a"></span>Compute Silicon</td><td class="num">251</td><td class="num">32.8%</td><td class="num">613</td><td class="num">44.0%</td><td class="num">+11.2</td></tr>
+<tr><td><span class="legend-swatch" style="background:#c45a1f"></span>Memory</td><td class="num">128</td><td class="num">16.8%</td><td class="num">258</td><td class="num">18.5%</td><td class="num">+1.7</td></tr>
+<tr><td><span class="legend-swatch" style="background:#1a5d2c"></span>Power Infrastructure</td><td class="num">150</td><td class="num">19.6%</td><td class="num">167</td><td class="num">12.0%</td><td class="num">−7.6</td></tr>
+<tr><td><span class="legend-swatch" style="background:#1f3a56"></span>Land + Shell + EPC</td><td class="num">144</td><td class="num">18.8%</td><td class="num">216</td><td class="num">15.5%</td><td class="num">−3.3</td></tr>
+<tr><td><span class="legend-swatch" style="background:#5b3a7e"></span>Networking + IC</td><td class="num">53</td><td class="num">6.9%</td><td class="num">96</td><td class="num">6.9%</td><td class="num">0.0</td></tr>
+<tr><td><span class="legend-swatch" style="background:#b8862b"></span>Fiber + Optics</td><td class="num">31</td><td class="num">4.0%</td><td class="num">28</td><td class="num">2.0%</td><td class="num">−2.0</td></tr>
+<tr><td><span class="legend-swatch" style="background:#3d7a9a"></span>Cooling</td><td class="num">8</td><td class="num">1.1%</td><td class="num">14</td><td class="num">1.0%</td><td class="num">−0.1</td></tr>
+<tr class="total"><td>Total — 7 categories (Net AI-DC capex)</td><td class="num">765</td><td class="num">100.0%</td><td class="num">1,392</td><td class="num">100.0%</td><td class="num">—</td></tr>
+</tbody>
+</table>
+
+<p style="font-size: 13px; color: var(--muted); font-family: 'IBM Plex Sans', sans-serif; margin-top: -8px;">Roll-up totals reflect Goldman Tracking Trillions (Apr 2026) pool anchors. Category shares reflect the 2026-05-13 net-pool rework. Mix shift is in percentage points of pool share, 2026 → 2029.</p>
+
+<h2 id="archetype-table">Table 2 — Per-archetype cluster BOM (the five DC variants)</h2>
+
+<p>One headline number per archetype, then category shares of that archetype's reference cluster. This is the "what does $100 of <em>this kind</em> of AI-DC capex buy" view. Cluster totals and $/MW intensities come from the <code>2026-05-24</code> DC-archetype BOM model; the unified baseline column shows the cross-archetype average.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Category</th>
+  <th class="num">Training / Core</th>
+  <th class="num">Inference</th>
+  <th class="num">Agentic AI</th>
+  <th class="num">Edge</th>
+  <th class="num">Legacy Ent.</th>
+  <th class="num">Unified base</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><strong>Cluster size ($B)</strong></td><td class="num">6.52</td><td class="num">6.26</td><td class="num">5.19</td><td class="num">2.91</td><td class="num">3.21</td><td class="num">—</td></tr>
+<tr><td><strong>Intensity ($M/MW)</strong></td><td class="num">43</td><td class="num">42</td><td class="num">35</td><td class="num">19</td><td class="num">21</td><td class="num">—</td></tr>
+<tr><td><span class="legend-swatch" style="background:#8b1a1a"></span>Compute Silicon</td><td class="num">53.5%</td><td class="num">44.4%</td><td class="num">50.5%</td><td class="num">25.5%</td><td class="num">19.7%</td><td class="num">42.5%</td></tr>
+<tr><td><span class="legend-swatch" style="background:#c45a1f"></span>Memory</td><td class="num">11.5%</td><td class="num">18.7%</td><td class="num">17.0%</td><td class="num">20.3%</td><td class="num">21.4%</td><td class="num">16.9%</td></tr>
+<tr><td><span class="legend-swatch" style="background:#1a5d2c"></span>Power Infra</td><td class="num">5.9%</td><td class="num">5.9%</td><td class="num">5.4%</td><td class="num">15.0%</td><td class="num">9.8%</td><td class="num">4.3%</td></tr>
+<tr><td><span class="legend-swatch" style="background:#1f3a56"></span>Land + Shell + EPC</td><td class="num">15.4%</td><td class="num">19.5%</td><td class="num">10.4%</td><td class="num">24.4%</td><td class="num">37.2%</td><td class="num">25.7%</td></tr>
+<tr><td><span class="legend-swatch" style="background:#5b3a7e"></span>Networking + IC</td><td class="num">8.7%</td><td class="num">7.2%</td><td class="num">10.4%</td><td class="num">9.1%</td><td class="num">7.2%</td><td class="num">6.9%</td></tr>
+<tr><td><span class="legend-swatch" style="background:#b8862b"></span>Fiber + Optics</td><td class="num">3.3%</td><td class="num">2.8%</td><td class="num">3.8%</td><td class="num">2.9%</td><td class="num">1.5%</td><td class="num">1.2%</td></tr>
+<tr><td><span class="legend-swatch" style="background:#3d7a9a"></span>Cooling</td><td class="num">1.7%</td><td class="num">1.4%</td><td class="num">2.5%</td><td class="num">2.9%</td><td class="num">3.3%</td><td class="num">2.5%</td></tr>
+</tbody>
+</table>
+
+<p style="font-size: 13px; color: var(--muted); font-family: 'IBM Plex Sans', sans-serif; margin-top: -8px;">Read the columns vertically — each is a separate L-shape Marimekko. Training and Inference share the high-compute-share profile; Legacy Enterprise inverts it (shell-heavy, compute-light); Edge spreads cluster spend almost evenly across Power, Memory, and Shell. Networking band peaks under Agentic and Training, where east–west bandwidth is the bottleneck.</p>
+
+<h2 id="archetype-bars">Per-archetype mix at a glance</h2>
+
+<p>Five 100% stacked bars — same data as Table 2, visual form. Each bar is one archetype; segment widths are category shares.</p>
+
+<div class="archetype-grid">
+
+<div class="archetype-card">
+  <h4>Training / Core</h4>
+  <div class="total">$6.52B cluster · $43M/MW · highest compute-share</div>
+  <div class="bars">
+    <span style="background:#8b1a1a; width:53.5%" title="Compute 53.5%"></span>
+    <span style="background:#c45a1f; width:11.5%" title="Memory 11.5%"></span>
+    <span style="background:#1a5d2c; width:5.9%" title="Power 5.9%"></span>
+    <span style="background:#1f3a56; width:15.4%" title="Land 15.4%"></span>
+    <span style="background:#5b3a7e; width:8.7%" title="Networking 8.7%"></span>
+    <span style="background:#b8862b; width:3.3%" title="Fiber 3.3%"></span>
+    <span style="background:#3d7a9a; width:1.7%" title="Cooling 1.7%"></span>
+  </div>
+  <div class="legend">Compute 53.5% · Memory 11.5% · Land 15.4% · Networking 8.7%</div>
+</div>
+
+<div class="archetype-card">
+  <h4>Inference</h4>
+  <div class="total">$6.26B cluster · $42M/MW · memory-heavy</div>
+  <div class="bars">
+    <span style="background:#8b1a1a; width:44.4%"></span>
+    <span style="background:#c45a1f; width:18.7%"></span>
+    <span style="background:#1a5d2c; width:5.9%"></span>
+    <span style="background:#1f3a56; width:19.5%"></span>
+    <span style="background:#5b3a7e; width:7.2%"></span>
+    <span style="background:#b8862b; width:2.8%"></span>
+    <span style="background:#3d7a9a; width:1.4%"></span>
+  </div>
+  <div class="legend">Compute 44.4% · Memory 18.7% · Land 19.5% · Networking 7.2%</div>
+</div>
+
+<div class="archetype-card">
+  <h4>Agentic AI</h4>
+  <div class="total">$5.19B cluster · $35M/MW · networking widens</div>
+  <div class="bars">
+    <span style="background:#8b1a1a; width:50.5%"></span>
+    <span style="background:#c45a1f; width:17.0%"></span>
+    <span style="background:#1a5d2c; width:5.4%"></span>
+    <span style="background:#1f3a56; width:10.4%"></span>
+    <span style="background:#5b3a7e; width:10.4%"></span>
+    <span style="background:#b8862b; width:3.8%"></span>
+    <span style="background:#3d7a9a; width:2.5%"></span>
+  </div>
+  <div class="legend">Compute 50.5% · Memory 17.0% · Networking 10.4% · Fiber 3.8%</div>
+</div>
+
+<div class="archetype-card">
+  <h4>Edge</h4>
+  <div class="total">$2.91B cluster · $19M/MW · spread profile</div>
+  <div class="bars">
+    <span style="background:#8b1a1a; width:25.5%"></span>
+    <span style="background:#c45a1f; width:20.3%"></span>
+    <span style="background:#1a5d2c; width:15.0%"></span>
+    <span style="background:#1f3a56; width:24.4%"></span>
+    <span style="background:#5b3a7e; width:9.1%"></span>
+    <span style="background:#b8862b; width:2.9%"></span>
+    <span style="background:#3d7a9a; width:2.9%"></span>
+  </div>
+  <div class="legend">Compute 25.5% · Memory 20.3% · Power 15.0% · Land 24.4%</div>
+</div>
+
+<div class="archetype-card">
+  <h4>Legacy Enterprise</h4>
+  <div class="total">$3.21B cluster · $21M/MW · shell-heavy</div>
+  <div class="bars">
+    <span style="background:#8b1a1a; width:19.7%"></span>
+    <span style="background:#c45a1f; width:21.4%"></span>
+    <span style="background:#1a5d2c; width:9.8%"></span>
+    <span style="background:#1f3a56; width:37.2%"></span>
+    <span style="background:#5b3a7e; width:7.2%"></span>
+    <span style="background:#b8862b; width:1.5%"></span>
+    <span style="background:#3d7a9a; width:3.3%"></span>
+  </div>
+  <div class="legend">Compute 19.7% · Memory 21.4% · Land 37.2% · Power 9.8%</div>
+</div>
+
+<div class="archetype-card" style="background: var(--bg-alt); border-style: dashed;">
+  <h4>Unified baseline (avg)</h4>
+  <div class="total">cross-archetype average · reference for delta calcs</div>
+  <div class="bars">
+    <span style="background:#8b1a1a; width:42.5%"></span>
+    <span style="background:#c45a1f; width:16.9%"></span>
+    <span style="background:#1a5d2c; width:4.3%"></span>
+    <span style="background:#1f3a56; width:25.7%"></span>
+    <span style="background:#5b3a7e; width:6.9%"></span>
+    <span style="background:#b8862b; width:1.2%"></span>
+    <span style="background:#3d7a9a; width:2.5%"></span>
+  </div>
+  <div class="legend">Compute 42.5% · Memory 16.9% · Land 25.7% · Networking 6.9%</div>
+</div>
+
+</div>
+
+<h2 id="reading">How to read the L-shape Marimekko</h2>
+
+<ul>
+  <li><strong>Width = Compute share.</strong> The left column is Compute Silicon. Its width as a fraction of total canvas = Compute's share of the cluster. Wide left column ⇒ compute-heavy archetype.</li>
+  <li><strong>Height = non-compute share.</strong> Each horizontal band on the right is one non-compute category. Its vertical height as a fraction of canvas height = that category's share of the (non-compute) right side.</li>
+  <li><strong>Min-height floors apply.</strong> Cooling at ~2.5% and Fiber at ~3.8% would render as illegible slivers without a floor; they are widened deliberately so the named players stay readable. This is in the data spec — see <code>min_height_px</code> and <code>css_class</code> fields.</li>
+  <li><strong>Players are not decoration.</strong> Each cell lists 2–3 named public companies (with tickers where applicable) — these are the suppliers we believe capture the dollars in that category. Replace them as the BOM evolves.</li>
+</ul>
+
+<div class="provenance">
+  <strong>Provenance.</strong><br>
+  Excel model: <code>vault/kb/outputs/models/ai-infra-capex/ai-infra-market-map-2026-05-12.xlsx</code> · 14 sheets · scenario toggle at <code>00_Cover!B5</code> · Bear / Base / Bull · 2026-05-13 net-pool rework calibrated to Goldman Tracking Trillions (Apr 2026).<br><br>
+  Marimekko specs: <code>assistant/data/marimekko-specs/</code> · 10 JSON spec files · 2 base-case anchors (2026, 2029) · 5 DC archetypes (training-core, inference, agentic, edge, legacy) · 3 agentic scenarios (bear-10pct, base-25pct, bull-40pct) · 2 density scenarios (status-quo, 1MW-rack).<br><br>
+  Renderer: <code>scripts/build_l_shape_marimekko.py</code> · JSON spec → HTML + PNG headless Chrome capture at 1548×1300.<br><br>
+  Companion brief: <code>vault/kb/outputs/briefs/2026-05-12-ai-infra-market-map-brief.md</code>.
+</div>
+
+</div>
+</body>
+</html>

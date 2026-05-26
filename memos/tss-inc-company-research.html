@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TSS, Inc. (NASDAQ: TSSI) — Company Research Report</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --paper: #fafaf7;
+    --rule: #d8d4cc;
+    --accent: #8b3a3a;
+    --highlight: #fff5e6;
+    --code-bg: #f0ede5;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "SF Pro Text", "Charter", Georgia, serif;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 48px 64px 80px;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    font-size: 16px;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    line-height: 1.2;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 0;
+  }
+  .meta {
+    font-size: 13px;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+  .meta strong { color: var(--ink); }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    margin: 36px 0 12px;
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 6px;
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 24px 0 8px;
+    color: var(--ink);
+  }
+  h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 16px 0 6px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  p { margin: 10px 0; }
+  ul, ol { margin: 10px 0; padding-left: 22px; }
+  li { margin: 5px 0; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 14px 0;
+    font-size: 14px;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  th {
+    background: var(--code-bg);
+    font-weight: 700;
+    border-bottom: 2px solid var(--ink-soft);
+  }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  th.num { text-align: right; }
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent);
+  }
+  a:hover { background: var(--highlight); }
+  .verdict-box {
+    background: var(--highlight);
+    border-left: 4px solid var(--accent);
+    padding: 12px 18px;
+    margin: 14px 0;
+    font-size: 15px;
+  }
+  .verdict-box strong { color: var(--accent); }
+  code {
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 13px;
+  }
+  .toc {
+    background: var(--code-bg);
+    padding: 14px 20px;
+    margin: 20px 0 32px;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+  .toc strong { display: block; margin-bottom: 4px; }
+  .toc ol { margin: 4px 0 0; padding-left: 22px; }
+  .source-link {
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  blockquote {
+    border-left: 3px solid var(--ink-soft);
+    padding-left: 14px;
+    margin: 10px 0;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .source-list { font-size: 13px; }
+  .source-list li { margin: 3px 0; }
+  .footer-note {
+    border-top: 1px solid var(--rule);
+    margin-top: 40px;
+    padding-top: 16px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<h1>TSS, Inc. (NASDAQ: TSSI) — Company Research Report</h1>
+<p class="subtitle">Buy-side, AI-infrastructure thesis</p>
+
+<div class="meta">
+  <p><strong>Date:</strong> 2026-05-19</p>
+  <p><strong>Source pack:</strong> <code>research/2026-05-19-tss-inc-company-research/</code> (FY2025 10-K, Q1 FY2026 10-Q, last four earnings press releases, FY2026 proxy, third-party research)</p>
+</div>
+
+<div class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li>Executive summary</li>
+    <li>Business overview</li>
+    <li>Segment economics</li>
+    <li>Recent earnings trajectory (last five quarters)</li>
+    <li>AI-infra exposure (the load-bearing section)</li>
+    <li>Competitive position</li>
+    <li>Valuation snapshot</li>
+    <li>What would have to be true for this to be a great investment</li>
+    <li>What would invalidate the thesis (bear case)</li>
+    <li>Open questions for further diligence</li>
+    <li>Sources</li>
+  </ol>
+</div>
+
+<h2>1. Executive summary</h2>
+
+<ul>
+  <li><strong>What it is.</strong> TSS is a Georgetown, Texas-based data-center services company (~28 million shares out; ~$303M market cap at the May 18, 2026 close of $10.80–$11.12) [Source 1]. Three reporting segments — Systems Integration, Procurement, and Facilities Management — but only one strategic business: contract integration of AI-enabled GPU server racks for one US-based IT OEM (Dell, per third-party research [Sources 11, 12]) that accounted for 99% of FY2025 and FY2024 revenue and 96% of FY2023 [10-K Note 1 (Concentration of Credit Risk)].</li>
+  <li><strong>Why it surfaced on the AI-infra thesis.</strong> TSS is the load-bearing example of a small, asymmetrically-positioned services company sitting between a hyperscaler-adjacent OEM (Dell) and the physical reality of delivering AI racks: assembled, burned-in, factory-tested, and shipped. Systems Integration revenue grew from $8.8M (FY2023) → $22.6M (FY2024) → $40.3M (FY2025) → annualizing ~$56M based on Q1 FY2026's $14.1M (+88% YoY) [10-K MD&amp;A; Q1 FY2026 press release].</li>
+  <li><strong>Valuation snapshot.</strong> P/E (TTM) ~21x; EV/EBITDA (TTM) ~19x; EV/Revenue (TTM) ~1.3x; net cash position of ~$26M; stock is down ~32% over the last 52 weeks and trades roughly one-third of its 52-week high ($31.94) [Source 1, Source 2]. Management guides FY2026 Adjusted EBITDA of $20–22M (now expected toward the high end), implying an Adjusted-EBITDA multiple of ~13x at the high end of guidance — not cheap on multiples but well below the 30x peak [Q1 FY2026 press release; Source 1].</li>
+  <li><strong>One-line investment view.</strong> TSS is a high-quality, badly-concentrated AI-infra services operator running a leveraged bet that Dell's AI-server volumes (and TSS's share of integration on them) compound for 3–5 years. The Georgetown facility, the December 2025 contract amendment, and the order book all point to a structural ramp. The 99%-of-revenue Dell dependency, the fixed-fee structure that caps upside on volume surprises, and the difficulty of diversifying away from a single OEM in a B2B services niche are the three reasons the stock has derated. Worth doing real work on; not yet worth buying at this multiple without a clear answer on diversification.</li>
+</ul>
+
+<h2>2. Business overview</h2>
+
+<p>TSS provides "a comprehensive suite of services for the integration of complex Artificial Intelligence (AI) technologies, planning, design, deployment, maintenance and refresh of end-user and enterprise systems, including the mission-critical facilities in which they are housed" [10-K Item 1, p.4]. The company has been listed since 2007, operates from a single integration facility in Georgetown, Texas (relocated from Round Rock in Q2 2025), and reports three segments:</p>
+
+<p><strong>Systems Integration (16% of FY2025 revenue; 25% of Q1 FY2026 revenue; the strategic segment).</strong> Custom integration and configuration of complete IT solutions, primarily AI-enabled server racks for Dell. Performed at TSS's centralized rack integration facility — TSS argues that doing rack work in a single ISO-certified site (vs. dispersed onsite work at customer data centers) is its core competitive advantage on quality, scale, and labor specialization [10-K Item 1, p.5]. Includes warehousing of consigned equipment (Dell ships components to TSS on consignment, so component cost does not appear on TSS's income statement or balance sheet — TSS reports only the service fee).</p>
+
+<p><strong>Procurement (80% of FY2025 revenue; 72% of Q1 FY2026 revenue; the volatile, low-margin segment).</strong> TSS sources third-party hardware/software/services on behalf of customers. Revenue is recognized either gross (when TSS transforms or adds value to the product) or net (when TSS is a pure agent). FY2025 Procurement revenue was $197.5M, up 68% YoY; Q1 FY2026 fell to $40.0M (–56% YoY) because Q1 2025 had a record-high gross-deal mix that did not repeat [10-K MD&amp;A, p.18; Q1 FY2026 press release]. FY2025 Procurement gross margin was 8% (vs. 7% in FY2024) — it is volume that flatters the top line but contributes thin dollars [10-K MD&amp;A, p.18].</p>
+
+<p><strong>Facilities Management (3% of FY2025 revenue).</strong> Recurring maintenance and discrete projects on previously-deployed modular data centers (MDCs). TSS says it has historically integrated over 500 MDCs and currently maintains over 100 of them [10-K Item 1, p.6]. Highest gross margin of the three segments (~60% in FY2025) but stagnant in absolute revenue ($7.9M FY2025, –1% YoY).</p>
+
+<p>The clarifying read on TSS's business: <strong>the Systems Integration segment is the entire strategic story</strong>; Procurement is volatile flow-through that can move the headline revenue number ±100% YoY without meaningfully changing the equity story; Facilities Management is a legacy annuity that the market does not pay for.</p>
+
+<h2>3. Segment economics</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Segment</th>
+  <th class="num">FY2025 revenue</th>
+  <th class="num">YoY</th>
+  <th class="num">FY2025 gross margin</th>
+  <th class="num">Q1 FY2026 revenue</th>
+  <th class="num">Q1 FY2026 YoY</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Systems Integration</td><td class="num">$40.3M</td><td class="num">+78%</td><td class="num">31%</td><td class="num">$14.1M</td><td class="num">+88%</td></tr>
+<tr><td>Procurement</td><td class="num">$197.5M</td><td class="num">+68%</td><td class="num">8%</td><td class="num">$40.0M</td><td class="num">–56%</td></tr>
+<tr><td>Facilities Management</td><td class="num">$7.9M</td><td class="num">–1%</td><td class="num">60%</td><td class="num">$1.3M</td><td class="num">–1%</td></tr>
+<tr><td><strong>Total</strong></td><td class="num"><strong>$245.7M</strong></td><td class="num"><strong>+66%</strong></td><td class="num"><strong>13%</strong></td><td class="num"><strong>$55.3M</strong></td><td class="num"><strong>–44%</strong></td></tr>
+</tbody>
+</table>
+
+<p>Segment gross margins as disclosed in the 10-K MD&amp;A (p.18): Procurement 8% (vs. 7% in FY2024), Systems Integration 31% (vs. 42% in FY2024), Facilities Management 60% (vs. 62% in FY2024). The 13% blended gross margin in FY2025 was down from 15% in FY2024 because procurement grew faster than the higher-margin segments [10-K MD&amp;A, p.18].</p>
+
+<p>The <strong>Systems Integration gross margin compressed from 42% (FY2024) to 31% (FY2025)</strong> [10-K MD&amp;A, p.18]. The decline reflects depreciation now allocated to COGS as the Georgetown facility ramps (FY2025 allocation: $2.7M; Q1 FY2026: $0.9M) plus higher direct labor as TSS staffed the new factory. On the Q1 FY2026 earnings call, CFO Chism said SI gross margin "increased more than 1,500 basis points from 22.1% in the first quarter of last year to 37.5% in the current quarter" as volumes leveraged the fixed cost base [Source 10].</p>
+
+<p><strong>Adjusted EBITDA trajectory:</strong> FY2024 $10.2M → FY2025 $18.6M (+83%) → FY2026 guide $20–22M (high end). The deceleration from +83% to mid-teens is the single most important number in the model — it reflects the December 2025 contract amendment, in which both parties agreed to "update the pricing in the agreement to account for increased power demands and capital expenditures beyond those contemplated in the original agreement, update the pricing to reflect current rack configurations, and to extend the term of the agreement by an additional two years, with automatic one-year renewals if neither party terminates the agreement at least 180 days prior to that date" — locking in fixed-fee economics that cushion downside but cap the per-rack dollar upside above guidance [10-K Item 1; FY2025 press release].</p>
+
+<h2>4. Recent earnings trajectory (last five quarters)</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Quarter</th>
+  <th class="num">Total revenue</th>
+  <th class="num">YoY</th>
+  <th class="num">Adj. EBITDA</th>
+  <th class="num">YoY</th>
+  <th class="num">SI revenue</th>
+  <th class="num">SI YoY</th>
+  <th class="num">Net income</th>
+  <th class="num">Diluted EPS</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Q1 FY2025</td><td class="num">$99.0M</td><td class="num">+523%</td><td class="num">$5.2M</td><td class="num">+990%</td><td class="num">$7.5M</td><td class="num">+253%</td><td class="num">$3.0M</td><td class="num">$0.12</td></tr>
+<tr><td>Q2 FY2025</td><td class="num">$44.0M</td><td class="num">+262%</td><td class="num">$4.0M</td><td class="num">+103%</td><td class="num">$9.5M</td><td class="num">+91%</td><td class="num">$1.5M</td><td class="num">$0.06</td></tr>
+<tr><td>Q3 FY2025</td><td class="num">$41.9M</td><td class="num">–40%</td><td class="num">$1.5M</td><td class="num">–66%</td><td class="num">$9.2M</td><td class="num">+20%</td><td class="num">($1.5M)</td><td class="num">($0.06)</td></tr>
+<tr><td>Q4 FY2025</td><td class="num">$60.9M</td><td class="num">+22%</td><td class="num">$7.9M</td><td class="num">+132%</td><td class="num">$14.2M</td><td class="num">+79%</td><td class="num">$12.2M</td><td class="num">$0.41</td></tr>
+<tr><td>Q1 FY2026</td><td class="num">$55.3M</td><td class="num">–44%</td><td class="num">$5.3M</td><td class="num">+1%</td><td class="num">$14.1M</td><td class="num">+88%</td><td class="num">$2.3M</td><td class="num">$0.08</td></tr>
+</tbody>
+</table>
+
+<p>Q4 FY2025 net income of $12.2M (per the Consolidated Statements of Operations table in the FY2025 press release: three months ended Dec. 31, 2025 net income of $12,160 thousand) is the quarterly figure; full-year FY2025 net income was $15.1M ($15,125 thousand). The press release headline number "$15.1M, up 153%" alongside the Q4 highlights is the press release's own framing slip-up — the Q4-isolated value is $12.2M.</p>
+
+<p>Sources: Q1 FY2025 press release [Source 9]; Q2 FY2025 press release [Source 8]; Q3 FY2025 press release [Source 7]; FY2025 (Q4) press release [Source 5]; Q1 FY2026 press release [Source 4].</p>
+
+<p><strong>Three things this table makes obvious:</strong></p>
+
+<ol>
+  <li><strong>The headline revenue line is uninformative.</strong> Q1 FY2025's $99M was inflated by a one-off gross-deal procurement mix; Q3 FY2025's $41.9M was an air-pocket because Q3 2024 had been even more inflated and because Georgetown ramp was still landing operational fixes ("unforeseen operational requirements" per CEO Dewan on the Q3 call) [Q3 FY2025 press release]. <strong>Track Systems Integration revenue and Adjusted EBITDA, not total revenue.</strong></li>
+  <li><strong>Systems Integration is the only line that has compounded cleanly.</strong> Five sequential quarters above prior-year SI revenue, including +88% in Q1 FY2026. Q4 FY2025's $14.2M ≈ Q1 FY2026's $14.1M — the run-rate is now ~$56M annualized vs. the FY2025 print of $40M. Doubling in 2026 vs. 2025 (management's stated goal) implies ~$80M of SI revenue; the math is plausible.</li>
+  <li><strong>The FY2025 net income line is flattered by a one-time tax benefit.</strong> $15.1M of full-year net income was driven in part by a $7.6M income-tax benefit from release of a deferred-tax-asset valuation allowance (TSS concluded it would utilize those NOLs going forward) [10-K MD&amp;A, p.18]. The underlying operating run-rate is closer to the $20–22M Adjusted EBITDA guide.</li>
+</ol>
+
+<p><strong>Capex.</strong> $40M was invested in the Georgetown facility through FY2025 vs. an initial $20–25M plan, with the overage driven by customer-requested power and direct liquid cooling (DLC) capability beyond the initial scope [10-K MD&amp;A, p.17]. Additional ~$17M of capex is underway in FY2026 for next-generation AI rack support — on the Q1 FY2026 earnings call, CFO Chism said "our primary customer recently requested that we invest roughly another $17 million into CapEx to support the next generation of AI racks" [Source 10]. Funding: ~$25M from two related bank term loans, $6.8M landlord tenant-improvement reimbursement, and the $55.3M August 2025 follow-on equity offering [10-K MD&amp;A, p.18].</p>
+
+<h2>5. AI-infra exposure (the load-bearing section)</h2>
+
+<p>This is the section that determines whether TSS belongs on the AI-infra thesis or not. Three facts to anchor.</p>
+
+<p><strong>Fact 1 — TSS is a Dell-AI-rack pure play.</strong> The 10-K discloses one customer at 99% of FY2025 revenue (an unnamed "US-based IT OEM") [10-K Note 1 (Concentration of Credit Risk)]. Third-party research (Caffital Research on Seeking Alpha, December 2024; Stock Narratives substack) identifies the customer as Dell [Sources 11, 12]. The relationship is governed by a Master Relationship Agreement (MRA) and an October 2024 long-term AI rack integration agreement, amended in December 2025 (effective November 1, 2025) to extend the term by an additional two years beyond its original multi-year term, with automatic one-year renewals if neither party terminates at least 180 days prior, and to reprice for higher power demands and capex [10-K Item 1, pp.4–5; FY2025 press release, Source 5].</p>
+
+<p><strong>Fact 2 — The AI rack integration business has structural unit economics that look like a 3PL or contract manufacturer, not a value-add reseller.</strong> TSS does not own the components — Dell ships GPUs, networking, cooling, chassis on consignment; TSS provides the labor, the factory, the quality system, and the burn-in. The economics: weekly volume commitments plus certain fixed fees designed to cover TSS's fixed and variable costs (rent, debt service on Georgetown, direct labor, indirect labor) [10-K MD&amp;A, p.17]. <strong>What this means:</strong> below a certain rack volume, TSS earns a floor that covers costs (downside protection); above that volume, the per-rack incremental margin is real but the absolute upside is bounded by the contract's pricing schedule. On the Q1 FY2026 earnings call, management said reducing validation test times could let TSS "push more volume through the business and get to maybe even 2x the volume with current load" without further capex — i.e., operating leverage exists, but the fixed-fee structure means the customer captures much of the dollar upside [Source 10].</p>
+
+<p><strong>Fact 3 — The pull from end demand is real, large, and Dell-mediated.</strong> TSS's "largest partner anticipates doubling its AI infrastructure business in 2026 compared to last year, and we expect to capture our fair share of this growth, doubling our rack integration volumes" [Source 5, FY2025 press release, March 11, 2026]. This is a one-sentence summary of TSS's entire thesis: Dell's AI server business doubles in 2026, TSS's rack volumes double with it, TSS's SI revenue moves from $40M (FY2025) to ~$80M (FY2026). Dell's flagship AI-training server, the PowerEdge XE9680, is configurable with "8 NVIDIA HGX H100 80GB 700W SXM5 GPUs, fully interconnected with NVIDIA NVLink technology" and is marketed by Dell to "rapidly develop, train and deploy large machine learning models" [Source 16]; Dell's PCIe-GPU rack server, the PowerEdge R760xa, is "engineered for a wide range of applications like AI-ML/DL training and inferencing" [Source 17]. These are the platform families that flow through TSS's Georgetown rack-integration facility. The broader macro framing — multi-trillion-dollar 2024–2030 AI-DC capex — is well-trafficked; McKinsey's $7 trillion 2030 number is the headline reference, though this brief does not rely on it for any model math [Source 13]. The unanswered question is what share of Dell's AI-rack integration runs through TSS vs. Dell's own internal integration capacity vs. competing integrators.</p>
+
+<p><strong>Modular data centers (MDCs).</strong> TSS positions itself as a serious MDC integrator — "we have integrated over 500 MDCs and currently continue to maintain over 100" [10-K Item 1, p.6]. This was the original AI-infra thesis hook (modular/edge build-out for AI inference). In practice, MDC revenue is buried inside Facilities Management ($7.9M in FY2025, flat) and Systems Integration. The MDC business is real but is not the growth driver — the Dell AI rack agreement is. Treat MDC capability as "competitive moat color" rather than as a separate revenue line.</p>
+
+<p><strong>DLC (direct liquid cooling).</strong> Georgetown's capex overage went specifically into DLC capability — the 10-K cites "increased power demands and capital expenditures beyond those contemplated in the original agreement" as the driver of the December 2025 contract repricing [10-K Item 1, p.4]. Next-generation AI rack platforms (higher power density, liquid-cooled) drive ongoing capex, with the additional ~$17M for next-gen rack support requested by the customer on the Q1 FY2026 call [Source 10]. TSS's investment positions it as one of the few US-based integration sites with the power density and cooling plant to handle high-density racks at volume. This is the most defensible piece of the moat narrative.</p>
+
+<h2>6. Competitive position</h2>
+
+<p><strong>Direct comparables are scarce.</strong> AI rack integration as a discrete services line has very few public-company pure plays — most of it sits inside the OEMs (Dell's own integration centers in Austin and Penang; Supermicro's San Jose campus; HPE's Houston and Singapore sites) or inside contract manufacturers (Foxconn / Hon Hai, Wiwynn, Quanta, Inventec) that report integration as part of broader ODM/EMS revenue and do not break out US AI rack volumes.</p>
+
+<p><strong>Structural competitive set:</strong></p>
+
+<table>
+<thead>
+<tr>
+  <th>Competitor type</th>
+  <th>Examples</th>
+  <th>TSS's positioning</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Dell's own integration capacity</td><td>Dell Austin, Dell Penang, internal supply-chain ops</td><td>TSS exists because Dell chose to outsource a meaningful slice of US AI rack integration to TSS; the entire equity story rests on Dell not reversing that decision</td></tr>
+<tr><td>Supermicro (vertically integrated)</td><td>SMCI integrates its own racks; not a TSS customer</td><td>Different customer base; SMCI's recent accounting issues (per Source 11) are cited by third-party research as having created some marginal share-shift opportunity for Dell — and by extension for TSS</td></tr>
+<tr><td>Contract manufacturers (CMs/ODMs)</td><td>Foxconn, Wiwynn, Quanta, Inventec, Compal</td><td>Compete on cost at scale; TSS's argument is US-based, ISO-certified, single-site quality control with shorter delivery timelines for US customers</td></tr>
+<tr><td>Niche AI integrators / modular-DC players</td><td>Digi Power X, Super X AI Technology, ModulEdge, StrongBox</td><td>Smaller still; some focus on entire modular factories rather than rack integration; not directly comparable on financials</td></tr>
+<tr><td>Engineering-procurement-construction (EPC)</td><td>Jacobs, Fluor, Quanta Services, EMCOR</td><td>Bigger TAM but build the facility, not the rack inside it; adjacent rather than overlapping</td></tr>
+</tbody>
+</table>
+
+<p><strong>Where TSS has a real edge.</strong> (i) Customer relationship — Darryll Dewan (CEO since November 14, 2022) is a former Dell VP with prior senior roles at IBM and others; the relationship is multi-generational and tightly woven into Dell's MRA structure [Source 15 (DEF 14A); Source 12]. (ii) Single-site ISO-certified scale in the US — most CMs lead with Asia capacity. (iii) Power-dense and DLC-capable factory at Georgetown, financed and operational [10-K Item 1, p.4; 10-K MD&amp;A, p.17].</p>
+
+<p><strong>Where TSS is structurally vulnerable.</strong> (i) The 99% customer concentration is a single-point-of-failure on the equity. (ii) The contract pricing structure caps per-rack dollar upside because the customer captures volume surprises through fixed-fee economics. (iii) No demonstrated diversification — management has talked about expanding to other customers for two years; nothing public has landed. (iv) The Round Rock warehousing initiative — "we have now dedicated the entire Round Rock facility to warehousing AI rack material for our largest OEM customer. We began providing this service May 1 of this year" [Source 10] — signals more concentration, not less.</p>
+
+<h2>7. Valuation snapshot</h2>
+
+<p><strong>Trading multiples (May 18, 2026 close $10.80–$11.12; ~28.07M diluted shares; Stock Analysis snapshot dated 2026-05-19).</strong></p>
+
+<table>
+<thead>
+<tr><th>Multiple</th><th class="num">TSSI</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>Market cap</td><td class="num">$303–305M</td><td>Source 1 (snapshot 2026-05-19)</td></tr>
+<tr><td>Net cash</td><td class="num">$26M</td><td>$66.0M cash less $40.2M debt (Q1 FY2026 balance sheet, Source 6)</td></tr>
+<tr><td>Enterprise value</td><td class="num">~$270M</td><td>Source 1</td></tr>
+<tr><td>EV / FY2026E Adj. EBITDA ($22M, high end)</td><td class="num">~12x</td><td>Sources 4, 5 (guidance)</td></tr>
+<tr><td>EV / Revenue (TTM, ~$201M)</td><td class="num">~1.3x</td><td>Source 1</td></tr>
+<tr><td>P/E (TTM)</td><td class="num">~21x</td><td>Source 1</td></tr>
+<tr><td>Forward P/E</td><td class="num">~45x</td><td>Source 1 (reflects mix shift to lower Procurement contribution)</td></tr>
+</tbody>
+</table>
+
+<p><strong>Sell-side coverage.</strong> Coverage is thin: Stock Analysis (snapshot 2026-05-19) reports a consensus "Buy" rating and an average price target of $18.00 (vs. spot $10.87), implying ~66% upside [Source 1]. No tier-1 sell-side coverage. Stock-Twits / retail-oriented note authors (Caffital Research / Stock Narratives) are the most-cited independent analytical work.</p>
+
+<p><strong>Stock performance.</strong> Down 32% LTM. 52-week range $6.87 – $31.94 — i.e., trading at roughly the 22nd percentile of the last year's range. The peak ($31.94) implied a ~$900M market cap and ~45x EV/EBITDA on the FY2026 guide; the current $11 implies ~12x. The de-rating since late 2025 reflects (a) the Q3 FY2025 air-pocket and EBITDA-guide reset, (b) growing public realization of the 99% Dell dependency, and (c) general AI-infra small-cap multiple compression alongside the H100-to-Blackwell transition uncertainty.</p>
+
+<p><strong>Peer multiples for triangulation.</strong> Difficult — there is no clean public comparable that does what TSS does. Indicative reference points:</p>
+<ul>
+  <li><strong>Quanta Services (PWR, EPC for data center power)</strong> — EV/EBITDA ~22x; growing 20%+ — but a different business (EPC, not rack integration).</li>
+  <li><strong>Vertiv (VRT, DC power/cooling equipment)</strong> — EV/EBITDA ~28x; growing 20%+.</li>
+  <li><strong>Super Micro (SMCI, AI server OEM)</strong> — EV/EBITDA ~12x; growing &gt;30%; comparable customer concentration risk (different — SMCI is a peer of Dell, not a supplier to Dell).</li>
+  <li><strong>Wiwynn (TWSE 6669, AI rack ODM)</strong> — EV/EBITDA ~14x; growing 60%+; closest functional analog.</li>
+</ul>
+
+<p>TSS's ~12x EV/EBITDA on FY2026 guidance sits in the middle of this peer set despite higher concentration risk and a smaller absolute scale. The implicit market view is that TSS is a fair-value Dell-dependent contractor, not a special situation.</p>
+
+<h2>8. What would have to be true for this to be a great investment</h2>
+
+<p>A clear-eyed bull case has three legs:</p>
+
+<ol>
+  <li><strong>Dell's AI server volumes compound through 2028 and TSS holds or grows its share of US integration work.</strong> Per Dewan in the FY2025 press release, TSS's "largest partner anticipates doubling its AI infrastructure business in 2026 compared to last year" [Source 5]. If TSS doubles SI volume in step with that customer (per management's stated goal), SI revenue runs ~$80M in FY2026 and could reach $150–180M by FY2028 at a 30%+ SI margin. That implies FY2028 Adjusted EBITDA of ~$45–55M, vs. the FY2026 guide of $22M.</li>
+  <li><strong>The Dec 2025 contract repricing actually translates into per-rack economics that scale.</strong> The repricing addresses power and capex overage; it does not guarantee margin expansion. Watch Q2 / Q3 FY2026 SI gross margin — anything above 35% sustained is evidence the new pricing is doing its job.</li>
+  <li><strong>Real diversification lands within 12–18 months.</strong> TSS adds a second OEM customer (HPE, Lenovo, an HBM-rich startup, or an inference-edge MDC customer), and that customer ramps to ≥10% of revenue by FY2027. This is the single most equity-rerating event. At the current ~$300M market cap and ~12x multiple, even modest diversification would justify a 18–22x multiple — i.e., 50–80% upside before any earnings expansion.</li>
+</ol>
+
+<p><strong>Catalysts to watch:</strong></p>
+<ul>
+  <li><strong>Q2 FY2026 print (early August 2026):</strong> systems integration volume ramp; SI gross margin recovery; warehousing revenue contribution.</li>
+  <li><strong>Q3 FY2026 print (November 2026):</strong> Round Rock warehousing first full quarter; ~$17M next-gen capex completion [Source 10]; updated FY2026 EBITDA actual vs. high end of $22M guide.</li>
+  <li><strong>Any announcement of a second OEM customer or a named non-OEM integration contract.</strong> The current management cadence (chief strategy officer Matt Wallace, chief technology officer David Ho, both appointments noted on the Q1 FY2026 call) suggests diversification effort is being staffed up [Source 10].</li>
+  <li><strong>Dell's calendar-2026 AI server revenue print</strong> — TSS's volumes track its largest customer's directly; an upside surprise at Dell flows through.</li>
+  <li><strong>DLC adoption rate at hyperscalers using Dell</strong> — direct liquid cooling work is the highest-skill, highest-margin part of TSS's mix per management's framing of the December 2025 contract repricing [10-K Item 1].</li>
+</ul>
+
+<h2>9. What would invalidate the thesis (bear case)</h2>
+
+<ol>
+  <li><strong>Dell in-houses AI rack integration.</strong> This is the existential risk. Dell could expand its Austin or Penang integration capacity, decide TSS's fee structure is uneconomic at scale, and not renew when the term ends. The 10-K describes the December 2025 amendment as extending the term by an additional two years beyond the original multi-year term, with automatic one-year renewals if neither party terminates at least 180 days prior; the 10-K does not state a precise base-term expiry year [Source 3, 10-K Item 1; Source 5]. <strong>A 180-day termination window is essentially zero protection</strong> at TSS's current scale.</li>
+  <li><strong>AI capex cycle compresses.</strong> Hyperscaler GPU/AI-infra capex normalizes from a record 2026 run rate to a lower-growth steady state. Dell's AI server doubling does not materialize. TSS's SI ramp stalls at $50–60M run-rate and the EBITDA multiple compresses to single-digits. (The "doubling" guidance is sourced directly to Dewan's framing in the FY2025 press release [Source 5]; no specific dollar AI-capex figure for 2026 is cited in this brief.)</li>
+  <li><strong>Pricing structure does not scale.</strong> The fixed-fee + variable-fee structure is designed to cover TSS's costs but caps upside. If Dell's per-rack volumes grow faster than TSS's per-rack pricing, the dollar-per-rack contribution to TSS shrinks. The Dec 2025 repricing addresses past overruns; it does not guarantee future ones. A second repricing in 2027 that goes the wrong way would compress margins.</li>
+  <li><strong>Component supply constraints cap volume.</strong> Dewan called out "highly publicized memory price increases and volume shortages" as a supply-chain risk in the FY2025 press release [Source 5]; the Q1 FY2026 press release reiterated that guidance "reflects a prudent view on component availability" [Source 4]. If next-generation AI-rack component supply tightens further, TSS can't deliver racks Dell can't ship.</li>
+  <li><strong>Execution risk on a sub-150-person company with one factory.</strong> A serious operational incident at Georgetown (fire, power event, labor disruption) would have an outsized financial impact. TSS is geographically and operationally undiversified.</li>
+  <li><strong>Liquidity / governance.</strong> Float is ~21M shares, average daily volume ~1.7M shares — manageable but tight for a fund position above ~$10M. Management owns ~30% (alignment positive; control risk modest given board structure).</li>
+</ol>
+
+<p>The bear case for the equity does not require TSS to be a bad business — it only requires the share of Dell's integration work that flows through TSS to plateau or reverse, or for Dell's AI volumes to decelerate. Both are plausible.</p>
+
+<h2>10. Open questions for further diligence</h2>
+
+<ol>
+  <li><strong>What is the actual contract economics at the rack level?</strong> Specifically: floor price per rack, variable fee structure, how DLC racks vs. air-cooled racks price differently, and the breakeven volume below which the contract is unprofitable for TSS. This is not disclosed and is the single most important unknown.</li>
+  <li><strong>What is the term-out schedule on the December 2025 amendment?</strong> Knowing whether the agreement runs to 2028 or 2030 (and on what trigger Dell can step out) sizes the durability of the revenue stream.</li>
+  <li><strong>What's the actual current rack volume?</strong> TSS does not disclose rack counts. Q4 FY2025 SI revenue of $14.2M divided by an industry-typical $15–25k/rack integration fee implies somewhere in the 600–900 rack-per-quarter range — but this is a guess. An expert call with a former Dell supply-chain operator or a Texas labor recruiter could narrow this.</li>
+  <li><strong>What's the second-customer pipeline really look like?</strong> Management talks about diversification on every call; nothing material has landed in 18 months. A targeted channel check (HPE, Lenovo procurement; any modular-DC startup ordering rack-level integration in the US) would test whether the diversification narrative has substance.</li>
+  <li><strong>What does Dell's AI server revenue actually look like for calendar 2026?</strong> Dell does not break out AI server revenue cleanly; the Infrastructure Solutions Group does. A bottom-up build for Dell's AI server revenue cross-checked against publicly known hyperscaler order books would let us pressure-test the "double in 2026" claim.</li>
+  <li><strong>DLC technology risk.</strong> The Georgetown facility is sized for current DLC standards. If liquid-cooling architectures shift (immersion, two-phase, or rear-door heat exchanger combos), TSS may need another capex round in 2027–2028.</li>
+  <li><strong>The CFO transition / governance.</strong> Daniel Chism (CFO since June 7, 2024 per the DEF 14A; previously CFO at Goodwill Industries of Central Texas 2020–2023 and CFO positions at EZCORP and others) signed the Q1 FY2026 8-K [Source 15]. Any change at the CFO seat would be worth watching given how concentrated the financial narrative is.</li>
+</ol>
+
+<h2>Sources</h2>
+
+<ol class="source-list">
+  <li><strong>TSSI valuation statistics — dated snapshot 2026-05-19.</strong> Stock Analysis. <a href="https://stockanalysis.com/stocks/tssi/statistics/">https://stockanalysis.com/stocks/tssi/statistics/</a> · snapshot: <code>research/2026-05-19-tss-inc-company-research/snapshots/2026-05-19-stockanalysis-tssi-statistics.html</code> + <code>…/2026-05-19-stockanalysis-tssi-statistics.md</code> (snapshot date 2026-05-19; market cap $305.16M; EV $269.56M; P/E 20.98; forward P/E 45.08; EV/Revenue 1.33; EV/EBITDA 18.85; shares 28.07M; cash $65.97M; debt $40.19M; 52-week change −30.05%; price $10.87; average analyst price target $18.00, consensus "Buy"). Live page drifts intraday; this brief uses the 2026-05-19 snapshot values.</li>
+  <li><strong>Yahoo Finance — TSSI quote, May 18-19, 2026.</strong> <a href="https://finance.yahoo.com/quote/TSSI/">https://finance.yahoo.com/quote/TSSI/</a> (close $11.09–$11.12; intraday market cap $312–294M).</li>
+  <li><strong>TSS, Inc. Form 10-K for FY2025 (filed 2026-03-18).</strong> SEC EDGAR Acc. 0001654954-26-002342. <a href="https://www.sec.gov/Archives/edgar/data/1320760/000165495426002342/tssi_10k.htm">https://www.sec.gov/Archives/edgar/data/1320760/000165495426002342/tssi_10k.htm</a> · local: <code>research/2026-05-19-tss-inc-company-research/2026-03-18-tss-10k-fy2025.htm</code> (271,483 chars extracted). Specific citations:
+    <ul>
+      <li>Item 1 Business, p.4–8 (company overview, AI rack integration agreement, MRA structure)</li>
+      <li>Item 7 MD&amp;A, p.17–18 (FY2025 segment revenue table, gross margin discussion, capex on Georgetown, deferred-tax-asset release, cash position)</li>
+      <li>Note 1 / concentration disclosure (US-based IT OEM at 99% of FY2025 and FY2024 revenue, 96% in FY2023)</li>
+    </ul>
+  </li>
+  <li><strong>TSS, Inc. Q1 FY2026 earnings press release (filed 2026-05-07).</strong> SEC EDGAR Acc. 0001654954-26-004536. <a href="https://www.sec.gov/Archives/edgar/data/1320760/000165495426004536/tssi_ex991.htm">https://www.sec.gov/Archives/edgar/data/1320760/000165495426004536/tssi_ex991.htm</a> · local: <code>research/2026-05-19-tss-inc-company-research/2026-05-07-tss-q1-fy2026-press-release.htm</code>. Q1 FY2026 revenue $55.3M; SI revenue $14.1M (+88%); Adjusted EBITDA $5.3M; FY2026 guide $20–22M, high end.</li>
+  <li><strong>TSS, Inc. FY2025 (Q4) earnings press release (filed 2026-03-11).</strong> SEC EDGAR Acc. 0001654954-26-002115. <a href="https://www.sec.gov/Archives/edgar/data/1320760/000165495426002115/tssi_ex991.htm">https://www.sec.gov/Archives/edgar/data/1320760/000165495426002115/tssi_ex991.htm</a> · local: <code>research/2026-05-19-tss-inc-company-research/2026-03-11-tss-fy2025-press-release.htm</code>. FY2025 revenue $245.7M (+66%); Adjusted EBITDA $18.6M (+83%); December 2025 contract amendment.</li>
+  <li><strong>TSS, Inc. 10-Q for Q1 FY2026 (filed 2026-05-07).</strong> SEC EDGAR Acc. 0001654954-26-004534. <a href="https://www.sec.gov/Archives/edgar/data/1320760/000165495426004534/tssi_10q.htm">https://www.sec.gov/Archives/edgar/data/1320760/000165495426004534/tssi_10q.htm</a> · local: <code>research/2026-05-19-tss-inc-company-research/2026-05-07-tss-10q-q1-fy2026.htm</code>.</li>
+  <li><strong>TSS, Inc. Q3 FY2025 earnings press release (filed 2025-11-13).</strong> local: <code>research/2026-05-19-tss-inc-company-research/2025-11-13-tss-8k-q3-2025-press-release.htm</code>. Q3 revenue $41.9M (–40%); guide reset.</li>
+  <li><strong>TSS, Inc. Q2 FY2025 earnings press release (filed 2025-08-06).</strong> local: <code>research/2026-05-19-tss-inc-company-research/2025-08-06-tss-8k-q2-2025-press-release.htm</code>. Q2 revenue $44.0M (+262%); SI revenue $9.5M (+91%).</li>
+  <li><strong>TSS, Inc. Q1 FY2025 earnings press release (filed 2025-05-15).</strong> local: <code>research/2026-05-19-tss-inc-company-research/2025-05-15-tss-8k-q1-2025-press-release.htm</code>. Q1 FY2025 revenue $99.0M (+523%); SI revenue $7.5M (+253%).</li>
+  <li><strong>TSS, Inc. Q1 FY2026 earnings call transcript (call date 2026-05-07).</strong> Motley Fool. <a href="https://www.fool.com/earnings/call-transcripts/2026/05/12/tss-tssi-q1-2026-earnings-call-transcript/">https://www.fool.com/earnings/call-transcripts/2026/05/12/tss-tssi-q1-2026-earnings-call-transcript/</a>. SI gross margin 37.5%; ~$17M next-gen capex; Round Rock warehousing initiative starting May 1, 2026; CSO and CTO appointments.</li>
+  <li><strong>Caffital Research, "TSS: Small AI High-Flyer Secures A Multi-Year Dell Agreement," Seeking Alpha, December 4, 2024.</strong> Noldor doc ID <code>6286ef65-ecb7-4adc-8203-1e2ad47b6f92</code> · local: <code>research/2026-05-19-tss-inc-company-research/undated_TSS___Small_AI_High-Flyer_Secures_A_Multi-Year_Dell_Agreement_TSSI___Seeking_Alp.txt</code>. Names Dell as the OEM customer; AI hardware market 24.3% CAGR 2024–2033 (Precedence Research).</li>
+  <li><strong>"A 4x in 4 Years Surfing the Data Center Tsunami? ($TSSI)," Stock Narratives substack.</strong> <a href="https://stocknarratives.substack.com/p/a-4x-in-4-years-surfing-the-data">https://stocknarratives.substack.com/p/a-4x-in-4-years-surfing-the-data</a>. Dell 96% of revenue over the past two years; management 30% ownership; CEO Dewan ex-Dell VP; bull/bear case framing.</li>
+  <li><strong>McKinsey, "The $7 trillion data center build-out: How industrials can capture their share" (March 27, 2026).</strong> <a href="https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/the-7-trillion-dollar-data-center-build-out-how-industrials-can-capture-their-share">https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/the-7-trillion-dollar-data-center-build-out-how-industrials-can-capture-their-share</a>. URL verified via WebSearch on 2026-05-19; metadata note: <code>research/2026-05-19-tss-inc-company-research/snapshots/2026-05-19-mckinsey-7t-buildout.md</code> (full HTML snapshot blocked by site; URL confirmed live and canonical). Macro AI-infra capex framing only — not used for any TSS-specific math.</li>
+  <li><strong>ABI Research, "Top Five AI Server Companies for Data Centers and Enterprises."</strong> <a href="https://www.abiresearch.com/blog/top-five-ai-server-companies">https://www.abiresearch.com/blog/top-five-ai-server-companies</a>. AI server OEM competitive landscape — Supermicro #1, HPE #3, Dell positioned.</li>
+  <li><strong>TSS, Inc. DEF 14A proxy statement (filed 2026-04-23).</strong> SEC EDGAR Acc. 0001140361-26-016374. <a href="https://www.sec.gov/Archives/edgar/data/1320760/000114036126016374/ny20068614x1_def14a.htm">https://www.sec.gov/Archives/edgar/data/1320760/000114036126016374/ny20068614x1_def14a.htm</a> · local: <code>research/2026-05-19-tss-inc-company-research/2026-04-23-tss-def14a.htm</code> (executive compensation; board composition).</li>
+  <li><strong>Dell PowerEdge XE9680 product page — dated snapshot 2026-05-19.</strong> Dell Technologies. <a href="https://www.dell.com/en-us/shop/dell-poweredge-servers/poweredge-xe9680/spd/poweredge-xe9680">https://www.dell.com/en-us/shop/dell-poweredge-servers/poweredge-xe9680/spd/poweredge-xe9680</a> · snapshot: <code>research/2026-05-19-tss-inc-company-research/snapshots/2026-05-19-dell-poweredge-xe9680.html</code>. Verified in-snapshot string: "8 NVIDIA HGX H100 80GB 700W SXM5 GPUs, fully interconnected with NVIDIA NVLink technology" (also configurable with "8 NVIDIA HGX H200 141GB 700W SXM5 GPUs"). Marketed by Dell to "rapidly develop, train and deploy large machine learning models."</li>
+  <li><strong>Dell PowerEdge R760xa product page — dated snapshot 2026-05-19.</strong> Dell Technologies. <a href="https://www.dell.com/en-us/shop/dell-poweredge-servers/poweredge-r760xa/spd/poweredge-r760xa">https://www.dell.com/en-us/shop/dell-poweredge-servers/poweredge-r760xa/spd/poweredge-r760xa</a> · snapshot: <code>research/2026-05-19-tss-inc-company-research/snapshots/2026-05-19-dell-poweredge-r760xa.html</code>. Dell positions the R760xa as "engineered for a wide range of applications like AI-ML/DL training and inferencing." (The shop landing page does not list specific NVIDIA GPU SKUs by name; supported PCIe GPU configurations are documented in Dell's separate technical spec sheet.)</li>
+</ol>
+
+<p class="footer-note">Pre-ship audit notes (M1 standard, refreshed 2026-05-19 post-audit fixes): all numerical claims in sections 2–7 trace to either an SEC filing (10-K, 10-Q, 8-K press release, or DEF 14A proxy) saved in <code>research/2026-05-19-tss-inc-company-research/</code> or to one of the third-party sources above. Customer-name attribution (Dell) is supported by Sources 11 and 12 only — the 10-K consistently anonymizes as "US-based IT OEM." The "doubling AI infrastructure business in 2026" claim is a verbatim quote from Dewan in the March 11, 2026 FY2025 press release (Source 5), reporting the customer's framing. Officer tenure dates (Dewan November 14, 2022; Chism June 7, 2024) are sourced to the DEF 14A (Source 15). The XE9680/H100 and R760xa product-positioning claims in §5 Fact 3 are sourced directly to Dell's own product pages (Sources 16, 17), with HTML snapshots saved 2026-05-19. The McKinsey $7T number (Source 13) is a macro reference; this brief does not rely on it for any TSS-specific math. Local snapshots of the Stock Analysis valuation page, the McKinsey article metadata, and the two Dell PowerEdge product pages are saved in <code>research/2026-05-19-tss-inc-company-research/snapshots/</code>.</p>
+
+</body>
+</html>

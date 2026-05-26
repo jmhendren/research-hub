@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Data Center CapEx by Archetype &mdash; The Gap Allocation Thesis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-alt: #F7F7F4;
+    --ink: #1A1A1A;
+    --ink-soft: #3D3D3D;
+    --muted: #6B6B6B;
+    --muted-soft: #9A9A9A;
+    --rule: #D9D9D6;
+    --rule-soft: #E8E8E5;
+
+    --navy: #0E2A47;
+    --navy-deep: #08182B;
+    --burgundy: #8B2332;
+    --burgundy-soft: #A04652;
+    --ochre: #9C7626;
+    --moss: #4F5C3A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Source Serif 4', 'Times New Roman', Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 56px; }
+
+  .masthead {
+    border-bottom: 1px solid var(--ink);
+    padding: 56px 0 32px;
+    margin-bottom: 56px;
+  }
+
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 36px;
+  }
+  .masthead-top .doctype { color: var(--navy); font-weight: 600; }
+  .masthead-top .draft { color: var(--burgundy); font-weight: 600; }
+
+  .title-block {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 56px;
+    align-items: end;
+  }
+
+  h1.title {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 60;
+    font-weight: 400;
+    font-size: clamp(36px, 4.8vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+  }
+
+  h1.title .subtitle {
+    display: block;
+    margin-top: 14px;
+    font-size: 0.5em;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0;
+    font-style: italic;
+  }
+
+  .dossier {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11px;
+    line-height: 1.85;
+    color: var(--ink);
+    border-top: 1px solid var(--ink);
+    padding-top: 14px;
+  }
+
+  .dossier .row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 12px;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .dossier .row:last-child { border-bottom: none; }
+  .dossier dt {
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 9.5px;
+    font-weight: 500;
+    padding-top: 2px;
+  }
+  .dossier dd { color: var(--ink); font-weight: 500; font-size: 11.5px; }
+
+  .deck {
+    margin-top: 28px;
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 24;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    font-weight: 400;
+    max-width: 760px;
+  }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    margin: 0 -56px 48px;
+    padding: 12px 56px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    display: flex;
+    gap: 28px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  .nav a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
+  .nav a:hover { color: var(--navy); }
+  .nav .nav-num { color: var(--burgundy); margin-right: 6px; font-weight: 600; }
+
+  section { margin-bottom: 80px; scroll-margin-top: 80px; }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 28px;
+    align-items: baseline;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .section-num {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--burgundy);
+    text-transform: uppercase;
+  }
+
+  h2.section-title {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 36;
+    font-size: 28px;
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.008em;
+    color: var(--ink);
+  }
+
+  h3.subsection-title {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 24;
+    font-size: 21px;
+    line-height: 1.2;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 36px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  h4.minor-head {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    font-weight: 600;
+    margin: 24px 0 10px;
+  }
+
+  .section-eyebrow {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .prose { max-width: 820px; }
+
+  .prose p {
+    margin-bottom: 1.15em;
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  .prose p.lead {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 400;
+    margin-bottom: 1.3em;
+  }
+
+  .prose strong { font-weight: 600; color: var(--ink); }
+  .prose em { font-style: italic; }
+
+  .prose a {
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    transition: border-color 0.15s;
+  }
+  .prose a:hover { border-color: var(--navy); }
+
+  .prose ul.list-clean {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 24px;
+  }
+
+  .prose ul.list-clean li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .prose ul.list-clean li::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 17px;
+    width: 6px;
+    height: 1px;
+    background: var(--burgundy);
+  }
+
+  code.inline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85em;
+    background: var(--bg-alt);
+    padding: 2px 6px;
+    color: var(--navy);
+    border: 1px solid var(--rule-soft);
+  }
+
+  /* Chart caption */
+  .chart-caption {
+    margin: 28px 0 28px;
+    padding: 18px 22px;
+    background: var(--bg-alt);
+    border-left: 3px solid var(--ochre);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 880px;
+  }
+  .chart-caption .chart-label {
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .chart-caption .chart-source {
+    display: block;
+    margin-top: 8px;
+    font-style: italic;
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+
+  /* Tables */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-family: 'Source Serif 4', serif;
+  }
+
+  .data-table thead th {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 2px solid var(--ink);
+    border-top: 1px solid var(--ink);
+    background: var(--bg);
+  }
+
+  .data-table tbody td {
+    padding: 14px 14px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  .data-table tbody td.num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--ink);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .data-table tr.highlight td {
+    background: var(--bg-alt);
+    font-weight: 600;
+  }
+
+  .table-note {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  /* Risk block */
+  .risk-block {
+    border-left: 3px solid var(--burgundy);
+    padding: 14px 20px;
+    margin: 18px 0;
+    background: var(--bg-alt);
+  }
+  .risk-block .risk-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .risk-block p { font-size: 15px; line-height: 1.6; margin-bottom: 8px; }
+  .risk-block p:last-child { margin-bottom: 0; }
+
+  /* Footer */
+  .colophon {
+    border-top: 1px solid var(--ink);
+    margin-top: 80px;
+    padding: 36px 0 56px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .colophon .col-grid {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+    margin-bottom: 28px;
+  }
+
+  .colophon h5 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .colophon ul { list-style: none; }
+  .colophon li { padding: 3px 0; font-size: 11px; line-height: 1.5; }
+  .colophon a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    transition: color 0.15s;
+  }
+  .colophon a:hover { color: var(--navy); border-color: var(--navy); }
+
+  .colophon-foot {
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  @media (max-width: 900px) {
+    .container { padding: 0 24px; }
+    .nav { margin: 0 -24px 32px; padding: 12px 24px; }
+    .title-block { grid-template-columns: 1fr; gap: 28px; }
+    .section-header { grid-template-columns: 1fr; gap: 6px; }
+    h2.section-title { font-size: 22px; }
+    .colophon .col-grid { grid-template-columns: 1fr; gap: 24px; }
+    .data-table { font-size: 13px; }
+    .data-table tbody td { padding: 10px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="masthead">
+    <div class="masthead-top">
+      <span class="doctype">Investment Memorandum</span>
+      <span>For Discussion &mdash; Internal</span>
+      <span class="draft">22 May 2026</span>
+    </div>
+
+    <div class="title-block">
+      <h1 class="title">
+        AI Data Center CapEx by Archetype
+        <span class="subtitle">The Gap Allocation Thesis &mdash; where incremental capex above consensus concentrates at the BOM level.</span>
+      </h1>
+
+      <dl class="dossier">
+        <div class="row"><dt>Date</dt><dd>22 May 2026</dd></div>
+        <div class="row"><dt>Type</dt><dd>IC Memo</dd></div>
+        <div class="row"><dt>Horizon</dt><dd>2026&ndash;2030</dd></div>
+        <div class="row"><dt>Model</dt><dd>bom-token-model-2026-05-21</dd></div>
+        <div class="row"><dt>Tabs</dt><dd>15 / 949 named ranges</dd></div>
+        <div class="row"><dt>Sources</dt><dd>265</dd></div>
+      </dl>
+    </div>
+
+    <p class="deck">Consensus capex projections through 2030 materially understate the physical compute demand that agentic AI will generate &mdash; and the incremental dollars above consensus allocate heavily into a facility mix whose bill of materials concentrates in Compute Silicon at 48.4% at Base &times; Concentrated knobs.</p>
+  </header>
+
+  <nav class="nav">
+    <a href="#sec-1"><span class="nav-num">I.</span>Executive Overview</a>
+    <a href="#sec-2"><span class="nav-num">II.</span>Baseline</a>
+    <a href="#sec-3"><span class="nav-num">III.</span>Framework</a>
+    <a href="#sec-4"><span class="nav-num">IV.</span>Per-Archetype Walk</a>
+    <a href="#sec-5"><span class="nav-num">V.</span>Scenarios</a>
+    <a href="#sec-6"><span class="nav-num">VI.</span>Risks + Thesis</a>
+    <a href="#sec-7"><span class="nav-num">VII.</span>Methodology</a>
+    <a href="#sec-8"><span class="nav-num">VIII.</span>Sources</a>
+  </nav>
+
+  <div class="prose" style="margin-bottom: 56px;">
+    <p><strong>Source attachments:</strong> <a href="https://drive.google.com/drive/folders/1yWRKZaiIiz3jIRQxq4e0I55iUb5lArh3" target="_blank">bom-token-model-2026-05-21.xlsx</a> (15 tabs, 949 named ranges, 265 sources); <a href="https://www.send.co/a/qIIAaDov" target="_blank">AI Compute: Demand vs. Planned Supply &mdash; The Gap Thesis (Send doc)</a>. This memo is the analytical synthesis; the sources carry the full receipts.</p>
+  </div>
+
+  <section id="sec-1">
+    <header class="section-header">
+      <span class="section-num">&sect; I</span>
+      <div>
+        <span class="section-eyebrow">Executive Overview</span>
+        <h2 class="section-title">The Gap Allocation Thesis &mdash; 48.4% Compute Silicon at Base knobs.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p class="lead">We believe consensus capex projections for AI infrastructure through 2030 materially understate the physical compute demand that agentic AI (continuous-inference workloads where models execute multi-step tasks autonomously) will generate &mdash; and that the incremental dollars above consensus will allocate heavily into a facility mix whose bill of materials (BOM, the per-dollar breakdown of what each data center dollar actually buys) concentrates in Compute Silicon at a rate well above the blended installed-base average.</p>
+
+      <p>Two data points published in the eight days before this memo reset the framing: Goldman Sachs estimates that global token demand will rise 2,400% from 2026 to 2030, driven by enterprise agent adoption and the emergence of always-on consumer agents (Goldman Sachs Americas Technology, "Decoding the Agentic Economy," 2026-05-05, Noldor <code class="inline">189a2f4e</code>); and a controlled empirical study finds that agentic coding tasks consume 1,000 times more tokens than equivalent code-reasoning chat sessions, with input tokens dominating cost and intra-task variance spanning a further 30&times; (Brynjolfsson, Pentland et al., arXiv:2604.22750 v2, 2026-04-29). These two findings triangulate one another: the Goldman projection is a top-down occupational-penetration model; the Brynjolfsson result supplies the empirical per-task multiplier that drives the Goldman number.</p>
+
+      <p>The combined implication is that incremental AI compute investment &mdash; the capex above what the eight-source top-down consensus already anticipates &mdash; will be pulled primarily into agentic-archetype and inference facilities, not into the training-core hyperscale clusters that dominate current public attention. This memo's central finding is the <strong>Gap Allocation Thesis</strong>: at base-case knobs ($150B/yr incremental &times; 75% agentic tilt), five years of above-consensus capex allocates 48.4% &mdash; $362.8B of a $750.0B pool &mdash; to Compute Silicon alone (<code class="inline">Incremental_Allocation!B82</code> &mdash; 5Y Cumulative $B; <code class="inline">Incremental_Allocation!C82</code> &mdash; % of Total).</p>
+    </div>
+
+    <div class="chart-caption">
+      <span class="chart-label">Chart 1</span>
+      Compute Silicon catches 48% of the 5Y cumulative incremental capex pool &mdash; 8pp above the cross-archetype baseline share.
+      <span class="chart-source">Source: bom-token-model-2026-05-21 Incremental_Allocation tab; analysis</span>
+    </div>
+
+    <div class="prose">
+      <h4 class="minor-head">The gap in megawatts, not dollars</h4>
+      <p>The variant view is most cleanly stated in physical units. Janus Henderson's March 2026 infrastructure analysis finds 84.7 GW of deliverable AI data center capacity against 157 GW of announced capacity &mdash; a 72-GW deliverability gap driven by power-grid interconnect queues, permitting timelines, and transformer lead times (Janus Henderson, "Data center power: why the key risk is under-delivery, not overbuild," 2026-03-05). That 72-GW gap &mdash; roughly 54% of announced capacity that will not reach powered IT load on its original timeline &mdash; means the consensus capex projections are delivery projections, not demand projections. BCG independently estimates a 50&ndash;80 GW US capacity shortfall by 2030 (BCG, "Solving the US Data Center Power Crunch," 2026-03-30). Neither estimate requires accepting any heroic assumption about AI adoption; they are physical-execution constraints visible today. The investable question is not whether demand exists &mdash; Goldman's 2,400% token-demand projection and the Brynjolfsson multiplier establish that &mdash; but where the capital that does reach completion will concentrate. The BOM cartography in this memo answers that question per facility archetype.</p>
+
+      <h4 class="minor-head">Recipe by archetype</h4>
+      <p>The memo analyzes five facility archetypes (a five-way taxonomy synthesizing McKinsey's Training/Inference workload axis, Synergy Research's operator-mix axis, Dell'Oro's customer-segment axis, and Futurum's emerging agentic-category framing &mdash; see &sect;3 for methodology). Each archetype carries a distinct all-in cost per megawatt and a distinct BOM signature reflecting the physical capital required to run that workload at scale:</p>
+
+      <ul class="list-clean">
+        <li><strong>Training-Core Hyperscale</strong> ($43.4M/MW all-in): the frontier-cluster archetype. Dominated by Compute Silicon at 53.4% of capex (<code class="inline">BOM_Weights!C6</code>), with Land + Shell + EPC (abbreviated LSE) the second category at 15.4% (<code class="inline">BOM_Weights!H6</code>). The BOM is compute-first because frontier training requires extreme GPU density; land, shell, and construction are the necessary container.</li>
+        <li><strong>Inference</strong> ($41.8M/MW): the serving archetype. Compute Silicon leads at 44.4% (<code class="inline">BOM_Weights!C7</code>), but Memory &mdash; specifically High-Bandwidth Memory (HBM, the stacked DRAM that feeds GPU cores at throughput rates no conventional DRAM can match) &mdash; is structurally the second category at 18.7% (<code class="inline">BOM_Weights!D7</code>), displacing LSE as inference clusters prioritize memory bandwidth over raw floor space.</li>
+        <li><strong>Legacy Enterprise</strong> ($21.4M/MW): the on-premises refresh archetype, where enterprise and sovereign IT organizations are accelerating hardware replacement alongside the AI ramp. LSE dominates at 37.2% (<code class="inline">BOM_Weights!H8</code>), reflecting the higher cost of purpose-built or leased enterprise facilities relative to hyperscale campuses, with Memory second at 21.4% (<code class="inline">BOM_Weights!D8</code>).</li>
+        <li><strong>Edge</strong> ($19.4M/MW): the distributed-footprint archetype. Compute Silicon leads at 25.5% (<code class="inline">BOM_Weights!C9</code>), but the BOM is flatter than Training-Core or Inference, with LSE at 24.4% (<code class="inline">BOM_Weights!H9</code>) and Memory at 20.3% (<code class="inline">BOM_Weights!D9</code>) both material &mdash; reflecting the real-estate intensity of distributed edge deployments and the memory requirement for locally-served inference.</li>
+        <li><strong>Agentic AI</strong> ($34.6M/MW): the emerging archetype for continuous-inference agentic workloads. Compute Silicon dominates at 50.5% (<code class="inline">BOM_Weights!C10</code>), with Memory at 17.0% (<code class="inline">BOM_Weights!D10</code>) as the second category &mdash; a BOM signature that most closely resembles Training-Core but at lower $/MW, reflecting agentic facilities' reliance on memory-bandwidth-optimized silicon (HBM4-class) rather than the highest-density training pods.</li>
+      </ul>
+
+      <h4 class="minor-head">Scenario shape</h4>
+      <p>The scenario analysis in &sect;5 turns on two knobs in the model's Incremental_Allocation tab: <code class="inline">incremental_capex_per_year</code> (the annual dollar increment above the eight-source top-down consensus mean, ranging from $75B/yr Modest to $150B/yr Base to $300B/yr Stretch) and <code class="inline">agentic_tilt_share</code> (the fraction of incremental dollars flowing into the Agentic AI archetype versus the other four, ranging from 0.50 Diffuse to 0.75 Concentrated to 1.00 Pure). At the default Base &times; Concentrated setting &mdash; $150B/yr incremental (<code class="inline">Incremental_Allocation!B5</code>), 75% to Agentic AI (<code class="inline">Incremental_Allocation!B6</code>) &mdash; the five-year cumulative pool is $750.0B, of which Compute Silicon receives $362.8B at 48.4% of the total (<code class="inline">Incremental_Allocation!B82</code>; <code class="inline">Incremental_Allocation!C82</code>). The Modest &times; Diffuse corner ($75B/yr, 50% agentic) produces a $375.0B pool at a lower Compute Silicon concentration; the Stretch &times; Pure corner ($300B/yr, 100% agentic) produces $1,500.0B at an even higher Compute Silicon share, approaching Agentic AI's standalone 50.5% BOM weight.</p>
+
+      <h4 class="minor-head">Exposures</h4>
+      <p>At the BOM-line and archetype level &mdash; the appropriate specificity for a thesis memo, with per-name investability calls reserved for &sect;4:</p>
+
+      <p><em>Long signals:</em> Compute Silicon across Training-Core and Agentic archetypes (GPU and custom XPU silicon, advanced packaging); Memory bandwidth providers, specifically the HBM supply chain (SK Hynix, Micron, Samsung requalifying); Networking and Interconnect (Net + IC) in agentic facilities, where the multi-node communication overhead of long-horizon agentic tasks is structurally higher than in batch training; Power Infrastructure in Edge deployments, where per-MW facility cost is compressed but power hardware intensity runs higher as a share of total BOM.</p>
+
+      <p><em>Short or underweight signals:</em> LSE (Land, Shell, EPC) as a share of incremental capex &mdash; the thesis says incremental dollars concentrate in compute-dense agentic and inference facilities where LSE runs 10&ndash;19% of BOM, well below the 37% it commands in Legacy Enterprise; construction and general-contractor exposure to Legacy Enterprise refresh cycles, where the investment case is co-ramp (traditional refresh accelerating alongside AI ramp) rather than the higher-conviction BOM concentration that characterizes agentic and inference builds.</p>
+
+      <h4 class="minor-head">Risks</h4>
+      <p>The full risk register with model-tied assumptions is in &sect;6; the categories that matter for the thesis:</p>
+
+      <p><em>Market:</em> If agentic adoption follows a diffuse rather than concentrated pattern &mdash; many use cases at low per-session token intensity rather than few use cases at the Brynjolfsson-measured 1,000&times; multiplier &mdash; the <code class="inline">agentic_tilt_share</code> knob should be at or below 0.50, compressing the Compute Silicon allocation percentage toward the blended BOM mean. Goldman's 2,400% token-demand projection is directionally clear but carries wide uncertainty on timing.</p>
+
+      <p><em>Operational:</em> The 72-GW deliverability gap cuts both ways. Slower-than-expected power interconnect clearance compresses near-term capex realizations for all archetypes; faster clearance enables the incremental build. Edge archetype definitional drift &mdash; EdgeConneX repositioning to 200MW&ndash;1GW campuses &mdash; blurs the Edge/Hyperscale boundary and may require archetype boundary revision.</p>
+
+      <p><em>Financial:</em> Dylan Patel's margin-capture argument (SemiAnalysis, "AI Value Capture &mdash; The Shift To Model Labs," 2026-05-01) does not invalidate the capex-scale thesis but is worth distinguishing carefully: Patel argues that the value created by the AI buildout accrues to frontier model labs (Anthropic ARR $9B to $44B; inference gross margins 38% to 70%+), not to NVIDIA or TSMC at current prices. This memo's thesis is about where capex pools concentrate at the BOM level &mdash; a different investment question than where operating profit accrues. Both can be simultaneously correct. We see the capex concentration thesis and the margin-capture thesis as orthogonal, not competing.</p>
+
+      <p><em>Regulatory / macro:</em> Export controls on advanced AI chips directly constrain Compute Silicon supply for non-US-allied demand; the thesis is US-and-allies-scope per the model's geographic anchor. A prolonged US-China technology decoupling would rebalance some Compute Silicon demand toward sovereign alternatives (Huawei Ascend, custom XPUs), dampening the global Compute Silicon concentration headline. Macro slowdown that delays enterprise agentic adoption &mdash; already empirically slower than hyperscaler deployment &mdash; would compress the <code class="inline">agentic_tilt_share</code> effective realization.</p>
+
+      <h4 class="minor-head">Bottom-line investment implication</h4>
+      <p>We believe the five-year window 2026&ndash;2030 is the highest-conviction period to hold Compute Silicon exposure across AI infrastructure archetypes, and that the conventional framing &mdash; Training-Core hyperscale as the dominant capex driver &mdash; understates the structural shift underway. Agentic AI facilities, not frontier training clusters, are the marginal consumer of incremental capex above consensus; at base-case knobs, that marginal allocation concentrates 48.4% in Compute Silicon, against a weighted-average BOM share of roughly 40% across the installed base. Memory &mdash; particularly HBM &mdash; is the second-order position: the inference and agentic archetypes that together account for the largest share of incremental spending are both memory-bandwidth-constrained, and the HBM4 upgrade cycle now running delivers the bandwidth step-change those workloads require. The thesis does not require heroic adoption assumptions: the Goldman 2,400% token-demand projection is a bottom-up occupational model using conservative penetration rates; the Brynjolfsson 1,000&times; empirical multiplier is a controlled laboratory result, not an analyst forecast. The physical constraint is delivery, not demand &mdash; and the BOM math shows precisely where the capital that does reach completion will go.</p>
+    </div>
+  </section>
+
+
+  <section id="sec-2">
+    <header class="section-header">
+      <span class="section-num">&sect; II</span>
+      <div>
+        <span class="section-eyebrow">Baseline Analysis</span>
+        <h2 class="section-title">The gap, stated in megawatts.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p>Consensus capex projections understate the AI infrastructure build-out, and the most honest way to state the gap is not in dollars &mdash; it is in megawatts. Eight independent sources produce a cumulative 2026-2030 top-down (TD) capex mean of approximately $4.3T (<code class="inline">Triangulation!B33:F33</code>, summed across 2026-2030 annual means), with individual source estimates spanning $1.8T (BCG, which frames its analysis exclusively in gigawatts and whose dollar contribution to the mean is inferred) to $5.5T (Goldman Sachs); the bottom-up (BU) demand model produces annual capex figures above the TD mean each year, with cumulative 2026-2030 total at <code class="inline">CapEx!F6</code>. But the dollar comparison mis-states the constraint. The real question is whether planned construction can deliver the powered megawatts that projected token demand requires &mdash; and on that dimension, the analyst community working closest to physical infrastructure has already converged: supply will fall materially short of announced demand, not because capital is absent, but because grid capacity, construction timelines, and equipment lead-times cap deliverable megawatts far below what headline dollar figures imply.</p>
+
+      <h4 class="minor-head">The 8-source consensus baseline</h4>
+      <p>The Triangulation tab maps eight published projections (rows 24-31, annual values by year; 8-source mean at row 33). The sources, scope, and key methodological notes:</p>
+
+      <p>Goldman Sachs ("Tracking Trillions," May 1, 2026) publishes $765B for 2026 and a $7.6T cumulative 2026&ndash;2031 endpoint at a $1.6T annual run-rate in 2031; the model linearly interpolates the intermediate 2027&ndash;2030 path &mdash; ($925B, $1,100B, $1,280B, $1,460B), summing with $765B to approximately $5.5T cumulative 2026&ndash;2030 (<code class="inline">Inputs!C112:C116</code>; US and allies scope) &mdash; to derive the five-year capex trajectory. The four intermediate annual values are model outputs, not Goldman-published figures; the six-year-to-five-year period adjustment is explicit in Z_Sources S077 (Goldman Sachs Global Institute, 2026-05-01, "Tracking Trillions: The Assumptions Shaping the Scale of the AI Build-Out"). Dell'Oro projects a $1.7T annual endpoint by 2030, implying approximately $5.4T cumulative on their stated trajectory (<code class="inline">Triangulation!B25:F25</code>; Dell'Oro, 2026-02-11, "AI Boom Drives Data Center Capex to $1.7 Trillion by 2030"). BCG ("Solving the US Data Center Power Crunch," March 2026) frames its analysis entirely in gigawatts &mdash; 50 to 80 GW US capacity shortfall by 2030 &mdash; and publishes no dollar cumulative; the Triangulation tab's BCG row (<code class="inline">B26:F26</code>) uses an inferred 24% CAGR (compound annual growth rate &mdash; the annualized percentage growth over a multi-year period) shape from BCG's 2025 base context, making BCG's dollar contribution to the mean a model inference rather than a BCG-stated figure. Bain publishes a $500B annual run-rate held flat through 2030, reflecting its "next phase more disciplined" thesis, alongside a 163 GW global demand figure &mdash; without a cumulative dollar total (<code class="inline">Triangulation!B27:F27</code>; Bain, 2025-09-23, "$2 trillion in new revenue needed to fund AI's scaling trend"). Moody's Ratings ("Data Centers Global Outlook 2026") sets a $3T+ floor over five years; the model's Moody's row (<code class="inline">B28:F28</code>) reflects Q1 2026 actuals plus an analyst-path interpolation, cited via secondary coverage from Capacity Global, The Register, and Data Center Dynamics because the primary Moody's report is paywalled. Futurum ("AI Capex 2026: The $690B Infrastructure Sprint," February 2026) reports $660-690B for 2026 across five hyperscalers as a single-year figure; the Triangulation row (<code class="inline">B29:F29</code>) extends forward on Futurum's implied growth trajectory. McKinsey ("The $7 trillion data center build-out," March 2026) offers three scenarios &mdash; $3.7T constrained, $5.2T base, $7.9T accelerated &mdash; all 2026-2030 cumulative, anchored to 156 GW demand in the base case; the Triangulation row (<code class="inline">B30:F30</code>) uses the McKinsey base path. Deloitte (TMT Predictions 2026, November 2025) projects $400-450B in 2026 rising to approximately $1T by 2028 with no 2030 endpoint stated; the Triangulation row (<code class="inline">B31:F31</code>) extrapolates on Deloitte's own 24% CAGR framing.</p>
+
+      <p>Two methodological caveats belong here. First, scope heterogeneity is real: "AI capex" definitions differ materially across the eight &mdash; some cover AI-specific hardware only, others bundle all data center infrastructure; BCG is US-only while Goldman is US-and-allies; McKinsey publishes both AI-only ($5.2T base) and total data center ($6.7T) figures. The wide source spread &mdash; from BCG's inferred $1.8T to Goldman's $5.5T &mdash; reflects definitional disagreement as much as analytical disagreement, and the $4.3T mean is the model's operative working number, not a claim that all eight sources are measuring the same thing. Second, the BCG and Deloitte Triangulation rows embed inference of the 2030 cumulative dollar total, and the Goldman row embeds a six-year-to-five-year period adjustment; the 8-source mean carries these inferences explicitly rather than papering over them. Section 7 (Methodology) documents the scope-heterogeneity reconciliation.</p>
+    </div>
+
+    <div class="chart-caption">
+      <span class="chart-label">Chart 8</span>
+      Eight-source TD consensus mean clusters at ~$4-5T cumulative 2026-2030; bottom-up demand-implied capex sits at the upper end of McKinsey's accelerated scenario.
+      <span class="chart-source">Source: bom-token-model-2026-05-21 Triangulation tab + 8 named sources; analysis</span>
+    </div>
+
+    <div class="prose">
+      <h4 class="minor-head">The consensus shifted up after Q1 2026 earnings, not down</h4>
+      <p>The Q1 2026 earnings cycle (April 29-30, 2026) materially revised near-term consensus upward. Top-4 hyperscaler 2026 capex guidance moved from approximately $640B (January 2026 estimate) to $695-725B following Q1 actuals, driven primarily by Microsoft's approximately $50B upward revision (Microsoft Q3 FY2026 earnings transcript, Nadella, 2026-04-29). TrendForce's Top-9 CSP (cloud service provider &mdash; the large-scale cloud infrastructure operators including AWS, Microsoft Azure, Google Cloud, Meta, and others) aggregate was revised to $830B at 79% year-on-year growth, up from a prior estimate implying 61% growth (TrendForce, 2026-05-06, Top-9 CSP 2026 CapEx revision). Goldman characterized its $7.6T endpoint as "closer to the base case than the stress case" on elongation risk, with a stated range of $4-8T. The BU demand model's annual totals (<code class="inline">CapEx!B37:F37</code>) sit above the 8-source TD mean each year &mdash; consistent with McKinsey's $7.9T accelerated scenario and the upper portion of Goldman's $4-8T range &mdash; with the gap widening in outer years as agentic token demand compounds.</p>
+
+      <h4 class="minor-head">The MW reframe is the load-bearing analytical move</h4>
+      <p>The dollar comparison asks whether capital commitments are large; the megawatt comparison asks whether deliverable infrastructure can serve projected token demand. These produce different answers, and the analyst community working closest to physical infrastructure has uniformly adopted the MW framing.</p>
+
+      <p>Janus Henderson ("Data center power: why the key risk is under-delivery, not overbuild," March 5, 2026) calculated 84.7 GW of deliverable US data center capacity against 157 GW of announced capacity &mdash; a 72 GW gap, equivalent to a 54% conversion rate from announced to delivered, driven by power-grid interconnect queues, permitting timelines, and transformer lead times. This is the single strongest external anchor for the deliverability gap: sourced, recent, and directly quantified. BCG's 50-80 GW US shortfall corroborates from the demand side &mdash; the Janus Henderson 72 GW figure falls near the BCG midpoint. McKinsey's $5.2T base-case projection is anchored explicitly to 156 GW demand: in McKinsey's framing, the dollars and the megawatts are inseparable, not independent estimates. RAND ("US Grid AI Power Projections," April 29, 2026) independently projects approximately 82 GW of US net available capacity by 2030, with significant geographic misalignment between where capacity is being built and where compute demand is concentrated. Oxford Smith School (April 2026) introduced "bragawatts" &mdash; the gap between announced and deliverable gigawatts &mdash; and estimates 35-50% of announced capacity will translate to powered megawatts on original construction timelines. The 451 Research / S&amp;P Global composite projects US data center grid-power demand at 134.4 GW by 2030, up from 61.8 GW in 2025 (CBRE / 451 Research / S&amp;P Global, 2026-05-14) &mdash; approximately doubling the existing powered footprint within five years. IEA projects global data center electricity demand doubling to 945 TWh by 2030. Bain frames the same constraint from the demand side: 163 GW global demand, 200 GW incremental AI compute required, 409 TWh US electricity &mdash; numbers that imply the same deliverability shortfall Janus Henderson measures from the supply side. The convergence across BCG (50-80 GW US), Janus Henderson (72 GW US), RAND (82 GW US), and Bain (163 GW global) is methodologically significant: these are independent research programs using distinct frameworks and arriving at comparable constraint magnitudes.</p>
+
+      <p>Chart 9 visualizes the per-year MW shortfall &mdash; the gap between the BU demand model's required installed inference capacity and the capacity implied by the 8-source TD mean, under the shared 9,000 MW 2025 anchor and 20% annual refresh rate (Triangulation tab, MW supply-demand block; methodology detailed in &sect;7).</p>
+    </div>
+
+    <div class="chart-caption">
+      <span class="chart-label">Chart 9</span>
+      The MW shortfall &mdash; BU-demand-required compute above 8-source TD consensus &mdash; grows from ~5 GW in 2026 to ~52 GW by 2030.
+      <span class="chart-source">Source: bom-token-model-2026-05-21 Triangulation tab; analysis. Shortfall approximated from synthesis-consistent estimates; model BU chain in CapEx tab.</span>
+    </div>
+
+    <div class="prose">
+      <h4 class="minor-head">Why this matters for the allocation thesis</h4>
+      <p>If the deliverability gap persists &mdash; and the infrastructure evidence suggests it will, given grid interconnection queues running three to five years in major US markets &mdash; then the binding constraint is not capital commitment, it is powered throughput per unit of time. Operators controlling permitted sites with live grid interconnection agreements, cooling infrastructure, and committed long-lead power equipment are holding assets whose scarcity is masked by headline capex totals. The per-archetype BOM walk in &sect;4 maps this constraint into specific component categories; the scenario analysis in &sect;5 quantifies how incremental dollars above consensus concentrate into those categories under the Gap Allocation Thesis. Compute Silicon, at 48.4% of the five-year cumulative incremental pool at Base knobs (<code class="inline">Incremental_Allocation!D82</code>), benefits most directly because token demand growth &mdash; not megawatt growth &mdash; is where the shortage manifests most acutely: the MW gap limits how many tokens can be served, and the BOM that serves each marginal token is heavily weighted toward compute silicon.</p>
+    </div>
+  </section>
+
+
+  <section id="sec-3">
+    <header class="section-header">
+      <span class="section-num">&sect; III</span>
+      <div>
+        <span class="section-eyebrow">Framework</span>
+        <h2 class="section-title">A 5-archetype synthesis &mdash; analytic construct, externally corroborated.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p>The 5-archetype taxonomy presented in this memo is our own analytical construct, not a citation from any single third-party source. No industry firm publishes a 5-way AI-DC split using these exact archetypes and their associated $/MW values. We synthesize three publicly available taxonomic axes &mdash; McKinsey's workload axis, Synergy Research's operator-mix axis, and Dell'Oro's customer-segment axis &mdash; and we cite each source for the dimension it actually measures. Futurum's February 2026 enterprise survey corroborates the decision to separate Agentic AI as a structurally distinct fifth category. The synthesis is the analytical work; the sources are the receipts for individual dimensions, not for the 5-way shape as a whole. We state this at the outset so the reader can evaluate the framework on its own merits.</p>
+
+      <h3 class="subsection-title">The three taxonomic anchors</h3>
+
+      <p><strong>McKinsey workload axis (Training vs. Inference vs. Non-AI, measured in gigawatts).</strong> McKinsey's "Week in Charts" (February 24, 2026) &mdash; "The future of AI workloads" &mdash; publishes a 3-way 2030 US data center demand forecast: Training 62.2 GW (28% of total 219.0 GW), Inference 93.3 GW (43%), Non-AI 63.5 GW (29%). The 2025 baseline: Training 23.1 GW (28%), Inference 20.9 GW (25%), Non-AI 38.3 GW (47%), totaling 82.3 GW. CAGRs: Training 22%, Inference 35%, Non-AI 11%, Total 22%. (McKinsey, "Week in Charts: The future of AI workloads," 2026-02-24, sourced via Exa capture; McKinsey CDNs block direct CLI fetch &mdash; content verified through Exa semantic retrieval.) The key observation from McKinsey: inference exits 2030 as the dominant AI workload by GW, overtaking training in roughly 2027. McKinsey's schema is three-way; it does not publish a 5-way split, and it explicitly treats edge as an inference deployment location rather than a separate workload category. We cite McKinsey for the Training/Inference axis only &mdash; not for the 5-archetype framework.</p>
+
+      <p><strong>Synergy Research operator-mix axis (Hyperscaler vs. Colocation vs. Enterprise, measured in capacity share).</strong> DCD reporting on Synergy Research (April 8, 2026) documents the operator-mix at end-2025 &mdash; Hyperscaler 48% (split approximately 60% own-built / 40% leased), Colocation 20%, Enterprise 32% &mdash; and projects 2031 shares of Hyperscaler 67%, Colocation ~14% (implied: 100 &minus; 67 &minus; 19), Enterprise 19%. Important scope note: Synergy measures capacity in MW, not AI spending; Synergy's AI-specific spending breakdown is paywalled. We cite Synergy for the operator-mix axis and the direction of the shift (hyperscaler share rising sharply at colo and enterprise's expense), not for AI-specific capex shares. (Source: DCD, "Hyperscale operators now account for nearly half of all data center capacity," 2026-04-08.)</p>
+
+      <p><strong>Dell'Oro customer-segment axis (Top-4 US Hyperscalers vs. Tier-2 Cloud vs. Enterprise vs. Edge).</strong> Dell'Oro's August 2025 and February 2026 reports establish that the top-4 US hyperscalers account for approximately 50% of global data center capex in 2025 (the single most material customer-concentration fact in the stack). Dell'Oro's 2025 annual data point: DC capex grew +57% year-on-year, the fastest growth rate since Dell'Oro began tracking the market; this confirms the pool acceleration independently of any Goldman or McKinsey number. Dell'Oro separately names edge, telecom, and industrial environments as architecturally distinct deployment contexts outside the hyperscaler/colo/on-prem core. Full segment percentage breakdowns are paywalled; we cite Dell'Oro for the top-4 hyperscaler concentration figure and the edge-as-architecturally-distinct framing. (Sources: Dell'Oro, "AI Boom Drives Data Center Capex to $1.7 Trillion by 2030," 2026-02-11; Dell'Oro, "Data Center Capex Surges 57 Percent in 2025," 2026-03-17.)</p>
+
+      <p><strong>Futurum corroboration for Agentic AI as a fifth category.</strong> Futurum Research's February 2026 enterprise AI compute survey explicitly flags Agentic AI as "emerging as a distinct fifth workload category that doesn't neatly fit into training or inference paradigms." This is the external validation that the memo's Agentic-as-distinct architectural move is not idiosyncratic. Futurum's four surveyed categories and their enterprise AI compute consumption shares: Inference at scale 34.6%, Training large foundation models 24.9%, Training domain-specific 23.3%, Fine-tuning 17.2% &mdash; and the report notes that agentic workloads are beginning to appear as a structurally separate demand type, distinct in both token intensity and infrastructure requirements. (Source: Futurum, "AI Workload Priorities Diversify," 2026-02-25. Verbatim confirmed PASS via <code class="inline">scripts/verify_verbatim.py</code>.)</p>
+
+      <h3 class="subsection-title">The 5-archetype taxonomy &mdash; definitions</h3>
+
+      <p>The synthesis of the three axes above, plus the architectural distinction Futurum surfaces, produces our working taxonomy. Each archetype maps to a cluster of facilities with a recognizable BOM signature, a specific operator class, and a characteristic $/MW profile.</p>
+
+      <p><strong>Training-Core Hyperscale.</strong> Large-scale frontier-model training clusters operated by hyperscalers and sovereign AI programs, characterized by high-density GPU pods (NVIDIA Blackwell / Vera Rubin or Broadcom XPU-equivalent), NVLink or high-radix scale-up interconnect, and co-location of compute and storage at the facility to minimize data movement latency. These facilities operate at the frontier of what power infrastructure and thermal management can sustain; the BOM is dominated by Compute Silicon. Maps to McKinsey's AI Training GW bucket and Synergy's own-built hyperscaler segment.</p>
+
+      <p><strong>Inference.</strong> Real-time serving infrastructure for deployed models &mdash; chatbots, copilots, APIs, and consumer AI applications &mdash; optimized for throughput per dollar and latency per query. Memory bandwidth is the binding constraint (HBM, High-Bandwidth Memory, intensity is highest here, driven by the key-value cache at context lengths of 4k&ndash;128k tokens). Multiple operators: hyperscalers' own serving infrastructure, GPU-as-a-service neoclouds (CoreWeave, Lambda, Crusoe), and colocation-adjacent serving clusters. Maps to McKinsey's AI Inference GW bucket.</p>
+
+      <p><strong>Legacy Enterprise.</strong> On-premise and colocation data centers running conventional enterprise IT workloads &mdash; ERP, databases, storage, virtualization &mdash; that have not yet been rebuilt for AI-native architectures. Compute Silicon intensity is low; Land + Shell + EPC (EPC = Engineering, Procurement, and Construction, the contracting bucket for civil works, shell, and major mechanical/electrical installation) is the largest line item. This is McKinsey's Non-AI GW bucket in dollar form; it compresses as a share of the pool through 2030 even as it grows in absolute terms. The co-ramp dynamic bears noting: HPE entered Q2 FY2026 with a record $5B AI Systems backlog composed primarily of enterprise and sovereign orders (HPE Q1 FY2026 earnings call, 2026-03-16) &mdash; Legacy Enterprise is not declining; it is growing in absolute dollars while losing share in a faster-growing pool.</p>
+
+      <p><strong>Edge.</strong> Distributed-footprint infrastructure placed close to the point of consumption &mdash; CDN (Content Delivery Network) nodes, on-premise enterprise edge, telecom edge, and hyperlocal-to-hyperscale campuses serving latency-sensitive workloads. Power Infrastructure is disproportionately large relative to facility size; Compute Silicon density is low. Dell'Oro's "architecturally distinct" edge framing is the citation anchor. Note: the Edge archetype boundary is under pressure &mdash; operators like EdgeConneX have expanded to 200 MW&ndash;1 GW campus formats (Osaka 200 MW, March 2026; Sweden "up to 1 gigawatt," February 2026), which blurs the traditional edge/hyperscale divide. We carry the archetype at its established BOM profile and flag this boundary drift in &sect;7 (Methodology).</p>
+
+      <p><strong>Agentic AI.</strong> Emerging infrastructure category optimized for multi-step, tool-using AI agents &mdash; agentic coding assistants (GitHub Copilot token-billed, Cognition Devin), financial automation, enterprise workflow orchestration &mdash; where the token consumption per task is empirically 1,000&times; that of chat-based inference (Brynjolfsson et al., arXiv 2604.22750, 2026-04-29; see &sect;4.5 for detail). The BOM signature combines high Compute Silicon intensity with elevated Networking + IC relative to inference-only clusters, driven by the disaggregated prefill/decode architecture and multi-agent orchestration overhead. NVIDIA's "AI Factories" framing for the Vera Rubin NVL144 CPX platform is the closest third-party architectural analogue. Futurum's explicit identification of Agentic AI as a fifth workload category provides external survey-level corroboration. This is the load-bearing archetype for the Gap Allocation Thesis: the empirically-measured token multiplier means demand for agentic infrastructure is growing faster than the installed base, and incremental dollars disproportionately flow here.</p>
+
+      <h3 class="subsection-title">The 7-BOM-line decomposition</h3>
+
+      <p>Each archetype's total cluster cost is decomposed into seven Bill of Materials (BOM) categories. The decomposition is exhaustive &mdash; every dollar of capex for a 150 MW reference cluster sits in exactly one category, with supplier-revenue overlaps haircut at the input stage. (<code class="inline">BOM_Weights!A6:I10</code> carries the full per-archetype weight matrix.) The seven lines:</p>
+
+      <ul class="list-clean">
+        <li><strong>Power Infrastructure</strong> &mdash; UPS (Uninterruptible Power Supply) systems, switchgear, transformers, and behind-the-meter (BTM) generation. Includes Vertiv and Schneider power segments (60/40 and 70/30 splits, respectively, per segment revenue disclosures) and GE Vernova gas-turbine packages where applicable.</li>
+        <li><strong>Compute Silicon</strong> &mdash; Accelerators (NVIDIA GPU families, AMD Instinct, custom ASICs), the foundry layer (TSMC N3/N2 wafers), and Broadcom ASIC design services. HBM pass-through to Memory is excluded; NVLink switching revenue reassigned to Networking + IC.</li>
+        <li><strong>Memory</strong> &mdash; HBM (stacked DRAM for GPU high-bandwidth pools), DDR5 RDIMMs (server main memory), and nearline storage (HDD for training data staging). SK Hynix, Micron, Samsung HBM shipments; WDC and STX for nearline.</li>
+        <li><strong>Networking + IC</strong> &mdash; Scale-up interconnect (NVLink), scale-out switching (Broadcom Tomahawk/Jericho series and Arista switches), retimers (Astera Labs), AECs (Active Electrical Cables, primarily Credo), and InfiniBand/Ethernet smart NICs (Mellanox/NVIDIA ConnectX).</li>
+        <li><strong>Fiber + Optics</strong> &mdash; 400G/800G/1.6T optical transceivers, coherent modules, and fiber cable assemblies. Coherent (formerly II-VI) and Lumentum are the primary revenue references; optical content splits 15/85 Compute Silicon/Fiber+Optics for Coherent and approximately 10/90 for Lumentum per segment disclosures.</li>
+        <li><strong>Cooling</strong> &mdash; Air cooling (CRAC/CRAH units, in-row cooling), direct liquid cooling (DLC) systems (cold plates, manifolds, heat exchangers), and immersion cooling. Vertiv cooling segment (40% of total Vertiv revenue) and Schneider cooling segment (30% of total Schneider revenue) are the primary revenue anchors.</li>
+        <li><strong>Land + Shell + EPC</strong> &mdash; Civil works and shell construction, major mechanical/electrical installation (the "EPC" contracting bucket for projects managed by Bechtel, Mortenson, AECOM, EMCOR), and land acquisition. Largest line for Legacy Enterprise and Edge archetypes; smallest for Training-Core and Agentic AI.</li>
+      </ul>
+
+      <h3 class="subsection-title">The 150 MW reference cluster</h3>
+
+      <p>All per-archetype BOM calculations use a <strong>150 MW cluster</strong> as the unit of analysis. The 150 MW reference is carried forward from the 2026-05-13 predecessor memo as the measurement scope that best balances three considerations: (1) it is large enough to be representative of frontier hyperscale build programs, which now routinely plan campus-level projects at 100&ndash;500 MW; (2) it is small enough to avoid anchoring to any single operator's disclosed capex per facility; and (3) it sits within the range used in third-party industry reports (McKinsey's $7 trillion framing anchors to a 156 GW aggregate demand basis &mdash; consistent with the 150 MW cluster as a representative unit). The reference cluster is full-scope (private GCs and land included), not the public-supplier slice only; this is why absolute LSE dollar figures sum higher than a sell-side networking/hardware TAM would show.</p>
+
+      <h3 class="subsection-title">Archetype $/MW sizing table</h3>
+
+      <p>The five archetypes separate into two structural tiers on an all-in $/MW basis, reflecting the capital intensity of frontier AI infrastructure versus legacy/distributed deployment. Chart 7 (&sect;4 introduction) shows all five on a single $/MW horizontal bar.</p>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Archetype</th>
+          <th>$/MW (all-in, 150 MW cluster)</th>
+          <th>Model cell</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Training-Core Hyperscale</td><td class="num"><strong>$43.4M/MW</strong></td><td class="num">(dollar_per_mw_training_core), BOM_Weights!J6</td></tr>
+        <tr><td>Inference</td><td class="num"><strong>$41.8M/MW</strong></td><td class="num">(dollar_per_mw_inference), BOM_Weights!J7</td></tr>
+        <tr><td>Legacy Enterprise</td><td class="num"><strong>$21.4M/MW</strong></td><td class="num">(dollar_per_mw_legacy), BOM_Weights!J8</td></tr>
+        <tr><td>Edge</td><td class="num"><strong>$19.4M/MW</strong></td><td class="num">(dollar_per_mw_edge), BOM_Weights!J9</td></tr>
+        <tr><td>Agentic AI</td><td class="num"><strong>$34.6M/MW</strong></td><td class="num">(dollar_per_mw_agentic), BOM_Weights!J10</td></tr>
+      </tbody>
+    </table>
+
+    <div class="prose">
+      <p>The frontier tier &mdash; Training-Core ($43.4M/MW) and Inference ($41.8M/MW) &mdash; reflects Compute Silicon dominance: GPU/ASIC silicon carries the highest $/MW coefficient of any BOM line by a wide margin. Agentic AI sits at $34.6M/MW, below the chatbot Inference tier on an absolute $/MW basis, because the Agentic archetype trades some Memory bandwidth intensity for higher networking overhead &mdash; a BOM composition difference, not a scale difference. The non-frontier tier &mdash; Legacy Enterprise ($21.4M/MW) and Edge ($19.4M/MW) &mdash; reflects LSE and Power Infrastructure dominance: shell and civil construction are cheaper per MW than GPU silicon. The &plusmn;$24M/MW spread between frontier and non-frontier tiers is the structural tension the Gap Allocation Thesis exploits: incremental capex above consensus concentrates disproportionately in frontier archetypes, which carry a higher $/MW multiplier, amplifying the Compute Silicon share of marginal spend.</p>
+    </div>
+
+    <div class="chart-caption">
+      <span class="chart-label">Chart 7</span>
+      Frontier-tier archetypes (Training-Core, Inference, Agentic AI) cluster at $35-43M/MW; non-frontier (Legacy, Edge) at $19-21M/MW.
+      <span class="chart-source">Source: bom-token-model-2026-05-21 BOM_Weights tab; analysis</span>
+    </div>
+
+    <div class="prose">
+      <p>The per-archetype BOM signatures &mdash; showing how the 7 lines allocate within each archetype &mdash; appear as L-shape Marimekko (variable-width stacked-bar) charts in &sect;4.1&ndash;4.5, one per archetype, rendered from <code class="inline">data/marimekko-specs/dc-archetype-*.json</code> and driven by <code class="inline">BOM_Weights!A6:I10</code>.</p>
+    </div>
+  </section>
+
+
+  <section id="sec-4">
+    <header class="section-header">
+      <span class="section-num">&sect; IV</span>
+      <div>
+        <span class="section-eyebrow">Per-Archetype Walk</span>
+        <h2 class="section-title">BOM signatures, builders, operators, users, investability.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <h3 class="subsection-title">4.1 Training-Core Hyperscale</h3>
+
+      <p><strong>BOM signature.</strong> Training-Core Hyperscale is the most compute-concentrated archetype: Compute Silicon takes 53.45% of cluster capex (<code class="inline">BOM_Weights!C6</code>), Land + Shell + EPC (abbreviated LSE &mdash; the contracting bucket for civil works, shell, and major mechanical/electrical installation) is the second category at 15.40% (<code class="inline">BOM_Weights!H6</code>), and Memory (dominated by HBM &mdash; High-Bandwidth Memory, the stacked DRAM that feeds GPU cores at throughput rates no conventional DRAM can match) is third at 11.51% (<code class="inline">BOM_Weights!D6</code>). The all-in price is $43.4M/MW (<code class="inline">dollar_per_mw_training_core</code>, <code class="inline">BOM_Weights!J6</code>) &mdash; the highest $/MW of any archetype and the clearest signal that this is frontier-tier capex. Compute Silicon's 53.45% share is structurally driven by GPU density requirements that no other archetype approaches: frontier training pods run at 300&ndash;600+ kW per rack, and accelerator silicon &mdash; not real estate, not power infrastructure, not cooling &mdash; is the binding cost at that density.</p>
+    </div>
+
+    <div class="chart-caption">
+      <span class="chart-label">Chart 2</span>
+      Training-Core concentrates 53% of capex in Compute Silicon and 15% in LSE &mdash; the most compute-silicon-heavy archetype in the AI-infra stack.
+      <span class="chart-source">Source: bom-token-model-2026-05-21 BOM_Weights tab Section A; rendered via scripts/build_l_shape_marimekko.py; analysis</span>
+    </div>
+
+    <div class="prose">
+      <p><strong>Builders.</strong> The silicon layer is entering a generational step-change in 2026. NVIDIA (NVDA) shipped the first Vera Rubin samples to customers in February 2026, with production scheduled for H2 2026. Per NVIDIA CFO Colette Kress on the Q4 FY2026 earnings call: "The platform will train MoE models with one-fourth the number of GPUs and reduce inference token costs by up to 10x compared to Blackwell. We shipped our first Vera Rubin samples to customers earlier this week, and we remain on track to commence production shipments in the second half of the year." (NVIDIA Q4 FY2026 Earnings Call, 2026-02-25, Motley Fool transcript; Noldor corpus <code class="inline">6c0d2b78</code>.) The six-chip Rubin platform &mdash; Vera CPU, Rubin GPU, NVLink 6 switch, ConnectX-9 SuperNIC, BlueField-4 DPU, and Spectrum-6 Ethernet switch &mdash; consolidates scale-up interconnect and networking into a single NVIDIA stack. The Vera CPU doubles chip-to-chip (C2C) bandwidth to 1.8TB/s and carries 1.5TB of memory per socket via eight 192GB SOCAMM modules, per SemiAnalysis's February 2026 technical analysis: "Vera takes things further in 2026 for the Rubin platform, doubling C2C bandwidth to 1.8TB/s and doubling the memory width with eight 128bit wide SOCAMM 192GB modules for 1.5TB of memory at 1.2TB/s of bandwidth." (SemiAnalysis, "CPUs are Back: The Datacenter CPU Landscape in 2026," 2026-02-09; Noldor corpus <code class="inline">8dc03352</code>.) Vera is an ARM-based custom core, which elevates ARM Holdings (ARM) as a royalty recipient inside every training-core cluster running Vera CPUs. Broadcom (AVGO) is the second major Compute Silicon builder, through its custom AI accelerator chip (XPU &mdash; a custom AI accelerator chip designed for a specific hyperscaler's model architecture, distinct from NVIDIA's general-purpose GPU) program. In Q1 FY2026, Broadcom confirmed six XPU customers, posted AI semiconductor revenue of $8.4B (+106% YoY), and guided Q2 at $10.7B (+140% YoY); Hock Tan stated on the Q1 FY2026 earnings call: "Today, in fact, we have line of sight to achieve AI revenue from chips, just chips, in excess of $100 billion in 2027." (Broadcom Q1 FY2026 Earnings Call, 2026-03-04, Motley Fool transcript; Noldor corpus <code class="inline">2736bff5</code>.) Broadcom has fully secured supply-chain capacity for these XPU designs through 2028, per the same call. TSMC (TSM) underpins both NVIDIA and Broadcom at the foundry layer, and its CoWoS (chip-on-wafer-on-substrate &mdash; TSMC's advanced packaging process that integrates GPU silicon with HBM stacks side-by-side on a silicon interposer) capacity is the physical ceiling on HBM4-equipped GPU output through 2027: KGI Securities estimates CoWoS expands from 120,000 wafers per month (kwpm) at end-2026 to 170kwpm at end-2027, with an unconfirmed 200kwpm upside scenario ("we currently lack sufficient evidence to validate these claims"). (KGI Securities, "Semiconductor Chipflation Monthly," April 14, 2026.) AMD (AMD) is catching up structurally with the MI400 rack-scale platform but carries no confirmed 2026-Q1 production volume data at training-core scale; software (ROCm ecosystem maturity) and captive-workload gaps remain. Additional builders span the full BOM: Coherent and Lumentum on 800G/1.6T Fiber + Optics; Vertiv and Schneider Electric on Power Infrastructure and Cooling (60/40 and 70/30 revenue splits, respectively); Bechtel and Mortenson on LSE civil works and EPC.</p>
+
+      <p><strong>Operators.</strong> Training-Core Hyperscale is hyperscaler-dominated by a wide margin. Microsoft Azure, Google Cloud, AWS, Meta, and Oracle Cloud operate the majority of frontier training clusters either in owned campuses or through long-term leases. Synergy Research's April 2026 data puts hyperscalers at 48% of all data center capacity and projects that share rising to 67% by 2031 (DCD reporting on Synergy Research, "Hyperscale operators now account for nearly half of all data center capacity," 2026-04-08); Dell'Oro estimates the top-4 US hyperscalers account for approximately 50% of global data center capex (Dell'Oro, "AI Boom Drives Data Center Capex to $1.7 Trillion by 2030," 2026-02-11). Colocation share of training-core capacity is below 10% and concentrated in neoclouds (CoreWeave, Lambda, Crusoe) that lease hyperscale-adjacent shells; the Stargate JV (Oracle / OpenAI / SoftBank) adds a structurally distinct operator tier operating under a sovereign-scale mandate.</p>
+
+      <p><strong>Users.</strong> Frontier model labs are the primary tenant class: Anthropic, OpenAI, Google DeepMind, Meta AI, xAI, and Mistral are the named cluster operators at training scale. Anthropic is confirmed on Vera Rubin systems per Jensen Huang's Q4 FY2026 call statement, and Broadcom's Hock Tan confirmed Anthropic's TPU trajectory on the Q1 FY2026 call: "For Anthropic, we are off to a very good start in 2026 for 1 gigawatt of TPU compute. And for 2027, this demand is expected to surge in excess of 3 gigawatts of compute." (Broadcom Q1 FY2026 Earnings Call, 2026-03-04; Noldor corpus <code class="inline">2736bff5</code>.) OpenAI is entering Broadcom XPU volume production in 2027 at greater than 1 GW of compute capacity, per the same call. A small and growing sovereign and enterprise tier &mdash; HPE's $5B AI Systems backlog entered Q2 FY2026 "primarily composed of enterprise and sovereign orders" (HPE Q1 FY2026 Earnings Call, 2026-03-16) &mdash; signals that training-core demand is beginning to distribute beyond the six or seven frontier labs, but the frontier labs remain the dominant demand signal through 2027.</p>
+
+      <p><strong>Investability call.</strong> <em>Public anchors:</em> NVDA (GPU + NVLink + networking stack across training and inference), AVGO (XPU revenue: $8.4B Q1 FY2026, +106% YoY; $100B+ AI chip revenue in sight by 2027; supply locked through 2028), TSM (foundry + CoWoS &mdash; the physical production ceiling on HBM4 GPU output), SK Hynix (5934.KS; 62% HBM market share entering the HBM4 cycle; the marginal supplier with the highest pricing-power asymmetry), ASML (EUV lithography &mdash; the upstream chokepoint on TSMC N2/N3 wafer capacity expansion), ARM (royalty receiver on every Vera CPU deployed in a Rubin cluster; data-center royalty revenue &gt;100% YoY per Q3 FY2026 IR). <em>Private complements:</em> Cerebras (CBRS, post-IPO; wafer-scale engine alternative compute topology that bypasses the HBM/CoWoS constraint entirely &mdash; $24.6B RPO and $20B OpenAI deal confirmed in S-1 filed April 17, 2026); Lightmatter (silicon photonics interconnect &mdash; a photonic chip technology that moves data using light rather than copper, enabling much higher bandwidth at lower power between AI accelerators &mdash; addresses the growing in-cluster interconnect bandwidth constraint as NVLink reaches physical limits). <em>Thesis:</em> We believe the Training-Core Hyperscale archetype is the highest-conviction expression of the frontier-CS stack thesis: at 53.45% Compute Silicon share (<code class="inline">BOM_Weights!C6</code>) and $43.4M/MW all-in capex (<code class="inline">dollar_per_mw_training_core</code> @ <code class="inline">BOM_Weights!J6</code>), the Broadcom six-XPU-customer disclosure, Anthropic's 3+ GW 2027 demand signal, and OpenAI's 2027 XPU volume entry triangulate a sustained frontier training buildout through the Rubin generation &mdash; constrained on the supply side by TSMC's CoWoS capacity ceiling (120kwpm &rarr; 170kwpm, 2026&ndash;2027), which keeps pricing power at NVDA, AVGO, and SK Hynix through at least mid-2027.</p>
+
+      <h3 class="subsection-title">4.2 Inference</h3>
+
+      <p><strong>BOM signature.</strong> The Inference archetype carries the defining BOM signature of a memory-bandwidth-constrained regime. Compute Silicon leads at 44.44% (<code class="inline">BOM_Weights!C7</code>) and Land + Shell + EPC (LSE &mdash; civil works, shell construction, and the Engineering, Procurement, and Construction contracting bucket for major mechanical/electrical installation) sits at 19.48% (<code class="inline">BOM_Weights!H7</code>). Memory is 18.73% (<code class="inline">BOM_Weights!D7</code>) &mdash; separated from LSE by only 0.75 percentage points and structurally elevated relative to every other archetype: Training-Core registers Memory at 11.51% (<code class="inline">BOM_Weights!D6</code>) and Agentic AI at 17.02% (<code class="inline">BOM_Weights!D10</code>). That 7+ percentage-point premium versus Training-Core is the defining architectural signature of the serving regime. The mechanism is the key-value cache (abbreviated KV-cache &mdash; the in-GPU state an active LLM conversation holds, growing linearly with input sequence length and the number of concurrent users): during the decode phase of text generation, the GPU must read the full KV-cache for every token it produces, and memory bandwidth &mdash; not raw compute &mdash; determines throughput. The Noldor HBM evolution research article documents the structural causation: "Memory bandwidth growth lags compute capability growth in AI accelerators. The 'memory wall' constrains how effectively accelerators utilize their computational resources. HBM evolution represents the industry's primary response to this constraint. Large language models exhibit memory-bound characteristics during inference. The attention mechanism requires accessing the full key-value cache for each generated token. Memory bandwidth determines how quickly this access can occur." (Noldor <code class="inline">0ca8340b</code>, 2026-02-11.) All-in cluster cost: $41.8M/MW (<code class="inline">dollar_per_mw_inference</code>, <code class="inline">BOM_Weights!J7</code>) &mdash; second of five archetypes, trailing Training-Core's $43.4M/MW by less than 4%, confirming that inference and training now command near-identical capital intensity per megawatt.</p>
+    </div>
+
+    <div class="chart-caption">
+      <span class="chart-label">Chart 3</span>
+      Inference shifts the mix toward Memory (19%) &mdash; the bandwidth-bound regime where HBM share, not raw FLOPs, drives spend.
+      <span class="chart-source">Source: bom-token-model-2026-05-21 BOM_Weights tab Section A; analysis</span>
+    </div>
+
+    <div class="prose">
+      <p><strong>Builders.</strong> The memory supply chain dominates the inference archetype's structural builder story. SK Hynix holds 62% of the HBM (High-Bandwidth Memory &mdash; the stacked DRAM architecture that feeds GPU cores at throughput rates conventional DRAM cannot match) market as of Q2 2025, with Micron at 21% and Samsung at 17%, entering the HBM4 (High-Bandwidth Memory generation 4 &mdash; the stacked DRAM standard with a 2,048-bit interface and 2TB/s per-stack bandwidth, double the channel width of HBM3) transition as the dominant supplier. Verbatim from the Noldor HBM evolution article: "Market share Q2 2025: SK Hynix 62%, Micron 21%, Samsung 17%." (Noldor <code class="inline">0ca8340b</code>, 2026-02-11.) Samsung fell from 41% to 17% HBM share due to NVIDIA qualification failures in 2024&ndash;2025; it cleared NVIDIA HBM3E qualification in September 2025 and is targeting HBM4 NVIDIA entry by Q2 2026 (TrendForce, 2025-12-01). Micron has shipped HBM4 customer samples at 2.8TB/s. William Blair's "Can't Fight the Cycle" initiation quantifies the generation step: "Gearing for the launch of next-generation HBM4 (12-high) in first quarter 2026, Micron has shipped customer samples, quantifying bandwidth of 2.8 TB/s (133% improvement [vs HBM3e])." (William Blair, "Can't Fight the Cycle," 2026-01-22, Noldor.) The companion "Total Recall" report establishes the architectural basis: "HBM4 is anticipated to exceed 2 TB/s per stack, a 67% bandwidth improvement relative to HBM3E, largely attributable to a doubling of the I/O channels (to 2,048 bits). Micron has claimed speeds exceeding 2.8 TB/s, as Nvidia asks memory providers to push pin speeds to 11 Gbps." (William Blair, "Total Recall: How AI is Supercharging Memory Demand," 2026-01-22, Noldor.) The Noldor HBM4 technical record: "HBM4: 2,048-bit interface (2x HBM3), 2TB/s per stack, 64GB capacity." (Noldor <code class="inline">0ca8340b</code>, 2026-02-11.) On the compute side, NVIDIA's GB300 NVL72 has delivered empirically verified inference economics: per the NVIDIA Q4 FY2026 earnings call (2026-02-25), CFO Colette Kress stated verbatim: "SemiAnalysis declared NVIDIA Corporation inference king as recent results from InferenceX reinforced our inference leadership, with GB300 and NVL72 achieving up to 50x performance per watt and 35x lower cost per token, compared with offerings." (NVIDIA Q4 FY2026 Earnings Call, Motley Fool, 2026-02-25; Noldor <code class="inline">6c0d2b78</code>.) The SemiAnalysis InferenceMAX benchmarks show B200 delivering approximately 3x lower cost-per-token versus H200 for large models in FP4-optimized serving &mdash; empirical, not projected. AMD's MI300X competes for inference share and shows a generational gain of approximately 3x tokens per second per provisioned megawatt from CDNA3 to CDNA4 (MI300X to MI355X), outperforming H100 for dense models "due to better memory bandwidth and memory capacity advantages when running at TP1" (SemiAnalysis InferenceMAX, via NVDA Q4 FY2026 call; findings-R3 Q8).</p>
+
+      <p><strong>Operators.</strong> Inference is the most operationally diverse archetype by cluster owner. Three distinct operator segments serve it simultaneously. First, hyperscaler cloud businesses &mdash; Microsoft Azure, Google Cloud Platform, AWS, Oracle Cloud &mdash; run the largest inference clusters as an extension of their own model deployments and as third-party API infrastructure (Azure OpenAI Service, AWS Bedrock, Google Vertex AI). Second, GPU-as-a-service neoclouds &mdash; CoreWeave, Lambda Labs, Crusoe Energy &mdash; supply capacity to model labs and enterprises that do not build their own facilities; the neocloud market reached $25B+ in revenues in 2025 at approximately 223% year-on-year growth in Q4 2025, with Synergy Research projecting the segment approaching $400B in revenues by 2031 at a 58% CAGR (compound annual growth rate). Third, colocation-adjacent serving clusters &mdash; Equinix, Digital Realty &mdash; provide real-estate infrastructure for metro-accessible, latency-optimized inference. The operator mix is materially more colocation-resident than Training-Core: inference clusters favor metro and near-metro sites per McKinsey's February 2026 characterization &mdash; "training workloads require large, high-density campuses... while AI inference is driving build-outs in metro and near-metro sites optimized for low latency, strong network connectivity, and energy efficiency." (McKinsey, "The future of AI workloads," 2026-02-24.) Accordingly, the LSE strip ratio for Inference sits at approximately 35% &mdash; below Training-Core's 40% &mdash; and the 19.48% LSE share reflects colo-resident Tier-1 metro deployment rather than hyperscale greenfield construction.</p>
+
+      <p><strong>Users.</strong> Frontier model labs are the primary tenant, serving consumer and enterprise APIs through inference infrastructure they either own or procure from neoclouds: Anthropic (Claude API), OpenAI (ChatGPT API and OpenAI API), Google DeepMind (Gemini API), Meta AI (Llama serving), and xAI (Grok API). Enterprise software companies embedding inference into products constitute the second user class: Microsoft 365 Copilot (20M+ paid seats as of Q3 FY2026, per Microsoft Q3 FY2026 earnings call, Nadella, 2026-04-29), GitHub Copilot (approximately 4.7M paid subscribers at 75% year-on-year growth, deployed at approximately 90% of Fortune 100, transitioning to token-based billing effective June 1, 2026; GitHub Blog, 2026), Notion AI, Box AI, and Salesforce Einstein. Independent application developers building on frontier-lab APIs constitute the third user class. The agentic shift is directly material to this user layer: Brynjolfsson, Pentland et al. document that "agentic tasks are uniquely expensive, consuming 1000x more tokens than code reasoning and code chat, with input tokens rather than output tokens driving the overall cost" (arXiv:2604.22750 v2, 2026-04-29; Noldor <code class="inline">56da39d6</code>), and Goldman Sachs projects global token demand rising 2,400% from 2026 to 2030, driven by enterprise agent adoption (Goldman Sachs Americas Tech, "Decoding the Agentic Economy," 2026-05-05; Noldor <code class="inline">189a2f4e</code>). This token demand growth sustains inference hardware attach rates through the Rubin generation.</p>
+
+      <p><strong>Investability call.</strong> <em>Public anchors:</em> NVDA (dominant inference silicon from GB300 NVL72 through the Rubin Vera generation; management targeting a further 10x cost-per-token reduction versus Blackwell per NVDA Q4 FY2026 call, 2026-02-25; Noldor <code class="inline">6c0d2b78</code>); AVGO (custom XPU networking, AI networking revenue running 33&ndash;40% of total AI semiconductor revenue per Broadcom Q1 FY2026 earnings, 2026-03-04; Noldor <code class="inline">2736bff5</code>); MU (HBM4 customer sample shipments at 2.8TB/s, positioned for Rubin-era GPU memory attach); SK Hynix (5934.KS) (62% HBM market share entering HBM4 transition, the marginal supplier with the highest pricing-power asymmetry); Samsung (005930.KS) (NVDA HBM3E re-qualification September 2025, HBM4 NVDA entry targeted Q2 2026 &mdash; watchlist position contingent on qualification confirmation); CRWV (CoreWeave, direct neocloud exposure to inference-as-a-service economics); MRVL (custom HBM interface IP and SerDes for hyperscaler inference ASICs); ALAB (Astera Labs &mdash; PCIe Gen6 and CXL connectivity retimers sitting between every CPU and accelerator in inference clusters, $6.5B Amazon warrant alignment, Q4 FY2025 revenue $270.6M at +92% YoY; Astera Labs Q4 2025 IR press release). <em>Private complements:</em> Lambda Labs (GPU-as-a-service inference), Crusoe Energy (sustainable inference cloud), FuriosaAI (Korean inference accelerator targeting cost-per-token competition with NVIDIA in the mid-density serving tier). <em>Thesis:</em> We believe the Inference archetype is the highest-conviction Memory expression in the AI infrastructure BOM. The 18.73% Memory weight (<code class="inline">BOM_Weights!D7</code>) &mdash; 7.22 percentage points above Training-Core's 11.51% (<code class="inline">BOM_Weights!D6</code>) &mdash; reflects an architectural reality that HBM4 supply tightness will price into SK Hynix and Micron margins before consensus prices it into equipment earnings. The empirically validated approximately 3x B200/H200 cost-per-token improvement and the 67% HBM4 bandwidth uplift over HBM3E have already compressed inference unit economics enough to accelerate token volume growth faster than revenue compression, sustaining silicon attach rates. Goldman's 2,400% token demand projection through 2030 (Noldor <code class="inline">189a2f4e</code>) and the Brynjolfsson 1,000x agentic multiplier (arXiv:2604.22750; Noldor <code class="inline">56da39d6</code>) triangulate from independent methodologies: the inference hardware cycle is not ending &mdash; it is entering its largest demand inflection.</p>
+    </div>
+
+
+    <div class="prose">
+      <h3 class="subsection-title">4.3 Legacy Enterprise</h3>
+
+      <p>The prior framing of Legacy Enterprise as a background, refresh-cycle archetype requires revision. The 2026-Q1 earnings cycle has produced evidence of a structural shift: traditional server refresh and AI-server adoption are co-ramping &mdash; growing in parallel rather than in sequence &mdash; driven by enterprise and sovereign demand that is distinct from hyperscaler build programs. The archetype's BOM signature still reflects a non-frontier cost structure dominated by Land + Shell + EPC (LSE), but the demand backdrop is materially more dynamic than a steady-state refresh model would imply.</p>
+
+      <p><em>BOM signature.</em> LSE is the dominant line at 37.18% (<code class="inline">BOM_Weights!H8</code>) &mdash; the highest LSE share of any archetype, reflecting the cost structure of purpose-built or leased enterprise facilities where shell, civil works, and commercial real estate account for more than one dollar in three. Memory is second at 21.39% (<code class="inline">BOM_Weights!D8</code>), elevated relative to the blended BOM average and explained by the refresh cycle's DDR5 server DRAM upgrades and nearline HDD storage replacements &mdash; the memory sub-segment composition is 0% HBM, approximately 30% nearline HDD (Seagate, Western Digital), approximately 39% Enterprise SSD, and approximately 29% DDR5 server RDIMM, a profile structurally distinct from any AI-frontier archetype. Compute Silicon is 19.73% (<code class="inline">BOM_Weights!C8</code>), the lowest share among the five archetypes, reflecting the absence of GPU accelerators in conventional enterprise refresh. All-in cost is $21.4M/MW (<code class="inline">dollar_per_mw_legacy</code>, <code class="inline">BOM_Weights!J8</code>) &mdash; roughly half the frontier tier &mdash; consistent with air-cooled, multi-tenant, brownfield-refresh economics. This is a non-frontier archetype by construction, but the co-ramp dynamic means the absolute dollar pool is growing even as its share of an expanding pool contracts.</p>
+    </div>
+
+    <div class="chart-caption">
+      <span class="chart-label">Chart 4</span>
+      Legacy Enterprise leads with LSE at 37% &mdash; a refresh-cycle, real-estate-heavy archetype where compute silicon is the lowest share (20%).
+      <span class="chart-source">Source: bom-token-model-2026-05-21 BOM_Weights tab Section A; analysis</span>
+    </div>
+
+    <div class="prose">
+      <p><em>Builders.</em> The traditional enterprise refresh stack is supplied by Cisco (CSCO), Dell EMC (DELL), HPE, Lenovo, Pure Storage (PSTG), and NetApp (NTAP). The 2026-Q1 disclosures across these names present a consistent picture of demand acceleration. HPE entered Q2 FY2026 with a record AI Systems backlog of $5 billion, "primarily composed of enterprise and sovereign orders" &mdash; a figure that distinguishes sharply from hyperscaler ordering patterns and signals that enterprise customers are adopting AI-adjacent infrastructure at institutional scale. CEO Antonio Neri also characterized traditional server as "very important for '27, '28 and '29," while HPE networking grew 152% year-on-year driven by the Juniper integration (HPE Q1 FY2026 Earnings Call Transcript, 2026-03-16). Dell's Q4 FY2026 AI-optimized server revenue reached $8.95B (+342% year-on-year) with FY2027 AI server guidance of approximately $50B; Cisco reported hyperscaler AI infrastructure orders of $1.3B in Q1 FY2026 against a full-year FY2026 target of approximately $3.0B from Silicon One systems and pluggable optics (both from Futurum research summaries of Q4 FY2026 / Q1 FY2026 earnings &mdash; primary transcripts not confirmed verbatim in this pass; figures treated as web-research sourced). The HPE backlog is the load-bearing primary-confirmed data point: $5B in enterprise-and-sovereign AI orders verified verbatim from an earnings transcript, confirmed co-ramp at institutional scale.</p>
+
+      <p><em>Operators.</em> The enterprise archetype is operated by Fortune 1000 in-house IT departments, sovereign government IT programs, and regulated industries &mdash; banking and financial services, healthcare systems, defense contractors &mdash; that maintain their own data center footprints on-premise or under colocation leases (Equinix, Digital Realty, CyrusOne, QTS). Synergy Research (via DCD, 2026-04-08) documented Enterprise at 32% of worldwide data center capacity as of end-2025, projected to compress to 19% by 2031 &mdash; share loss in a faster-growing pool, not absolute contraction. JPMorgan's April 2026 hardware and networking preview noted that enterprise customers are "acknowledging the need to refresh equipment sooner rather than later," with demand indications described as "strong" (JPMorgan, "Hardware &amp; Networking C1Q26 Preview," April 2026, Noldor). The HPE $5B AI backlog &mdash; explicitly enterprise and sovereign, not hyperscaler &mdash; is the clearest primary disclosure that a new demand category is co-populating the archetype alongside conventional IT refresh.</p>
+
+      <p><em>Users.</em> The primary workloads running on Legacy Enterprise infrastructure are conventional enterprise IT: ERP systems (SAP, Oracle), relational databases (Oracle Database, IBM Db2, Microsoft SQL Server), virtualization (VMware vSphere), enterprise storage (NetApp ONTAP, Pure Storage FlashArray), and backup and recovery infrastructure. These workloads are the non-AI GW bucket that McKinsey projects at 29% of US data center demand in 2030 (63.5 GW of 219.0 GW total), down from 47% in 2025 in share terms but growing in absolute megawatts (McKinsey, "Week in Charts: The future of AI workloads," 2026-02-24). The emerging use case layered on top of the traditional base is enterprise on-premise AI: retrieval-augmented generation (RAG &mdash; a technique that injects an organization's proprietary data into model context windows, enabling AI responses grounded in internal information without routing data to public cloud infrastructure) deployments, regulated-data inference for industries where data sovereignty or compliance precludes external cloud deployment, and sovereign AI programs that require classified-environment inference. The HPE $5B AI backlog &mdash; composed primarily of enterprise and sovereign orders &mdash; is the financial disclosure connecting the emerging AI use case to the Legacy Enterprise archetype. These are not hyperscale AI factories; they are enterprise and government customers building or retrofitting on-premise AI infrastructure within the cost and physical constraints of an existing facility base.</p>
+
+      <p><strong>Investability call.</strong> <em>Public anchors:</em> HPE (HPE), DELL (DELL), CSCO (CSCO), NTAP (NetApp), PSTG (Pure Storage), STX (Seagate &mdash; nearline HDD for storage refresh), WDC (Western Digital), LDOS (Leidos &mdash; sovereign and defense IT integrator); EQIX (Equinix), DLR (Digital Realty), IRM (Iron Mountain) for REIT-colo operators. <em>Private complements:</em> Rancher / SUSE (enterprise Kubernetes management for on-premise AI workloads), Veeam (backup and data protection at enterprise scale), CyberArk (privileged access management for regulated-industry IT). <em>Thesis:</em> The co-ramp dynamic &mdash; traditional IT refresh accelerating in parallel with AI-server adoption, not being displaced by it &mdash; means the Legacy Enterprise dollar pool grows in absolute terms through 2030 even as it loses capacity share to hyperscaler-archetype pools; HPE's record $5B enterprise-and-sovereign AI backlog signals that the archetype boundary is blurring toward AI-adjacent enterprise infrastructure, with sovereign AI programs and regulated-industry on-premise inference pulling a new demand category into facilities that carry the Legacy Enterprise BOM profile. The highest-conviction sub-trade within this archetype remains nearline storage (STX, WDC) &mdash; the Memory line at 21.39% (<code class="inline">BOM_Weights!D8</code>) carries 0% HBM and approximately 30% nearline HDD, making it the cleanest access to the AI-secular storage upgrade cycle without direct GPU-cycle exposure.</p>
+
+      <h3 class="subsection-title">4.4 Edge</h3>
+
+      <p>The Edge archetype carries the lowest all-in cost per megawatt of any archetype ($19.4M/MW, <code class="inline">dollar_per_mw_edge</code>) and the flattest BOM profile &mdash; no single category dominates above 26%. That flatness is the structural signature: distributed-footprint economics force every cost line to negotiate its share rather than any one line dictating the recipe. The archetype is also the most definitionally unstable of the five. Operators traditionally classified as "edge" are announcing buildouts at hyperscale-campus scale in 2026, and the boundary between Edge and Inference is under active pressure. We carry the archetype at its established BOM profile and flag the boundary drift explicitly.</p>
+
+      <p><strong>BOM signature.</strong> Compute Silicon leads at 25.46% (<code class="inline">BOM_Weights!C9</code>) &mdash; the lowest of any AI-capable archetype, reflecting thin GPU density at distributed scale. LSE (Land + Shell + EPC) is second at 24.42% (<code class="inline">BOM_Weights!H9</code>), elevated by the real-estate intensity of smaller distributed sites (0.5&ndash;10 MW typical) and the highest archetype LSE strip ratio (45%). Memory is third at 20.30% (<code class="inline">BOM_Weights!D9</code>), reflecting the locally-served inference cache requirement; sub-segment skews Enterprise SSD (~46%) and DDR5/LPDDR (~31%), with no HBM content. Power Infrastructure sits at 15.02% (<code class="inline">BOM_Weights!B9</code>) &mdash; the <strong>highest Power Infrastructure share of any archetype</strong> &mdash; because smaller facilities cannot amortize fixed power-conditioning overhead across enough silicon: DCPI (UPS, switchgear, transformers) consumes a disproportionate share of every Edge cluster dollar. The remaining lines &mdash; Networking + IC at 9.06% (<code class="inline">BOM_Weights!E9</code>, enterprise-networking-dominated: Cisco, Arista, Juniper, not NVLink), Fiber + Optics at 2.87% (<code class="inline">BOM_Weights!F9</code>), and Cooling at 2.87% (<code class="inline">BOM_Weights!G9</code>) &mdash; complete a recipe where no single category dominates above 26%. All-in cost of $19.4M/MW (<code class="inline">dollar_per_mw_edge</code> @ <code class="inline">BOM_Weights!J9</code>) is the lowest of any archetype; the distributed-footprint penalty shows up as Power Infrastructure weight, not as total dollars.</p>
+    </div>
+
+    <div class="chart-caption">
+      <span class="chart-label">Chart 5</span>
+      Edge skews to Power Infrastructure (15%) &mdash; the distributed-footprint premium of running compute outside hyperscale facilities.
+      <span class="chart-source">Source: bom-token-model-2026-05-21 BOM_Weights tab Section A; analysis</span>
+    </div>
+
+    <div class="prose">
+      <p><strong>Builders.</strong> Power Infrastructure dominance shapes the roster. <strong>Vertiv (VRT)</strong> leads with SmartMod prefab modular data center enclosures, PowerMod integrated power systems, and Galaxy VS/VX UPS &mdash; one of the rare suppliers with material revenue across three archetypes (Edge, Training-Core, Agentic). <strong>Schneider Electric (SU.PA)</strong> is second via EcoStruxure Micro INTEGRATE modular platforms and Galaxy VS/VM UPS. <strong>Eaton (ETN)</strong> covers the switchgear and 9000-series UPS tier for utility and industrial edge sites. <strong>EdgeConneX</strong> (private, EQT Infrastructure) is the canonical edge-colo operator &mdash; but its 2026 expansion program tests the archetype boundary directly. In February 2026 it announced a Sweden site with "potential capacity of up to one gigawatt" for AI and cloud workloads (EdgeConneX press release, 2026-02-26, Business Wire); in March 2026 a 200 MW AI-ready hyperscale campus in Greater Osaka. A concurrent 30+ MW Chicago/Atlanta Lambda partnership (August 2025) shows the company running dual strategies. <strong>Vapor IO</strong> (private): last verified primary milestone is the May 2024 $200M Series D for 50-metro Kinetic Grid expansion; no 2026-Q1+ primary announcement found in this research pass. Private company with no quarterly disclosure obligation &mdash; absence of an announcement is not a company-status assertion. This is an evidence gap, flagged as such. <strong>Equinix (EQIX)</strong> carries metro-edge exposure via xScale and Metro Edge; GXI 2024 (Noldor doc <code class="inline">GXI_2024_en-US</code>) projects edge interconnection bandwidth growing at 34% CAGR vs 33% for core metro. Equinix Q1 2026 not in research corpus. <strong>Digital Realty (DLR)</strong>: edge is a sub-segment of a broader portfolio.</p>
+
+      <p><strong>Operators.</strong> The Edge operator mix is the most heterogeneous of any archetype. CDN operators running compute &mdash; Cloudflare (Workers AI, 330+ GPU-equipped city PoPs), Akamai ("more than 4,300 edge points-of-presence in over 130 countries and approximately 700 cities," Akamai Form 10-K FY2025, p.3, <a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0001086222&amp;type=10-K" target="_blank">SEC EDGAR</a>), Fastly (Compute@Edge at ~80 large PoPs) &mdash; constitute one cluster. Telecom MEC (multi-access edge computing) sites form a second: Verizon and AT&amp;T metro PoPs, T-Mobile small-cell adjacencies, Open RAN AI orchestration at the radio access network edge. Industrial IoT operators form a third: manufacturing plant-floor inference, oil-and-gas field AI, retail in-store computer vision. Synergy Research distributes edge across the colo bucket (~20% operator-mix share) and the enterprise on-premises bucket (~32%); it does not isolate edge as a discrete segment, making this the most structurally diffuse operator category in the stack.</p>
+
+      <p><strong>Users.</strong> Latency-critical inference defines the use case: autonomous vehicle inference (sub-50ms), AR/VR spatial compute, real-time industrial process control, telco RAN inference, CDN edge-personalization, and retail in-store AI. Token-per-task volumes are typically smaller than centralized inference &mdash; edge is inference-at-point-of-consumption &mdash; but compute is constrained by power per cubic foot and thermal envelope rather than rack density or HBM bandwidth. The BOM over-indexes Power Infrastructure and under-indexes Compute Silicon relative to AI-frontier archetypes for exactly this reason: the binding physical constraint at the edge is power conditioned and delivered in a small footprint, not accelerator silicon assembled per rack.</p>
+
+      <p><strong>Investability call.</strong> <em>Public anchors:</em> VRT (Vertiv), SU.PA (Schneider Electric), ETN (Eaton) &mdash; the Power Infrastructure trio with the highest proportional Edge BOM revenue per cluster dollar, plus cross-archetype breadth; EQIX and DLR as metro-colocation anchors at a more conservative return profile. <em>Private complements:</em> EdgeConneX (EQT Infrastructure), EdgeCore (I Squared Capital), AtlasEdge (Stonepeak) &mdash; dual-track operators with simultaneous exposure to Edge and Inference BOM economics. <em>Thesis:</em> The Edge archetype's highest Power Infrastructure share (15.02%, <code class="inline">BOM_Weights!B9</code>) and lowest $/MW ($19.4M/MW, <code class="inline">dollar_per_mw_edge</code>) give Power Infrastructure vendors disproportionate Edge BOM capture. However, the definitional drift toward hyperscale-campus formats &mdash; EdgeConneX Osaka 200 MW and Sweden "up to one gigawatt" (EdgeConneX press releases, February&ndash;March 2026) &mdash; means that capex historically attributed to edge operators is increasingly being built at Inference BOM economics ($41.8M/MW, 44.4% Compute Silicon, <code class="inline">dollar_per_mw_inference</code> / <code class="inline">BOM_Weights!C7</code>) rather than Edge BOM economics ($19.4M/MW, 25.46% Compute Silicon, <code class="inline">BOM_Weights!C9</code>). Investors holding edge-colocation names for edge-AI exposure should re-underwrite the BOM profile of what those operators are actually building. We expect the Edge archetype as a conventionally defined investment category to compress over the 2026&ndash;2030 window, with its capex share consolidating into Inference and Agentic archetypes as buildout formats migrate upscale.</p>
+
+      <h3 class="subsection-title">4.5 Agentic AI</h3>
+
+      <p><em>BOM signature.</em> Agentic AI carries a 50.48% Compute Silicon share (<code class="inline">BOM_Weights!C10</code>) &mdash; second-highest of any archetype &mdash; and 10.42% LSE (Land + Shell + EPC; <code class="inline">BOM_Weights!H10</code>), the lowest of any archetype. The physical logic: NVL144 CPX racks at 370 kW deliver ~10.3x the density of typical 36 kW hyperscale racks (BofA "Who Makes the Data Center," Exhibit 32, Sep 2024; rack density rising from 36 kW hyperscale 2023 to 49 kW 2027F per JLL data in the same exhibit), compressing shell-and-core capex per MW by ~20-30% at the published 1MW-rack consensus benchmark (SemiAnalysis-derived industry analysis; Z_Sources #48). Memory is 17.02% (<code class="inline">BOM_Weights!D10</code>), below Inference's 18.72%, because agentic prefill-stage processing uses GDDR7 rather than HBM where prefill workloads are compute-bound. The structural differentiator is Networking + IC at 10.40% (<code class="inline">BOM_Weights!E10</code>) &mdash; second-highest of any archetype, driven by the disaggregated prefill/decode fabric and multi-agent inter-rack communication overhead. All-in cost of $34.6M/MW (<code class="inline">dollar_per_mw_agentic</code>, <code class="inline">BOM_Weights!J10</code>) sits below Inference's $41.8M/MW: the archetype trades peak-memory bandwidth for a larger networking fabric. BOM signature most closely resembles Training-Core &mdash; high Compute Silicon, lowest LSE &mdash; but at lower $/MW and with an elevated Net+IC that reflects always-on agentic workloads.</p>
+    </div>
+
+    <div class="chart-caption">
+      <span class="chart-label">Chart 6</span>
+      Agentic AI runs Compute Silicon (50%) close to Training-Core levels but lifts Net + IC (10%) &mdash; the multi-agent communication premium.
+      <span class="chart-source">Source: bom-token-model-2026-05-21 BOM_Weights tab Section A; analysis</span>
+    </div>
+
+    <div class="prose">
+      <p><em>Builders.</em> NVIDIA's Vera Rubin platform is the purpose-built silicon. Jensen Huang's GTC 2026 keynote framed it as an "AI Factory" &mdash; a facility category distinct from training clusters &mdash; with NVIDIA claiming a $1T order book through 2027 (Jensen Huang GTC 2026 keynote, ~2026-03). NVIDIA CFO Colette Kress confirmed at Q4 FY2026 earnings (Motley Fool, 2026-02-25; Noldor corpus) that GB300 NVL72 achieves "up to 50x performance per watt and 35x lower cost per token" versus Hopper-generation, and that Anthropic will deploy on Vera Rubin systems. Broadcom (AVGO) is the second anchor: Hock Tan confirmed Anthropic TPU capacity of 1 GW in 2026 and "expected to surge in excess of 3 gigawatts of compute" in 2027 (verbatim, Broadcom Q1 FY2026 earnings call, Motley Fool, 2026-03-04; Noldor corpus). On Memory, SK Hynix (5934.KS) holds 62% of the HBM market at Q2 2025 versus Micron (MU) 21% and Samsung 17% (Noldor doc <code class="inline">0ca8340b</code>, 2026-02-11); HBM4 supply is the binding per-cluster constraint. The Networking + IC elevation flows to Astera Labs (ALAB, Scorpio PCIe retimer), Credo Technology (CRDO, AEC interconnect), and Marvell (MRVL, scale-out switching).</p>
+
+      <p><em>Operators.</em> Three operator categories. First, hyperscalers building for the agentic era explicitly: Microsoft CEO Satya Nadella framed MSFT's $190B 2026 capex commitment as "building the world's leading cloud and AI infrastructure for the agentic computing era" (Microsoft Q3 FY2026 earnings, Nadella, 2026-04-29); Google Cloud, AWS, and Oracle are building equivalent agentic capacity. Second, agentic-native operators: Cognition's Devin, being deployed at Goldman Sachs to augment the firm's "12,000 human developers," where Goldman tech chief Marco Argenti said the AI "has the potential to boost worker productivity by up to three or four times the rate of previous AI tools" (verbatim, Argenti to CNBC, 2025-07-11). Third, GPU-as-a-service neoclouds &mdash; CoreWeave and Lambda &mdash; serving agentic API workloads on third-party capacity; Anthropic runs Claude Code production on CoreWeave.</p>
+
+      <p><em>Users.</em> The User decomposition carries the empirical case for the Gap Allocation Thesis. Four independent findings, published within a 15-week window ending May 2026, triangulate why incremental capex above consensus concentrates here.</p>
+
+      <p>Brynjolfsson, Pentland et al. (arXiv:2604.22750 v2, 2026-04-29; Noldor doc <code class="inline">56da39d6</code>) supply the foundational empirical result: "agentic tasks are uniquely expensive, consuming 1000x more tokens than code reasoning and code chat, with input tokens rather than output tokens driving the overall cost" (verbatim, abstract). The 30x intra-task variance is equally load-bearing &mdash; "runs on the same task can differ by up to 30x in total tokens" (verbatim, abstract) &mdash; meaning clusters must be provisioned for peak, not mean, inflating effective capacity requirements well above what a mean-task analysis produces.</p>
+
+      <p>METR Time Horizon 1.1 (2026-01-29) is the mechanism that makes the Brynjolfsson multiplier compound: the frontier task horizon has been doubling every 89 days since 2024 &mdash; significantly faster than the headline 7-month figure covering 2019&ndash;2025. Claude Opus 4.5 reaches a 320-minute (5.3-hour) median autonomous task horizon; GPT-5 214 minutes; o3 121 minutes. Each 89-day doubling delivers longer uninterrupted agentic sessions and more tokens per task, compounding into 2030.</p>
+
+      <p>The Anthropic Economic Index (January and March 2026 reports) provides the enterprise adoption signal: the enterprise API runs at a 75% automation rate &mdash; three-quarters of sessions are directive, automated workflows versus 45% on Claude.ai chat. Task diversification (top-10 tasks declining from 24% to 19% of conversations, November 2025 to February 2026) signals broad-based enterprise deployment, not narrow early-adopter experimentation. GitHub Copilot's shift to token-based billing effective June 1, 2026 &mdash; across 4.7M paid subscribers (+75% YoY) at 90% of Fortune 100 &mdash; converts the automation rate into a metered infrastructure demand stream (GitHub Blog, 2026).</p>
+
+      <p>Goldman Sachs Americas Technology's "Decoding the Agentic Economy" (2026-05-05; Noldor <code class="inline">189a2f4e</code>) supplies the top-down synthesis: "global token demand could rise by 2,400% versus 2026 levels" by 2030 (verbatim), driven by enterprise agent adoption at 37% of knowledge workers &mdash; computer programmers at 30M tokens/day per agent, financial/investment analysts at 5M &mdash; and consumer shift to always-on agents generating 23B AI queries per day by 2030 versus 5B today.</p>
+
+      <p>These four findings are mutually reinforcing. Goldman's 2,400% projection is the top-down occupational model; Brynjolfsson supplies the per-task empirical multiplier that mechanically drives Goldman's number; METR documents the capability doubling that compounds the multiplier over time; and the Anthropic Economic Index confirms the 75% enterprise API automation rate is a current-state measurement, not a forecast. One counter-thesis note belongs here: Patel (SemiAnalysis, 2026-05-01) argues value capture has shifted to frontier model labs &mdash; Anthropic ARR $9B to $44B, inference gross margins 38% to 70%+. That is a margin-capture argument about which stack layer keeps operating profit, not a claim about capex scale. Both can be simultaneously correct; &sect;6 treats the distinction at depth.</p>
+
+      <p><em>Investability call.</em> <strong>Public anchors:</strong> NVDA (dominant in both Compute Silicon and Networking + IC &mdash; the only archetype where NVDA holds the top slot in two BOM categories simultaneously); AVGO (XPU custom silicon scaling from 1 GW to 3+ GW Anthropic TPU capacity 2026&rarr;2027, plus AI networking at 33% of AI revenue and rising); MU and SK Hynix (5934.KS) (HBM4 supply is the per-cluster binding constraint); ALAB (Astera Labs &mdash; Scorpio retimer directly exposed to the elevated 10.40% Net+IC BOM share that structurally distinguishes Agentic from Inference); CRDO (Credo &mdash; AEC layer in the same scale-out fabric); MRVL (Marvell &mdash; scale-out switching); VRT (Vertiv &mdash; power and cooling infrastructure, cross-archetype exposure with the highest conviction at Agentic density); ANET (Arista &mdash; scale-out Ethernet switching in the multi-rack agentic fabric). <strong>Private complements:</strong> Cognition (Devin &mdash; the most concrete evidence of enterprise agentic deployment at institutional scale, with the Goldman 12,000-developer pilot); Lightmatter (silicon photonics for next-generation scale-up interconnect, directly exposed to the Net+IC BOM elevation). <strong>Thesis:</strong> The Agentic archetype's 50.48% Compute Silicon plus 10.40% Net+IC BOM combination, multiplied by the empirically measured 1,000x token intensity versus code chat (Brynjolfsson), means incremental capex above consensus concentrates disproportionately here. At Base &times; Concentrated knobs &mdash; $150B/yr incremental (<code class="inline">Incremental_Allocation!B5</code>), 75% agentic tilt (<code class="inline">Incremental_Allocation!B6</code>) &mdash; this allocation captures 48.4% of the five-year cumulative incremental pool in Compute Silicon (<code class="inline">Incremental_Allocation!B82</code>; <code class="inline">Incremental_Allocation!C82</code>), the load-bearing finding of the Gap Allocation Thesis.</p>
+    </div>
+  </section>
+
+
+  <section id="sec-5">
+    <header class="section-header">
+      <span class="section-num">&sect; V</span>
+      <div>
+        <span class="section-eyebrow">Scenario Analysis</span>
+        <h2 class="section-title">3&times;3 knob grid &mdash; magnitude scales dollars; tilt drives composition.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p>The scenario framework in this section turns on two independent knobs in the model's <code class="inline">Incremental_Allocation</code> tab. The first knob &mdash; <code class="inline">incremental_capex_per_year</code> (<code class="inline">Incremental_Allocation!B5</code>) &mdash; sets the annual dollar increment above the eight-source top-down consensus mean, across three settings: Modest ($75B/yr), Base ($150B/yr), and Stretch ($300B/yr). The second knob &mdash; <code class="inline">agentic_tilt_share</code> (<code class="inline">Incremental_Allocation!B6</code>) &mdash; sets the fraction of incremental dollars flowing into the Agentic AI archetype versus the remaining four, across three settings: Diffuse (0.50), Concentrated (0.75), and Pure (1.00). The 3&times;3 cross-product produces nine scenario corners spanning a $375B to $1,500B five-year cumulative pool and a Compute Silicon allocation range of approximately 42% to 50.5%. The incremental-capex knob addresses aggregate volume &mdash; how much capital above consensus enters the market. The agentic-tilt knob addresses composition &mdash; where within the five-archetype mix that capital lands. These are independent in the model; in practice, they likely co-move, because the demand driver behind above-consensus capex growth is agentic workload adoption, which also drives tilt concentration. That co-movement is the structural argument the Gap Allocation Thesis rests on.</p>
+
+      <h4 class="minor-head">Knob framing &mdash; author-constructed, third-party corroborated at the spread level</h4>
+      <p>Neither "$100-200B/yr above consensus" nor "75% agentic tilt" appears as a named scenario label in any published third-party research. We state this explicitly. What the literature supports is the <em>range</em> of outcomes being wide enough to accommodate all nine scenario corners &mdash; and the directional case for concentration being strong. The closest published structural analogue to the incremental-capex knob is McKinsey's three-scenario spread: $3.7T constrained / $5.2T base / $7.9T accelerated cumulative 2025-2030, anchored to 78 GW (constrained) and 205 GW (accelerated) of incremental AI data center gigawatts added over five years (McKinsey, "The cost of compute: A $7 trillion race to scale data centers," 2025-04-28). That spread implies an average of approximately $840B/yr across the constrained-to-accelerated range &mdash; wider than this model's entire Modest-to-Stretch band of $225B/yr. The model's three incremental-capex settings are thus <em>internal</em> to McKinsey's scenario fan.</p>
+
+      <p>Mapping the three settings to the nearest corroborating third-party evidence: the Modest setting ($75B/yr incremental) is already partially validated &mdash; Platformonomics's Q1 2026 scorecard documents that the top-4 hyperscalers ran $35-65B above the January 2026 consensus within a single quarter, placing even Modest's annual target within striking distance of in-year realization (Platformonomics, "Follow the CAPEX Q1 2026 Scoreboard," 2026-04-30). The Base setting ($150B/yr) aligns with IDC's implicit 2026-2029 growth trajectory &mdash; IDC forecasts AI infrastructure spending rising from approximately $153B (2024) to approximately $318B (2025) to more than $1T (2029), implying roughly $170-200B in incremental annual spend across that arc (IDC, "AI Infrastructure Spending Caps Historic Year," 2026). The Stretch setting ($300B/yr) is consistent with McKinsey's accelerated scenario and with the 2027 hyperscaler capex trajectory Evercore ISI placed above $1.1T after Q1 2026 earnings &mdash; a figure that itself implies a year-on-year increment of $300-400B above 2026 (Evercore ISI, "Semis on Fire &mdash; HyperCapEx 1 Trillion Milestone," 2026-05-01, Noldor).</p>
+
+      <p>The agentic-tilt knob is directionally corroborated by five independent signals, none of which publishes a percentage at the archetype level. Microsoft's Satya Nadella framed MSFT's $190B 2026 capex as "building the world's leading cloud and AI infrastructure for the agentic computing era" (Microsoft Q3 FY2026 earnings, 2026-04-29) &mdash; the clearest hyperscaler executive statement that marginal infrastructure investment is agentic-purpose, though unquantified as a share. Jensen Huang's GTC 2026 keynote defined "AI Factories" &mdash; NVIDIA's architectural label for agentic-optimized clusters &mdash; as a structurally distinct infrastructure category and cited a $1T NVIDIA order book through 2027 tied to inference and agentic demand (NVIDIA GTC 2026 keynote, March 2026). Deloitte's 2026 TMT Predictions projected two-thirds of AI compute shifting to inference by 2026, up from one-quarter in 2025, with agentic workloads explicitly called the "biggest cost contributor" to inference demand (Deloitte, "More compute for AI, not less," 2025-11-17). Q1 2026 industry-press synthesis of Big Tech earnings calls (artificialintelligence-news.com aggregating coverage across multiple outlets) documents agentic workloads as CPU-intensive at scale &mdash; the precise per-GW CPU-core count was claimed in some pieces but is not independently verifiable from the aggregator; the directional claim that agentic facilities run higher CPU intensity per GW than training clusters is supported by Broadcom's XPU customer disclosures (&sect;4.1, &sect;4.5) and Microsoft's "agentic computing era" capex framing, which together imply dollar-weighted capex concentration in agentic facilities exceeds their megawatt share &mdash; supporting a tilt coefficient above 0.50 on a dollar basis (AI News, 2026-04-30). Raymond James's aggressive scenario forecasts a 5x increase in inferencing spend by 2029, with inference expansion as the primary driver (Raymond James, Semiconductor LaunchPad, 2025, Noldor). <em>Critical caveat:</em> inference is not agentic. Every source cited here uses inference broadly; the model's "agentic-archetype facility" concept &mdash; with its distinct BOM profile (50.48% Compute Silicon, 10.40% Net+IC) &mdash; has no precise third-party analogue beyond NVIDIA's "AI Factories" framing. The tilt percentages in the knob are model inputs, not third-party citations. The Diffuse (0.50) setting reflects broad inference expansion with no agentic-specific concentration; the Concentrated (0.75) setting requires directional concentration into agentic-architecture facilities above the broad-inference floor; the Pure (1.00) setting is a modeling extreme where all incremental dollars land in Agentic AI facilities. No source endorses the 0.75 or 1.00 settings as a stated percentage; the corroboration is structural, not numerical.</p>
+
+      <h4 class="minor-head">The 3&times;3 scenario grid</h4>
+      <p>Chart 10 renders the Compute Silicon allocation share across all nine corners as a heatmap; Chart 11 shows the one-way knob sensitivities on the Compute Silicon share headline as a tornado. The table below presents the five-year cumulative incremental pool (absolute dollars) and the Compute Silicon percentage of that pool for each corner. Two structural observations constrain the table before reading the numbers: first, the cumulative pool scales linearly with <code class="inline">incremental_capex_per_year</code> and is independent of <code class="inline">agentic_tilt_share</code> &mdash; changing tilt does not change total dollars, only composition; second, the Compute Silicon allocation percentage depends on tilt but not on magnitude &mdash; the same Concentrated (0.75) tilt produces 48.4% Compute Silicon at $750B as it does at $1,500B, because the percentage is a share of the incremental pool, not of total industry capex.</p>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Diffuse (0.50)</th>
+          <th>Concentrated (0.75)</th>
+          <th>Pure (1.00)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Modest ($75B/yr)</strong></td><td class="num">$375B / ~42% CS</td><td class="num">$375B / ~46% CS</td><td class="num">$375B / ~50.5% CS</td></tr>
+        <tr class="highlight"><td><strong>Base ($150B/yr)</strong></td><td class="num">$750B / ~42% CS</td><td class="num"><strong>$750B / 48.4% CS</strong></td><td class="num">$750B / ~50.5% CS</td></tr>
+        <tr><td><strong>Stretch ($300B/yr)</strong></td><td class="num">$1,500B / ~42% CS</td><td class="num">$1,500B / ~46% CS</td><td class="num">$1,500B / ~50.5% CS</td></tr>
+      </tbody>
+    </table>
+
+    <div class="prose">
+      <p>The default Base &times; Concentrated corner &mdash; bolded above &mdash; carries the model's canonical output: <code class="inline">Incremental_Allocation!B82</code> shows $362.8B of a $750.0B five-year cumulative pool allocated to Compute Silicon; <code class="inline">Incremental_Allocation!C82</code> confirms 48.4% of the total. At Pure (1.00), the blended incremental allocation approaches Agentic AI's standalone BOM weight of 50.48% (<code class="inline">BOM_Weights!C10</code>) &mdash; at 100% tilt, no dollar enters any other archetype. The Diffuse (0.50) column produces approximately 42% Compute Silicon across all three magnitude rows, a blend of Agentic AI's 50.48% and the remaining archetypes' Compute Silicon shares (19.73% Legacy Enterprise to 44.44% Inference). Modest &times; Diffuse ($375B, ~42%) is the consensus-consistent scenario: above-consensus capex exists but distributes broadly and produces no single-category overweight above the installed-base mean. Stretch &times; Pure ($1,500B, ~50.5%) requires both the McKinsey accelerated-case capex trajectory and complete agentic concentration &mdash; a useful analytical bound, not a base case.</p>
+    </div>
+
+    <div class="chart-caption">
+      <span class="chart-label">Chart 10</span>
+      Compute Silicon allocation share is dominated by the agentic-tilt knob; incremental-capex magnitude scales absolute $ but does not move the % allocation.
+      <span class="chart-source">Source: bom-token-model-2026-05-21 Incremental_Allocation tab; analysis</span>
+    </div>
+
+    <div class="prose">
+      <h4 class="minor-head">Portfolio implications per scenario</h4>
+      <p>The investment call varies most sharply along the tilt axis, less along the magnitude axis.</p>
+
+      <p><em>Modest &times; Diffuse.</em> Compute Silicon benefits modestly &mdash; no single BOM category commands a variant-view overweight above its installed-base share. The higher-conviction plays here are Memory (HBM is more architecture-bound than tilt-sensitive: both inference and agentic archetypes demand it regardless of tilt) and LSE exposure via Legacy Enterprise, where the co-ramp dynamic still absorbs Diffuse incremental spend.</p>
+
+      <p><em>Base &times; Concentrated (default).</em> The Gap Allocation Thesis is fully expressed: Compute Silicon at 48.4% sits approximately 6-8 percentage points above the blended installed-base mean. Memory (HBM) is the secondary position, sustained by the memory-bandwidth-constrained economics of both inference and agentic archetypes receiving the large majority of incremental dollars. Networking + IC at 10.40% of the Agentic BOM (<code class="inline">BOM_Weights!E10</code>) is the tertiary trade &mdash; agentic-tilt concentration directs a structurally elevated share of Net+IC dollars into the disaggregated prefill/decode fabric. LSE is the underweight: concentrated tilt lands in compute-dense archetypes where LSE runs 10&ndash;19% of BOM versus 37% in Legacy Enterprise.</p>
+
+      <p><em>Stretch &times; Pure.</em> All-in agentic amplifies Base &times; Concentrated on every dimension. Compute Silicon approaches its archetype ceiling; Networking + IC becomes co-equal as the Agentic Net+IC share (10.40%, <code class="inline">BOM_Weights!E10</code>) versus Training-Core (8.75%, <code class="inline">BOM_Weights!E6</code>) produces a material absolute dollar overweight at $1.5T cumulative. NVDA, AVGO, ALAB, CRDO, and MRVL all receive the full benefit; LSE is at maximum underweight.</p>
+    </div>
+
+    <div class="chart-caption">
+      <span class="chart-label">Chart 12</span>
+      Agentic AI absorbs 75% of incremental capex annually ($112.5B/yr) at Concentrated tilt; the other four archetypes split the remaining $37.5B/yr pro-rata to 2029 baseline shares.
+      <span class="chart-source">Source: bom-token-model-2026-05-21 Incremental_Allocation tab; analysis</span>
+    </div>
+
+    <div class="prose">
+      <h4 class="minor-head">Knob sensitivity ranking</h4>
+      <p>The two knobs are not symmetric. <code class="inline">agentic_tilt_share</code> drives the Compute Silicon percentage: Diffuse to Pure is a ~9 percentage-point swing (42% &rarr; 50.5%) regardless of capex magnitude. <code class="inline">incremental_capex_per_year</code> scales absolute dollar exposure but does not move the percentage at any given tilt &mdash; Modest &times; Concentrated and Stretch &times; Concentrated both land near 48.4% Compute Silicon, with a $750B absolute dollar difference in the sub-pool. Chart 11 renders this asymmetry: the tilt bar dominates the Compute Silicon share axis; the magnitude bar dominates the absolute-dollar axis. The practical implication: the headline 48.4% conviction rests on the agentic-concentration claim more than the aggregate-capex-beat claim. Investors who accept the McKinsey-range aggregate but doubt Concentrated tilt should position for broad BOM participation (~42% CS); investors who accept both hold the headline.</p>
+    </div>
+
+    <div class="chart-caption">
+      <span class="chart-label">Chart 11</span>
+      Incremental-capex magnitude is the dominant swing factor on the Compute Silicon $ headline ($181B-$726B); agentic-tilt and refresh-treadmill swings are 5-10x smaller.
+      <span class="chart-source">Source: bom-token-model-2026-05-21 Incremental_Allocation tab; analysis</span>
+    </div>
+
+    <div class="prose">
+      <p><strong>We lean Base &times; Concentrated as the most defensible mid-case.</strong> Three lines of support: McKinsey's constrained-to-accelerated spread ($3.7T&ndash;$7.9T cumulative) places $150B/yr comfortably within the constrained-to-base gap; the higher CPU intensity of agentic facilities versus training clusters (Q1 2026 earnings-press synthesis, AI News, 2026-04-30) is the structural mechanism that supports dollar-weighted tilt above 0.50 on a BOM basis; and the 2026 in-year consensus beat &mdash; $35-65B above the January 2026 consensus in Q1 alone per Platformonomics &mdash; validates that even Modest understates near-term realized spend. The next 18 months of hyperscaler capex disclosure will adjudicate tilt more than magnitude. The signal to watch is workload-type framing in earnings calls, not headline capex totals: a sustained Nadella "agentic computing era" cadence at MSFT, Huang "AI Factories" order-book growth at NVDA, and above-50% inference-versus-training GPU allocation in new build announcements all shift the posterior toward Concentrated. Reversion to training-cluster predominance shifts it toward Diffuse. We expect the answer to be available earlier than consensus anticipates &mdash; hyperscalers began framing capex by workload type in 2026 for the first time.</p>
+    </div>
+  </section>
+
+
+  <section id="sec-6">
+    <header class="section-header">
+      <span class="section-num">&sect; VI</span>
+      <div>
+        <span class="section-eyebrow">Risks + Thesis</span>
+        <h2 class="section-title">Risk register, Patel counter-thesis at depth, bottom-line closer.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p>The risk register and counter-thesis that follow govern re-underwriting criteria for the Gap Allocation Thesis. We hold the thesis at base-case conviction, but each risk below is tied to a specific model assumption that would flip under the named trigger. The counter-thesis &mdash; Dylan Patel's May 2026 "value capture has shifted to model labs" argument &mdash; receives a full treatment here rather than an italicized paragraph, because the distinction between margin capture and capex scale is the single most important analytical fence-post for readers who find both views plausible.</p>
+
+      <h3 class="subsection-title">Part 1 &mdash; Risk register</h3>
+
+      <h4 class="minor-head">Market</h4>
+    </div>
+
+    <div class="risk-block">
+      <div class="risk-label">Risk M1 &mdash; Agentic adoption follows a diffuse token pattern &middot; Severity: Medium</div>
+      <p>The Brynjolfsson 1,000x multiplier (arXiv:2604.22750 v2, 2026-04-29; Noldor <code class="inline">56da39d6</code>) is an empirical result on agentic coding tasks. If the majority of enterprise agentic deployment concentrates in lower-intensity use cases &mdash; notification routing, calendar coordination, lightweight document summarization &mdash; average tokens per session will land far below the 1,000x benchmark, and the Goldman 2,400% token-demand projection (Goldman Sachs Americas Tech, "Decoding the Agentic Economy," 2026-05-05; Noldor <code class="inline">189a2f4e</code>) requires significant haircut.</p>
+      <p><em>Tied assumption:</em> <code class="inline">agentic_tilt_share</code> at or below 0.50 (<code class="inline">Incremental_Allocation!B6</code>), compressing Compute Silicon's allocation share toward the blended BOM mean.</p>
+      <p><em>Re-underwriting trigger:</em> Two consecutive quarters of enterprise API usage data showing mean tokens-per-session trending below the Brynjolfsson 1,000x benchmark at scale.</p>
+    </div>
+
+    <div class="risk-block">
+      <div class="risk-label">Risk M2 &mdash; Scaling-wall compression reduces frontier-model demand &middot; Severity: Low</div>
+      <p>Post-DeepSeek efficiency gains and sub-scaling-law diminishing returns could slow frontier-model release cadence. If frontier labs achieve capability milestones on smaller clusters, training-core capex growth decelerates, reducing the addressable pool for the Gap Allocation Thesis. The scaling-wall arXiv literature (arXiv:2512.20264, 2603.28507, and 2503.08223) identifies a data-wall bottleneck as finite human-generated text constrains pre-training; these papers were identified in research but not downloaded and verbatim-verified and are cited as directional context only.</p>
+      <p><em>Tied assumption:</em> Training-Core compute capex growth rate embedded in the Triangulation tab's annual stack.</p>
+      <p><em>Re-underwriting trigger:</em> Frontier-model release cadence stretching beyond 12-month intervals at the three largest labs for two consecutive generations, combined with publicly stated cluster-size reduction versus the prior generation.</p>
+    </div>
+
+    <div class="prose">
+      <h4 class="minor-head">Operational</h4>
+    </div>
+
+    <div class="risk-block">
+      <div class="risk-label">Risk O1 &mdash; Power-grid interconnect bottlenecks slow capex realization &middot; Severity: High</div>
+      <p>Janus Henderson's March 2026 analysis finds 84.7 GW deliverable against 157 GW announced &mdash; a 72 GW gap with a 54% conversion rate, driven by power-grid interconnect queues, permitting timelines, and transformer lead times (Janus Henderson, "Data center power: why the key risk is under-delivery, not overbuild," 2026-03-05). Grid interconnection queues in major US markets currently run three to five years. Capex commitments that do not reach powered IT load on schedule carry no revenue until delivery.</p>
+      <p><em>Tied assumption:</em> <code class="inline">installed_mw_2030</code> annual flow in the Triangulation tab's MW supply-demand block -- specifically the 20%/yr refresh treadmill's compounding of each year's powered additions.</p>
+      <p><em>Re-underwriting trigger:</em> The Janus Henderson deliverability ratio dropping below 50% (versus the current 54%) over two consecutive quarterly surveys, or FERC interconnection queue data showing median grid-connection timelines extending beyond 60 months.</p>
+    </div>
+
+    <div class="risk-block">
+      <div class="risk-label">Risk O2 &mdash; HBM4 supply shortfall constrains inference and agentic builds &middot; Severity: High</div>
+      <p>SK Hynix holds 62% of the HBM market entering the HBM4 transition (Noldor <code class="inline">0ca8340b</code>, 2026-02-11); HBM4 at 2,048-bit / 2TB/s per stack is the memory sub-system for every Blackwell Ultra and Vera Rubin GPU deployed in inference and agentic facilities. TSMC CoWoS (chip-on-wafer-on-substrate -- the advanced packaging process that integrates GPU silicon with HBM stacks) capacity sits at 120,000 wafers per month at end-2026, growing to 170,000 by end-2027, per KGI Securities (KGI Securities, "Semiconductor Chipflation Monthly," 2026-04-14; Noldor). A shortfall in HBM4 production -- Samsung qualification failures, Micron yield issues, or a CoWoS capacity ceiling -- would slow cluster delivery independent of capital availability.</p>
+      <p><em>Tied assumption:</em> Memory BOM-line absolute dollar output in 4.2 (Inference) and 4.5 (Agentic), both carrying HBM4 as the primary memory sub-segment.</p>
+      <p><em>Re-underwriting trigger:</em> SK Hynix or Micron 2027 HBM4 capacity guidance more than 15% below current consensus estimates over two consecutive quarterly guidance cycles.</p>
+    </div>
+
+    <div class="risk-block">
+      <div class="risk-label">Risk O3 &mdash; TSMC CoWoS ceiling tighter than the KGI base case &middot; Severity: High</div>
+      <p>The 170,000 kwpm end-2027 KGI target carries an explicit "we currently lack sufficient evidence to validate" qualifier on the 200,000 upside scenario. CoWoS is the bottleneck on packaging HBM with GPU die; any supply disruption at Hsinchu -- natural disaster, geopolitical event, N2 reticle yield loss -- compresses Compute Silicon BOM delivery independent of demand.</p>
+      <p><em>Tied assumption:</em> Compute Silicon BOM-line absolute dollar output in 4.1 (<code class="inline">BOM_Weights!C6</code>) and 4.5 (<code class="inline">BOM_Weights!C10</code>).</p>
+      <p><em>Re-underwriting trigger:</em> KGI Securities or comparable primary semiconductor-supply research revising the 170,000 kwpm 2027 CoWoS target downward in any quarterly update.</p>
+    </div>
+
+    <div class="prose">
+      <h4 class="minor-head">Financial</h4>
+    </div>
+
+    <div class="risk-block">
+      <div class="risk-label">Risk F1 &mdash; Margin capture migrates to model labs &middot; Severity: Medium</div>
+      <p>The canonical counter-thesis, treated at depth in Part 2 below. Patel's argument is not that capex stops -- it is that hardware vendors fail to reprice into the value they create, ceding operating profit to Anthropic and OpenAI while remaining volume suppliers at commodity margins.</p>
+      <p><em>Tied assumption:</em> Capex-pool concentration is agnostic to hardware-vendor margins; investors holding NVDA and TSMC as expressions of this thesis carry an additional equity risk the BOM math does not price.</p>
+      <p><em>Re-underwriting trigger:</em> NVIDIA or TSMC gross margin compression greater than 300 basis points over two consecutive quarters despite greater than 90% utilization -- the specific combination Patel identifies as the pricing-power anomaly.</p>
+    </div>
+
+    <div class="risk-block">
+      <div class="risk-label">Risk F2 &mdash; Software throughput gains defer hardware refresh &middot; Severity: Medium</div>
+      <p>Patel documents that wide expert parallelism (EP), disaggregation, and multi-token prediction (MTP) can deliver 14x throughput improvement on the same B300 hardware without any new silicon (SemiAnalysis, "AI Value Capture -- The Shift To Model Labs," 2026-05-01). If software efficiency compounds faster than token demand grows, operators extend hardware useful life and compress the refresh-treadmill assumption. Goldman identifies chip useful life as "the single most influential variable in determining the scale of cumulative AI infrastructure investment" -- the $4T-$8T spread is driven primarily by this assumption (Goldman Sachs, "Tracking Trillions," 2026-05-01).</p>
+      <p><em>Tied assumption:</em> The 20%/yr annual hardware refresh rate (consistent with a 4-5 year effective economic life but not cited as a named figure by any single source -- see &sect;7).</p>
+      <p><em>Re-underwriting trigger:</em> Hyperscaler accounting useful-life extensions beyond six years across two of the four largest hyperscalers in the same fiscal year, or a SemiAnalysis throughput benchmark showing greater than 20x software-only gains on the same hardware generation.</p>
+    </div>
+
+    <div class="prose">
+      <h4 class="minor-head">Regulatory</h4>
+    </div>
+
+    <div class="risk-block">
+      <div class="risk-label">Risk R1 &mdash; Export controls expand to allied nations or new chip classes &middot; Severity: Medium</div>
+      <p>The memo's geographic anchor is US-and-allied-nation scope. The current Commerce BIS (Bureau of Industry and Security -- the US agency that administers export controls on dual-use technologies) framework restricts Blackwell-class chips to China and select other nations. An expansion to allied purchasers or a new performance-threshold classification would compress the addressable geography for the Compute Silicon thesis.</p>
+      <p><em>Tied assumption:</em> Compute Silicon US-and-allies geographic scope.</p>
+      <p><em>Re-underwriting trigger:</em> A new BIS rule expanding the restricted-entity list to allied nations, or a chip-class restriction covering the B200/GB300 performance tier for any sovereign customer outside the current exemption.</p>
+    </div>
+
+    <div class="prose">
+      <h4 class="minor-head">Macro</h4>
+    </div>
+
+    <div class="risk-block">
+      <div class="risk-label">Risk Mac1 &mdash; Macro slowdown delays enterprise agentic adoption &middot; Severity: Low</div>
+      <p>Enterprise agentic deployment -- which requires meaningful integration work -- is more deferrable than hyperscaler infrastructure committed under multi-year capex programs. A US or global recession in 2026-2027 would delay the 75% enterprise API automation rate spreading from early adopters to the broader Fortune 1000, compressing <code class="inline">agentic_tilt_share</code> realization in the near term even if the long-run trajectory holds.</p>
+      <p><em>Tied assumption:</em> <code class="inline">agentic_tilt_share</code> realization rate in years 2026-2027 (<code class="inline">Incremental_Allocation!B6</code>).</p>
+      <p><em>Re-underwriting trigger:</em> Enterprise software CIO surveys showing AI budget growth compressing below 10% year-on-year for two consecutive quarters, combined with hyperscaler enterprise-segment revenue growth decelerating versus hyperscaler capex commitments.</p>
+    </div>
+
+    <div class="prose">
+      <h3 class="subsection-title">Part 2 &mdash; Counter-thesis at depth: Patel / SemiAnalysis "The Shift To Model Labs"</h3>
+
+      <p>The canonical 2026 counter-thesis to the infrastructure-capex investment case is Dylan Patel's "AI Value Capture -- The Shift To Model Labs," published May 1, 2026 (SemiAnalysis, Dylan Patel, 2026-05-01; URL: <a href="https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model" target="_blank">https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model</a>). It receives a full treatment here rather than an italicized paragraph, because the central framing -- value has migrated permanently up the stack -- is the most analytically serious challenge to holding infrastructure names as expressions of the AI-capex build-out.</p>
+
+      <p><strong>Patel's argument in his own framing.</strong> Patel argues that the period 2023-2025 was defined by infrastructure capturing all AI value -- NVIDIA's post-split run in 2024, power names up 150-265%, memory vendors up 200%+ -- while model creators sustained "famously bad" gross margins on inference. The inflection came in December 2025 when agentic AI began to operate at scale. Since then, Anthropic's ARR has risen from $9B to "over $44B" (as of May 2026 per Patel; cross-checked against Madrona's earlier $9B to $30B figure for Q1 2026, which does not reconcile with the May number across a 1-2 month window -- Patel's figure used with attribution; the gap is flagged) and gross margins on inference infrastructure have risen from 38% to "over 70%" in the same period. Patel frames this as value that was previously "venting vast value into every vertical of the ecosystem" now being captured by the model layer. His GPU rental economics framework shows a Vera Rubin NVL72 needs $4.92/hour for neoclouds to achieve a 15.6% project IRR, with a value-based ceiling of $9.63-$12.25/hour -- meaning hardware is being sold at commodity cost while the consumer of that hardware earns model-layer margins an order of magnitude higher. The software efficiency dimension compounds: Patel calculates that wide expert parallelism, disaggregation, and MTP can 14x throughput on the same B300 hardware. On supply: NVIDIA and TSMC have not raised prices commensurately despite N3 utilization expected to exceed 100% in H2 2026 and DRAM fabs above 90%. And the reason value will not be competed away at the model layer: open-source models are "still noticeably worse than their closed source counterparts," compute supply constraints mean no single frontier lab can serve the entire market, and token demand will "far outstrip supply for the foreseeable future."</p>
+
+      <p><strong>The numbers that move if Patel is right.</strong> If hardware vendors fail to reprice into the value-based ceiling Patel describes, NVIDIA gross margin at sustained high utilization stagnates rather than expands; TSMC margin at N3 above 100% utilization shows no pricing-power uplift. The contrasting numbers -- if Patel is wrong -- are NVDA gross margins approaching 80%+ (versus current approximately 75%) and TSMC N3 blended margin expansion of 300-500 basis points above consensus as utilization stretches capacity. Those are the empirical test of which framing wins: hardware-repricing or model-lab-capture.</p>
+
+      <p><strong>The critical distinction: margin capture versus capex scale.</strong> Patel is arguing about which stack layer retains operating profit. This memo is arguing about where capex pools concentrate at the BOM level. These are different investment questions. The capex build-out continues whether or not NVIDIA raises its prices: hyperscalers are committed to $695-725B in 2026 capex (post-Q1 actuals; TrendForce, Top-9 CSP 2026 CapEx revision, 2026-05-06; Triangulation tab, row 33), and the physical constraints behind the Gap Allocation Thesis -- 72 GW deliverability gap, HBM4 supply tightness, CoWoS capacity ceiling -- persist regardless of who captures the margin on each GPU sold. Patel's argument does not assert that hyperscaler capex will slow; he cites the same utilization data that supports continued buildout. What he asserts is that the equity returns on infrastructure names will disappoint relative to model-lab equity if hardware vendors fail to reprice. That assertion may be correct. It does not invalidate the finding that incremental capex above consensus concentrates 48.4% in Compute Silicon at Base x Concentrated knobs (<code class="inline">Incremental_Allocation!B82</code>; <code class="inline">Incremental_Allocation!C82</code>). The memo predicts capex pool allocation. It does not predict NVIDIA or TSMC equity returns. Bain's DeepSeek analysis is instructive on the same boundary: Bain's bear scenario -- AI training budgets shrink, cloud capex drops $40-60B/yr -- was explicitly constructed as a hypothesis, and Bain's own conclusion is that the bear case has not materialized (Bain, "DeepSeek: A Game Changer in AI Efficiency?," approximately 2025). DeepSeek-class efficiency is a cost-compression event; the Jevons paradox (the principle that efficiency gains in resource use tend to increase total consumption of that resource, named for economist William Stanley Jevons) predicts that cheaper inference increases total token demand, expanding rather than contracting the infrastructure pool. The BofA "ROI gap" argument -- hyperscaler capex consuming approximately 94% of operating cash flows against approximately $25B in current AI services revenue -- is directional context only, unverified from the primary BofA report; it is best read as a timing argument (revenue catches up to capex in the outer years) rather than a capex-will-stop argument.</p>
+
+      <p><strong>Decision criterion.</strong> Over the next 6-18 months, NVIDIA and TSMC gross margin trajectory at greater than 90% utilization is the empirical test. Sustained gross margin expansion -- NVDA above 78%, TSMC above 55% at N3 loads -- validates that infrastructure vendors are capturing a share of the margin pool Patel describes, and the capex-scale plus margin-capture combination becomes the highest-conviction infrastructure thesis. Sustained gross margin compression or stagnation despite those utilization levels validates Patel: the capex build-out continues, but equity returns concentrate in the model-lab layer. Both outcomes are consistent with the Gap Allocation Thesis on capex pool allocation. Only one of them is consistent with holding NVDA and TSMC as the primary equity expression of that thesis.</p>
+
+      <h3 class="subsection-title">Part 3 &mdash; Bottom-line thesis closer</h3>
+
+      <p>We believe the five-year window 2026-2030 is the highest-conviction period to hold Compute Silicon exposure across AI infrastructure. The variant view is that BU demand-implied capex meaningfully exceeds the $4.3T mean of eight top-down consensus sources, and that the most honest statement of the gap is in megawatts rather than dollars: Janus Henderson's 72 GW deliverability shortfall (Janus Henderson, "Data center power: why the key risk is under-delivery, not overbuild," 2026-03-05), BCG's independent 50-80 GW US estimate, RAND's 82 GW US net-available projection, and the Oxford Smith School's 35-50% bragawatts conversion rate all corroborate from independent methodologies that announced capacity projections overstate deliverable capacity. The investable question is not whether demand exists -- the Goldman 2,400% token-demand projection and the Brynjolfsson 1,000x empirical agentic multiplier establish demand with the strongest corroboration this research program has produced -- but where the capital that actually reaches completion concentrates. At Base x Concentrated knobs, that answer is $362.8B of Compute Silicon out of a $750.0B five-year cumulative incremental pool -- 48.4% of marginal spend in one BOM category (<code class="inline">Incremental_Allocation!B82</code>; <code class="inline">Incremental_Allocation!C82</code>). Agentic AI facilities are the marginal consumer of incremental capex above consensus. HBM is the second-order position: inference and agentic archetypes are both memory-bandwidth-constrained, and the HBM4 upgrade cycle delivering 67% bandwidth improvement over HBM3E at 2TB/s per stack is the supply-side enabler the demand curve requires. Dylan Patel's margin-capture argument is orthogonal to this finding: it addresses which stack layer retains operating profit, not whether the capex pool exists or where it concentrates at the BOM level. That distinction matters for how investors position across the infrastructure stack -- it does not change the BOM math.</p>
+    </div>
+  </section>
+
+
+  <section id="sec-7">
+    <header class="section-header">
+      <span class="section-num">&sect; VII</span>
+      <div>
+        <span class="section-eyebrow">Methodology</span>
+        <h2 class="section-title">Reconstructing the 48.4% headline from six disclosures.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p>A careful analyst with access to the linked model should be able to reconstruct the headline 48.4% Compute Silicon allocation from the six disclosures below. Every model-cell reference is navigable; every number in &sect;&sect;1&ndash;5 ties to a named cell.</p>
+
+      <h3 class="subsection-title">7.1 Per-supplier split decisions</h3>
+
+      <p>When a vendor sells into multiple BOM categories, we apply a fixed revenue split so each dollar sits in exactly one category:</p>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Supplier</th>
+          <th>Split applied</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Vertiv (VRT)</td><td>60% Power Infrastructure / 40% Cooling</td><td>VRT 10-K FY2025 segment data</td></tr>
+        <tr><td>Schneider Electric (DC portion)</td><td>70% Power Infrastructure / 30% Cooling</td><td>Schneider 10-K, Secure Power segment</td></tr>
+        <tr><td>Coherent (COHR)</td><td>15% Compute Silicon / 85% Fiber + Optics</td><td>COHR 10-K segment (CPO revenue vs transceiver/datacom)</td></tr>
+        <tr><td>Lumentum (LITE)</td><td>10% Compute Silicon / 90% Fiber + Optics</td><td>LITE 10-K segment (approximate; co-packaged optics ramp still sub-scale)</td></tr>
+        <tr><td>Broadcom (AVGO)</td><td>AI semiconductor revenue split between Compute Silicon (XPU design revenue &mdash; custom ASICs for hyperscaler customers) and Networking + IC (Tomahawk/Jericho switching ASICs and AECs reassigned)</td><td>AVGO Q1 FY2026 earnings segment disclosure; $10.7B Q2 AI semiconductor guide</td></tr>
+        <tr><td>TSMC</td><td>Revenue carried entirely in Compute Silicon (wafer baseline); HBM pass-through &mdash; HBM revenue embedded in NVDA/AMD GPU ASPs &mdash; excluded from Compute Silicon and carried in Memory</td><td>Deutsche Bank Micron Initiation, July 2025 (Noldor); $145B HBM stripped from Compute Silicon in the 2029 Base haircut</td></tr>
+      </tbody>
+    </table>
+
+    <div class="prose">
+      <p>The combined Compute Silicon gross-to-net haircut at 2029 Base is 47.76%, stripping: HBM ($145B), NVLink reassigned to Networking + IC ($25B), Broadcom Tomahawk/Jericho reassigned to Networking + IC ($15B), SOCAMM rack memory ($30B), and captive-ASIC non-silicon services (~$50B). Net figure: $587B (<code class="inline">BOM_Weights!C10</code>). The 48.4% allocation in &sect;1 is agentic-weighted from <code class="inline">Incremental_Allocation!*</code>, not the unified-baseline share.</p>
+
+      <h3 class="subsection-title">7.2 Per-archetype strip ratios</h3>
+
+      <p>LSE (Land + Shell + EPC &mdash; civil works, shell, and major mechanical/electrical install) share varies by facility type. Strip ratios (<code class="inline">BOM_Weights!H6:H10</code>):</p>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Archetype</th>
+          <th>LSE strip %</th>
+          <th>Driver</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Training / Core</td><td class="num">15.4%</td><td>Frontier hyperscale campuses amortize shell cost across extreme $/MW densities; Compute Silicon dominates at $43.4M/MW</td></tr>
+        <tr><td>Inference</td><td class="num">19.5%</td><td>Metro/near-metro build at lower MW/site than training; higher per-unit real-estate component</td></tr>
+        <tr><td>Legacy Enterprise</td><td class="num">37.2%</td><td>Enterprise facility cost premium (raised floor, lower density, retrofit economics) drives the highest LSE share in the portfolio</td></tr>
+        <tr><td>Edge</td><td class="num">24.4%</td><td>Distributed-footprint real-estate intensity &mdash; small sites in many markets &mdash; elevates shell cost relative to facility size</td></tr>
+        <tr><td>Agentic AI</td><td class="num">10.4%</td><td>Optimized colocation patterns in purpose-built colo (CoreWeave, Crusoe, Lambda), lowest LSE share in the portfolio</td></tr>
+      </tbody>
+    </table>
+
+    <div class="prose">
+      <p>Calibrated at the 150 MW reference cluster. Inference: metro siting documented by McKinsey and JLL <em>Global Data Center Outlook 2026</em> (p.7, $11.3M/MW shell-and-core baseline). Legacy Enterprise: the 37.2% is post-routing &mdash; 40% of HOCHTIEF/EMCOR construction revenue routes to Power Infrastructure before the LSE strip is struck. Blended unified-baseline LSE is approximately 40%, consistent with <code class="inline">00_Cover!A39:D52</code>.</p>
+
+      <h3 class="subsection-title">7.3 Stock-cumulative inversion methodology</h3>
+
+      <p>The &sect;2 MW-shortfall reframe rests on a stock-cumulative inversion: we start from an installed-capacity stock and imply what token supply the 8-source TD consensus actually delivers, then compare against the bottom-up demand build. New versus the 2026-05-13 memo.</p>
+
+      <p><strong>Shared anchor.</strong> All 8 TD consensus sources share a common 9,000 MW installed inference base at end-2025 (Triangulation row 50).</p>
+
+      <p><strong>Refresh treadmill.</strong> The stock decays at 20%/yr (see &sect;7.5 for derivation). Per-source recurrence:</p>
+
+      <p><code class="inline">installed_mw_t = installed_mw_(t-1) &times; (1 &minus; refresh_rate) + net_new_mw_t</code></p>
+
+      <p>Applied per-source across 2026&ndash;2030 at Triangulation rows 67&ndash;75.</p>
+
+      <p><strong>Implied token supply.</strong> <code class="inline">token_supply_t = installed_mw_t &times; T_per_MW_per_yr</code> where <code class="inline">T_per_MW_per_yr</code> is drawn from <code class="inline">MW_Bridge!B35:F35</code>. Applied at Triangulation rows 80&ndash;87.</p>
+
+      <p><strong>8-source TD MEAN.</strong> The arithmetic mean of the 8 source-implied annual capex flows (Triangulation row 88) is approximately $4.3T cumulative over 2026&ndash;2030. Per-source values are at rows 80&ndash;87; individual source figures range from the Moody's $3T+ floor to an inferred ~$5.5&ndash;6T for Goldman (see scope-heterogeneity note in &sect;7.6).</p>
+
+      <p><strong>MW round-trip identity.</strong> Triangulation row 100 closes the loop: the BU-model-implied capex flowing back through <code class="inline">net_new_mw</code> and the Compute Silicon chain reconciles with the installed MW stock at machine zero (~1.64 &times; 10&#8315;&#185;&#8310; relative error), verified PASS in the Packet A coherence audit. This confirms that <code class="inline">bu_capex_empirical</code> at <code class="inline">Triangulation!B100</code> is internally consistent with the CapEx chain.</p>
+
+      <h3 class="subsection-title">7.4 Six-factor agentic demand chain</h3>
+
+      <p>The Agentic AI archetype's token demand builds from a multiplicative chain tied to <code class="inline">Demand!C24:G24</code>:</p>
+
+      <p><code class="inline">agentic_demand = workforce &times; penetration &times; tokens_per_worker &times; days_with_ai_growth &times; tasks_per_ai_day_growth &times; tokens_per_ai_task_growth &times; agentic_intensity &divide; 1,000,000</code></p>
+
+      <p>The chain covers 11 workforce functions across 4 demand chains (chat, embedded AI, agentic, ambient), with a penetration schedule rising to approximately 37% knowledge-worker adoption by 2030, consistent with the Goldman framework below.</p>
+
+      <p><strong>Closest published parallel: Goldman Sachs "Decoding the Agentic Economy" (May 5, 2026, Noldor <code class="inline">189a2f4e</code>).</strong> Goldman constructs an occupation-weighted bottom-up demand model with the same conceptual axes: population of knowledge workers, adoption rate, token intensity by occupation, and an agentic multiplier. Goldman's empirically measured occupation-level tokens/day: computer programmers 30M, user support specialists 25M, information security analysts 15M, financial/investment analysts 5M, data entry keyers 10M. Goldman's headline conclusion: "global token demand could rise by 2,400% versus 2026 levels" by 2030. Goldman collapses <code class="inline">days_with_ai &times; tasks_per_ai_day &times; tokens_per_ai_task</code> into a single empirical "tokens/worker/day" measure rather than separating the three sub-axes. (Goldman Sachs Americas Technology, "Decoding the Agentic Economy," 2026-05-05, Noldor <code class="inline">189a2f4e</code>.)</p>
+
+      <p><strong>Empirical validation: Brynjolfsson, Pentland et al. arXiv:2604.22750 v2 (April 29, 2026).</strong> Agentic coding tasks consume 1,000&times; more tokens than code reasoning and code chat; input tokens dominate; 30&times; intra-task variance on the same task. This validates the <code class="inline">tokens_per_ai_task</code> magnitude for agentic workloads and establishes that the agentic-intensity factor is a regime change rather than a continuous variable, supporting its treatment as a discrete multiplier in the chain. (Brynjolfsson, Pentland et al., arXiv:2604.22750 v2, 2026-04-29.)</p>
+
+      <p><strong>Honest acknowledgment.</strong> Separating <code class="inline">days_with_ai</code> and <code class="inline">tasks_per_ai_day</code> as distinct multipliers is our own decomposition &mdash; no published framework uses this exact form. The split is analytically sound (enables targeted sensitivity analysis) but neither sub-axis is independently validated externally; their product is equivalent to Goldman's "tokens/worker/day." The <code class="inline">tokens_per_ai_task</code> factor carries the highest uncertainty in the chain, given the 30&times; intra-task variance (Brynjolfsson et al.).</p>
+
+      <h3 class="subsection-title">7.5 Bear/Base/Bull band logic and refresh-treadmill sensitivity</h3>
+
+      <p><strong>BBB band logic (carry-forward from 2026-05-13 memo).</strong> Training/Core and Inference use &plusmn;15% bands (BBB multiplier 0.85 / 1.00 / 1.15) &mdash; extensive primary disclosure anchors both archetypes. Legacy Enterprise, Edge, and Agentic AI use &plusmn;25% bands (0.75 / 1.00 / 1.25) &mdash; thinner primary data. Locked at the Phase 1 gate decision 2026-05-13.</p>
+
+      <p><strong>Refresh treadmill &mdash; an inference, not a citation.</strong> The 20%/yr annual replacement rate is not endorsed explicitly by any single source. It is our inference from the balance of evidence across three clusters:</p>
+
+      <ul class="list-clean">
+        <li><em>3-year economic life (33%/yr aggressive):</em> H100 profitability turns negative by Year 4, with a year-4 ROI of &minus;34%; a 3-year practical life is defensible for Tier-1 use. AWS CEO Jassy disputes this, claiming 5&ndash;6 year useful life. (Fortune, "The dirty secret behind Big Tech's AI arms race," 2026-04-15.)</li>
+        <li><em>5-year economic life (20%/yr Base):</em> Hyperscaler accounting lives have extended from 3&ndash;4 years (2020) to 5&ndash;6 years (present); SemiAnalysis's 3-stage cascade model (Years 0&ndash;2 training, 2&ndash;4 real-time inference, 4&ndash;6 batch/analytics; Noldor docs <code class="inline">ab645f96</code> / <code class="inline">5ffe68c7</code>) implies 4&ndash;6 year cascade-weighted economic life. Goldman names chip useful life as "the single most influential variable" in determining the $4T&ndash;$8T cumulative range, without endorsing a specific percentage. (Goldman Sachs Global Institute, "Tracking Trillions," 2026-05-01; SemiAnalysis, "Microsoft's AI Strategy Deconstructed," 2025-11-12.)</li>
+        <li><em>6-year economic life (17%/yr conservative):</em> Microsoft accounting lives; the Burry critique that hyperscalers are "artificially extending useful life" to boost earnings &mdash; a real risk to the Base assumption.</li>
+      </ul>
+
+      <p>We use 20% as the central case. Sensitivity at default knobs: 17%/yr shaves ~$40&ndash;60B from the $362.8B Base Compute Silicon headline; 33%/yr adds ~$40&ndash;60B. Full table at <code class="inline">Triangulation!sensitivity_block</code>. &sect;5 scenarios hold the treadmill constant &mdash; this sensitivity is a standalone stress.</p>
+
+      <h3 class="subsection-title">7.6 Eight-source TD consensus mean &mdash; scope heterogeneity</h3>
+
+      <p>The 8-source TD MEAN at Triangulation row 88 (~$4.3T cumulative 2026&ndash;2030) is a methodological convenience, not a rigorous like-for-like reconciliation. Three sources of heterogeneity require explicit disclosure:</p>
+
+      <p><strong>Two sources lack 2030 cumulative dollar totals.</strong> BCG publishes only a MW-shortfall (50&ndash;80 GW US by 2030); Deloitte stops at a ~$1T 2028 milestone. The Triangulation MEAN at row 88 embeds inference for both &mdash; a methodological rough edge disclosed, not papered over.</p>
+
+      <p><strong>Goldman's period is 2026&ndash;2031, not 2026&ndash;2030.</strong> The $7.6T is a six-year figure; the five-year ~$5.5&ndash;6T equivalent is our inference, not Goldman's. (Goldman Sachs Global Institute, "Tracking Trillions," 2026-05-01.)</p>
+
+      <p><strong>Definitional drift across all 8 sources.</strong> "AI capex" scopes vary &mdash; chips in/out, US-only vs global, AI-only vs AI + traditional IT, annual vs cumulative, 2028 vs 2030 vs 2031 endpoints. The MEAN averages across non-identical universes; we use it as a floor-establishing reference, not a precise consensus anchor. A future packet could re-anchor to a strict common scope.</p>
+    </div>
+  </section>
+
+
+  <section id="sec-8">
+    <header class="section-header">
+      <span class="section-num">&sect; VIII</span>
+      <div>
+        <span class="section-eyebrow">Sources</span>
+        <h2 class="section-title">Model citations, Noldor corpus, external sources.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <h3 class="subsection-title">Part A &mdash; Model citations (Z_Sources S-ID references)</h3>
+
+      <p>S077 &mdash; Goldman Sachs Global Institute, "Tracking Trillions: The Assumptions Shaping the Scale of the AI Build-Out" (Goldman Sachs, 2026-05-01) &mdash; <a href="https://www.goldmansachs.com/insights/articles/tracking-trillions" target="_blank">https://www.goldmansachs.com/insights/articles/tracking-trillions</a></p>
+
+      <h3 class="subsection-title">Part B &mdash; Noldor corpus citations (doc-ID references)</h3>
+
+      <p>Noldor-1 &mdash; NVIDIA Q4 FY2026 Earnings Call Transcript (Motley Fool / Noldor <code class="inline">6c0d2b78</code>, 2026-02-25) &mdash; CFO Colette Kress verbatim on Vera Rubin, GB300 NVL72 inference performance, Anthropic deployment. Noldor: <code class="inline">6c0d2b78</code></p>
+
+      <p>Noldor-2 &mdash; Broadcom Q1 FY2026 Earnings Call Transcript (Motley Fool / Noldor <code class="inline">2736bff5</code>, 2026-03-04) &mdash; CEO Hock Tan verbatim on six XPU customers, $100B+ 2027 AI chip revenue, Anthropic 1 GW &rarr; 3+ GW TPU capacity, OpenAI XPU 2027 entry. Noldor: <code class="inline">2736bff5</code></p>
+
+      <p>Noldor-3 &mdash; HBM Evolution Research Article (Noldor <code class="inline">0ca8340b</code>, 2026-02-11) &mdash; HBM4 specs (2,048-bit / 2TB/s per stack / 64GB capacity); SK Hynix 62% / Micron 21% / Samsung 17% HBM market share Q2 2025; memory-wall causation for inference KV-cache. Noldor: <code class="inline">0ca8340b</code></p>
+
+      <p>Noldor-4 &mdash; SemiAnalysis, "CPUs are Back: The Datacenter CPU Landscape in 2026" (Noldor <code class="inline">8dc03352</code>, 2026-02-09) &mdash; Vera CPU C2C bandwidth 1.8TB/s; SOCAMM 192GB modules; eight 128-bit memory channels. Noldor: <code class="inline">8dc03352</code></p>
+
+      <p>Noldor-5 &mdash; Goldman Sachs Americas Technology, "Decoding the Agentic Economy" (Noldor <code class="inline">189a2f4e</code>, 2026-05-05) &mdash; "global token demand could rise by 2,400% versus 2026 levels" by 2030; occupation-level tokens/day (programmers 30M, financial analysts 5M); 37% knowledge-worker penetration. Noldor: <code class="inline">189a2f4e</code></p>
+
+      <p>Noldor-6 &mdash; Brynjolfsson, Pentland et al., "Measuring the Token Costs of Agentic AI Tasks" (arXiv:2604.22750 v2; Noldor <code class="inline">56da39d6</code>, 2026-04-29) &mdash; "agentic tasks are uniquely expensive, consuming 1000x more tokens than code reasoning and code chat, with input tokens rather than output tokens driving the overall cost"; 30x intra-task variance. Noldor: <code class="inline">56da39d6</code></p>
+
+      <p>Noldor-7 &mdash; KGI Securities, "Semiconductor Chipflation Monthly" (Noldor, 2026-04-14) &mdash; TSMC CoWoS capacity 120,000 kwpm end-2026 &rarr; 170,000 kwpm end-2027; 200,000 kwpm upside "lacking sufficient evidence to validate."</p>
+
+      <p>Noldor-8 &mdash; William Blair, "Can't Fight the Cycle" (Noldor, 2026-01-22) &mdash; HBM4 Micron customer samples at 2.8TB/s (133% improvement vs HBM3E); HBM4 12-high launch Q1 2026.</p>
+
+      <p>Noldor-9 &mdash; William Blair, "Total Recall: How AI is Supercharging Memory Demand" (Noldor, 2026-01-22) &mdash; HBM4 anticipated to exceed 2TB/s per stack; 67% bandwidth improvement vs HBM3E; 2,048-bit interface (2x HBM3); NVIDIA asking 11 Gbps pin speeds.</p>
+
+      <p>Noldor-10 &mdash; JPMorgan, "Hardware &amp; Networking C1Q26 Preview" (Noldor, April 2026) &mdash; "Enterprise customers are acknowledging the need to refresh equipment sooner rather than later."</p>
+
+      <p>Noldor-11 &mdash; Evercore ISI, "Semis on Fire &mdash; HyperCapEx 1 Trillion Milestone" (Noldor, 2026-05-01) &mdash; 2027 hyperscaler capex trajectory above $1.1T, implying $300-400B year-on-year increment above 2026.</p>
+
+      <p>Noldor-12 &mdash; Raymond James, Semiconductor LaunchPad (Noldor, 2025) &mdash; aggressive scenario: 5x increase in inferencing spend by 2029; inference expansion as primary driver.</p>
+
+      <p>Noldor-13 &mdash; SemiAnalysis, "Microsoft's AI Strategy Deconstructed" (Noldor <code class="inline">5ffe68c7</code> / <code class="inline">ab645f96</code>, 2025-11-12) &mdash; 3-stage GPU cascade model: Years 0-2 training, 2-4 real-time inference, 4-6 batch/analytics; implies 4-6 year cascade-weighted economic life.</p>
+
+      <p>Noldor-14 &mdash; Deutsche Bank Micron Initiation (Noldor, July 2025) &mdash; $145B HBM revenue at 2029 Base used for Compute Silicon gross-to-net haircut methodology in &sect;7.1.</p>
+
+      <p>Noldor-15 &mdash; GXI 2024 (Noldor <code class="inline">GXI_2024_en-US</code>) &mdash; edge interconnection bandwidth growing at 34% CAGR vs 33% for core metro; Equinix Metro Edge context.</p>
+
+      <h3 class="subsection-title">Part C &mdash; External citations (net-new sources beyond Z_Sources, cited in memo body)</h3>
+
+      <p>Ext-1 &mdash; Goldman Sachs Global Institute, "Tracking Trillions: The Assumptions Shaping the Scale of the AI Build-Out" (Goldman Sachs / Lee + Greenbaum, 2026-05-01) &mdash; <a href="https://www.goldmansachs.com/insights/articles/tracking-trillions" target="_blank">https://www.goldmansachs.com/insights/articles/tracking-trillions</a> &middot; Also appears as S077 in Z_Sources. $7.6T cumulative 2026-2031 baseline; $765B 2026; $4-8T stated range; chip useful life "single most influential variable."</p>
+
+      <p>Ext-2 &mdash; Dell'Oro Group, "AI Boom Drives Data Center Capex to $1.7 Trillion by 2030" (Dell'Oro, 2026-02-11) &mdash; <a href="https://www.delloro.com/news/ai-boom-drives-data-center-capex-to-1-7-trillion-by-2030" target="_blank">https://www.delloro.com/news/ai-boom-drives-data-center-capex-to-1-7-trillion-by-2030</a> &middot; $1.7T annual endpoint 2030; top-4 US hyperscalers &asymp;50% of global DC capex.</p>
+
+      <p>Ext-3 &mdash; Dell'Oro Group, "Data Center Capex Surges 57 Percent in 2025" (Dell'Oro, 2026-03-17) &mdash; <a href="https://www.delloro.com/news/data-center-capex-surges-57-percent-in-2025" target="_blank">https://www.delloro.com/news/data-center-capex-surges-57-percent-in-2025</a> &middot; DC capex +57% YoY 2025, fastest since Dell'Oro began tracking.</p>
+
+      <p>Ext-4 &mdash; BCG, "Solving the US Data Center Power Crunch" (Boston Consulting Group, 2026-03-30) &mdash; CDN-blocked; content retrieved via Exa semantic fetch &middot; 50-80 GW US capacity shortfall by 2030; dollar equivalent inferred at 24% CAGR from 2025 base.</p>
+
+      <p>Ext-5 &mdash; McKinsey &amp; Company, "The $7 trillion data center build-out: How industrials can capture their share" (McKinsey, 2026-03-27) &mdash; CDN-blocked; content retrieved via Exa semantic fetch &middot; $3.7T constrained / $5.2T base / $7.9T accelerated cumulative 2026-2030; 156 GW demand base case.</p>
+
+      <p>Ext-6 &mdash; McKinsey &amp; Company, "Week in Charts: The future of AI workloads" (McKinsey, 2026-02-24) &mdash; CDN-blocked; content retrieved via Exa semantic fetch &middot; Training 62.2 GW / Inference 93.3 GW / Non-AI 63.5 GW in 2030 (total 219 GW); inference exits 2030 as dominant AI workload.</p>
+
+      <p>Ext-7 &mdash; McKinsey &amp; Company, "The cost of compute: A $7 trillion race to scale data centers" (McKinsey, 2025-04-28) &mdash; CDN-blocked; content retrieved via Exa &middot; $840B/yr average across constrained-to-accelerated scenario spread; 78 GW (constrained) to 205 GW (accelerated) incremental AI DC GW added 2025-2030.</p>
+
+      <p>Ext-8 &mdash; Bain &amp; Company, "$2 trillion in new revenue needed to fund AI's scaling trend" (Bain 6th Annual Global Technology Report, 2025-09-23) &middot; $500B annual run-rate by 2030; 163 GW global demand demanded by 2030 ("twice today's demand").</p>
+
+      <p>Ext-9 &mdash; Bain &amp; Company, "DeepSeek: A Game Changer in AI Efficiency?" (Bain, ~2025) &middot; Bear scenario: AI training budgets shrink, cloud capex drops $40-60B/yr; conclusion: bear case has not materialized.</p>
+
+      <p>Ext-10 &mdash; Moody's Ratings, "Data Centers Global Outlook 2026" (Moody's, 2026) &mdash; Primary report paywalled; cited via secondary coverage from Capacity Global, The Register, and Data Center Dynamics &middot; $3T+ five-year floor.</p>
+
+      <p>Ext-11 &mdash; Futurum Research, "AI Capex 2026: The $690B Infrastructure Sprint" (Futurum / Patience, 2026-02-12) &mdash; $660-690B 2026 for five hyperscalers (single-year figure).</p>
+
+      <p>Ext-12 &mdash; Futurum Research, "AI Workload Priorities Diversify" (Futurum, 2026-02-25) &middot; Agentic AI "emerging as a distinct fifth workload category"; enterprise AI compute shares: Inference at scale 34.6%, Training large FM 24.9%, Training domain-specific 23.3%, Fine-tuning 17.2%.</p>
+
+      <p>Ext-13 &mdash; Deloitte Insights, "More compute for AI, not less" (TMT Predictions 2026) (Deloitte, 2025-11-17) &mdash; $400-450B 2026 rising to ~$1T by 2028; two-thirds of AI compute &rarr; inference by 2026 (up from one-quarter in 2025); agentic workloads "biggest cost contributor."</p>
+
+      <p>Ext-14 &mdash; Janus Henderson Investors, "Data center power: why the key risk is under-delivery, not overbuild" (Janus Henderson, 2026-03-05) &middot; 84.7 GW deliverable vs 157 GW announced &mdash; 72 GW gap; 54% conversion rate; power-grid interconnect queues, permitting, transformer lead times.</p>
+
+      <p>Ext-15 &mdash; RAND Corporation, "US Grid AI Power Projections" (RAND, 2026-04-29) &mdash; ~82 GW US net available capacity by 2030; significant geographic misalignment between capacity and demand.</p>
+
+      <p>Ext-16 &mdash; Oxford Smith School of Enterprise and the Environment, "Impact on Power and Commodity Markets" &mdash; "bragawatts" framing (Oxford Smith School, April 2026) &mdash; 35-50% of announced capacity translating to powered megawatts on original construction timelines.</p>
+
+      <p>Ext-17 &mdash; TrendForce, Top-9 CSP 2026 CapEx revision (TrendForce, 2026-05-06) &middot; Top-9 CSP 2026 aggregate revised to $830B at 79% YoY growth (prior estimate implied 61%).</p>
+
+      <p>Ext-18 &mdash; Platformonomics, "Follow the CAPEX Q1 2026 Scoreboard" (Platformonomics, 2026-04-30) &middot; Top-4 hyperscalers ran $35-65B above January 2026 consensus within a single quarter.</p>
+
+      <p>Ext-19 &mdash; DCD / Data Center Dynamics, "Hyperscale operators now account for nearly half of all data center capacity" (DCD reporting on Synergy Research, 2026-04-08) &middot; End-2025: Hyperscaler 48% / Colo 20% / Enterprise 32% of worldwide DC capacity; projected 2031: Hyperscaler 67% / Colo ~14% / Enterprise 19%.</p>
+
+      <p>Ext-20 &mdash; CBRE / 451 Research / S&amp;P Global, US data center grid-power demand analysis (2026-05-14) &middot; US DC grid-power demand: 61.8 GW (2025) &rarr; 134.4 GW (2030).</p>
+
+      <p>Ext-21 &mdash; International Energy Agency (IEA), "Energy and AI" (IEA, 2026) &mdash; Global data center electricity demand doubling to 945 TWh by 2030.</p>
+
+      <p>Ext-22 &mdash; NVIDIA Q4 FY2026 Earnings Call Transcript (Motley Fool, 2026-02-25) &mdash; Colette Kress verbatim on Vera Rubin samples, GB300 NVL72 "50x performance per watt and 35x lower cost per token vs Hopper," Anthropic on Vera Rubin; Jensen Huang on platform. Also carried as Noldor <code class="inline">6c0d2b78</code>.</p>
+
+      <p>Ext-23 &mdash; Broadcom Q1 FY2026 Earnings Call Transcript (Motley Fool, 2026-03-04) &mdash; Hock Tan verbatim on Anthropic 1 GW TPU 2026 &rarr; "expected to surge in excess of 3 gigawatts of compute" in 2027; OpenAI XPU volume production 2027 "over 1 gigawatt"; six XPU customers; "$100 billion in 2027." Also carried as Noldor <code class="inline">2736bff5</code>.</p>
+
+      <p>Ext-24 &mdash; TrendForce, "Samsung Reportedly Supplies 60% of Google TPU HBM3E" (TrendForce, 2025-12-01) &middot; Samsung NVDA HBM3E re-qualification September 2025; HBM4 NVDA entry targeted Q2 2026.</p>
+
+      <p>Ext-25 &mdash; HPE Q1 FY2026 Earnings Call Transcript (Motley Fool, 2026-03-16) &middot; CEO Neri: "Entered Q2 with a record AI Systems backlog of $5 billion, primarily composed of enterprise and sovereign orders"; networking +152% YoY (Juniper); traditional server "very important for '27, '28 and '29."</p>
+
+      <p>Ext-26 &mdash; EdgeConneX press releases: Sweden "up to one gigawatt" site (Business Wire, 2026-02-26) and Osaka 200 MW AI-ready hyperscale campus (March 2026) &middot; Definitional drift evidence: edge-classified operator building at hyperscale-campus formats.</p>
+
+      <p>Ext-27 &mdash; Anthropic Economic Index, January 2026 Report (Anthropic, 2026-01-15) &middot; Enterprise API at 75% automation rate vs 45% on Claude.ai chat; 49% job-coverage threshold.</p>
+
+      <p>Ext-28 &mdash; Anthropic Economic Index, March 2026 Report ("Learning Curves") (Anthropic, 2026-03-24) &middot; Task diversification: top-10 tasks dropping from 24% &rarr; 19% of conversations (November 2025 to February 2026); average wage-equivalent declining $49.30 &rarr; $47.90.</p>
+
+      <p>Ext-29 &mdash; METR, "Time Horizon 1.1" (METR, 2026-01-29) &middot; Frontier task horizon doubling every 89 days since 2024; Claude Opus 4.5 320-minute median autonomous horizon; GPT-5 214 minutes; o3 121 minutes.</p>
+
+      <p>Ext-30 &mdash; Brynjolfsson, Erik and Pentland, Alex et al., "Measuring the Token Costs of Agentic AI Tasks" (arXiv:2604.22750 v2, 2026-04-29) &mdash; <a href="https://arxiv.org/abs/2604.22750" target="_blank">https://arxiv.org/abs/2604.22750</a> &middot; Also carried as Noldor <code class="inline">56da39d6</code>. Agentic coding tasks 1,000x more token-intensive than code chat; input-token dominant; 30x intra-task variance on same task.</p>
+
+      <p>Ext-31 &mdash; AgentMarketCap, "Cognition Devin 73x ARR Surge" (AgentMarketCap, 2026-04-11) &middot; Devin ARR $1M &rarr; $73M in 9 months; pricing $500/mo &rarr; $20/mo.</p>
+
+      <p>Ext-31a &mdash; CNBC, "Goldman Sachs is piloting its first autonomous coder in major AI milestone for Wall Street" (CNBC, 2025-07-11) &middot; Verbatim: Goldman's "12,000 human developers"; Argenti "has the potential to boost worker productivity by up to three or four times the rate of previous AI tools."</p>
+
+      <p>Ext-32 &mdash; GitHub Blog, "GitHub Copilot Transitioning to Token-Based Billing" (GitHub, 2026) &middot; Token-based billing effective June 1, 2026; ~4.7M paid subscribers (+75% YoY); deployed at ~90% of Fortune 100.</p>
+
+      <p>Ext-33 &mdash; Microsoft Q3 FY2026 Earnings Call Transcript (Microsoft / Satya Nadella, 2026-04-29) &mdash; Nadella verbatim: $190B 2026 capex framed as "building the world's leading cloud and AI infrastructure for the agentic computing era"; Microsoft 365 Copilot 20M+ paid seats.</p>
+
+      <p>Ext-34 &mdash; NVIDIA GTC 2026 Keynote (Jensen Huang, March 2026) &mdash; "AI Factories" as structurally distinct infrastructure category; $1T NVIDIA order book through 2027 tied to inference and agentic demand.</p>
+
+      <p>Ext-35 &mdash; AI News (artificialintelligence-news.com), Q1 2026 earnings press synthesis (2026-04-30) &middot; Directional support for higher CPU intensity of agentic facilities versus training clusters; specific per-GW CPU-core numbers cited in some industry-press pieces not independently verifiable from this aggregator.</p>
+
+      <p>Ext-36 &mdash; IDC, "AI Infrastructure Spending Caps Historic Year" (IDC, ~2026) &mdash; AI infrastructure spending: ~$153B (2024) &rarr; ~$318B (2025) &rarr; &gt;$1T (2029); implicit $170-200B/yr incremental 2026-2029.</p>
+
+      <p>Ext-37 &mdash; SemiAnalysis, "AI Value Capture &mdash; The Shift To Model Labs" (Dylan Patel, 2026-05-01) &mdash; <a href="https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model" target="_blank">https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model</a> &middot; Anthropic ARR $9B &rarr; $44B since December 2025; inference gross margins 38% &rarr; 70%+; NVDA + TSMC "venting value"; VR NVL72 neocoud IRR math ($4.92/hr cost; $9.63-$12.25/hr value ceiling); 14x software throughput on same B300 hardware (wide EP + disaggregation + MTP).</p>
+
+      <p>Ext-38 &mdash; Fortune, "The dirty secret behind Big Tech's AI arms race: Massive hardware investments that are obsolete in 3 years" (Fortune, 2026-04-15) &mdash; H100 profitability turns negative by Year 4 (year-4 ROI -34%); AWS CEO Jassy disputes claiming 5-6yr useful life; Burry critique of accounting-life extensions.</p>
+
+      <p>Ext-39 &mdash; Akamai Technologies Form 10-K FY2025 (Akamai / SEC EDGAR, 2025) &mdash; p.3: "more than 4,300 edge points-of-presence in over 130 countries and approximately 700 cities."</p>
+
+      <p>Ext-40 &mdash; JLL, "Global Data Center Outlook 2026" (JLL, 2026) &mdash; p.7: $11.3M/MW shell-and-core baseline; metro siting economics for Inference LSE strip-ratio calibration.</p>
+
+      <p>Ext-41 &mdash; McKinsey, "The future of AI workloads" / Week in Charts (McKinsey, 2026-02-24) &mdash; Inference favors "metro and near-metro sites optimized for low latency, strong network connectivity, and energy efficiency" vs training's large high-density campuses. (Overlaps Ext-6; cited separately for the metro-siting passage in &sect;4.2.)</p>
+
+      <p>Ext-42 &mdash; arXiv:2512.20264 (scaling-wall, 2025) &mdash; Data-wall bottleneck as finite human-generated text constrains pre-training. Identified in research; not downloaded/verbatim-verified; cited as directional context only in Risk M2.</p>
+
+      <p>Ext-43 &mdash; Deloitte, "More compute for AI, not less" (full TMT Predictions 2026 entry for &sect;5 scenario corroboration) &mdash; Two-thirds of AI compute &rarr; inference by 2026. (Overlaps Ext-13; separate cite for &sect;5 context.)</p>
+
+      <h3 class="subsection-title">Internal model citations (chart pack)</h3>
+
+      <p>Model-1 &mdash; <code class="inline">bom-token-model-2026-05-21.xlsx</code>, tab <code class="inline">Incremental_Allocation</code>, cells B82, C82 &mdash; 5Y cumulative Compute Silicon: $362.8B / 48.4% of $750.0B pool at Base &times; Concentrated knobs.</p>
+
+      <p>Model-2 &mdash; <code class="inline">bom-token-model-2026-05-21.xlsx</code>, tab <code class="inline">BOM_Weights</code>, range A6:I10 &mdash; Per-archetype BOM weight matrix (7 categories &times; 5 archetypes); source for all per-archetype percentage citations in &sect;&sect;1, 3, 4.1&ndash;4.5.</p>
+
+      <p>Model-3 &mdash; <code class="inline">bom-token-model-2026-05-21.xlsx</code>, tab <code class="inline">Triangulation</code>, rows 24-33, 50, 67-100 &mdash; 8-source TD consensus baseline; MW supply-demand block; MW round-trip identity verification (machine-zero error ~1.64e-16).</p>
+
+      <p>Model-4 &mdash; <code class="inline">bom-token-model-2026-05-21.xlsx</code>, tab <code class="inline">Incremental_Allocation</code>, cells B5, B6 &mdash; Knob inputs: <code class="inline">incremental_capex_per_year</code> ($150B/yr Base) and <code class="inline">agentic_tilt_share</code> (0.75 Concentrated).</p>
+
+      <p>Model-5 &mdash; <code class="inline">bom-token-model-2026-05-21.xlsx</code>, tab <code class="inline">Inputs</code>, cells C112:C116 &mdash; Goldman Sachs annual US-and-allies capex baseline: $765B, $925B, $1,100B, $1,280B, $1,460B (2026-2030).</p>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <div class="col-grid">
+      <div>
+        <h5>Document</h5>
+        Investment memorandum &mdash; AI Data Center CapEx by Archetype: The Gap Allocation Thesis. Synthesis of bom-token-model-2026-05-21 (15 tabs, 949 named ranges, 265 sources). Set in Source Serif 4 and IBM Plex.
+      </div>
+      <div>
+        <h5>Primary Source Anchors</h5>
+        <ul>
+          <li><a href="https://www.goldmansachs.com/insights/articles/tracking-trillions" target="_blank">Goldman Sachs &mdash; Tracking Trillions (1 May 2026)</a></li>
+          <li><a href="https://arxiv.org/abs/2604.22750" target="_blank">Brynjolfsson, Pentland et al. &mdash; arXiv:2604.22750 v2 (29 Apr 2026)</a></li>
+          <li><a href="https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model" target="_blank">SemiAnalysis &mdash; AI Value Capture: The Shift To Model Labs (1 May 2026)</a></li>
+          <li><a href="https://www.delloro.com/news/ai-boom-drives-data-center-capex-to-1-7-trillion-by-2030" target="_blank">Dell'Oro &mdash; AI Boom Drives Data Center Capex to $1.7T by 2030</a></li>
+          <li><a href="https://www.delloro.com/news/data-center-capex-surges-57-percent-in-2025" target="_blank">Dell'Oro &mdash; Data Center Capex Surges 57% in 2025</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="colophon-foot">
+      <span>AI Data Center CapEx by Archetype &mdash; The Gap Allocation Thesis</span>
+      <span>22 May 2026 &mdash; Internal Discussion</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  if (window.lucide) lucide.createIcons();
+</script>
+
+</body>
+</html>
