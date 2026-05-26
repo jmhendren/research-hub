@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2026-05-26" />
+  <title>AI Data Center Debt and Credit — A Primer</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;max-width:52em;margin:2.5em auto;padding:0 1.25em;line-height:1.65;color:#1d1d1f;background:#fafafa}
+  h1,h2,h3,h4{font-weight:600;line-height:1.25;margin-top:2.2em;color:#000}
+  h1{font-size:2em;border-bottom:2.5px solid #1d1d1f;padding-bottom:.35em;margin-top:1em}
+  h1.title{font-size:2.4em;border:none;margin-bottom:.2em}
+  h2{font-size:1.55em;border-bottom:1px solid #ccc;padding-bottom:.25em}
+  h3{font-size:1.2em;color:#1450a0}
+  h4{font-size:1em;color:#444}
+  table{border-collapse:collapse;margin:1.5em 0;width:100%;font-size:.92em;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+  th,td{border:1px solid #e0e0e0;padding:.55em .85em;text-align:left;vertical-align:top}
+  th{background:#f4f4f7;font-weight:600;color:#1d1d1f}
+  tr:nth-child(even) td{background:#fafafa}
+  code{background:#f0f0f3;padding:.12em .35em;border-radius:3px;font-size:.92em;color:#a83232;font-family:"SF Mono",Menlo,Consolas,monospace}
+  em{font-style:italic;color:#444}
+  strong{color:#000}
+  hr{border:0;border-top:1px solid #d0d0d0;margin:2.5em 0}
+  a{color:#1450a0;text-decoration:none;border-bottom:1px dotted #1450a0}
+  a:hover{color:#0a3270;border-bottom-style:solid}
+  li{margin:.35em 0}
+  p{margin:.9em 0}
+  blockquote{border-left:3px solid #1450a0;background:#f0f4fa;padding:.8em 1.2em;margin:1.2em 0;font-style:italic;color:#333}
+  .title{font-size:2.4em;font-weight:700;color:#000}
+  .date{color:#666;font-style:italic;margin-top:0;margin-bottom:2em}
+  @media print{body{max-width:none;margin:0;padding:1em;background:#fff}h1,h2{page-break-after:avoid}table{page-break-inside:avoid}}</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">AI Data Center Debt and Credit — A Primer</h1>
+<p class="date">2026-05-26</p>
+</header>
+<p><strong>Source attachments:</strong> This primer is the analytical
+synthesis of research packet
+<code>vault/raw/research-2026-05-26-ai-dc-debt-credit/</code> (85
+schema-validated Finding objects, 51 primary source snapshots, M1
+citation audit completed). Sister deliverables: <a
+href="2026-05-25-networking-interconnect-primer.md">Networking &amp;
+Interconnect Primer</a>, <a
+href="../briefs/2026-05-22-dc-archetype-bom-memo.md">AI Data Center
+CapEx by Archetype IC Memo</a>. The underlying <a
+href="https://drive.google.com/drive/folders/1yWRKZaiIiz3jIRQxq4e0I55iUb5lArh3">bom-token-model-2026-05-21.xlsx</a>
+carries the demand-side capex projections that this primer’s
+investment-lens section ties back to.</p>
+<hr />
+<h1 id="ai-data-center-debt-and-credit-a-primer">AI Data Center Debt and
+Credit — A Primer</h1>
+<p><em>A primer on what fixed-income instruments are being used to fund
+the AI data center buildout, who is lending, what the instruments clear
+at today, and how the actionable pockets map to the project’s broader
+theses on token demand, networking, archetype mix, and chip
+obsolescence.</em></p>
+<hr />
+<h2 id="anchor-question">1. Anchor
+question</h2>
+<p>This primer assumes a reader who knows the AI
+capex story at the level of “hyperscalers are spending a trillion
+dollars a year on data centers” but does not yet have the vocabulary for
+<strong>how that capex is actually being financed</strong>. By the end,
+the reader will be able to: distinguish the three financing layers that
+have emerged inside a single AI data center (the building, the power
+kit, and the GPUs are each financed differently); recognize the dominant
+private-credit and bank lenders; place current bond and term-loan
+pricing on a spread chart; and name the investable pockets at each tier
+of the credit stack.</p>
+<p>The anchor question this primer answers is the one a fixed-income PM
+would ask: <em>if the project’s other deliverables are right about
+token-demand surprise, the networking-interconnect bottleneck, the
+agentic-archetype capex tilt, and the unresolved chip-refresh-cycle
+question, what are the credit instruments that win or lose under each
+scenario, and what is on offer today?</em></p>
+<hr />
+<h2 id="the-three-tier-capital-stack-the-load-bearing-framing">2. The
+three-tier capital stack — the load-bearing framing</h2>
+<p>Before naming a single instrument, the reader needs the framing that
+makes the rest of the primer coherent. <strong>The AI data center capex
+stack has split into three financing layers, each with its own clearing
+price, its own dominant lenders, and its own collateral logic.</strong>
+A single physical campus can carry IG-rated senior unsecured at the
+parent ($30B Meta bond [S306]), single-A securitized notes against the
+shell and tenant cash flows (Vantage’s €640M EUR ABS [S213]), and
+SOFR-floating term loans against the GPUs sitting in the racks
+(CoreWeave’s $8.5B DDTL 4.0 [S107]) — all simultaneously, all priced at
+different points on the spread curve. The collateral has been split
+because the underlying economic lives are different: buildings
+depreciate over ~20 years, power infrastructure over ~25 years, GPUs
+over 3–6 years.</p>
+<p>Reusable axes for the rest of the primer:</p>
+<ul>
+<li><strong>Tier 1 — Investment-grade unsecured at the parent.</strong>
+The hyperscalers (Oracle, Meta, Amazon, Alphabet) and IG-rated DC REITs
+(Equinix, Digital Realty, Iron Mountain) issuing senior unsecured notes
+against the balance sheet. Pricing: UST + 50 to 150 bps depending on
+tenor and credit. Rating: A1/A through Baa3/BBB-. <em>Spread driver:
+corporate credit risk of the borrower; not
+collateral-specific.</em></li>
+<li><strong>Tier 2 — Asset-backed / project finance against the shell
+and contracted cash flows.</strong> Data center ABS (Asset-Backed
+Securities — bonds backed by a pool of customer leases) and CMBS
+(Commercial Mortgage-Backed Securities — bonds backed by the real estate
+itself). Plus project-finance senior secured notes with hyperscaler
+tenant guarantees. Pricing: UST + 150 to 250 bps for single-A
+securitized; single-digit coupons for project finance with IG tenant.
+<em>Spread driver: tenant credit, lease tenor, residual value of the
+shell.</em></li>
+<li><strong>Tier 3 — GPU-collateral term loans, senior unsecured
+high-yield, and convertibles at neoclouds.</strong> Specialty DDTLs
+(Delayed-Draw Term Loans — credit facilities that can be drawn over time
+as the borrower deploys capital) backed by GPUs and customer contracts.
+Senior unsecured high-yield from sub-IG issuers (CoreWeave). Convertible
+senior notes at the neoclouds with rallying equity. Pricing: SOFR + 225
+to SOFR + 700 for term loans; 6.75% to 9.75% for senior
+secured/unsecured; 0.25% to 2.625% on converts. <em>Spread driver: GPU
+residual value × tenant credit × issuer credit, layered.</em></li>
+</ul>
+<p>A worked vocabulary anchor: when a deal “moves from sub-IG to IG
+pricing,” what changed is almost never the GPUs. What changed is the
+<strong>tenant credit</strong> — the credit of the end-customer whose
+contract sits inside the deal’s bankruptcy-remote SPV. CoreWeave’s DDTL
+4.0 at SOFR + 225 bps [S107] and DDTL 5.0 at SOFR + 450 bps [S109] are
+backed by physically identical GPU server pools; the <strong>225-bp
+pickup is the price of sub-IG tenant credit, not different
+collateral</strong>. (“Tenant” here means the customer using the GPU
+compute under the long-term contract, <em>not</em> CoreWeave itself —
+CoreWeave is the operator-sponsor. The bankruptcy-remote SPV mechanic
+that makes this structure work is the entire subject of §7 below.) Same
+playbook at Applied Digital: ComputeCo 1 priced 9.250% in November 2025
+[S115], ComputeCo 2 priced 6.750% four months later in March 2026 [S116]
+— <strong>a 250-bp tightening driven by a non-disclosed investment-grade
+hyperscaler tenant signing at Polaris Forge 2</strong>, not by GPUs
+becoming better collateral.</p>
+<p>This three-tier framework is the unifying lens. Every named
+instrument in the rest of the primer fits inside one of these three
+boxes — and the bankruptcy-remote SPV mechanic in §7 is the structural
+engineering that makes Tier 2B and Tier 3 actually work.</p>
+<hr />
+<h2
+id="tier-1-investment-grade-unsecured-the-hyperscaler-bond-window">3.
+Tier 1 — Investment-grade unsecured: the hyperscaler bond window</h2>
+<p><strong>§3 — Tier 1: the IG hyperscaler bond market.</strong>
+<em>Between September 2025 and February 2026, the public hyperscalers
+plus Oracle ran the largest IG bond issuance window in tech-sector
+history — roughly $101B of on-balance-sheet debt directly attributable
+to AI capex, with Oracle issuing twice ($18B + $25B) and Meta, Amazon,
+and Alphabet returning to the bond market on a scale unprecedented for
+those names. Microsoft is the conspicuous outlier — funding through
+operating cash flow and ~$95B of finance-lease commitments
+instead.</em></p>
+<h3 id="oracle-the-headline-issuer-and-the-cautionary-tale">Oracle — the
+headline issuer and the cautionary tale</h3>
+<p><strong>Old flow.</strong> Oracle ran with modest investment-grade
+leverage, a stable A-rated balance sheet, and limited recourse to the
+bond market. The 2025 Stargate announcement and the $300B 15-year
+compute commitment to OpenAI changed the underlying need.</p>
+<p><strong>New flow.</strong> On September 24, 2025, Oracle priced an
+<strong>$18.0B multi-tranche IG deal</strong> across maturities
+2030–2065 [S301], with the 30-year tranche at +75 bps to UST and the
+40-year at +137 bps. The book reportedly peaked around $88B of demand —
+second-largest US IG deal of 2025. Moody’s had already moved Oracle’s
+outlook to negative in July 2025, flagging the expectation of continuing
+elevated leverage and increasingly negative free cash flow as Oracle
+ramped its AI infrastructure business [S302].</p>
+<p>Then in February 2026, with the stock down ~50% from the September
+high, Oracle returned with a <strong>$50B financing package</strong>:
+$25B bonds across eight tranches [S303], plus $20B of ATM (At-The-Market
+— sales of new shares directly into the open market through a broker)
+equity, plus a $5B mandatory convertible preferred [S303]. The bond book
+reportedly drew the largest order book in corporate-bond history
+(&gt;$125B), though that order-book figure is from trade-press dealer
+commentary, not from the FWP (Free Writing Prospectus — the SEC filing
+that documents pricing terms but does not disclose subscription levels).
+Moody’s and S&amp;P both moved Oracle to <strong>negative outlook on
+Baa2/BBB</strong> [S305]; Fitch held BBB-stable. Oracle committed for
+the first time to maintaining IG status as a formal policy and signaled
+no further bond issuance in 2026. September buyers are sitting on
+&gt;$1B of mark-to-market losses.</p>
+<p><strong>What changed (quantified).</strong> Oracle’s debt-to-EBITDA
+moved from ~2.5× pre-AI ramp to well above 3× post-September 2025
+issuance. The $5B mandatory convertible is a tell: when an A-rated
+issuer adds equity-linked paper inside an IG package, the rating
+agencies are signaling they want capital-structure repair, not more
+straight debt.</p>
+<h3 id="meta-amazon-alphabet-first-time-or-rare-issuers">Meta, Amazon,
+Alphabet — first-time-or-rare issuers</h3>
+<p><strong>Meta</strong> priced <strong>$30B of senior unsecured notes
+across six tranches on October 30, 2025</strong> [S306] — the largest
+single tech bond before the Oracle Feb 2026 deal. Order book reportedly
+around $125B. Ratings Aa3/AA-. Spreads to UST: +50 / +70 / +78 / +88 /
++98 / +110 bps across 5y/7y/10y/20y/30y/40y. The headline tranche fact:
+Meta’s face long-term debt <strong>jumped from $29B at FY24 year-end to
+$59B at FY25</strong>, doubling in 12 months. Meta went from net-cash to
+structurally levered.</p>
+<p>The companion off-balance-sheet structure landed two weeks earlier —
+and is covered in §5 below — the Hyperion JV adds another ~$26B of
+PIMCO-led private debt on top of the on-balance-sheet $30B.</p>
+<p><strong>Amazon</strong> returned to the bond market for the first
+time in roughly three years with <strong>$14.96B across six tranches on
+November 17, 2025</strong> [S309]. Order book ~$80B. The 40-year tranche
+tightened to +85 bps from +115 bps initial price talk. Goldman, JPM, and
+Morgan Stanley led. The context the deal sits inside: AWS Q3 2025 capex
+was up 61% year-over-year to $34.2B per quarter, and analyst commentary
+publicly flagged that Amazon’s $84B cash position would not cover the
+~$150B AI capex run-rate likely to print in FY26.</p>
+<p><strong>Alphabet</strong> broke from its historical near-zero-debt
+posture. <strong>$5.0B USD notes in May 2025</strong> (2030–2065, four
+tranches) plus a <strong>debut €6.75B euro offering on April 29,
+2025</strong> (five tranches, 2029–2054, peak demand €31.5B), plus a
+second <strong>€6.5B euro offering in November 2025</strong> (~16-year
+weighted-average maturity, 3.44% weighted-average coupon) [S310].
+Combined ~$13B-equivalent of fresh debt at a company that had been
+minimal on the debt side outside legacy 2016/2020 notes.</p>
+<p><strong>Microsoft is the outlier.</strong> Microsoft issued
+<strong>no major conventional bonds for AI capex</strong> in 2025
+[S308]. The company carries ~$78B of cash against ~$40B of total debt
+and remains net-cash. The AI-capex exposure shows up instead in
+<strong>~$95B of finance leases not yet commenced</strong> (peaked at
+~$108B at June 30, 2024) — overwhelmingly data centers under leases with
+operators like Brookfield (10.5 GW power), Three Mile Island PPA, and
+multiple sale-leasebacks. Microsoft is funding through operating cash
+flow and lease commitments, not bonded debt. If you are screening for
+hyperscaler AI-capex exposure in the bond market, Microsoft has the
+smallest opportunity set because the exposure isn’t traded as straight
+debt.</p>
+<h3
+id="investment-grade-dc-reits-equinix-digital-realty-iron-mountain">Investment-grade
+DC REITs — Equinix, Digital Realty, Iron Mountain</h3>
+<p><strong>Equinix (EQIX)</strong> dominates 2025-2026 IG DC issuance.
+Notable tranches: <strong>€750M 3.250% 2029 + €750M 4.000% 2034</strong>
+in May 2025 (Equinix Europe 2 Finco; Baa2/BBB/BBB+; +117.6 / +150.9 bps
+to Bund) [S225]; <strong>$1.25B 4.600% Senior Notes due 2030</strong> in
+November 2025, priced <strong>+85 bps to UST</strong> [S226];
+<strong>C$700M 4.000% Senior Notes due 2032</strong> in November 2025
+(Canadian-dollar tranche, first such for Equinix) [S227]; and a
+<strong>$1.5B combined offering on March 5, 2026</strong> ($700M 4.400%
+2031 from Singapore Finco + $800M 4.700% 2033 from Europe 2 Finco).
+Moody’s upgraded EQIX senior unsecured to <strong>Baa1</strong> ahead of
+the March 2026 offering [S228]. The EQIX 4.6% 2030s trade at ~85.9 bps
+OAS (Option-Adjusted Spread — the spread over the Treasury curve
+adjusted for embedded optionality) per UNC credit research (December
+2025), which is tight for a Baa1/BBB+ name and a useful benchmark for
+the IG DC complex.</p>
+<p><strong>Digital Realty (DLR)</strong> ran a green-bond-heavy 2025,
+including substantial euro issuance. <strong>Iron Mountain
+(IRM)</strong>, the BB-/Ba3 outlier in the DC complex, trades at ~214
+bps OAS — about 130 bps wide of pure-play IG DC REITs, reflecting the
+storage-business mix and the higher leverage profile.</p>
+<hr />
+<h2 id="tier-2a-asset-backed-and-cmbs-the-institutional-middle-tier">4.
+Tier 2A — Asset-backed and CMBS: the institutional middle tier</h2>
+<p><strong>§4 — Tier 2A: data center ABS and CMBS.</strong> <em>The data
+center securitization market has institutionalized at scale. 2025
+calendar-year issuance reached $27B [S209] (KBRA via MBA NewsLink
+roundtable), up from a 2018–2022 baseline of ~$4B per year and a
+2023–2024 run-rate of ~$10B per year. CMBS share of total
+structured-finance issuance rose to 42% in 2025 from 25% in 2018-2024.
+The institutional bid is durable; pricing has tightened to 150–200 bps
+over US Treasuries for single-A, ~5-year weighted-average-life
+paper.</em></p>
+<p><strong>Old flow.</strong> Pre-2021, the data center sector financed
+through bank loans and IG REIT bond issuance against the parent balance
+sheet. Securitization existed in cell tower trusts and some
+hyperscaler-adjacent financings, but the data center sector itself was
+barely present.</p>
+<p><strong>New flow.</strong> Blackstone’s <strong>BX 2021-VOLT</strong>
+in Q4 2021 was the first pure data center single-borrower CMBS,
+financing part of the QTS take-private. Aligned Data Centers’ August
+2021 inaugural $1.35B ABS was the first-ever green DC ABS [S218].
+CyrusOne’s July 2024 $687M inaugural SASB CMBS was the first DC SASB
+(Single-Asset Single-Borrower — a CMBS structure where the bond is
+backed by one borrower’s portfolio rather than a pool of unrelated
+commercial mortgages) since the 2008 financial crisis [S216]. Since
+then, the master-trust master-issuer structure (where one trust vehicle
+accepts periodic ABS additions backed by an expanding pool of customer
+contracts as the operator grows) has become the dominant template.</p>
+<p><strong>What changed (quantified).</strong> Issuance jumped from
+~$4B/year baseline (2018–2022) to $10B/year (2023–2024) to <strong>$27B
+in 2025</strong> [S209] — a ~7× increase from the pre-AI baseline in
+three years. JLL projects 2026 issuance could reach ~$50B [S211],.</p>
+<h3 id="notable-20252026-issuances">Notable 2025–2026 issuances</h3>
+<ul>
+<li><strong>Switch (DigitalBridge/IFM)</strong> — March 25, 2025: $3.5B
+combined ($2.4B SASB CMBS + $1.1B ABS) — the largest green DC CMBS ever
+[S215].</li>
+<li><strong>Vantage Data Centers (DigitalBridge)</strong> — June 9,
+2025: <strong>first-ever EUR-denominated DC ABS</strong> (€640M term +
+€80M VFN, A-/BBB-, 5-yr WAL) refinancing 4 German campuses [S213].
+Separately raised <strong>$5B of green-loan financings</strong> in June
+2025 ($2.25B for New Albany OH 192MW + $2.75B upsize of borrowing-base
+loan) [S214].</li>
+<li><strong>Compass Datacenters</strong> — May 2025: inaugural new
+master-trust deal $885M (S&amp;P A/A-), reported by GlobalCapital as
+<strong>5× oversubscribed and the tightest data-center ABS deal since
+2021</strong> [S219]. Compass II Series 2025-2 (October 2025) added
+$326M.</li>
+<li><strong>Centersquare</strong> — November 2025: Series 2025-5/6/7, 40
+DCs, $755.4M AMRR, 296.6 MW — fourth ABS issuance of 2025 [S220].</li>
+<li><strong>Flexential</strong> — October 2025: Series 2025-1/2, 26 DCs,
+1.6M sf, 158 MW, 2,183 customers, $583.3M annualized revenue
+[S221].</li>
+<li><strong>DataBank</strong> — January 2026: Series 2026-1, the
+<strong>fifth ABS issuance from the master trust</strong>, 36 DCs /
+1.62M sf / 257.6 MW / 1,757 customers / $433M AMRR. <strong>DataBank has
+raised $3.2B cumulatively through ABS — most of any third-party DC
+operator</strong> [S222].</li>
+<li><strong>Cologix</strong> — July 21, 2025: $525M ABS backed by COL4
+Columbus OH; fourth Cologix ABS since 2021 [S223].</li>
+<li><strong>TierPoint</strong> — April 2025: $500M ABS (33 DCs, 19
+markets, 95.7 MW; A-/BBB-) [S224].</li>
+<li><strong>CyrusOne (KKR/GIP)</strong> — July 2024: $687M inaugural
+SASB CMBS for DFW1 [S216]. Combined with $1.175B ABS and $9.7B in credit
+facilities, CyrusOne raised ~$12B of capital in 2024.</li>
+</ul>
+<p>The pricing standard for a Compass / Switch / Vantage / DataBank /
+Cologix / TierPoint / Centersquare deal in 2025-2026 is <strong>150–200
+bps over USTs, single-A typical, 5-year WAL</strong> [S212]. This is
+roughly 50–70 bps wide of whole-business securitizations (which print
+115–130 bps over USTs), reflecting newer asset class plus collateral
+specificity. Deal sizes have scaled: the largest CMBS deals now reach
+$4B, with $1–3B common.</p>
+<hr />
+<h2
+id="tier-2b-project-finance-and-private-credit-the-meta-hyperion-template">5.
+Tier 2B — Project finance and private credit: the Meta-Hyperion
+template</h2>
+<p><strong>§5 — Tier 2B: project finance, private credit, and the
+off-balance-sheet hyperscaler innovation.</strong> <em>A new category
+emerged in 2025: large hyperscaler-adjacent private-credit transactions
+structured as joint ventures or fund vehicles, with the hyperscaler as
+long-dated tenant rather than borrower. The single most important deal —
+Meta’s Hyperion campus financing — established the template that defines
+the asset class in 2026.</em></p>
+<h3 id="meta-hyperion-the-corrected-narrative">Meta-Hyperion — the
+corrected narrative</h3>
+<p>A live correction up front: media chatter in summer 2025 framed
+Meta’s “Hyperion” Louisiana megacampus financing as an Apollo-led deal.
+The verified Oct 21, 2025 structure is <strong>a Blue Owl + Meta joint
+venture</strong>: <strong>Blue Owl-managed funds own 80% of the JV; Meta
+retains 20%</strong> [S202]. Total development cost ~$27B [S201]. Blue
+Owl contributed roughly $7B cash at JV formation; Meta received a
+one-time $3B distribution after contributing land and
+construction-in-progress. The debt — about <strong>$26B</strong> — was
+funded via private placement <strong>led by PIMCO and select other bond
+investors</strong>, with <strong>Morgan Stanley as sole
+bookrunner</strong> [S203]. Apollo, KKR, Brookfield, and Carlyle were in
+the final round of negotiations and lost [S239]. Trade press peg the
+debt at 24-year tenor, ~6.58% coupon, A+ rated, though those exact terms
+come from Bloomberg’s paywalled deep-dive rather than from a SEC-filed
+144A prospectus visible to outside readers.</p>
+<p><strong>Two structural innovations make this the template.</strong>
+First, an off-balance-sheet JV with a short operating lease: Meta’s
+initial lease term is just four years with extension options, which
+keeps the debt off Meta’s books while Blue Owl carries the asset. The
+campus targets 2 GW by 2030, expandable to 5 GW, across roughly 4
+million square feet [S205]. Second — and the load-bearing innovation —
+<strong>a 16-year residual value guarantee from Meta to the
+investors</strong> [S204]: if Meta terminates the lease early and the
+asset is worth less than a threshold, Meta reimburses investors for the
+shortfall. The RVG is what attracted PIMCO at investment-grade pricing
+despite the GPU-obsolescence risk underneath. <strong>The PIMCO
+appearance is the signal that traditional fixed-income money — not just
+specialty private credit — has moved into AI-DC project
+finance.</strong></p>
+<h3 id="stargate-abilene-the-jpm-template-at-scale">Stargate-Abilene —
+the JPM template at scale</h3>
+<p>Stargate ($500B headline announced January 21, 2025) is a brand and a
+coordination vehicle, not a single balance-sheet entity [S311]. Equity
+ownership of the umbrella: SoftBank 40% / OpenAI 40% / Oracle ~$7B / MGX
+~$7B, with SoftBank responsible for raising debt. Actual buildout
+happens at site-specific vehicles. <strong>The canonical site-specific
+financed deal is Abilene, Texas: 1.2 GW, 8 buildings, structured as a
+$15B Crusoe / Blue Owl Capital / Primary Digital Infrastructure JV, with
+JPMorgan-led construction loans of $9.6B total ($2.3B Phase 1 January
+2025 + $7.1B Phase 2 May 22, 2025)</strong> [S312][S122][S235]. Oracle
+signed a 15-year lease on the entire campus; Oracle sub-leases the GPUs
+to OpenAI; OpenAI’s payments to Oracle are ultimately backstopped by
+SoftBank capital. This is the canonical Stargate template, and it is
+closer to a traditional power-project finance with credit-tenant-lease
+characteristics than to a securitization.</p>
+<h3 id="other-named-project-finance-private-credit-deals">Other named
+project-finance / private-credit deals</h3>
+<ul>
+<li><strong>Stargate UAE</strong> — 1 GW first cluster in a 5 GW UAE-US
+AI Campus near Abu Dhabi. Built and owned by Khazna Data Centers (a G42
+subsidiary). Total cost revised from $20B → $30B by January 2026 [S313].
+Debt-stack disclosure is opaque, held inside G42/sovereign
+structures.</li>
+<li><strong>Stargate Norway</strong> — 230 MW (expandable to 520 MW)
+near Narvik, a 50/50 Nscale/Aker JV. <strong>$790M senior debt facility
+on May 11, 2026</strong> [S314] from ABN Amro + DNB + Nordea + SEB +
+Export Finance Norway, plus a $1.4B GPU-backed delayed-draw term loan.
+Export-credit-agency involvement (Export Finance Norway) is a structural
+innovation for AI DCs — sovereign credit support enters the asset
+class.</li>
+<li><strong>Stargate Argentina</strong> — Announced October 2025 at
+“$25B” investment for 500 MW, but OpenAI clarified it “will not be
+investing a single dollar” [S315] — closer to a non-binding
+letter-of-intent under Milei’s RIGI tax-incentive scheme.</li>
+<li><strong>Apollo-Valor / xAI</strong> — January 7, 2026:
+<strong>Apollo-managed funds led a $3.5B capital solution into Valor
+Compute Infrastructure L.P. (VCI)</strong>, a Valor Equity
+Partners-managed fund that acquired and leases <strong>$5.4B of NVIDIA
+GB200 GPU infrastructure to xAI under a triple-net lease
+structure</strong> [S206][S317]. <strong>NVIDIA is the anchor Limited
+Partner in VCI</strong> alongside other Valor institutional investors.
+Apollo Partner Christopher Lahoud described it as <em>“a hallmark,
+downside-protected investment for Apollo in the AI infrastructure
+space”</em> per the Apollo press release. This is the GPU-backed
+asset-financing template extended one step beyond Meta-Hyperion: instead
+of a residual value guarantee from the tenant, the structure relies on a
+triple-net lease + the chip vendor itself as anchor LP. It is also the
+cleanest worked example of “circular financing” in AI infrastructure
+(the chip vendor co-invests in the fund vehicle that purchases its chips
+for lease to the AI lab).</li>
+<li><strong>Crusoe / Brookfield</strong> — June 11, 2025: $750M senior
+credit facility from Brookfield Asset Management’s infrastructure-debt
+platform [S234][S121]; supports Crusoe’s AI-factory buildout including
+the Stargate-Abilene site.</li>
+<li><strong>Macquarie / Applied Digital</strong> — January 14, 2025: up
+to <strong>$5.0B perpetual preferred-equity facility</strong> [S236]
+anchored by a $900M initial commitment for Polaris Forge 1 (Ellendale
+ND, 400 MW), with $4.1B of follow-on rights. December 18, 2025:
+Macquarie added a $100M development-loan facility for pre-lease site
+sourcing.</li>
+<li><strong>KKR + Energy Capital Partners</strong> — October 2024:
+<strong>$50B strategic partnership</strong> [S217]. First named DC
+project investment July 30, 2025: 190 MW Bosque County TX hyperscale
+campus JV with CyrusOne, total project ~$4B.</li>
+<li><strong>Sixth Street / EdgeConneX</strong> — September 24, 2024:
+minority stake from EQT Infrastructure [S237].</li>
+<li><strong>Carlyle / US Army (Fort Bliss EUL)</strong> — March 26,
+2026: conditionally selected to develop a hyperscale DC on 1,384 acres
+at Fort Bliss TX under the Enhanced Use Lease program [S238]. Adjacent:
+CyrusOne selected for 1,201 acres at Dugway Proving Ground UT in the
+same announcement.</li>
+</ul>
+<h3 id="the-private-credit-league-table">The private-credit league
+table</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Sponsor</th>
+<th>Major AI-DC commitments (2024–2026)</th>
+<th>Capital deployed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Blue Owl Capital</strong></td>
+<td>Meta-Hyperion JV (80% ownership of $27B project); Crusoe-Abilene JV
+($15B all-in); STACK Infrastructure, EdgeConneX in BODI portfolio</td>
+<td>~$40–45B+ AI-DC committed; BODI ~$14.2B AUM at YE2024</td>
+</tr>
+<tr>
+<td><strong>PIMCO</strong></td>
+<td>Lead bond investor in Meta-Hyperion JV private placement</td>
+<td>~$26B in this single deal</td>
+</tr>
+<tr>
+<td><strong>Apollo</strong></td>
+<td>Valor-Compute Infrastructure $3.5B for xAI GB200 TNL; Stream Data
+Centers majority stake (Aug 2025); STACK Europe carve-out from Blue Owl
+(Apr 2025)</td>
+<td>$40B+ cumulative next-gen infra since 2022 [S207]</td>
+</tr>
+<tr>
+<td><strong>Brookfield</strong></td>
+<td>Crusoe $750M senior facility; broader DC infrastructure book</td>
+<td>$750M named + portfolio</td>
+</tr>
+<tr>
+<td><strong>KKR</strong></td>
+<td>$50B ECP partnership; CyrusOne ownership; 190 MW Bosque County
+CyrusOne JV</td>
+<td>$50B ECP commitment, ~$4B Bosque deal</td>
+</tr>
+<tr>
+<td><strong>Macquarie</strong></td>
+<td>Applied Digital $5B preferred-equity facility + $100M dev loan</td>
+<td>$5.1B+ committed AI-DC</td>
+</tr>
+<tr>
+<td><strong>JPMorgan</strong></td>
+<td>$9.6B+ construction loans into Stargate-Abilene Crusoe/Blue Owl JV;
+$1B senior secured for Lambda [S124]</td>
+<td>$10B+ committed AI-DC project finance</td>
+</tr>
+</tbody>
+</table>
+<p>Blue Owl is the AI-DC private-credit leader by dollars committed.</p>
+<hr />
+<h2
+id="tier-3-neocloud-gpu-collateral-debt-where-the-rates-are-widest">6.
+Tier 3 — Neocloud GPU-collateral debt: where the rates are widest</h2>
+<p><strong>§6 — Tier 3: neocloud and AI-cloud debt — GPU-collateral term
+loans, senior unsecured high-yield, and convertibles.</strong> <em>This
+is the tier where rates are widest, where collateral logic is most
+novel, and where the project’s other theses bite most directly.
+CoreWeave invented the IG-rated GPU-backed term loan in 2026; Applied
+Digital ran the same playbook in project-finance bonds; Nebius and IREN
+ran around the senior-debt market entirely via convertibles; xAI is in
+the wilderness at SOFR+700.</em></p>
+<h3 id="coreweave-the-center-of-mass">CoreWeave — the center of
+mass</h3>
+<p>CoreWeave’s total principal of debt as of March 31, 2026 was
+<strong>$25.149B</strong> (net $24.859B after $290M original-issue
+discount) [S101], up from $21.615B at year-end 2025. The capital
+structure as of Q1 2026 10-Q:</p>
+<ul>
+<li><strong>2030 Senior Notes</strong>: $2.0B at 9.25% stated coupon,
+10% effective rate [S102]. Secondary market clearing at <strong>9.04%
+YTM (yield-to-maturity), Z-spread 534 bps, Fitch BB- / Outlook
+Positive</strong> [S103] (BondbloX snapshot, 2026-05-26).</li>
+<li><strong>2031 Senior Notes (July 2025)</strong>: $1.75B at 9.00%
+stated [S104].</li>
+<li><strong>2031 Convertible Senior Notes (December 2025)</strong>:
+$2.588B at 1.75% stated [S105]; 2% effective.</li>
+<li><strong>April 2026 follow-on issuances</strong> (per Q1 10-Q
+subsequent events): <strong>$4.0B 1.75% Convertibles due 2032</strong>
+[S110] with $492M capped-call cost, and <strong>$2.8B 9.75% Senior Notes
+due 2031</strong> [S111]. The 9.75% pricing on the new senior unsecured
+is <strong>75 bps wider than the July 2025 9.00% issuance</strong>,
+signaling spread pressure at the issuer level even as the company
+brought IG-rated GPU paper to market the same quarter.</li>
+<li><strong>DDTL 4.0 Facility (March 31, 2026)</strong>: $8.5B size,
+floating tranche $4.5B at <strong>SOFR + 225 bps</strong> [S107], fixed
+tranche $4.0B at ~5.9% [S106]. <strong>Rated A3 (Moody’s) / A(low)
+(DBRS) — first investment-grade rated GPU-backed financing</strong>.
+Maturity March 2032. Anchored by Blackstone Credit &amp; Insurance. As
+of 3/31/2026, only $1.3B drawn against the $8.5B commitment.</li>
+<li><strong>DDTL 5.0 Facility (May 18, 2026)</strong>: $3.1B at
+<strong>SOFR + 450 bps</strong> [S108][S109], tightened 50 bps during
+syndication, <strong>first publicly-syndicated</strong> HPC-backed
+financing vehicle. Ba2/BB+ ratings.</li>
+</ul>
+<p>The DDTL 4.0/5.0 pair is the central architectural innovation. Both
+facilities are backed by physically identical GPU pools, both run
+through bankruptcy-remote SPVs (Special Purpose Vehicles — legal
+entities created to isolate the financial risk of a specific pool of
+assets from the parent company’s balance sheet), both feature
+first-priority liens on the GPUs and the customer contracts. <strong>The
+225-bp spread differential is entirely tenant credit</strong>: DDTL
+4.0’s SPV is contracted to an investment-grade hyperscaler; DDTL 5.0’s
+SPV has “two large, non-investment-grade customer contracts” backing
+it.</p>
+<h3 id="applied-digital-the-project-finance-archetype">Applied Digital —
+the project-finance archetype</h3>
+<p>APLD ran the same playbook for senior secured project-finance bonds.
+November 13, 2025: <strong>APLD ComputeCo LLC priced $2.35B at 9.250%
+senior secured notes due 2030</strong>, issued at 97% of par [S115],
+funding Polaris Forge 1 (Ellendale ND) and repaying the SMBC Senior
+Loan. March 4, 2026: <strong>APLD ComputeCo 2 LLC priced $2.15B at
+6.750% senior secured notes due 2031</strong>, issued at 98% of par
+[S116] — <strong>a 250-bp coupon tightening in 4 months</strong>. Funds
+Polaris Forge 2 (Harwood ND, 200 MW). The tightening came from (a)
+Macquarie’s $5B preferred-equity facility backing the platform [S236]
+and (b) the underlying Polaris Forge 2 campus contracting with a
+non-disclosed investment-grade hyperscaler tenant. May 4, 2026: APLD
+layered on a $300M senior secured 364-day <strong>bridge facility from
+Goldman Sachs at SOFR + 275 bps</strong> [S118] for a third Polaris
+Forge 1 building — bridge implies ~7.6% all-in.</p>
+<p>The APLD curve from 9.25% (Nov 2025) to 6.75% (Mar 2026) to ~7.6%
+bridge (May 2026) is the cleanest worked example of how an IG
+hyperscaler signature collapses cost of debt by ~250 bps. <strong>This
+is the playbook every neocloud and colo will run.</strong></p>
+<h3 id="nebius-iren-the-convertible-route">Nebius, IREN — the
+convertible route</h3>
+<p>The neoclouds with rallying equity skip senior debt entirely and
+issue dilution-cheap convertibles.</p>
+<ul>
+<li><strong>Nebius (NBIS)</strong> — March 23, 2026: <strong>$4.34B
+convertible senior notes</strong> in two tranches [S112][S113]: $2.5875B
+at 1.25% due 2031 + $1.75B at 2.625% due 2033, both Rule 144A. Prior
+June 2025: $500M at 2.00% due 2029 + $500M at 3.00% due 2031.
+Non-current debt at Q1 2026: $8.432B (more than doubled YoY) against
+$9.298B cash [S114]. No senior-secured / DDTL-style facility
+disclosed.</li>
+<li><strong>IREN (formerly Iris Energy)</strong> — December 3, 2025:
+$2.0B converts in two tranches [S120]; May 14, 2026: a SECOND
+<strong>$3.0B at 1.00% due 2033</strong>, with $400M greenshoe, net
+proceeds ~$2.96B, $201.3M capped-call cost [S119]. All IREN converts are
+senior unsecured.</li>
+</ul>
+<p>The convertible coupons of 1.00% to 2.625% across NBIS and IREN are
+roughly <strong>one-eighth of the senior unsecured coupons CoreWeave is
+paying at 9.0–9.75%</strong>. The choice is dilution vs coupon: name
+with rallying equity and a high conversion premium runs the convertible
+route; name with already-issued equity at lower prices runs the senior
+debt route.</p>
+<h3 id="xai-and-the-private-neoclouds">xAI and the private
+neoclouds</h3>
+<p>xAI is the high-yield outlier. Mid-2025: $5B debt + $5B equity, both
+led by Morgan Stanley (closed July 1, 2025) [S316]. Reported terms
+(Bloomberg coverage, paywalled in our local snapshot): floating-rate
+term loan B at <strong>SOFR + 700 bps</strong> priced at 97 OID, plus
+fixed-rate loan + secured bonds at ~12%. “Best efforts” deal — Morgan
+Stanley did not commit its balance sheet (a deliberate change from the
+2022 Twitter financing). Subscription reportedly only ~1.5× vs. ~2.5–3×
+typical for high-yield paper.</p>
+<p>Private neoclouds with bank relationships are accessing $750M–$1B
+syndicated senior secured facilities at undisclosed pricing inside the
+broker-dealer/bank channel. May 7, 2026: <strong>Lambda Labs closed a
+$1.0B syndicated senior secured credit facility, JPMorgan lead
+arranger</strong> [S124], upsizing the August 2025 $275M facility by
+~4×. Crusoe carries the $750M Brookfield facility plus the $300M
+February 2026 AMD-collateralized debt round (lower confidence —
+Sacra/Tracxn aggregations only) [S123]. Voltage Park / Together AI /
+RunPod have no material public debt disclosed [S125] —
+equity-funded.</p>
+<h3 id="what-the-tier-3-clearing-prices-look-like">What the Tier 3
+clearing prices look like</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Layer of the Tier 3 stack</th>
+<th>May 2026 indicative pricing</th>
+<th>Anchoring example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IG GPU-backed term loan (IG hyperscaler tenant, SPV)</td>
+<td><strong>SOFR + 225 bps</strong> (~7.1% all-in)</td>
+<td>CoreWeave DDTL 4.0 [S107]; APLD Goldman bridge SOFR + 275
+[S118]</td>
+</tr>
+<tr>
+<td>Sub-IG GPU-backed term loan, publicly syndicated</td>
+<td><strong>SOFR + 450 bps</strong> (~9.3% all-in)</td>
+<td>CoreWeave DDTL 5.0 [S109]</td>
+</tr>
+<tr>
+<td>Senior secured project-finance bond, IG hyperscaler tenant</td>
+<td><strong>6.75% fixed</strong></td>
+<td>APLD ComputeCo 2 2031s [S116]</td>
+</tr>
+<tr>
+<td>Senior secured project-finance bond, mixed tenant</td>
+<td><strong>9.25% fixed</strong> (97 par)</td>
+<td>APLD ComputeCo 1 2030s [S115]</td>
+</tr>
+<tr>
+<td>Senior unsecured high-yield (sub-IG neocloud) — secondary</td>
+<td><strong>9.04% YTM</strong> (Z-spread 534 bps)</td>
+<td>CRWV 9.25% 2030s [S103]</td>
+</tr>
+<tr>
+<td>Senior unsecured high-yield (sub-IG neocloud) — new-issue</td>
+<td><strong>9.75% coupon</strong></td>
+<td>CRWV April 2026 2031s [S111]</td>
+</tr>
+<tr>
+<td>Senior unsecured convertibles (sub-IG, mid-equity premium)</td>
+<td><strong>1.0–2.625% coupon</strong>, 25–32.5% conversion premium</td>
+<td>NBIS 2031/2033s [S112][S113]; IREN [S119]</td>
+</tr>
+<tr>
+<td>xAI-tier high-yield (single-name AI lab, best-efforts)</td>
+<td><strong>SOFR + 700 bps floating + ~12% fixed</strong></td>
+<td>xAI Morgan Stanley $5B July 2025 [S316]</td>
+</tr>
+</tbody>
+</table>
+<p>The gap between IG GPU paper at SOFR+225 and xAI single-name at
+SOFR+700 is roughly <strong>475 bps</strong>. That is the price of
+full-faith hyperscaler tenant vs. single-name AI lab counterparty risk,
+holding the underlying GPU collateral roughly constant.</p>
+<hr />
+<h2
+id="the-bankruptcy-remote-spv-how-tier-2b-and-tier-3-actually-work">7.
+The bankruptcy-remote SPV — how Tier 2B and Tier 3 actually work</h2>
+<p><strong>§7 — The structural mechanic underneath what we just
+saw.</strong> <em>We just walked Tier 2B (Meta-Hyperion JV;
+Stargate-Abilene; Apollo-Valor / xAI) and Tier 3 (CoreWeave DDTL 4.0 /
+5.0; Applied Digital ComputeCo 1 / 2; Nebius and IREN convertibles).
+Every one of those deals — across two tiers, eight named sponsors, and
+rating-agency assessments spanning A3 down to Ba2 — runs through some
+variant of the same legal-financial engineering: a bankruptcy-remote
+SPV. The mechanic that turned CoreWeave’s sub-IG corporate credit into
+A3 / A(low)-rated GPU paper, and that turned Blue Owl’s role as Meta’s
+joint-venture partner into ~$26B of PIMCO-buyable A+ rated notes, is
+what this section unpacks. The reader who learns it once stops being
+confused about “who is the tenant” forever.</em></p>
+<h3 id="the-mechanic-in-plain-language">The mechanic in plain
+language</h3>
+<p>A <strong>bankruptcy-remote SPV</strong> — Special Purpose Vehicle —
+is a separate legal entity created to isolate the financial risk of
+specific assets from the parent operator’s balance sheet. The operator
+(CoreWeave, Applied Digital, the Blue Owl-Meta JV) transfers a specific
+pool of GPUs and the customer contracts attached to them into the SPV.
+The SPV then borrows against those assets. The SPV’s lenders are paid
+directly from the customer-contract receivables, with senior liens on
+the GPUs as additional security.</p>
+<p>The critical legal feature: <strong>if the parent operator goes
+bankrupt, the SPV does not.</strong> The SPV’s assets and creditors are
+walled off from the parent’s bankruptcy estate. Lenders to the SPV have
+first claim on its cash flows and collateral, ahead of the parent’s
+bondholders, equity holders, or unsecured creditors. This is what
+“bankruptcy-remote” means in legal practice — courts have repeatedly
+upheld these structures in REIT subsidiaries, aircraft equipment trusts,
+and cell-tower trusts. The doctrine is decades old; the application to
+GPU collateral is what’s new.</p>
+<h3 id="the-cash-flow-diagram">The cash-flow diagram</h3>
+<pre><code>       OPERATOR (sponsor)                       SPV LENDERS
+       ─────────────────                       ──────────────
+       CoreWeave / APLD / Blue Owl-Meta JV     Blackstone Credit /
+              │                                 PIMCO / etc.
+              │ transfers assets                       ▲
+              ▼ into SPV                               │
+       ┌───────────────────────────────────────┐      │  debt
+       │   BANKRUPTCY-REMOTE SPV               │      │  service
+       │   ┌─────────────────────────────┐     │      │
+       │   │ Asset 1: GPUs (physical)    │     │ ─────┘
+       │   │ Asset 2: Customer contract  │     │
+       │   │           (receivable)      │     │ ◄────┐
+       │   │ Asset 3: First-priority lien│     │      │ senior lien
+       │   │          for SPV lenders    │     │      │ on both
+       │   └─────────────────────────────┘     │      │ assets
+       │                                       │      │
+       │   Cash IN: customer contract payments │      │
+       │   Cash OUT: SPV debt service ─────────┼──────┘
+       └───────────────────────────────────────┘
+                     ▲
+                     │ contracted monthly payments
+                     │ (the &quot;rent&quot; in this analogy)
+                     │
+                  CUSTOMER (the &quot;tenant&quot;)
+                  ──────────────────────
+                  The entity USING the GPU compute
+                  under the long-term contract
+                  e.g. Microsoft, Meta, OpenAI, Anthropic</code></pre>
+<h3 id="why-the-tenants-credit-drives-the-rating-not-the-operators">Why
+the tenant’s credit drives the rating, not the operator’s</h3>
+<p>The reader who confuses “tenant” with “operator” makes the same
+mistake every first-time observer makes. The vocabulary comes from
+real-estate finance, where the tenant is whoever pays the rent. In a
+GPU-financing SPV, the tenant is whoever pays the customer-contract fees
+— <strong>the end-user of the compute</strong>, not the operator who
+built and runs the cluster.</p>
+<p>The lenders to a bankruptcy-remote SPV are protected from operator
+default by construction — that’s the whole point of the structure. What
+they cannot escape is <strong>tenant default</strong>: if the tenant
+stops paying the contract, the SPV’s cash flow stops, debt service
+halts, and the lenders foreclose on the GPUs (which then have to be
+redeployed to another customer in a possibly impaired market). The
+rating agencies underwrite this risk by looking at the tenant’s credit,
+the contract’s structural protections (length, take-or-pay clauses,
+residual value guarantees), and the GPUs’ liquidation value if the SPV
+has to redeploy. <strong>Operator credit is irrelevant</strong> at this
+layer — that’s the entire purpose of using an SPV in the first
+place.</p>
+<h3 id="worked-example-1-coreweave-ddtl-4.0-vs-ddtl-5.0">Worked example
+1 — CoreWeave DDTL 4.0 vs DDTL 5.0</h3>
+<p>CoreWeave is the operator-sponsor of both SPVs. CoreWeave’s
+parent-company corporate credit is sub-IG (Fitch BB-, secondary YTM
+9.04% on the 2030 senior unsecured [S103]). But the two DDTL SPVs
+themselves carry <strong>different ratings driven by different
+tenants</strong>:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th></th>
+<th><strong>DDTL 4.0</strong></th>
+<th><strong>DDTL 5.0</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operator-sponsor</td>
+<td>CoreWeave</td>
+<td>CoreWeave</td>
+</tr>
+<tr>
+<td>Physical collateral</td>
+<td>GPU servers</td>
+<td>GPU servers (same operator pool, fungible)</td>
+</tr>
+<tr>
+<td>Tenant (customer)</td>
+<td>Single IG hyperscaler — undisclosed; likely Microsoft per
+CoreWeave’s disclosed customer concentration</td>
+<td>“Two large non-investment-grade customer contracts” per CoreWeave PR
+— likely AI labs (OpenAI, Anthropic, others)</td>
+</tr>
+<tr>
+<td>SPV size</td>
+<td>$8.5B</td>
+<td>$3.1B</td>
+</tr>
+<tr>
+<td><strong>SPV rating</strong></td>
+<td><strong>A3 / A(low)</strong> [S107]</td>
+<td><strong>Ba2 / BB+</strong> [S109]</td>
+</tr>
+<tr>
+<td><strong>Spread</strong></td>
+<td><strong>SOFR + 225 bps</strong> (~7.1% all-in)</td>
+<td><strong>SOFR + 450 bps</strong> (~9.3% all-in)</td>
+</tr>
+<tr>
+<td>Spread differential</td>
+<td>(benchmark)</td>
+<td><strong>+225 bps for sub-IG tenant credit</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Same operator. Same physical GPUs, fungibly drawn from CoreWeave’s
+fleet. Same legal structure. The 225-bp spread differential is
+<strong>entirely the lenders’ price of accepting sub-IG
+customer-contract receivables instead of IG customer-contract
+receivables.</strong> Not GPU obsolescence; not collateral mix; not
+legal seniority. Tenant credit, all the way down.</p>
+<h3 id="worked-example-2-meta-hyperion">Worked example 2 —
+Meta-Hyperion</h3>
+<p>Meta is the tenant: it signs a 4-year operating lease on the
+Louisiana campus, with a 16-year residual-value guarantee [S204]. Blue
+Owl Capital is the operator-sponsor: it owns 80% of the JV that owns the
+campus; Meta retains 20% [S202]. The JV itself is the bankruptcy-remote
+SPV. PIMCO and other bond investors lent ~$26B against the JV’s cash
+flows at IG pricing (trade press: 24-year tenor, ~6.58% coupon, A+ rated
+[S203]).</p>
+<p><strong>The bond rating reflects Meta’s credit, not Blue
+Owl’s.</strong> If Meta defaults on the lease, PIMCO and co-investors
+hold collateral with a 16-year RVG floor, which is what made the deal IG
+in the first place. If Blue Owl as JV operator defaults, the JV
+continues paying lenders from Meta’s lease receivables — Blue Owl’s own
+corporate credit is irrelevant. The deal is, in effect, a synthetic Meta
+IG bond with GPU-and-shell collateral on top.</p>
+<h3 id="why-this-is-the-load-bearing-innovation-of-2026">Why this is the
+load-bearing innovation of 2026</h3>
+<p>The bankruptcy-remote SPV is decades-old plumbing in adjacent asset
+classes: - <strong>REITs</strong> — the operating subsidiaries are
+bankruptcy-remote from the parent so that mortgage lenders can
+underwrite individual properties. - <strong>Aircraft equipment
+trusts</strong> — Enhanced Equipment Trust Certificates (EETCs) since
+the 1990s let airlines (often sub-IG) finance fleets at IG pricing
+because the planes sit in bankruptcy-remote trusts with senior lien
+rights. - <strong>Cell-tower trusts</strong> — Aligned, Vantage, and the
+broader tower REITs use master-trust structures to issue IG-rated ABS
+against contracted tenant cash flows from sub-IG mobile carriers.</p>
+<p><strong>What’s new in 2026</strong> is the application of this
+template to GPU collateral with long-dated hyperscaler tenant contracts.
+That combination produces the first IG-rated GPU paper in history
+(CoreWeave DDTL 4.0, March 31, 2026) and the first $26B IG private
+placement against AI-DC collateral (Meta-Hyperion, October 21, 2025). It
+is also why the IG-rated GPU-paper market is a
+<strong>per-deal-customized asset class</strong> rather than a fungible
+benchmark — each SPV’s rating depends on its specific tenant, and that
+tenant’s credit varies enormously across deals (Microsoft Aaa/AAA to xAI
+sub-IG to a private AI lab with no public rating at all).</p>
+<p>The next time you see a Tier 2B or Tier 3 headline (“Apollo finances
+$X for Y AI lab,” “Blue Owl backs $Z for hyperscaler tenant W”), the
+question to ask is not “what’s the operator’s credit?” but
+<strong>“whose contract is in the SPV, and what’s their
+credit?”</strong> That’s the question the rating agencies are asking;
+it’s the question the spread is pricing.</p>
+<hr />
+<h2 id="investment-lens-how-this-maps-to-the-projects-theses">8.
+Investment lens — how this maps to the project’s theses</h2>
+<p>The descriptive sections above name what exists. This section maps
+the actionable pockets to the project’s other deliverables: the <a
+href="../briefs/2026-05-22-dc-archetype-bom-memo.md">BOM memo</a> on
+token-demand and archetype-allocation, the <a
+href="2026-05-25-networking-interconnect-primer.md">Networking &amp;
+Interconnect Primer</a> on the $154B optical TAM and
+bottleneck-progression, and the unresolved question on chip refresh
+cycle that surfaced in our earlier conversation around the Burry /
+Research Affiliates depreciation thesis.</p>
+<h3 id="if-the-bom-memos-token-demand-projection-is-right-who-wins">If
+the BOM memo’s token-demand projection is right, who wins?</h3>
+<p>The <a href="../briefs/2026-05-22-dc-archetype-bom-memo.md">BOM
+memo</a> projects that the agentic-AI archetype will pull incremental
+capex above the eight-source consensus, with 48.4% of the five-year
+cumulative pool ($362.8B of $750.0B at Base × Concentrated knobs)
+flowing into Compute Silicon. The investment-grade hyperscaler bond
+complex is the cleanest long expression of that view — Meta at +50 to
++110 bps [S306], Amazon at ~+85 bps [S309], Alphabet at ~3.44%
+weighted-average euro coupon [S310] are pricing near historical IG
+tights despite issuing at unprecedented sizes. <strong>If the BOM memo
+is right about token demand and the deliverability gap (Janus
+Henderson’s 72-GW shortfall, BCG’s 50–80 GW US shortfall), the
+hyperscaler IG complex tightens further as cash-flow visibility
+lengthens.</strong> The trade is straightforward: buy the long end of
+Meta, Amazon, Alphabet, and Equinix; underweight Oracle relative to the
+IG complex given the negative outlook and the formally-stated
+debt-issuance pause [S305].</p>
+<p>The second-order winner is the project-finance bond stack with IG
+hyperscaler tenant. APLD ComputeCo 2 6.75% 2031s [S116] is a worked
+example: the IG tenant signature collapses cost of debt by ~250 bps and
+creates investment-grade-tenant exposure at sub-IG-sponsor pricing. As
+more sub-IG colocation and neocloud operators sign IG hyperscaler
+tenants on Polaris Forge 2-style deals, this becomes the dominant
+new-issue product in 2026-2027. <strong>The pool will be substantial:
+JLL projects $50B+ in 2026 issuance</strong> [S211], much of which will
+flow through structures resembling APLD ComputeCo 2 rather than
+traditional master-trust ABS.</p>
+<h3
+id="if-the-networking-interconnect-primer-is-right-do-credit-instruments-benefit">If
+the networking-interconnect primer is right, do credit instruments
+benefit?</h3>
+<p>The <a href="2026-05-25-networking-interconnect-primer.md">Networking
+primer</a> argues that the next leg of the bottleneck-progression sits
+in optical interconnect: Goldman’s $154B optical-networking TAM by 2028
+(9× the 2026 figure of $15B), with CPO capturing $91B of that prize at
+29% scale-out penetration. <strong>The first-order impact on the debt
+market is modest</strong> — networking content is a small share of total
+DC capex (per the BOM memo, Net+IC runs 6–10% of capex across most
+archetypes) — but the second-order effect is real: deals like
+Crusoe-Abilene with 1.2 GW of GB200/Rubin-era compute will require the
+optical layer rebuild that the networking primer describes. If
+networking costs run materially higher than current DC budgets assume,
+ABS deal sizes scale up; per-MW project-finance loans size up; and the
+lender base broadens. Equinix is the cleanest debt-side beneficiary: the
+IG DC REIT carries the colocation interconnect business that grows with
+the optical-density buildout, and its bond complex is the most defensive
+IG DC name.</p>
+<p>The networking primer’s identification of Marvell-Celestial AI (and
+the broader CPO transition for accelerators) as a 2028+ TAM expansion
+has no direct first-order debt exposure today. The debt-side play is
+indirect: if Celestial AI’s $1B-by-2028 run-rate materializes inside
+Marvell, Marvell’s IG credit profile improves; if the broader CPO build
+forces the AI-DC capex stack to absorb the high-end CPO content the <a
+href="2026-05-25-networking-interconnect-primer.md">Networking
+primer</a> sizes for 2026–2028, the IG hyperscaler bonds and DC REIT
+bonds funding that capex all see incremental issuance need.</p>
+<h3 id="if-the-archetype-mix-tilts-agentic-what-gets-exposed">If the
+archetype mix tilts agentic, what gets exposed?</h3>
+<p>The BOM memo’s central finding is that <strong>incremental capex
+tilts to the Agentic AI archetype</strong> (Compute Silicon 50.5% of
+BOM; Memory 17.0%) and away from Legacy Enterprise (Compute Silicon
+25.5%; LSE 37.2%). Translated to the debt market: deals funding
+agentic-archetype facilities (CoreWeave, Nebius, Applied Digital
+ComputeCo 2 at Polaris Forge 2) carry <strong>more obsolescence risk per
+dollar of asset</strong> than deals funding Legacy Enterprise refresh
+(the shell is the asset; depreciates over 20 years). The CoreWeave DDTL
+5.0 at SOFR+450 [S109] is more exposed to agentic-archetype-driven
+Compute Silicon turnover than the EQIX 4.6% 2030s at OAS+85.</p>
+<p>This is also the structural reason for the <strong>Tier 1 vs Tier 3
+spread</strong> — the Tier 1 hyperscaler bonds have shell + power + GPU
+exposure blended at the parent level, while Tier 3 GPU-backed term loans
+isolate the highest-obsolescence asset class. As agentic-mix tilts
+incremental capex toward Compute Silicon, expect more Tier 3 deals to
+emerge from non-CoreWeave names, with similar IG-vs-sub-IG bifurcation
+depending on tenant credit. <strong>Watch for the next CoreWeave-style
+DDTL 4.0 analog from a different sponsor</strong> — it would
+meaningfully expand the IG-rated GPU-backed paper float beyond
+CoreWeave’s single-name dominance.</p>
+<h3
+id="if-wafer-scale-or-non-nvidia-architectures-gain-meaningful-share-what-breaks">If
+wafer-scale or non-NVIDIA architectures gain meaningful share, what
+breaks?</h3>
+<p>Three of the project’s tracked architectural alternatives — Cerebras
+(wafer-scale; CS-3 SKUs; six datacenters announced), Google TPU v7, AWS
+Trainium 3, plus the broader MI300X/MI400 series, Microsoft Maia, Meta
+MTIA — challenge the implicit assumption underneath every Tier 3 deal
+that NVIDIA-GPU residual value is the relevant collateral price.</p>
+<p>The cleanest exposure to this risk is the <strong>Apollo-Valor / xAI
+structure</strong> [S206]. NVIDIA is the anchor LP in VCI, which
+acquired $5.4B of GB200 GPUs to lease to xAI. If a non-NVIDIA
+architecture (wafer-scale, custom XPU, second-source GPU) substantially
+erodes GB200 residual value over the lease tenor, the triple-net-lease
+structure breaks: VCI investors are exposed to the residual-value gap,
+and the circular co-investment with NVIDIA does not insulate them. The
+same logic applies to CoreWeave’s DDTLs (sized to depreciable cost of
+GPU servers) and to the senior-secured ComputeCo bonds at APLD.
+<strong>Wafer-scale architectures don’t fit the existing collateral
+templates</strong> — a single Cerebras CS-3 system at ~$3M list with
+23kW power draw is not directly substitutable in a borrowing-base
+formula sized to 70,000-GPU clusters.</p>
+<p>The opposite read also holds: if NVIDIA continues to dominate (as the
+architecture-agnostic capex story in the BOM memo implicitly assumes),
+the existing collateral templates work, and the Tier 3 instruments
+mature into a settled asset class with tighter pricing over time. The IG
+GPU-paper-supported by RVG-type structures (Meta-Hyperion 16-year RVG;
+APLD’s IG hyperscaler tenant) is the most defensive Tier 3 exposure to
+architectural disruption — the residual value is contracted, not
+market-priced.</p>
+<h3 id="the-burry-research-affiliates-depreciation-question">The Burry /
+Research Affiliates depreciation question</h3>
+<p>The unresolved thread from earlier in this project’s conversation:
+hyperscalers extended GPU useful life from 3–5 years in 2020 to 5–6
+years now. If they’re forced to reverse course (because of architectural
+disruption, accounting standards push, or actual residual-value
+impairment realized through secondary-market GPU prices), the impact
+runs through three channels.</p>
+<p>First, <strong>hyperscaler operating cash flow compresses</strong>
+(faster depreciation = lower reported net income for the same capex).
+This is a corporate-credit issue, not an asset-credit issue. Tier 1 IG
+bonds widen at the parent. Oracle’s existing negative outlook becomes a
+notch downgrade; Meta and Amazon could see watchlist actions. This is
+the channel where IG hyperscaler bond spreads have actual
+loss-given-default exposure.</p>
+<p>Second, <strong>GPU-collateral DDTLs see borrowing-base
+compression</strong>. CoreWeave’s DDTL 4.0 and DDTL 5.0 are sized to a
+percentage of the depreciable cost of GPU servers. If hyperscaler
+depreciation schedules shorten — which signals lower expected residual
+value across the GPU asset class — the borrowing bases shrink, the SPV’s
+debt capacity shrinks, and refinancing the existing $5.8B drawn between
+DDTL 4.0/5.0 becomes structurally harder. This is the channel where the
+Tier 3 IG GPU paper carries the most counterintuitive risk: it is
+IG-rated <em>because</em> the tenant is IG, not because the GPUs
+are.</p>
+<p>Third, <strong>the Meta-Hyperion-style RVG (residual value guarantee)
+becomes either the rescue mechanism or the source of
+impairment</strong>. If hyperscalers offer 15–20 year RVGs (as Meta did
+to PIMCO), they essentially absorb the chip-refresh-cycle risk that the
+broader market would otherwise have to underwrite. The credit transfers
+from “AI-DC residual value risk” to “Meta corporate credit.” This is
+good for IG investors in the Hyperion paper (and any future Microsoft /
+Amazon / Alphabet RVG-backed deal that copies the template) but bad for
+the hyperscaler issuing the RVG — Meta is now contingent-liable for
+residual value across a 16-year window inside an industry where the
+asset depreciates over 3–6 years. <strong>If you’re long Meta bonds,
+watch the next 4–6 Hyperion-style structures very carefully</strong> —
+each one adds 16-year contingent liability that may not flow through
+standard IG analyses today.</p>
+<h3 id="actionable-pockets-summarized">Actionable pockets —
+summarized</h3>
+<p><strong>Buy / overweight.</strong> (1) IG hyperscaler bonds — Meta
+and Amazon at the long end as the cleanest beta to incremental token
+demand. (2) IG DC REIT bonds — Equinix the safest expression given Baa1
+upgrade and tight OAS. (3) Senior secured project-finance bonds with IG
+hyperscaler tenant on long contract — APLD ComputeCo 2 6.75% 2031s as
+the worked example, and any subsequent deal at sub-IG sponsor + IG
+tenant signing. (4) Master-trust ABS at scaled operators — DataBank,
+Switch, Compass — institutional bid is durable and pricing has tightened
+to 150–200 bps over USTs.</p>
+<p><strong>Avoid / underweight.</strong> (1) Sub-IG senior unsecured at
+the neocloud parent — CoreWeave 9.25% 2030s and 9.75% 2031s carry
+issuer-credit risk that is widening (75 bps spread move from July 2025
+to April 2026) even as the secured layer tightens. (2) Apollo-Valor and
+other single-name AI-lab structures with circular vendor financing —
+concentrated counterparty risk plus architectural-disruption exposure
+plus the lease-tenor / asset-life mismatch that even an RVG cannot fully
+bridge. (3) xAI debt at SOFR+700 — best-efforts deal, weak subscription,
+single-name single-product counterparty.</p>
+<p><strong>Relative value worth watching.</strong> Long IG DC REIT
+(EQIX) versus short sub-IG neocloud senior unsecured (CRWV 2030s) as a
+hedge for “AI capex is real, but the borrower mix matters more than the
+asset mix.” Long IG hyperscaler bonds versus short the broad
+investment-grade bond index as a sector-overweight expression of the
+token-demand thesis. Long the Compass / DataBank / Switch ABS complex
+versus short the broader CMBS index as a “DC asset class is durably bid”
+expression.</p>
+<hr />
+<h2 id="counter-thesis">9. Counter-thesis</h2>
+<p><em>Counter-thesis (synthesized from the chip-refresh / Research
+Affiliates / Burry literature and from Stargate skeptics). The current
+credit-spread structure assumes (a) hyperscaler IG tenant signatures
+fully insulate the GPU obsolescence risk underneath; (b) the IG
+GPU-backed DDTL market scales beyond CoreWeave to a broader sponsor
+base; (c) the Stargate, Hyperion, and Apollo-Valor templates are durable
+rather than 2025-2026-vintage anomalies. The counter case: the
+chip-refresh cycle is structurally shorter than 5-6 years (closer to the
+Research Affiliates 3-year estimate), and when the market wakes up to
+it, the IG GPU paper bid disappears, the RVG-backed structures see
+Meta-class hyperscalers absorbing latent contingent liability that the
+rating agencies have not priced in, and the single-name AI-lab debt at
+SOFR+700 prices the right risk while the IG complex prices the wrong
+one. Apollo’s January 2026 ($3.5B to xAI via Valor) is the canonical
+at-risk template: NVIDIA as anchor LP, single AI-lab tenant, $5.4B of
+GB200 GPUs depreciating against an uncertain residual value, in a lease
+structure that requires xAI to keep paying for compute it may not need
+at the same intensity in 2028. The deeper counter-thesis writeup is the
+chip-refresh / depreciation thread from this project’s earlier
+conversation; the SemiAnalysis Microsoft AI Strategy piece (May 15,
+2026) and the Fortune / Research Affiliates piece (April 15, 2026) carry
+the load-bearing facts. The right credit posture if you take this
+counter-thesis seriously is: avoid Tier 3 entirely, hedge Tier 1
+exposure via SOX or NVDA equity hedges (the real risk transfers to the
+chip-vendor’s residual-value exposure), and concentrate Tier 2A ABS
+exposure in master-trust deals whose collateral is enterprise tenant
+base (Switch, Compass) rather than hyperscaler-anchored (Vantage New
+Albany).</em></p>
+<hr />
+<h2 id="sources">10. Sources</h2>
+<p>Every numerical claim, quoted passage, and direct attribution in this
+primer carries an <code>[S###]</code> marker resolving to a Finding
+object in the sidecar
+<code>2026-05-26-ai-dc-debt-credit-primer.md.findings.jsonl</code>. The
+85 Findings are organized as:</p>
+<ul>
+<li><strong>R1 (S101–S125)</strong> — Public neoclouds debt stacks:
+CoreWeave, Nebius, Applied Digital, IREN, Crusoe, Lambda, plus private
+neocloud landscape.</li>
+<li><strong>R2 (S201–S239)</strong> — IG DC operators (Equinix, Digital
+Realty, Iron Mountain), the data center ABS / CMBS market (KBRA, JLL,
+L&amp;G, recent issuances), and private credit funds active in AI
+DC.</li>
+<li><strong>R3 (S301–S321)</strong> — Hyperscaler IG bond issuance
+(Oracle, Meta, Amazon, Alphabet, Microsoft), Stargate financing
+mechanics (Abilene, UAE, Norway, Argentina), Apollo-Valor / xAI,
+SoftBank bridge.</li>
+</ul>
+<p>The full Finding objects carry: claim, exact value with units,
+source_doc_id resolving to a local primary snapshot under
+<code>vault/raw/research-2026-05-26-ai-dc-debt-credit/primaries/</code>
+(49 primary files), source_publication_date, entity_latest_event_date,
+confidence (HIGH/MEDIUM/LOW), and notes with verbatim source quotes
+where applicable. The findings file is schema-validated against
+<code>scripts/research_finding_schema.Finding</code>.</p>
+<p><strong>M1 citation audit:</strong> The packet was audited
+line-by-line by the citation-auditor subagent on 2026-05-26. PASS rate
+82% (70 of 85 Findings clean); four critical findings were repaired
+before this primer was written (Delta Forge → Polaris Forge 2 rename;
+S122 date correction; S204 source_doc_id repoint; Apollo Lahoud quote
+restored with correct globenewswire primary). Five Findings remain
+ESCALATE / UNVERIFIABLE pending retrieval of paywalled Bloomberg or
+Cloudflare-blocked primaries; the underlying claims corroborate against
+widely-reported coverage but are not M1-confirmed against local
+snapshots. The full audit lives at
+<code>vault/process/audits/2026-05-26-ai-dc-debt-credit-M1.md</code>.</p>
+<p><strong>Sister deliverables:</strong> - <a
+href="2026-05-25-networking-interconnect-primer.md">Networking &amp;
+Interconnect Primer (2026-05-25)</a> — the $154B optical TAM, CPO
+transition, bottleneck-progression framing. - <a
+href="../briefs/2026-05-22-dc-archetype-bom-memo.md">AI Data Center
+CapEx by Archetype IC Memo (2026-05-22)</a> — Gap Allocation Thesis;
+5-archetype taxonomy; 48.4% Compute Silicon allocation under Base ×
+Concentrated; canonical model: bom-token-model-2026-05-21.xlsx.</p>
+<p><strong>Underlying research packet:</strong>
+<code>vault/raw/research-2026-05-26-ai-dc-debt-credit/</code>
+(findings.jsonl + primaries/ + R1/R2/R3 per-thread prose).</p>
+</body>
+</html>

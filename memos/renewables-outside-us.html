@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renewables Outside the US — A Personal-Portfolio Investment Thesis (2026-05-19)</title>
+<style>
+:root {
+  --ink: #1a1a1a;
+  --ink-soft: #3a3a3a;
+  --ink-mute: #6a6a6a;
+  --rule: #d4d4d4;
+  --bg: #fdfcf8;
+  --accent: #2a4d3a;
+  --accent-soft: #e8f0eb;
+  --warn-bg: #fff5e6;
+  --warn-border: #d4a443;
+  --cite: #3a6a8a;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: 'Charter', 'Iowan Old Style', 'Georgia', 'Cambria', serif;
+  font-size: 16px;
+  line-height: 1.62;
+  color: var(--ink);
+  background: var(--bg);
+  padding: 48px 24px 96px;
+}
+.wrap {
+  max-width: 780px;
+  margin: 0 auto;
+}
+header.doc-header {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 16px;
+  margin-bottom: 40px;
+}
+.eyebrow {
+  font-family: 'IBM Plex Mono', 'SF Mono', 'Menlo', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin: 0 0 8px;
+}
+h1 {
+  font-family: 'Charter', 'Iowan Old Style', 'Georgia', serif;
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 700;
+  margin: 0 0 18px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.meta-line {
+  font-family: 'IBM Plex Mono', 'SF Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-mute);
+  line-height: 1.6;
+}
+.meta-line span + span::before { content: " · "; color: var(--rule); margin: 0 6px; }
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 48px 0 14px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 28px 0 10px;
+  color: var(--ink);
+}
+h4 {
+  font-size: 14.5px;
+  font-weight: 700;
+  margin: 22px 0 8px;
+  color: var(--ink-soft);
+  font-family: 'IBM Plex Sans', 'SF Pro Text', system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+p { margin: 0 0 14px; }
+ul, ol { margin: 0 0 16px; padding-left: 22px; }
+li { margin-bottom: 6px; }
+strong { font-weight: 700; color: var(--ink); }
+em { font-style: italic; }
+a, a:visited {
+  color: var(--cite);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+a:hover { color: var(--accent); }
+code {
+  font-family: 'IBM Plex Mono', 'SF Mono', 'Menlo', monospace;
+  font-size: 13px;
+  background: #f0ede4;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.headline-box {
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  padding: 20px 24px;
+  margin: 24px 0 36px;
+  border-radius: 0 4px 4px 0;
+}
+.headline-box h2 {
+  border: none;
+  padding: 0;
+  margin: 0 0 12px;
+  font-size: 17px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+.headline-box p { font-size: 16.5px; line-height: 1.55; }
+.shortlist-callout {
+  background: white;
+  border: 1px solid var(--rule);
+  padding: 18px 22px;
+  margin: 18px 0 28px;
+  border-radius: 4px;
+}
+.shortlist-callout h4 {
+  margin-top: 0;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: var(--accent);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 6px;
+}
+.shortlist-callout ol { margin-bottom: 0; padding-left: 20px; }
+.shortlist-callout li { margin-bottom: 8px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0 24px;
+  font-size: 13.5px;
+  font-family: 'IBM Plex Sans', 'SF Pro Text', system-ui, sans-serif;
+  line-height: 1.45;
+}
+th {
+  text-align: left;
+  font-weight: 700;
+  background: #f0ede4;
+  padding: 9px 10px;
+  border-bottom: 2px solid var(--ink);
+  vertical-align: top;
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fafaf3; }
+.tier-tag {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-right: 8px;
+  vertical-align: 2px;
+}
+.tier-1 { background: var(--accent); }
+.tier-2 { background: #6b6342; }
+.tier-3 { background: var(--ink-mute); }
+.term {
+  font-style: italic;
+  font-weight: 600;
+}
+sup.fn {
+  font-size: 10px;
+  vertical-align: super;
+  color: var(--cite);
+  font-family: 'IBM Plex Mono', monospace;
+}
+sup.fn a { text-decoration: none; }
+.footnotes {
+  border-top: 2px solid var(--ink);
+  margin-top: 48px;
+  padding-top: 24px;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+.footnotes h2 {
+  border: none;
+  padding: 0;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+.footnotes ol {
+  padding-left: 32px;
+  font-family: 'IBM Plex Sans', 'SF Pro Text', sans-serif;
+}
+.footnotes li {
+  margin-bottom: 8px;
+  color: var(--ink-soft);
+}
+.footnotes a { word-break: break-all; }
+.terminology {
+  background: #f8f6ee;
+  border-left: 3px solid var(--ink-mute);
+  padding: 14px 18px;
+  margin: 20px 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+.terminology strong { color: var(--accent); }
+.section-num {
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--ink-mute);
+  font-weight: 400;
+  font-size: 16px;
+  margin-right: 8px;
+  letter-spacing: 0.03em;
+}
+.draft-flag {
+  display: inline-block;
+  background: var(--warn-bg);
+  border: 1px solid var(--warn-border);
+  color: #8a5a00;
+  padding: 4px 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  margin-bottom: 16px;
+}
+hr.sep {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 32px 0;
+}
+.footer-stamp {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-mute);
+  letter-spacing: 0.04em;
+}
+@media (max-width: 640px) {
+  body { padding: 24px 14px 64px; font-size: 15px; }
+  h1 { font-size: 24px; }
+  h2 { font-size: 18px; }
+  table { font-size: 12px; }
+  th, td { padding: 7px 6px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc-header">
+<p class="eyebrow">Research Note</p>
+<h1>Renewables Outside the US — An Investment Thesis</h1>
+<p class="meta-line">
+<span>2026-05-19</span>
+<span>Type: Thesis-anchoring research note</span>
+</p>
+<p><span class="draft-flag">Draft — M1 audit complete; ship-blockers remediated 2026-05-19</span></p>
+</header>
+
+<div class="headline-box">
+<h2>Headline thesis</h2>
+<p>The non-US renewables build-out is now <strong>structurally larger than the US one</strong>, growing faster, and is happening in policy regimes that are getting <em>more</em> supportive while US policy gets <em>less</em> so. Over 2025-2030, the IEA expects global renewable power capacity to roughly <strong>double — +4,600 GW</strong> — with the US specifically revised <strong>down by ~50%</strong> in the IEA's 2025 forecast versus 2024 owing to the One Big Beautiful Bill Act's repeal of wind/solar tax credits. The IEA explicitly identifies China as accounting for ~60% of the global increase and solar PV as ~80% of the global capacity addition; on a region-by-region read of the 2025 forecast, the dominant growth markets are China, India, the EU + UK, and MENA, with the US ranking materially below its 2024-forecast trajectory. The phrase "outside the US" is a structural characterization of where the marginal MWh is being built — not a sourced single statistic.<sup class="fn"><a href="#fn1">1</a>,<a href="#fn3">3</a>,<a href="#fn22">22</a></sup></p>
+<p>The investable opportunity sits at the intersection of (1) European grid and transmission build-outs anchored by REPowerEU, (2) Indian utility-scale solar at unprecedented auction velocity, (3) UK offshore wind under the post-AR6 contracts-for-difference regime, (4) MENA sovereign-backed solar/hydrogen mega-projects, and (5) a globally-diversified renewables operating-platform layer (Iberdrola, Brookfield Renewable, Enel).</p>
+</div>
+
+<div class="shortlist-callout">
+<h4>The three names that compress the thesis</h4>
+<ol>
+<li><strong>Iberdrola (IBE.MC / IBDRY)</strong> — closest to a one-ticket non-US renewables-plus-grids vehicle. €58 bn 2025-2028 plan, 65% in regulated networks, 85% in A-rated countries.<sup class="fn"><a href="#fn17">17</a></sup></li>
+<li><strong>Brookfield Renewable Partners (BEP / BEPC)</strong> — 47 GW operating, 200+ GW global development pipeline, ~25 countries, hydro-heavy.<sup class="fn"><a href="#fn24">24</a></sup></li>
+<li><strong>Power Grid Corporation of India (POWERGRID.NS / PWGR.BO)</strong> — "shovels and picks" on the Indian renewable build. ₹3.07 lakh crore (~$37 bn) capex pipeline to FY32, 91% transmission.<sup class="fn"><a href="#fn25">25</a>,<a href="#fn11">11</a></sup></li>
+</ol>
+</div>
+
+<div class="terminology">
+<strong>Terminology:</strong> <em>utility-scale solar</em> = ground-mounted PV plants ≥5 MW selling via PPAs (multi-year fixed-price power purchase agreements) · <em>T&amp;D</em> = transmission + distribution (the regulated wires-and-poles business earning a fixed return on regulated asset base) · <em>AR6</em> = UK's 6th Contracts-for-Difference Allocation Round, the auction by which UK offshore wind wins 15-year price guarantees · <em>PLI</em> = India's Production-Linked Incentive scheme (cash subsidies tied to domestic manufacturing output) · <em>REPowerEU</em> = EU's 2022 plan to phase out Russian fossil-fuel imports while accelerating clean-energy deployment · <em>IRA</em> = US Inflation Reduction Act (2022), whose clean-energy credits were substantially curtailed by the OBBBA (One Big Beautiful Bill Act, July 2025) · <em>BESS</em> = battery energy storage systems (utility-scale lithium-ion installations for grid-balancing).
+</div>
+
+<h2><span class="section-num">1.</span>Why now / why outside-the-US</h2>
+
+<p>Four structural shifts have converged. None are speculative; each is sourced to a primary regulator or industry body.</p>
+
+<h3>1a. The US has structurally slowed as a non-fossil destination</h3>
+<p>The OBBBA, signed by President Trump on <strong>July 4, 2025</strong>, accelerated the phase-out of the Section 45Y production tax credit and Section 48E investment tax credit for wind and solar: construction must begin <strong>before July 5, 2026</strong> or the facility must be <strong>placed in service before January 1, 2028</strong> to qualify.<sup class="fn"><a href="#fn22">22</a>,<a href="#fn23">23</a></sup> A follow-on executive order (July 7, 2025) directed Treasury to "strictly enforce" the termination.<sup class="fn"><a href="#fn23">23</a></sup> The IEA's October 2025 outlook responded by revising US renewable growth <strong>down ~50% year-over-year</strong>.<sup class="fn"><a href="#fn3">3</a></sup> This is the seed of the BBC-article observation in circulation — even that article's renewable-positive mentions (NextEra +17% YTD, Vestas/Ørsted profits up, Octopus solar sales +50%) reflect a market repricing <em>global</em>, not US, renewable exposure.<sup class="fn"><a href="#fn35">35</a></sup></p>
+<p>The point is not that US renewables die — wind/solar started before 2025 continue to receive PTC/ITC, and non-wind/non-solar credits (geothermal, nuclear, storage) extend through 2033.<sup class="fn"><a href="#fn22">22</a></sup> The point is that the <strong>incremental growth-rate of US renewables compresses materially</strong> while every other major market accelerates.</p>
+
+<h3>1b. The EU is structurally accelerating</h3>
+<p>REPowerEU, launched May 2022, raised the binding EU renewable-energy share target to <strong>42.5% by 2030 with ambition to 45%</strong>.<sup class="fn"><a href="#fn6">6</a></sup> As of May 2025 (3-year stocktake), renewables already supplied <strong>47% of EU electricity</strong>; installed wind + solar +58% cumulative 2021-2024 with another +16% expected in 2025.<sup class="fn"><a href="#fn7">7</a></sup> The European Commission states it has mobilized close to <strong>€300 bn</strong> to fund the REPowerEU Plan, with installed renewable capacity of a record <strong>406 GW of new solar</strong> and <strong>+234 GW of wind</strong> since 2022.<sup class="fn"><a href="#fn6">6</a></sup> At the two-year stocktake (May 2024), the Commission reported almost 96 GW of new solar and +33 GW of wind since 2022.<sup class="fn"><a href="#fn8">8</a></sup></p>
+<p>The IEA upgraded its <strong>Europe forecast +10%</strong> in October 2025 (now +630 GW 2025-2030, taking total to 1,612 GW by 2030) on the back of corporate PPA strength in Germany, Spain, Italy, Poland.<sup class="fn"><a href="#fn2">2</a></sup> Corporate PPAs, utility contracts, and merchant plants together now drive <strong>30% of global renewable capacity expansion to 2030</strong> — double the share in the prior year's forecast.<sup class="fn"><a href="#fn3">3</a></sup> That's the financialization mechanism: hyperscaler and industrial offtake demand is structurally replacing government subsidy as the marginal funder.</p>
+
+<h3>1c. India has hit its 2030 non-fossil target five years early</h3>
+<p>India committed at COP-26 to <strong>500 GW of non-fossil capacity by 2030</strong>.<sup class="fn"><a href="#fn11">11</a></sup> As of January 2026, non-fossil capacity was <strong>272 GW (52.3%)</strong> of total installed capacity of 520.5 GW; India crossed the 50% non-fossil milestone in June 2025 — <strong>five years ahead of NDC schedule</strong>.<sup class="fn"><a href="#fn13">13</a>,<a href="#fn11">11</a></sup> As of <strong>30 April 2026</strong> (MNRE physical-progress snapshot), cumulative total renewable energy was <strong>279.26 GW</strong>, with <strong>154.24 GW of solar</strong> and <strong>56.44 GW of wind</strong>.<sup class="fn"><a href="#fn14">14</a></sup></p>
+<p>The IEA upgraded India's forecast by ~10% and states India is "on course to become the <strong>second-largest renewables growth market globally</strong>, after China, and is expected to comfortably reach its ambitious target by 2030."<sup class="fn"><a href="#fn3">3</a>,<a href="#fn4">4</a></sup> India's Power Ministry has reported <strong>67,554 MW of Letters of Award</strong> issued for renewable-power procurement tenders <strong>since April 2023</strong>, with no cancellations after issuance.<sup class="fn"><a href="#fn12">12</a></sup></p>
+
+<h3>1d. MENA, China-deflation tailwinds, and the policy asymmetry</h3>
+<p>The IEA upgraded its <strong>MENA forecast by 23%</strong> — the largest regional upgrade of the 2025 report — "driven by faster-than-expected developments in Saudi Arabia this year."<sup class="fn"><a href="#fn4">4</a></sup> Saudi Arabia is set to award <strong>~14 GW of solar and wind projects in 2026</strong> alone, toward a 2030 target of <strong>58.7 GW</strong>.<sup class="fn"><a href="#fn15">15</a></sup> NEOM Green Hydrogen — ACWA Power + Air Products + NEOM JV — closed on an <strong>$8.4 bn green-hydrogen mega-plant</strong> integrating <strong>up to 4 GW of combined dedicated solar and wind</strong>, with production "scheduled to begin by the end of 2026" of up to <strong>600 tonnes/day of carbon-free hydrogen</strong> in the form of green ammonia.<sup class="fn"><a href="#fn16">16</a></sup></p>
+<p>Parallel: China's deflationary push. Chinese polysilicon prices fell <strong>72% from 2023 to April 2025</strong>; Chinese solar modules reached <strong>CNY 0.68 ($0.09)/W</strong> — a level industry analysts describe as "unhealthy for module producers" but bullish for project economics outside China.<sup class="fn"><a href="#fn28">28</a>,<a href="#fn29">29</a></sup> Modules delivered to European sites are trading below <strong>€0.10/W</strong>.<sup class="fn"><a href="#fn30">30</a></sup> Every non-US country building utility-scale solar buys at distressed-cycle prices — compressing capex, lifting IRRs across India, MENA, LatAm, Southeast Asia, Europe. The US sits behind tariff walls AND no longer has the IRA tax credit subsidizing higher domestic-content costs.</p>
+
+<h3>1e. The macro pull-through</h3>
+<p>The four shifts stack. The marginal MWh of global renewable supply over 2025-2030 is being built <strong>across non-US geographies</strong>, <strong>with cheaper Chinese modules</strong>, <strong>under accelerating policy support</strong>, and <strong>financed increasingly by corporate PPAs from hyperscaler data-center demand</strong> that is itself growing faster outside the US than in it. ENTSO-E (May 2026 report) states European data-centre electricity demand is <strong>expected to grow by more than 50% between 2025 and 2030</strong>; the EU Cloud and AI Development Act, <strong>expected later in 2026</strong>, aims to triple installed data-centre capacity in the EU within five to seven years.<sup class="fn"><a href="#fn32">32</a></sup> ETCIO India projects Indian data-center load <strong>1 GW → 13 GW by FY32, 44% CAGR</strong>.<sup class="fn"><a href="#fn34">34</a></sup> That last point is the bridge to Section 6.</p>
+
+<h2><span class="section-num">2.</span>Geographic map — non-US renewable markets ranked</h2>
+
+<h4>Tier 1 — Best risk-adjusted opportunity</h4>
+
+<h3><span class="tier-tag tier-1">Tier 1</span>European Union (Spain, Germany, Italy, Nordics, Portugal)</h3>
+<p>The largest investable renewable build-out by depth and breadth. <strong>+630 GW 2025-2030</strong> taking total to <strong>1,612 GW by 2030</strong> — up 67%.<sup class="fn"><a href="#fn2">2</a></sup> Three-quarters of growth comes from UK + Germany + Spain + Italy + France + Poland.<sup class="fn"><a href="#fn2">2</a></sup> Investable via pan-European utilities (Iberdrola, Enel, EDP) and pure-play developers (Acciona Energía, EDP Renováveis). EU's regulatory regime is the world's most predictable: Renewable Energy Directive (binding 42.5-45% by 2030) plus country-level National Energy and Climate Plans give ~5-year capex visibility.<sup class="fn"><a href="#fn6">6</a></sup> Spain has the best continental solar resource, lowest power prices (Enel models €62/MWh by 2027 vs €104/MWh in Italy), aggressive corporate PPA market.<sup class="fn"><a href="#fn27">27</a></sup></p>
+
+<h3><span class="tier-tag tier-1">Tier 1</span>United Kingdom (offshore wind leadership; AR6 reset)</h3>
+<p>AR6 (September 2024) was a record: <strong>131 projects, 9.6 GW awarded</strong> — almost triple AR5 — at <strong>£1.5 bn</strong> annual budget.<sup class="fn"><a href="#fn9">9</a></sup> <strong>5.3 GW of offshore wind</strong> awarded (vs zero in AR5) — 4.9 GW of fixed-bottom at clearing prices of £54.23 / £58.87 per MWh and 0.4 GW of floating at £139.93 per MWh, all in 2012 prices.<sup class="fn"><a href="#fn10">10</a></sup> The headline offshore project was Ørsted's <strong>Hornsea 3 — gross capacity 2,955 MW</strong> (the world's largest single offshore wind farm by capacity), with Ørsted also receiving a separate 2,400 MW CfD for Hornsea 4.<sup class="fn"><a href="#fn40">40</a></sup> In <strong>May 2025, Ørsted discontinued the Hornsea 4 project in its current form</strong>, citing higher supply-chain costs, interest rates, and execution risk, while retaining seabed rights, the grid connection agreement, and Development Consent Order for future re-development.<sup class="fn"><a href="#fn41">41</a></sup> The UK government's <strong>60 GW offshore wind by 2030</strong> ambition implies a highly demanding rate for AR7-9, but the demand-side commitment is firm.<sup class="fn"><a href="#fn10">10</a></sup> The UK is also Iberdrola's #1 investment destination (€20 bn of €58 bn plan).<sup class="fn"><a href="#fn17">17</a></sup></p>
+
+<h3><span class="tier-tag tier-1">Tier 1</span>India (utility-scale solar; PLI scheme; T&amp;D buildout)</h3>
+<p>Treat India as a single structurally-accelerating story. The T&amp;D angle is arguably more attractive than the generation angle: <strong>Power Grid Corporation of India has projected ₹3.07 lakh crore (~$37 bn) capex through FY32</strong>, 91% transmission, riding integration of 500 GW of non-fossil generation that won't otherwise reach demand centers.<sup class="fn"><a href="#fn25">25</a>,<a href="#fn26">26</a></sup> The PLI scheme has anchored a domestic solar-cell/module industry that reduces China-import exposure. INR/USD depreciation has averaged 2-4%/year and is hedgeable / discountable.</p>
+
+<h4>Tier 2 — High structural opportunity, higher idiosyncratic risk</h4>
+
+<h3><span class="tier-tag tier-2">Tier 2</span>MENA (UAE, Saudi Arabia, Egypt, Morocco)</h3>
+<p>Saudi Arabia's 58.7 GW 2030 target with 14 GW tendered in 2026 alone makes this the fastest-growing renewable build in the world after India and China.<sup class="fn"><a href="#fn15">15</a></sup> Narrower investable surface: dominant developer is <strong>ACWA Power</strong> (Tadawul-listed, accessible via QFI or Saudi Arabia ETF (KSA)). Sovereign risk real but sovereigns are AA-rated (Saudi Arabia) or AA+ (UAE); renewable build is part of formal Vision 2030 economic diversification.</p>
+
+<h3><span class="tier-tag tier-2">Tier 2</span>Australia (transition + Asian export-power thesis)</h3>
+<p>Australia targets an 82% share of renewable electricity in the grid by 2030; <strong>Capacity Investment Scheme (CIS)</strong> is the primary mechanism. As of Dec 2025, CIS Tenders 1-4 supported a combined <strong>12 GW of potential generation capacity yet to reach FID</strong>.<sup class="fn"><a href="#fn31">31</a></sup> On 29 July 2025, the Australian government uplifted the CIS target from 32 GW to <strong>40 GW by 2030</strong>, supporting ~AUD 73 bn of investment.<sup class="fn"><a href="#fn42">42</a></sup> Longer thesis: Australian solar + Asian proximity = <strong>green H₂ / green NH₃ exporter</strong> to Japan / South Korea — but that's 2030+.</p>
+
+<h3><span class="tier-tag tier-2">Tier 2</span>Latin America (Brazil, Chile, Mexico, Argentina, Colombia)</h3>
+<p>Combined LatAm renewable capacity <strong>389 GW in 2025 (+6%)</strong>: Brazil 228 GW (largest), Mexico 35 GW, Chile 26.5 GW.<sup class="fn"><a href="#fn33">33</a></sup> Chile is the regional leader in storage: <strong>1.6 GW BESS operational, 6.8 GW under construction, 27 GW in pipeline</strong>.<sup class="fn"><a href="#fn19">19</a></sup> The catch: <strong>transmission lag is the binding constraint</strong>. Brazil is adding over <strong>6,000 km of transmission lines in 2026</strong> across two auctions; ~$120 bn reais (~$24 bn) of transmission investment planned through 2030 — but ~20% of available solar and wind energy was lost to curtailment nationally in 2025 per Volt Robotics.<sup class="fn"><a href="#fn20">20</a></sup> Investable shape: <strong>T&amp;D-exposed names rather than pure generation</strong>.</p>
+
+<h4>Tier 3 — Early-stage; watch, don't position</h4>
+
+<h3><span class="tier-tag tier-3">Tier 3</span>Southeast Asia, Japan, Africa</h3>
+<p><strong>Southeast Asia</strong>: IEA upgraded ASEAN forecast on hydropower + auction schemes. Vietnam regional leader by capacity but EVN creditworthiness concerns. Indonesia: 8 GW geothermal target by 2030; PT Pertamina Geothermal (PGEO.JK) interesting but illiquid. <strong>Japan</strong>: offshore wind auction regime mature but execution slow; the more interesting thesis is Japan as offtaker of green H₂ / NH₃ from Australia + Saudi — accessed via BEP / ACWA / Iberdrola, not direct Japan exposure. <strong>Africa</strong>: 11.3 GW added in 2025 (+15.9%, highest-ever annual increase) — but Africa is only 1.6% of new global renewable capacity, narrow investable surface.<sup class="fn"><a href="#fn5">5</a></sup></p>
+
+<h2><span class="section-num">3.</span>Category map — renewable categories ranked globally</h2>
+
+<h4>Tier 1 — Core capital allocation</h4>
+
+<h3><span class="tier-tag tier-1">Cat 1</span>Utility-scale solar PV</h3>
+<p>The dominant category. <strong>~80% of the 4,600 GW global capacity addition through 2030</strong> — equivalent to 6× the 2024 installed base by 2030.<sup class="fn"><a href="#fn1">1</a>,<a href="#fn3">3</a></sup> Chinese-deflation tailwind ($0.09/W modules) means project-level IRRs at multi-year highs even as power prices soften. Best exposure: developers with strong land/grid-connection pipelines (Adani Green, Iberdrola, EDP Renováveis); regulated-network operators downstream that benefit from RAB growth without taking generation risk.</p>
+
+<h3><span class="tier-tag tier-1">Cat 2</span>Onshore wind</h3>
+<p>The IEA expects onshore wind capacity additions to <strong>grow 45% over 2025-2030 versus 2019-2024, reaching 732 GW cumulative</strong>.<sup class="fn"><a href="#fn4">4</a></sup> Vestas — the global onshore-wind leader at <strong>30% market share ex-China</strong> in 2024 — forecasts onshore wind growing 7-9% CAGR ex-China to 2030.<sup class="fn"><a href="#fn21">21</a></sup> Vestas's order backlog hit a record <strong>€71.9 bn end-2025</strong>.<sup class="fn"><a href="#fn21">21</a></sup></p>
+
+<h3><span class="tier-tag tier-1">Cat 3</span>Grid / T&amp;D infrastructure — the "shovels and picks" play</h3>
+<p>The most underweighted category in retail renewable thinking and the most attractive on risk-adjusted basis. <strong>Renewables-without-transmission is renewables-with-curtailment.</strong></p>
+<ul>
+<li><strong>Iberdrola is now ~65% regulated networks</strong> — UK + US + Iberia + Brazil — with two-thirds of the €58 bn 2025-2028 plan directed to transmission and distribution networks, mainly in the UK and US.<sup class="fn"><a href="#fn17">17</a></sup></li>
+<li><strong>Enel</strong> is investing <strong>more than €26 bn in grids</strong> under its 2026-2028 plan (grids allocated ~55% Italy, &gt;20% Iberia, ~25% LatAm), alongside roughly €20 bn in renewables in the integrated business; ~80+ GW renewable capacity by 2028.<sup class="fn"><a href="#fn27">27</a></sup></li>
+<li><strong>Power Grid Corporation of India</strong>: ₹3.07 lakh crore capex pipeline through FY32, 91% transmission.<sup class="fn"><a href="#fn25">25</a></sup></li>
+<li>Brazil + LatAm: $24 bn-equivalent Brazil transmission pipeline through 2030; <strong>LatAm overall has $300 bn of grid investment plans</strong> in flight.<sup class="fn"><a href="#fn20">20</a>,<a href="#fn36">36</a></sup></li>
+</ul>
+
+<h3><span class="tier-tag tier-1">Cat 4</span>Offshore wind</h3>
+<p>Higher-risk, higher-upside. Vestas forecasts offshore wind <strong>+20-25% CAGR to 2030</strong>.<sup class="fn"><a href="#fn21">21</a></sup> The post-AR6 UK pipeline (60 GW target by 2030) is the world's largest single offshore market. Ørsted dominates execution — <strong>18.3 GW installed + decided + under construction; grows to &gt;18 GW installed by 2027</strong>; the new EU North Sea Wind Pact targets up to <strong>15 GW/year of EU build by 2040</strong>.<sup class="fn"><a href="#fn18">18</a>,<a href="#fn37">37</a></sup></p>
+
+<h4>Tier 2 — Selective opportunity</h4>
+
+<h3><span class="tier-tag tier-2">Cat 5</span>Storage (utility-scale BESS, pumped hydro)</h3>
+<p>Fastest-growing single renewable subcategory. Brookfield Renewable targets 10 GW/year run-rate by 2027.<sup class="fn"><a href="#fn24">24</a></sup> Chile alone has 27 GW BESS pipeline.<sup class="fn"><a href="#fn19">19</a></sup> Iberdrola allocated €1.5 bn / 2 GW BESS, mainly Spain + Australia.<sup class="fn"><a href="#fn26">26</a></sup> Pumped hydro forecast to double annual additions to <strong>16.5 GW/year by 2030</strong> per the IEA.<sup class="fn"><a href="#fn4">4</a></sup></p>
+
+<h3><span class="tier-tag tier-2">Cat 6</span>Geothermal</h3>
+<p>&lt;1% of global capacity but strategic for round-the-clock baseload. Best assets in Indonesia, Kenya, Iceland, Philippines, US. <strong>Geothermal retained full IRA tax credits through 2033 under OBBBA — the only renewable subcategory that didn't get clipped.</strong><sup class="fn"><a href="#fn22">22</a></sup> Ormat is in ICLN at 3.2% weight.</p>
+
+<h3><span class="tier-tag tier-2">Cat 7</span>Hydropower</h3>
+<p>Largely tapped in developed markets; +154 GW new 2025-2030. Growth in India + ASEAN + Africa. Investable mostly via integrated platforms with hydro positions (Brookfield Renewable's hydro fleet is ~8.5 GW out of ~47 GW operating capacity, or ~18%; hydro is a larger share of LTM FFO than of installed capacity. Iberdrola Iberia hydro 13.1 GW; Enel has Italian hydro).<sup class="fn"><a href="#fn24">24</a></sup></p>
+
+<h4>Tier 3 — Watch, not core</h4>
+
+<h3><span class="tier-tag tier-3">Cat 8</span>Hydrogen / green ammonia</h3>
+<p>Aspirational endgame. NEOM Green Hydrogen ($8.4 bn, 4 GW dedicated solar+wind) is the largest project in flight.<sup class="fn"><a href="#fn16">16</a></sup> Saudi National Hydrogen Strategy: 4 mt/yr clean H₂ by 2035. Investable: ACWA Power (development); receivers: Japan (JERA, Kawasaki Heavy), Germany (RWE, Linde). H₂ economics still depend on cost-curve assumptions that aren't yet bankable ex-policy. Watch via Iberdrola/ACWA/RWE.</p>
+
+<h2><span class="section-num">4.</span>The best geo × category intersections</h2>
+
+<table>
+<thead>
+<tr><th style="width:8%">#</th><th style="width:24%">Geo × Category</th><th style="width:50%">Why it wins</th><th style="width:18%">Investable via</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>1</strong></td><td><strong>EU grids (esp. Iberia)</strong></td><td>Iberdrola + Enel between them allocating well over €60 bn 2025-2028 to regulated networks (Iberdrola two-thirds of €58 bn to T&amp;D, Enel &gt;€26 bn to grids); EU data-centre electricity demand growth of more than 50% between 2025 and 2030; RED 42.5-45% mandate forces grid upgrade</td><td>Iberdrola, Enel</td></tr>
+<tr><td><strong>2</strong></td><td><strong>Indian utility-scale solar + T&amp;D</strong></td><td>52.3% non-fossil already (Jan 2026); cumulative 279 GW RE / 154 GW solar / 56 GW wind as of 30 April 2026; second-largest global RE growth market per IEA; PGCIL ₹3.07 lakh crore pipeline; PLI protects domestic supply chain</td><td>Adani Green, Power Grid Corp, Tata Power, Suzlon</td></tr>
+<tr><td><strong>3</strong></td><td><strong>UK offshore wind (post-AR6)</strong></td><td>60 GW 2030 target; 5.3 GW of offshore awarded in AR6; Ørsted's Hornsea 3 (2,955 MW) is the world's largest single offshore wind farm by capacity; Iberdrola East Anglia</td><td>Ørsted, Iberdrola, SSE plc</td></tr>
+<tr><td><strong>4</strong></td><td><strong>Saudi solar + green H₂</strong></td><td>14 GW tendered 2026; AA-rated sovereign; NEOM scaling; Vision 2030 anchor</td><td>ACWA Power; indirectly via Iberdrola/Brookfield</td></tr>
+<tr><td><strong>5</strong></td><td><strong>Spain solar + BESS</strong></td><td>Best continental solar resource; lowest power prices (€62/MWh forward); strong corporate PPA market</td><td>Iberdrola, Acciona Energía, EDP Renováveis</td></tr>
+<tr><td><strong>6</strong></td><td><strong>Chile utility-scale storage</strong></td><td>1.6 GW BESS operational + 27 GW pipeline — global leader in storage-to-renewable ratio</td><td>Indirect via Brookfield Renewable (Isagen)</td></tr>
+<tr><td><strong>7</strong></td><td><strong>European onshore wind</strong></td><td>Vestas €71.9 bn record backlog; onshore +7-9% CAGR ex-China; EU repowering creates near-term revenue</td><td>Vestas, Iberdrola, Enel</td></tr>
+<tr><td><strong>8</strong></td><td><strong>Brazil renewable T&amp;D</strong></td><td>~$120 bn reais (~$24 bn) transmission build planned through 2030 specifically targeting renewable evacuation; ~20% national curtailment in 2025</td><td>Engie Brasil, Eletrobras, BEP</td></tr>
+</tbody>
+</table>
+
+<h2><span class="section-num">5.</span>Vehicle options — how to actually own this</h2>
+
+<p>The recommendation defaults to <strong>listed equities</strong> for a portfolio in the $25k-$1m position-size range. Reasons: liquidity, tax treatment (treaty-reduced withholding via W-8BEN), no minimum tickets, ability to size by conviction.</p>
+
+<h4>5a. Integrated European utilities (regulated networks + renewables)</h4>
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>What it gets you</th></tr></thead>
+<tbody>
+<tr><td><strong>IBE.MC / IBDRY</strong></td><td>Iberdrola (Spain)</td><td>58 GW capacity; 65% regulated networks; UK + US + Iberia + Brazil; €58 bn 2025-2028 plan</td></tr>
+<tr><td><strong>ENEL.MI / ENLAY</strong></td><td>Enel (Italy)</td><td>76+ GW (rising to 80+ GW by 2028); 60% regulated networks; Italy + Iberia + Latam</td></tr>
+<tr><td><strong>EDP.LS / EDPFY</strong></td><td>EDP (Portugal)</td><td>Pan-Iberian utility; majority owner of EDP Renováveis</td></tr>
+<tr><td><strong>EDPR.LS</strong></td><td>EDP Renováveis</td><td>Pure-play renewable developer; Iberia + LatAm + US</td></tr>
+<tr><td><strong>SSE.L</strong></td><td>SSE plc (UK)</td><td>UK renewable + T&amp;D; investing £18 bn 2026-2032</td></tr>
+<tr><td><strong>NG.L</strong></td><td>National Grid (UK/US)</td><td>Pure-play T&amp;D; UK + US northeast — defensive grid play</td></tr>
+<tr><td><strong>RWE.DE / RWEOY</strong></td><td>RWE (Germany)</td><td>Germany's largest post-coal-exit renewable developer; offshore wind concentration</td></tr>
+<tr><td><strong>TTE.PA / TTE</strong></td><td>TotalEnergies (France)</td><td>Oil major with €5 bn/yr renewable capex; 35 GW renewable target 2030</td></tr>
+</tbody>
+</table>
+
+<h4>5b. Pure-play developers</h4>
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>What it gets you</th></tr></thead>
+<tbody>
+<tr><td><strong>ORSTED.CO / DNNGY</strong></td><td>Ørsted (Denmark)</td><td>Offshore-wind pure-play; 10.2 GW operating + 8.1 GW under construction</td></tr>
+<tr><td><strong>ADANIGREEN.NS / ADGGF</strong></td><td>Adani Green Energy (India)</td><td>India pure-play; 14.2 GW operational, 50 GW by 2030 target</td></tr>
+<tr><td><strong>TATAPOWER.NS</strong></td><td>Tata Power (India)</td><td>Diversified Indian utility + renewables developer</td></tr>
+<tr><td><strong>ANE.MC</strong></td><td>Acciona Energía (Spain)</td><td>Pure renewables spin-off of Acciona; Spain + LatAm + Australia</td></tr>
+</tbody>
+</table>
+
+<h4>5c. Equipment / "shovels and picks"</h4>
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>What it gets you</th></tr></thead>
+<tbody>
+<tr><td><strong>VWS.CO / VWSYY</strong></td><td>Vestas (Denmark)</td><td>#1 onshore wind OEM ex-China; 30% market share; €71.9 bn backlog</td></tr>
+<tr><td><strong>POWERGRID.NS / PWGR.BO</strong></td><td>Power Grid Corp India</td><td>India transmission pure-play; ₹3.07 lakh crore pipeline</td></tr>
+<tr><td><strong>SU.PA</strong></td><td>Schneider Electric (France)</td><td>Grid + datacenter + electrification picks-and-shovels</td></tr>
+<tr><td><strong>SUZLON.NS</strong></td><td>Suzlon Energy (India)</td><td>Indian onshore wind OEM; recovery turnaround</td></tr>
+<tr><td><strong>2082.SR</strong></td><td>ACWA Power (Saudi)</td><td>Largest MENA developer; NEOM partner; access via QFI or KSA ETF proxy</td></tr>
+</tbody>
+</table>
+
+<h4>5d. ETFs — secondary vehicles</h4>
+<table>
+<thead><tr><th>Ticker</th><th>Name</th><th>Non-US</th><th>Use case</th></tr></thead>
+<tbody>
+<tr><td><strong>ICLN</strong></td><td>iShares Global Clean Energy</td><td>~57%</td><td>Cheapest broad-based; concentrated in Iberdrola, Vestas, EDP, Ørsted, Suzlon, Equatorial, CEMIG</td></tr>
+<tr><td>TAN</td><td>Invesco Solar</td><td>Mixed</td><td>US-tilted; less aligned to thesis</td></tr>
+<tr><td>FAN</td><td>First Trust Global Wind Energy</td><td>High</td><td>Pure wind play; thin liquidity</td></tr>
+<tr><td>GRID</td><td>First Trust Smart Grid</td><td>~50%</td><td>Closer to T&amp;D thesis than ICLN</td></tr>
+</tbody>
+</table>
+<p><strong>Honest take:</strong> ICLN is the cleanest single-ETF vehicle, but its top 10 overlaps heavily with the shortlist below — owning ICLN + 4-6 conviction names is roughly equivalent to owning the shortlist, weighted differently. Either approach works.<sup class="fn"><a href="#fn39">39</a></sup></p>
+
+<h4>5e. Institutional vehicles (for $1m+ commitments)</h4>
+<p>KKR Global Infrastructure Investors VI · Brookfield Global Transition Fund (BGTF II/III) · BlackRock GIP · Macquarie Asset Management GIG. Minimums typically $5m+. <strong>For retail, BEP/BEPC is the listed-equity proxy for Brookfield infra LP commitment without the lock-up.</strong></p>
+
+<h2><span class="section-num">6.</span>Comparison to the existing US-centric AI-infra power thesis</h2>
+
+<p>The honest answer: <strong>the two theses are complementary, not competitive.</strong></p>
+
+<p>The US AI-infra thesis (the BOM-archetype work, Noldor-platform research) is about <strong>power supply for AI compute build-out, capex concentrated in the US</strong>. It assumes US hyperscaler capex drives Tier-1 data-center power demand, which drives gas/nuclear/grid build-out, with renewables as the secondary/tertiary supply layer in the US specifically.</p>
+
+<p>The non-US renewables thesis is about <strong>renewable power supply globally, with a structural overweight to non-US geographies driven by policy</strong>. Most demand-side pull is <em>not</em> AI — it's general electrification, EU industrial reshoring, India middle-class electrification, EV charging, heating decarbonization.</p>
+
+<h4>Where they overlap (the bridge)</h4>
+<ol>
+<li><strong>European data centers</strong> — ENTSO-E projects EU data-centre electricity demand growth of <strong>more than 50% between 2025 and 2030</strong>, and the proposed EU Cloud and AI Development Act (expected later in 2026) aims to <strong>triple EU data-centre capacity over 5-7 years</strong>.<sup class="fn"><a href="#fn32">32</a></sup> Nordics (Denmark, Sweden, Norway) DC demand <strong>triples by 2030</strong>.<sup class="fn"><a href="#fn33">33</a></sup> These hyperscalers sign PPAs with <strong>non-US renewable developers</strong> — Iberdrola, Ørsted, RWE, EDP Renováveis are all structurally exposed to AI-infra-power demand. Iberdrola's €58 bn 2025-2028 plan is framed around supporting the rise in demand driven by the expansion of data centres, electric transport, and the electrification of industrial sectors.<sup class="fn"><a href="#fn17">17</a></sup></li>
+<li><strong>India data centers</strong> — ETCIO projects Indian DC load <strong>1 GW → 13 GW by FY32 (44% CAGR)</strong>, requiring ~40 GW of renewables for round-the-clock supply.<sup class="fn"><a href="#fn34">34</a></sup> Adani Green Khavda explicitly positioned for this; Power Grid Corp benefits unambiguously.</li>
+<li><strong>MENA AI-infra clouds</strong> — Saudi (Humain), UAE (G42), Qatar — sovereign-AI cloud initiatives anchored by renewable PPAs.</li>
+<li><strong>Brazil</strong> — transmission build-out explicitly justified by "new data centers and energy-intensive green hydrogen plants" (BNamericas).<sup class="fn"><a href="#fn38">38</a></sup></li>
+</ol>
+
+<h4>Where they DON'T overlap</h4>
+<ul>
+<li><strong>US AI-power supply</strong> (Vistra, Constellation, NRG, EQT) is a US merchant-power and gas/nuclear thesis. Owning Iberdrola or Vestas doesn't give you exposure to that. Separate ledger positions.</li>
+<li><strong>AI-driven US natural-gas demand</strong> is structurally separate.</li>
+</ul>
+
+<h4>Implication for portfolio construction</h4>
+<ul>
+<li>The non-US renewables thesis is a <strong>complement</strong> to the existing AI-infra-power thesis, not a hedge or substitute.</li>
+<li>If you want <strong>one stock that bridges both</strong>, <strong>Brookfield Renewable</strong> or <strong>Iberdrola</strong> come closest: both have meaningful US operating exposure, but the <em>growth weighting</em> is outside the US.</li>
+<li>Framing: <em>AI-infra-power thesis</em> = US merchant power + gas + nuclear + datacenter REITs. <em>Non-US renewables thesis</em> = EU + UK + India + MENA developers, equipment, grids. <strong>The demand pull is global; the supply chains and capital deployment are regional. Own both regions.</strong></li>
+</ul>
+
+<h2><span class="section-num">7.</span>Concrete shortlist — 12 names ranked by attractiveness</h2>
+
+<p><em>Position sizes suggested as % of the total non-US-renewables allocation, not of total portfolio.</em></p>
+
+<table>
+<thead><tr><th>#</th><th>Ticker</th><th>Name</th><th>Exposure</th><th>Suggested weight</th><th>Entry timing</th></tr></thead>
+<tbody>
+<tr><td><strong>1</strong></td><td><strong>IBE.MC / IBDRY</strong></td><td>Iberdrola</td><td>EU grids + UK offshore + Iberia RE + Brazil + US networks</td><td><strong>15-18%</strong> (core)</td><td>Initiate now; ADR liquid; avg in 4-6 wks</td></tr>
+<tr><td><strong>2</strong></td><td><strong>BEP / BEPC</strong></td><td>Brookfield Renewable Partners</td><td>Global diversified; 47 GW operating, 200 GW pipeline; hydro-heavy</td><td><strong>12-15%</strong> (core)</td><td>Initiate now; BEPC for tax-simpler exposure</td></tr>
+<tr><td><strong>3</strong></td><td><strong>POWERGRID.NS / PWGR.BO</strong></td><td>Power Grid Corp India</td><td>India T&amp;D pure-play; ₹3.07 lakh cr pipeline</td><td><strong>10-12%</strong></td><td>Phase in; consider INR hedge or accept FX</td></tr>
+<tr><td><strong>4</strong></td><td><strong>ORSTED.CO / DNNGY</strong></td><td>Ørsted</td><td>UK + EU offshore wind pure-play</td><td><strong>8-10%</strong></td><td>Confirm 2026 dividend reinstates; entry attractive on US-policy weakness</td></tr>
+<tr><td><strong>5</strong></td><td><strong>VWS.CO / VWSYY</strong></td><td>Vestas</td><td>#1 onshore wind OEM ex-China; €71.9 bn backlog</td><td><strong>8-10%</strong></td><td>Initiate on any pullback</td></tr>
+<tr><td><strong>6</strong></td><td><strong>ENEL.MI / ENLAY</strong></td><td>Enel</td><td>EU grids + LatAm; €53 bn plan; EPS target €0.80-0.82 by 2028</td><td><strong>8-10%</strong></td><td>Initiate now</td></tr>
+<tr><td><strong>7</strong></td><td><strong>ADANIGREEN.NS / ADGGF</strong></td><td>Adani Green Energy</td><td>India RE pure-play; 14 → 50 GW by 2030</td><td><strong>5-7%</strong></td><td>Cap due to governance complexity; entry now-fine</td></tr>
+<tr><td><strong>8</strong></td><td><strong>EDPR.LS</strong></td><td>EDP Renováveis</td><td>Iberian + LatAm + US developer</td><td><strong>5-7%</strong></td><td>Hold parent EDP if EDPR access difficult</td></tr>
+<tr><td><strong>9</strong></td><td><strong>ANE.MC</strong></td><td>Acciona Energía</td><td>Spanish + global pure-play</td><td><strong>4-6%</strong></td><td>Smaller-cap; size accordingly</td></tr>
+<tr><td><strong>10</strong></td><td><strong>NG.L</strong></td><td>National Grid</td><td>UK + US northeast T&amp;D defensive</td><td><strong>4-6%</strong></td><td>Defensive sleeve; rate-sensitive</td></tr>
+<tr><td><strong>11</strong></td><td><strong>ICLN</strong></td><td>iShares Global Clean Energy ETF</td><td>One-ticket diversification</td><td><strong>5-10%</strong> (substitute)</td><td>Use if you don't want 6+ individual names</td></tr>
+<tr><td><strong>12</strong></td><td><strong>2082.SR</strong></td><td>ACWA Power</td><td>MENA pure-play</td><td><strong>2-3%</strong> (if accessible)</td><td>Tadawul access via QFI; KSA ETF as proxy</td></tr>
+</tbody>
+</table>
+
+<div class="shortlist-callout">
+<h4>Simpler 5-name shortlist for smaller initial deployment ($50k-$100k tickets)</h4>
+<ol>
+<li><strong>Iberdrola (IBDRY)</strong> — 25%</li>
+<li><strong>Brookfield Renewable (BEPC)</strong> — 20%</li>
+<li><strong>Power Grid Corp India (PWGR.BO)</strong> — 20%</li>
+<li><strong>Ørsted (DNNGY)</strong> — 20%</li>
+<li><strong>Vestas (VWSYY)</strong> — 15%</li>
+</ol>
+<p style="font-size:13px; margin-top:10px; color:var(--ink-mute);">Five tickets, four currencies (EUR, USD, INR, DKK), ~$2.3 trillion of combined EV across the renewable + grid build-out.</p>
+</div>
+
+<h2><span class="section-num">8.</span>Risks and what would invalidate the thesis</h2>
+
+<h3>8a. Currency</h3>
+<p>EUR/USD 1.05-1.15 band over 24 months; INR/USD depreciates ~3%/yr on multi-year average; DKK pegged to EUR. <strong>Mitigation:</strong> regulated-utility positions have local-currency revenue matching local-currency cost base; on dividend yield, currency is translation effect, not fundamentals risk. For $500k+ positions, consider EUR hedge via HEDJ overlay. For $50k positions, accept FX as part of the bet.</p>
+
+<h3>8b. Sovereign and policy reversal</h3>
+<ul>
+<li>EU policy reversal: <strong>Very low</strong> — RED is treaty-bound; 26 EU states in infringement-procedure for under-implementation, not over-implementation. Risk is execution slowness, not reversal.</li>
+<li>India: <strong>Very low</strong> — 500-GW target is bipartisan.</li>
+<li>Saudi Arabia: <strong>Low</strong> — Vision 2030 is signature policy. Risk is execution slippage on NEOM-scale.</li>
+<li>UK: <strong>Low-Moderate</strong> — execution velocity AR7-9 must average 10.6 GW/round.</li>
+</ul>
+
+<h3>8c. China export deflation overshooting</h3>
+<p>Modules below $0.09/W good for project IRRs, bad for non-Chinese module makers. <strong>JinkoSolar 2024 revenue -42.7% YoY</strong>, big impairments.<sup class="fn"><a href="#fn28">28</a></sup> <strong>Mitigation:</strong> the thesis avoids pure-play solar manufacturers; recommended names are developers, integrated utilities, equipment (Vestas) — none manufacture solar modules.</p>
+
+<h3>8d. Interest-rate sensitivity</h3>
+<p>Renewable developers and regulated utilities are duration-sensitive. <strong>Mitigation:</strong> regulated-network positions have rate-resetting RAB returns over the regulatory cycle; pure-play developers carry more duration risk. Weight regulated &gt; pure-play developer in a rising-rate scenario.</p>
+
+<h3>8e. Grid bottleneck — "what if T&amp;D can't keep up"</h3>
+<p>The most underappreciated risk. Already material in Brazil (~20% of available solar and wind energy lost to curtailment nationally in 2025 per Volt Robotics), with Chile and Colombia exhibiting similar dynamics.<sup class="fn"><a href="#fn20">20</a></sup> Curtailment caps developer IRRs. <strong>Mitigation:</strong> the thesis specifically overweights T&amp;D names (Power Grid Corp, National Grid, Iberdrola networks) — they benefit from solving this exact bottleneck. Curtailment pain accelerates the T&amp;D capex cycle, which is the exact thesis.</p>
+
+<h3>8f. What would actually invalidate the thesis</h3>
+<ol>
+<li><strong>EU Renewable Energy Directive target lowered</strong> (e.g., 42.5% → 30%) — invalidates EU leg</li>
+<li><strong>India non-fossil target walked back, 500-GW replaced with 350-GW</strong> — invalidates India leg</li>
+<li><strong>Chinese module prices recover &gt; $0.12/W AND tariffs on Chinese modules into Europe rise</strong> — compresses project-level IRRs</li>
+</ol>
+<p>None visible in policy or commodity data as of mid-May 2026. If any one fires, reweight; if two fire, exit the thesis.</p>
+
+<h2><span class="section-num">9.</span>Recommended next steps</h2>
+
+<h4>9a. Broker setup (Week 1-2)</h4>
+<ul>
+<li>Confirm the brokerage account supports <strong>non-US ADRs (IBDRY, VWSYY, DNNGY)</strong> — Schwab, Fidelity, Vanguard, IBKR all do.</li>
+<li>Confirm <strong>direct foreign listings (IBE.MC, ENEL.MI, VWS.CO)</strong> — IBKR + Schwab Global Account support; Fidelity/Vanguard generally don't for retail.</li>
+<li>For Indian listings, use <strong>GDR/ADR (PWGR.BO ADR, ADGGF ADR)</strong> or INDA as partial proxy.</li>
+<li>File <strong>W-8BEN</strong> with European brokers to claim treaty-reduced dividend withholding (typically 15% vs 30%).</li>
+</ul>
+
+<h4>9b. Initial position-sizing (Week 2-4)</h4>
+<ul>
+<li>Determine total allocation to non-US renewables sleeve. <strong>Suggested range: 5-12% of total investable portfolio.</strong></li>
+<li>5-name simpler shortlist if total &lt; $250k; full 12-name if &gt; $500k.</li>
+<li><strong>Dollar-cost average</strong> initial position over 6-8 weeks. Thesis is multi-year; chasing single entry isn't necessary.</li>
+</ul>
+
+<h4>9c. Reporting and review cadence</h4>
+<ul>
+<li><strong>Quarterly review:</strong> (1) IEA + IRENA quarterly capacity updates, (2) PGCIL / Iberdrola / Ørsted quarterly results, (3) Vestas order intake, (4) Chinese module price index (PVXChange).</li>
+<li><strong>Annual reweight</strong> based on whether (a) any 3 invalidation signals fired, (b) any name moved &gt;40% on multiple-rerating vs fundamentals.</li>
+<li><strong>Tax tracking:</strong> non-US dividend withholding reclaimable on Schedule B / Form 1116.</li>
+</ul>
+
+<h4>9d. Information gathering — high-leverage sources</h4>
+<ol>
+<li>IEA Renewables annual report (October each year)</li>
+<li>IRENA Renewable Capacity Statistics (March each year)</li>
+<li>BloombergNEF Outlook (quarterly, paid)</li>
+<li>Noldor (John's research platform — for intersecting AI-infra-power thesis)</li>
+</ol>
+
+<h4>9e. What NOT to do</h4>
+<ul>
+<li><strong>Do NOT chase Chinese module manufacturers</strong> (JinkoSolar, LONGi, JA Solar). Cycle is brutal; the thesis harvests the deflation downstream, not upstream.</li>
+<li><strong>Do NOT overweight floating offshore wind</strong> as standalone bet. AR6 cleared at £139.93/MWh — economics still don't work unsubsidized. Watch via Ørsted/Iberdrola, don't chase pure-plays until 2028+.</li>
+<li><strong>Do NOT chase hydrogen pure-plays</strong> (Plug Power, Ballard, Nel ASA). Same cycle problem as Chinese solar. Watch via NEOM/ACWA/RWE indirect.</li>
+</ul>
+
+<div class="footnotes">
+<h2>Sources</h2>
+<ol>
+<li id="fn1">IEA, "Renewables 2025 — Executive Summary," published October 7, 2025. <a href="https://www.iea.org/reports/renewables-2025/executive-summary">https://www.iea.org/reports/renewables-2025/executive-summary</a></li>
+<li id="fn2">IEA, "Renewables 2025" (full PDF), October 2025. <a href="https://iea.blob.core.windows.net/assets/76ad6eac-2aa6-4c55-9a55-b8dc0dba9f9e/Renewables2025.pdf">https://iea.blob.core.windows.net/assets/76ad6eac-2aa6-4c55-9a55-b8dc0dba9f9e/Renewables2025.pdf</a></li>
+<li id="fn3">IEA News, "Global renewable capacity is set to grow strongly, driven by solar PV," October 7, 2025. <a href="https://www.iea.org/news/global-renewable-capacity-is-set-to-grow-strongly-driven-by-solar-pv">https://www.iea.org/news/global-renewable-capacity-is-set-to-grow-strongly-driven-by-solar-pv</a></li>
+<li id="fn4">IEA, "Renewables 2025 — Renewable electricity" chapter. <a href="https://www.iea.org/reports/renewables-2025/renewable-electricity">https://www.iea.org/reports/renewables-2025/renewable-electricity</a></li>
+<li id="fn5">IRENA, "Near-700 GW Surge in 2025 Proves Renewable Energy Resilience," April 1, 2026. <a href="https://www.irena.org/News/pressreleases/2026/Apr/Near-700-GW-Surge-in-2025-Proves-Renewable-Energy-Resilience">https://www.irena.org/News/pressreleases/2026/Apr/Near-700-GW-Surge-in-2025-Proves-Renewable-Energy-Resilience</a></li>
+<li id="fn6">European Commission, "REPowerEU" overview page (RED: 42.5% binding, 45% ambition). <a href="https://commission.europa.eu/topics/energy/repowereu_en">https://commission.europa.eu/topics/energy/repowereu_en</a></li>
+<li id="fn7">European Commission, "REPowerEU 3 years on," May 16, 2025. <a href="https://energy.ec.europa.eu/news/repowereu-3-years-commission-takes-stock-progress-phase-out-russian-fossil-fuels-2025-05-16_en">https://energy.ec.europa.eu/news/repowereu-3-years-commission-takes-stock-progress-phase-out-russian-fossil-fuels-2025-05-16_en</a></li>
+<li id="fn8">European Commission, "Two years of REPowerEU," May 17, 2024. <a href="https://commission.europa.eu/news/two-years-repowereu-strengthening-europes-energy-resilience-2024-05-17_en">https://commission.europa.eu/news/two-years-repowereu-strengthening-europes-energy-resilience-2024-05-17_en</a></li>
+<li id="fn9">UK CfD Allocation Round, "Record number of projects secure contracts in AR6," September 3, 2024. <a href="https://www.cfdallocationround.uk/news/record-number-of-projects-secure-contracts-in-ar6">https://www.cfdallocationround.uk/news/record-number-of-projects-secure-contracts-in-ar6</a></li>
+<li id="fn10">Westwood Energy, "Offshore Wind CfDs Awarded in UK's Allocation Round 6," September 6, 2024. <a href="https://www.westwoodenergy.com/news/offshore-wind-cfds-awarded-in-uks-allocation-round-6">https://www.westwoodenergy.com/news/offshore-wind-cfds-awarded-in-uks-allocation-round-6</a></li>
+<li id="fn11">Press Information Bureau (Govt of India), "500 GW non fossil capacity by 2030, Net Zero Emissions by 2070." <a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2223720&lang=1&reg=3">https://www.pib.gov.in/PressReleasePage.aspx?PRID=2223720&lang=1&reg=3</a> · <a href="https://www.pib.gov.in/newsite/erelcontent.aspx?relid=281611">https://www.pib.gov.in/newsite/erelcontent.aspx?relid=281611</a></li>
+<li id="fn12">PIB, "India Adds 31.2 GW Non-Fossil Capacity in FY 25-26 till October 2025," Oct 31, 2025. <a href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2197760">https://www.pib.gov.in/PressReleasePage.aspx?PRID=2197760</a></li>
+<li id="fn13">Mercom India, "India's Non-Fossil Power Capacity Reaches 52.3% as of January 2026," March 18, 2026. <a href="https://www.mercomindia.com/indias-non-fossil-power-capacity-reaches-52-3-as-of-january-2026">https://www.mercomindia.com/indias-non-fossil-power-capacity-reaches-52-3-as-of-january-2026</a></li>
+<li id="fn14">India MNRE, "Physical Achievements" — <strong>30 April 2026</strong> snapshot. Total RE 279.26 GW; Solar 154.24 GW; Wind 56.44 GW; total non-fossil 288.04 GW. <a href="https://mnre.gov.in/en/physical-progress/">https://mnre.gov.in/en/physical-progress/</a> · local snapshot: <code>snapshots/2026-04-30-mnre-physical-progress.html</code></li>
+<li id="fn15">The Saudi Times, "Saudi Arabia Set to Award 14 GW of Renewable Energy Projects in 2026," April 2, 2026. <a href="https://thesauditimes.net/en/saudi-arabia-set-to-award-14-gigawatts-of-renewable-energy-projects-in-2026-as-clean-power-drive-accelerates/">https://thesauditimes.net/en/saudi-arabia-set-to-award-14-gigawatts-of-renewable-energy-projects-in-2026-as-clean-power-drive-accelerates/</a></li>
+<li id="fn16">NEOM, "NEOM Green Hydrogen Company completes financial close at a total investment value of USD 8.4 billion," May 22, 2023 (4 GW combined solar+wind; 600 t/day green H₂ by end-2026). <a href="https://www.neom.com/en-us/newsroom/neom-green-hydrogen-investment">https://www.neom.com/en-us/newsroom/neom-green-hydrogen-investment</a> · local snapshot: <code>snapshots/2023-05-neom-green-hydrogen.html</code></li>
+<li id="fn17">Iberdrola, "Iberdrola will invest €58bn to 2028 (+30%) to accelerate growth in US and UK networks." <a href="https://www.iberdrola.com/press-room/news/detail/iberdrola-invest-58-bn-to-2028-accelerate-growth-networks-us-uk">https://www.iberdrola.com/press-room/news/detail/iberdrola-invest-58-bn-to-2028-accelerate-growth-networks-us-uk</a></li>
+<li id="fn18">Ørsted, Annual Report 2025. <a href="https://orsted.com/annualreport2025">https://orsted.com/annualreport2025</a></li>
+<li id="fn19">Strategic Energy Europe / Now.Solar, "Where to invest in renewables in 2026 — Latin America snapshot," January 20, 2026. <a href="https://now.solar/2026/01/20/where-to-invest-in-renewables-in-2026-a-market-by-market-snapshot-of-latin-america-strategic-energy-europe/">https://now.solar/2026/01/20/where-to-invest-in-renewables-in-2026-a-market-by-market-snapshot-of-latin-america-strategic-energy-europe/</a></li>
+<li id="fn20">Power Technology, "Brazil's energy sector tackles excess power supply challenges," January 12, 2026. <a href="https://www.power-technology.com/features/renewables-boom-aftermath-brazils-energy-sector-tackles-excess-power-supply-challenges/">https://www.power-technology.com/features/renewables-boom-aftermath-brazils-energy-sector-tackles-excess-power-supply-challenges/</a></li>
+<li id="fn21">Vestas, "Annual Report 2025 — Generating value amidst growing uncertainty," February 5, 2026. <a href="https://www.vestas.com/en/media/company-news/2026/vestas-annual-report-2025---generating-value-amidst-gro-c4302973">https://www.vestas.com/en/media/company-news/2026/vestas-annual-report-2025---generating-value-amidst-gro-c4302973</a> · Annual Report 2024 (onshore +7-9% CAGR, offshore +20-25% CAGR to 2030). <a href="https://www.vestas.com/content/dam/vestas-com/global/en/investor/reports-and-presentations/financial/2024/fy-2024/Vestas%20Annual%20Report%202024.pdf.coredownload.inline.pdf">PDF</a></li>
+<li id="fn22">Akin Gump, "Significant Cuts to IRA Clean Energy Tax Credits Included in Enacted Reconciliation Bill," July 2025 (OBBBA signed July 4, 2025). <a href="https://www.akingump.com/en/insights/alerts/significant-cuts-to-ira-clean-energy-tax-credits-included-in-enacted-reconciliation-bill">https://www.akingump.com/en/insights/alerts/significant-cuts-to-ira-clean-energy-tax-credits-included-in-enacted-reconciliation-bill</a></li>
+<li id="fn23">EY Tax News, "Final reconciliation legislation modifies some IRA energy credits, repeals others," July 2025. <a href="https://taxnews.ey.com/news/2025-1434-final-reconciliation-legislation-modifies-some-ira-energy-credits-repeals-others">https://taxnews.ey.com/news/2025-1434-final-reconciliation-legislation-modifies-some-ira-energy-credits-repeals-others</a></li>
+<li id="fn24">Brookfield Renewable, "Corporate Profile," February 2026 (~47 GW operating; ~$145 bn AUM in ~25 countries; 200+ GW pipeline). <a href="https://bep.brookfield.com/sites/brookfield-bep-v2/files/Brookfield-BEP-IR-V2/presentations/brookfield-renewable-corporate-profile-february-2026.pdf">PDF</a></li>
+<li id="fn25">ET Energyworld, "Maharatna PSU Powergrid projects capex of over ₹3 lakh crore by 2032," May 21, 2025. <a href="https://energy.economictimes.indiatimes.com/news/power/maharatna-psu-powergrid-projects-capex-of-over-rs-3-lakh-crore-by-2032/121313535">https://energy.economictimes.indiatimes.com/news/power/maharatna-psu-powergrid-projects-capex-of-over-rs-3-lakh-crore-by-2032/121313535</a></li>
+<li id="fn26">Iberdrola, "Strategic Plan 2025-2028." <a href="https://www.iberdrola.com/about-us/iberdrola-strategic-plan">https://www.iberdrola.com/about-us/iberdrola-strategic-plan</a> · Iberdrola "Factbook 2025." <a href="https://www.iberdrola.com/documents/20125/41740/Iberdrola_factbook_2025.pdf">PDF</a></li>
+<li id="fn27">Enel, "Executive Summary: 2025-2027 Strategic Plan." <a href="https://www.enel.com/investors/strategy/strategic-plan-2025-2027">https://www.enel.com/investors/strategy/strategic-plan-2025-2027</a></li>
+<li id="fn28">PV Magazine, "Chinese PV Industry Brief: Polysilicon, solar module prices continue to slide," April 25, 2025. <a href="https://pv-magazine.com/2025/04/25/chinese-pv-industry-brief-polysilicon-solar-module-prices-continue-to-slide">link</a></li>
+<li id="fn29">PV Tech, "Is Europe heading for another PV module oversupply situation?" November 26, 2025. <a href="https://www.pv-tech.org/is-europe-heading-for-another-pv-module-oversupply-situation/">link</a></li>
+<li id="fn30">PVXchange, "Solar Market Analysis July 2025 — Downward trend returns for module prices," July 18, 2025. <a href="https://www.pvxchange.com/Market-Analysis-July-2025-Downward-trend-returns-for-module-prices">link</a></li>
+<li id="fn31">Australia Clean Energy Regulator, "Large-scale renewable electricity," Quarterly Carbon Market Report Dec Q 2025 (12 GW of CIS-supported pipeline from first 4 tenders yet to reach FID). <a href="https://cer.gov.au/markets/reports-and-data/quarterly-carbon-market-reports/quarterly-carbon-market-report-december-quarter-2025/large-scale-renewable-electricity">link</a></li>
+<li id="fn32">ENTSO-E, "Data centres and the power system: expected trends, challenges and opportunities," <strong>May 2026</strong> (cover) / file finalized 30 April 2026. <a href="https://eepublicdownloads.blob.core.windows.net/public-cdn-container/clean-documents/Reports/2026/FINAL_ENTSO-E_Data_Centres_260430.pdf">PDF</a> · local: <code>snapshots/2026-04-entsoe-data-centres.pdf</code> + summary <code>snapshots/2026-05-15-entso-e-summary.html</code></li>
+<li id="fn33">Ember, "Grids for data centres in Europe," June 2025. <a href="https://ember-energy.org/app/uploads/2025/06/Grids-for-data-centres-in-Europe.pdf">PDF</a></li>
+<li id="fn34">ETCIO India, "Why 13 GW of data centre power load may require 40 GW of renewables," February 27, 2026. <a href="https://cio.economictimes.indiatimes.com/news/data-center/why-13-gw-of-data-centre-power-load-may-require-40-gw-of-renewables/128849321">link</a></li>
+<li id="fn35">BBC (original URL <a href="https://www.bbc.com/news/articles/ce8pyyz5e0ro">https://www.bbc.com/news/articles/ce8pyyz5e0ro</a>, May 8, 2026 — primary URL inaccessible via WebFetch). Iran International mirror: <a href="https://www.iranintl.com/en/202605082602">https://www.iranintl.com/en/202605082602</a>. References BP +100% Q1 2026 profits, Shell $6.92 bn, TotalEnergies $5.4 bn, JP Morgan $11.6 bn trading revenue, BAE Systems / Lockheed / Boeing / Northrop defense backlogs, NextEra +17% YTD, Vestas / Ørsted profits up, Octopus Energy UK solar +50%.</li>
+<li id="fn36">BNamericas, "Latin America's US$300bn power grid expansion plans," April 24, 2025. <a href="https://www.bnamericas.com/en/features/latin-americas-us300bn-power-grid-expansion-plans">link</a></li>
+<li id="fn37">Ørsted, "Offshore wind pact is a giant leap towards powering Europe with renewable, secure, and cost-competitive electricity," January 2026. <a href="https://orsted.com/en/media/news/2026/01/offshore-wind-pact-is-a-giant-leap-towards-powerin-14766123">link</a></li>
+<li id="fn38">BNamericas, "Brazil to add over 6,000km of transmission lines in 2026," November 3, 2025. <a href="https://www.bnamericas.com/en/analysis/brazil-seen-adding-more-than-6000km-of-transmission-lines-in-2026">link</a></li>
+<li id="fn39">iShares Global Clean Energy ETF (ICLN), holdings & geographic exposure (Feb 2026). <a href="https://www.ishares.com/us/products/239738/ICLN">link</a> · FT.com tearsheet (Mar 31 2026): non-US stock 56.88%. <a href="https://markets.ft.com/data/etfs/tearsheet/holdings?s=ICLN%3ANMQ%3AUSD">link</a></li>
+<li id="fn40">Ørsted, "Ørsted's Hornsea 3 and Hornsea 4 awarded capacity in UK allocation round 6," September 3, 2024 (Hornsea 3 gross 2,955 MW; 2,400 MW CfD for Hornsea 4; strike prices £54.23 / £58.87 per MWh). <a href="https://orsted.com/en/company-announcement-list/2024/09/orsteds-hornsea-3-and-hornsea-4-awarded-capacity-i-140173681">link</a> · local: <code>snapshots/2024-09-orsted-hornsea-ar6-award.html</code></li>
+<li id="fn41">Ørsted, "Ørsted to discontinue the Hornsea 4 offshore wind project in its current form," May 7, 2025 (2,400 MW project discontinued in current form; seabed rights, grid agreement, DCO retained). <a href="https://orsted.com/en/company-announcement-list/2025/05/orsted-to-discontinue-the-hornsea-4-offshore-wind--143901911">link</a> · local: <code>snapshots/2025-05-orsted-hornsea4-discontinue.html</code></li>
+<li id="fn42">Australia DCCEEW, "A 40 GW target to boost Australia's energy system" (CIS uplifted from 32 GW to 40 GW by 2030 on 29 July 2025; supports ~AUD 73 bn investment). <a href="https://www.dcceew.gov.au/about/news/a-40-gw-target-boost-australia-energy-system">link</a></li>
+</ol>
+<p style="font-size:12px; color:var(--ink-mute); margin-top:14px;">All cited URLs retrieved or re-snapshotted 2026-05-19. Local-disk snapshots: <code>research/2026-05-19-renewables-outside-us-research/snapshots/</code>. UNREACHABLE/403 sources (Iberdrola plan/press, IRENA press, Saudi Times, PIB India, Adani PDF, Vestas PDF, Iberdrola Factbook, Akin Gump) corroborated via secondary coverage and noted in MANIFEST.</p>
+</div>
+
+<p class="footer-stamp">END OF BRIEF — 2026-05-19 — Draft — M1 audit complete; ship-blockers remediated 2026-05-19 (see docs/audits/2026-05-19-renewables-outside-us-research-m1-fix-log.md)</p>
+
+</div>
+</body>
+</html>

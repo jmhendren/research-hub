@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three-doc walkthrough — token, agentic, SemiAnalysis</title>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  :root {
+    --bg: #fafaf7;
+    --panel: #ffffff;
+    --ink: #1a1a1a;
+    --ink-muted: #4a4a4a;
+    --ink-soft: #6b6b6b;
+    --rule: #e5e2da;
+    --rule-soft: #efece5;
+    --accent: #8a4b1c;
+    --accent-soft: #f3e7d8;
+    --green: #2e6b3f;
+    --red: #993333;
+    --highlight: #fff7e0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Charter', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--ink);
+    margin: 0;
+    padding: 32px 40px 64px;
+    line-height: 1.45;
+    font-size: 14.5px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  header {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+  }
+  h1 {
+    font-size: 26px;
+    margin: 0 0 4px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .subtitle {
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    font-style: italic;
+  }
+  .meta {
+    margin-top: 8px;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    font-family: -apple-system, 'SF Mono', Menlo, monospace;
+    letter-spacing: 0.02em;
+  }
+  h2 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin: 28px 0 10px;
+    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h2 i { width: 14px; height: 14px; }
+  .three-up {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 14px 16px;
+    position: relative;
+  }
+  .card-num {
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    background: var(--ink);
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+  .card h3 {
+    margin: 4px 0 8px;
+    font-size: 14.5px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+  .card h3 .label {
+    color: var(--accent);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    display: block;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    margin-bottom: 2px;
+  }
+  .card ul {
+    padding-left: 16px;
+    margin: 0 0 8px;
+  }
+  .card li {
+    margin-bottom: 6px;
+    font-size: 13px;
+    line-height: 1.42;
+  }
+  .punch {
+    background: var(--highlight);
+    padding: 8px 10px;
+    border-left: 3px solid var(--accent);
+    font-size: 12.5px;
+    margin-top: 8px;
+  }
+  .punch .punch-label {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    font-size: 13px;
+  }
+  thead {
+    background: #f0ede4;
+  }
+  th {
+    text-align: left;
+    padding: 8px 12px;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    border-bottom: 2px solid var(--rule);
+    font-weight: 700;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: #fbfaf6; }
+  td.layer {
+    font-weight: 600;
+    color: var(--ink);
+    width: 22%;
+  }
+  td.thesis { width: 42%; color: var(--ink-muted); }
+  td.names { width: 36%; font-size: 12.5px; }
+  td.names strong { color: var(--ink); }
+  .asymmetry {
+    background: #1a1a1a;
+    color: #f5f2eb;
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-top: 22px;
+  }
+  .asymmetry h2 {
+    color: #d4a574;
+    margin: 0 0 12px;
+  }
+  .asym-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  .asym-cell {
+    background: #2a2a2a;
+    padding: 12px 14px;
+    border-radius: 3px;
+    border-left: 3px solid;
+  }
+  .asym-cell.bull-bottom-up { border-color: #4a9d68; }
+  .asym-cell.bull-semi { border-color: #d4a574; }
+  .asym-cell h4 {
+    margin: 0 0 6px;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #d4a574;
+    font-weight: 700;
+  }
+  .asym-cell p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .punchline {
+    border-top: 1px solid #444;
+    padding-top: 12px;
+    margin-top: 4px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .punchline strong { color: #d4a574; }
+  em { color: var(--ink-muted); }
+  .num { font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+  footer {
+    margin-top: 24px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    font-size: 11px;
+    color: var(--ink-soft);
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  footer code {
+    font-family: 'SF Mono', Menlo, monospace;
+    background: var(--rule-soft);
+    padding: 1px 4px;
+    border-radius: 2px;
+    font-size: 10.5px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Three-doc walkthrough — punchlines &amp; investible themes</h1>
+  <div class="subtitle">Token primer = unit-level mechanics. Agentic primer = how those mechanics multiply at cluster level. SemiAnalysis = where value capture is landing. All three corroborate the same direction; they disagree on <em>who</em> wins the margin.</div>
+  <div class="meta">2026-05-19 · walkthrough</div>
+</header>
+
+<h2><i data-lucide="layers"></i>The three punchlines</h2>
+
+<div class="three-up">
+
+  <div class="card">
+    <div class="card-num">01</div>
+    <h3><span class="label">Token primer</span>The unit-level setup</h3>
+    <ul>
+      <li>One forward pass per token; tokens stress four GPU resources — compute, HBM bandwidth, HBM capacity, NVLink. Output ~3–10× input (decode is memory-bound, prefill is compute-bound).</li>
+      <li><strong>Deflation is bimodal.</strong> Commodity tier collapses <span class="num">~80%/yr</span> (a16z "LLMflation": <span class="num">1,000×</span> in three years at fixed capability). Frontier is flat — Anthropic held Opus at $5/$25 across three releases.</li>
+      <li>Stanford: agentic tasks burn <span class="num">1,000×</span> more tokens than chat. Huang at MS-TMT: industry compute "grew <span class="num">1,000-fold</span> in two years."</li>
+    </ul>
+    <div class="punch"><span class="punch-label">Punchline</span>Volume × intensity is outrunning per-token deflation. Total token spend grows even as $/MTok falls.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-num">02</div>
+    <h3><span class="label">Agentic primer</span>What it does to the BOM</h3>
+    <ul>
+      <li>Agent = LLM in a ReAct loop + tool-call schema + MCP (all three labs converged on it within five months).</li>
+      <li><strong>Three new cluster-level shifts:</strong> KV-cache spills past on-package HBM into a brand-new "warm context" tier (NVIDIA CMX = Bluefield-4 + DRAM + NAND SSD); CPU pull-through at Microsoft Fairwater runs <span class="num">48 MW CPU vs 295 MW GPU (~1:6)</span>; east-west traffic dominates (70–90% of flows) and NVIDIA named a new networking category — <strong>"scale-across"</strong> — for DC-to-DC fabric.</li>
+      <li>Agentic BOM looks different: network + interconnect = <span class="num">10.4%</span> of cluster all-in (vs 6.5–7.9% elsewhere); fiber + optics = <span class="num">3.7%</span> (vs 1.3–2.9%); land/shell/EPC drops to <span class="num">10.4%</span>.</li>
+    </ul>
+    <div class="punch"><span class="punch-label">Punchline</span>Consensus underprices on two axes: bottom-up 2030 capex pool runs <span class="num">~$2.8T Base vs Goldman's $1.86T</span> (1.5×; 1.9× Bull). BofA already lifted 2030 to $1.7T, called it <em>"additive."</em></div>
+  </div>
+
+  <div class="card">
+    <div class="card-num">03</div>
+    <h3><span class="label">SemiAnalysis</span>Value capture shifted to model labs</h3>
+    <ul>
+      <li>Anthropic inference-infra GM moved <span class="num">38% → 70%+</span> in ~12 months; ARR went <span class="num">$9B → $44B</span>.</li>
+      <li>Mechanism is agentic workload structure: realized Opus 4.7 blends to <span class="num">$0.99/MTok</span> (vs $5/$25 sticker) because traces run 300:1 input:output and 90%+ cache hits ($0.50/MTok cached input).</li>
+      <li>Cost-per-token fell faster than realized price. Blackwell + TPUv7/Trainium 3 = <span class="num">30×</span> tokens/sec/chip vs prior gen; SW (wide-EP, disagg prefill, MTP) adds up-to-<span class="num">14×</span> on identical HW.</li>
+      <li>Premium SKUs selling: Opus Fast (6× regular), Mythos ($25/$125, 5× regular). Buyers pay because per-token productivity exceeds price.</li>
+    </ul>
+    <div class="punch"><span class="punch-label">Punchline</span><em>"Real agentic AI has permanently increased the market-clearing price per token, and there's no going back."</em> Inverts The Information's deteriorating-margin narrative.</div>
+  </div>
+
+</div>
+
+<h2><i data-lucide="target"></i>Investible themes — where the dollars land</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Infrastructure layer</th>
+      <th>Thesis</th>
+      <th>Names to watch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="layer">Networking — east-west fabric</td>
+      <td class="thesis">Agentic shifts traffic <em>inside</em> the DC. Backend NIC + switch silicon scales with port count, not GPU FLOPS.</td>
+      <td class="names"><strong>ANET</strong> (Tomahawk/Jericho merchant silicon), <strong>AVGO</strong>, <strong>MRVL</strong> (custom-ASIC tailwind)</td>
+    </tr>
+    <tr>
+      <td class="layer">Networking — "scale-across" (DC-to-DC)</td>
+      <td class="thesis">Brand-new category NVIDIA just named. Long-haul + metro fiber moves from optional to mandatory once GPU clusters exceed single-site power.</td>
+      <td class="names"><strong>CIEN</strong> (TD Cowen "No DC Is An Island"), <strong>DY</strong> (JPM fiber-build read), <strong>GLW</strong> as fiber substrate</td>
+    </tr>
+    <tr>
+      <td class="layer">Networking — optical in-rack</td>
+      <td class="thesis">400G → 800G → 1.6T transceivers; co-packaged optics is the credible next step when copper runs out of room.</td>
+      <td class="names"><strong>COHR</strong>, <strong>LITE</strong>, <strong>FN</strong>; <strong>Celestial AI</strong> (private — optical interconnect for new memory tier)</td>
+    </tr>
+    <tr>
+      <td class="layer">KV-cache offload tier (CMX)</td>
+      <td class="thesis">Brand-new line item. Bluefield-4 + DRAM + NAND SSDs holding "warm context" between HBM and bulk storage. Didn't exist nine months ago.</td>
+      <td class="names">NVIDIA Bluefield; <strong>MU</strong> / SK Hynix / Samsung (HBM + GDDR7 + NAND); <strong>Solidigm</strong>, <strong>PSTG</strong> for SSD layer</td>
+    </tr>
+    <tr>
+      <td class="layer">CPU pull-through</td>
+      <td class="thesis">Per-token economics are GPU-led; per-cluster capex is not. Agents pull CPU for orchestration, RAG, KV-spill management.</td>
+      <td class="names"><strong>AMD</strong> (server CPU), <strong>INTC</strong> (Xeon 6+); Arm-custom angle via <strong>MRVL</strong> (AWS Graviton silicon), <strong>ARM</strong> licensing</td>
+    </tr>
+    <tr>
+      <td class="layer">Disaggregated prefill/decode</td>
+      <td class="thesis">Rubin CPX puts GDDR7 onto AI-server bills alongside HBM4 — first time commodity memory enters the inference TAM.</td>
+      <td class="names">Same memory names — but <strong>GDDR7 is a new line</strong>, incremental volume for <strong>MU</strong> / SK Hynix not in prior DC mix</td>
+    </tr>
+    <tr>
+      <td class="layer">Voice/agent application stack</td>
+      <td class="thesis">Voice agents reroute call audio to 3 new endpoints per turn (STT/LLM/TTS) on sub-200 ms latency budget.</td>
+      <td class="names"><strong>ElevenLabs</strong>, <strong>Deepgram</strong> (private); <strong>TWLO</strong> ConversationRelay as orchestration layer</td>
+    </tr>
+    <tr>
+      <td class="layer">Vector DB + indexing</td>
+      <td class="thesis">RAG and codebase indexing are persistent new infrastructure layers — Cursor indexes every customer codebase.</td>
+      <td class="names"><strong>Pinecone</strong>, <strong>Weaviate</strong>, <strong>Qdrant</strong> (all private); <strong>MDB</strong> Atlas Vector as public adjacency</td>
+    </tr>
+    <tr>
+      <td class="layer">Agent security</td>
+      <td class="thesis">OWASP LLM06 ("Excessive Agency") is a real category; agent-driven egress + supply-chain risk through MCP servers.</td>
+      <td class="names"><strong>PANW</strong>, <strong>ZS</strong>, <strong>CRWD</strong>; <strong>Protect AI</strong>, <strong>Lasso</strong> private-side</td>
+    </tr>
+    <tr>
+      <td class="layer">Model labs themselves</td>
+      <td class="thesis">If SemiAnalysis is right, the <em>labs</em> are the highest-margin link — not the wrappers (Cursor/Devin run negative GM today).</td>
+      <td class="names"><strong>Anthropic</strong>, <strong>OpenAI</strong> secondaries; wrapper exposure is the wrong end of the bar-bell</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="asymmetry">
+  <h2 style="color: #d4a574;"><i data-lucide="zap" style="color: #d4a574;"></i>The asymmetry to press on next call</h2>
+  <p style="margin: 0 0 12px; font-size: 13.5px; line-height: 1.5;">The two bull cases <strong style="color: #d4a574;">stack rather than cancel</strong>:</p>
+
+  <div class="asym-row">
+    <div class="asym-cell bull-bottom-up">
+      <h4>If bottom-up is right (agentic primer §6)</h4>
+      <p>Capex pool is 1.5–1.9× consensus → networking, fiber, CPU, KV-tier memory all under-counted in published TAMs.</p>
+    </div>
+    <div class="asym-cell bull-semi">
+      <h4>If SemiAnalysis is right</h4>
+      <p>Model-lab margins keep widening → value capture concentrates with Anthropic / OpenAI; wrapper/app layer is a trap.</p>
+    </div>
+  </div>
+
+  <div class="punchline">
+    The <strong>least-priced corner</strong> is networking — specifically the <strong>"scale-across" DC-to-DC fiber + optics</strong> layer, because <span style="color: #d4a574;">(a)</span> it didn't exist as a named category nine months ago, <span style="color: #d4a574;">(b)</span> it shows up in <em>every</em> agentic capex shock scenario, and <span style="color: #d4a574;">(c)</span> the public-comp set (<strong>CIEN, DY, COHR, LITE</strong>) trades at infrastructure multiples, not AI multiples.
+  </div>
+</div>
+
+<footer>
+  Sources: <code>docs/briefs/2026-05-15-token-primer.md</code> · <code>docs/briefs/2026-05-15-agentic-ai-primer.md</code> · <code>docs/briefs/2026-05-18-semianalysis-value-capture-counter-thesis.md</code>
+</footer>
+
+<script>
+  lucide.createIcons();
+</script>
+
+</body>
+</html>

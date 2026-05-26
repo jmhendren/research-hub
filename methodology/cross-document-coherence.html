@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cross-Document Coherence — Architecture for the Work-Product Graph</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --paper: #fafaf7;
+    --rule: #d8d4cc;
+    --accent: #8b3a3a;
+    --highlight: #fff5e6;
+    --code-bg: #f0ede5;
+    --rec: #e8f0e3;
+    --reject: #f5e8e8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "SF Pro Text", "Charter", Georgia, serif;
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 48px 64px 80px;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    font-size: 16px;
+  }
+  h1 { font-size: 28px; font-weight: 700; margin: 0 0 6px; line-height: 1.2; }
+  .subtitle { font-size: 14px; color: var(--ink-soft); margin-bottom: 0; }
+  .meta {
+    font-size: 13px;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+  .meta strong { color: var(--ink); }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    margin: 36px 0 12px;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 6px;
+  }
+  h3 { font-size: 17px; font-weight: 700; margin: 24px 0 8px; }
+  h4 { font-size: 15px; font-weight: 700; margin: 16px 0 6px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.04em; }
+  p { margin: 10px 0; }
+  ul, ol { margin: 10px 0; padding-left: 22px; }
+  li { margin: 5px 0; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 14px 0;
+    font-size: 14px;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  th {
+    background: var(--code-bg);
+    font-weight: 700;
+    border-bottom: 2px solid var(--ink-soft);
+  }
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent);
+  }
+  a:hover { background: var(--highlight); }
+  .verdict-box {
+    background: var(--highlight);
+    border-left: 4px solid var(--accent);
+    padding: 12px 18px;
+    margin: 14px 0;
+    font-size: 15px;
+  }
+  .verdict-box strong { color: var(--accent); }
+  .option-box {
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 14px 18px 4px;
+    margin: 14px 0;
+  }
+  .option-box.recommended {
+    border: 2px solid #5a7a4a;
+    background: var(--rec);
+  }
+  .option-box.recommended h3::after {
+    content: " — RECOMMENDED";
+    color: #5a7a4a;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  .option-box.reject {
+    background: var(--reject);
+    opacity: 0.85;
+  }
+  code {
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 13px;
+  }
+  .toc {
+    background: var(--code-bg);
+    padding: 14px 20px;
+    margin: 20px 0 32px;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+  .toc strong { display: block; margin-bottom: 4px; }
+  .toc ol { margin: 4px 0 0; padding-left: 22px; }
+  blockquote {
+    border-left: 3px solid var(--ink-soft);
+    padding-left: 14px;
+    margin: 10px 0;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+  .source-list { font-size: 13px; }
+  .source-list li { margin: 3px 0; }
+  .footer-note {
+    border-top: 1px solid var(--rule);
+    margin-top: 40px;
+    padding-top: 16px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    margin-right: 4px;
+  }
+  .pill.cost { background: #e0e0d0; color: var(--ink); }
+  .pill.cov { background: #d0e0d0; color: #2a4a2a; }
+  .pill.risk { background: #e0d0d0; color: #4a2a2a; }
+</style>
+</head>
+<body>
+
+<h1>Cross-Document Coherence — Architecture for the Work-Product Graph</h1>
+<p class="subtitle">When the model changes, how do the brief, the deck, and the memo know? — and what gets built vs. bought.</p>
+
+<div class="meta">
+  <p><strong>Date:</strong> 2026-05-18 &nbsp;·&nbsp; <strong>Status:</strong> Research synthesis; pre-decision</p>
+  <p><strong>Source synthesis:</strong> <code>research/2026-05-18-cross-document-coherence/00-synthesis.md</code> (full per-thread findings)</p>
+  <p><strong>Trigger:</strong> F-column source/note text on <code>bom-token-model-2026-05-18.xlsx</code> went stale when cell values updated 2026-05-18 — the symptom of a larger architectural gap.</p>
+</div>
+
+<div class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li>The problem in one paragraph</li>
+    <li>Terms (define-first-use)</li>
+    <li>What the three research threads found</li>
+    <li>The four options on the table</li>
+    <li>Recommendation</li>
+    <li>What I need from you to proceed</li>
+    <li>Sources cited</li>
+  </ol>
+</div>
+
+<h2>1. The problem in one paragraph</h2>
+
+<p>The BOM token model is the canonical source of ~40 cited numbers that appear across: the validation brief (2026-05-18 HTML), the V4 BOM memo (2026-05-13 MD/PDF), several Notion brief rows, two L-shape Marimekko chart packs, an in-progress chart deck, and the model's own README + Z_Sources tab. When a single assumption changes — like the frontier-share trajectory moving from 30/40/50% to 7.5/6/5% on 2026-05-18 — every downstream artifact that cited the V4 number is silently stale. The current discipline ("model is source of truth") states the rule but provides no enforcement: nothing flags the brief that still cites the old number, nothing flags the chart deck that uses the old blended price, nothing flags the F-column source/note in the model that wasn't refreshed alongside the value. Drift accumulates invisibly until manual review catches it.</p>
+
+<h2>2. Terms (define-first-use)</h2>
+
+<ul>
+  <li><strong>SSOT</strong> — Single Source of Truth. One canonical place where a fact lives; everything else references it rather than copying.</li>
+  <li><strong>Dependency graph</strong> — the directed-graph relationship between artifacts (model → brief → deck → email). If the model changes, every downstream node is potentially stale.</li>
+  <li><strong>Dirty-flag</strong> — a marker indicating an artifact is out-of-date relative to its sources. Standard pattern in software build systems (Make, Bazel) and CI/CD pipelines.</li>
+  <li><strong>Provenance</strong> — the recorded chain of "where did this number come from?" — typically a cell address, a source ID, a hash, or a URL.</li>
+  <li><strong>Content addressing / hash</strong> — a fingerprint of a value (e.g., SHA-256 of "$9.00"). If the value changes, the hash changes. Lets you detect that "the $9 the brief cited" is not "the $9 the model now contains."</li>
+  <li><strong>Hook</strong> (Claude Code) — a shell command triggered by a specific event (file edit, tool call, session start). Deterministic — not the agent's choice whether to run.</li>
+  <li><strong>Skill</strong> (Claude Code) — a markdown instruction file the agent loads when relevant; encodes domain workflows.</li>
+  <li><strong>MCP</strong> — Model Context Protocol; Anthropic's plug-in standard for external data sources and tools.</li>
+  <li><strong>Subagent</strong> (Claude Code) — a separate context window dispatched for a focused task; returns a summary to the parent.</li>
+  <li><strong>Quarto / docxtpl / python-pptx / Jinja2</strong> — open-source render libraries that produce Word, PowerPoint, HTML, or PDF from templates plus data.</li>
+  <li><strong>Macabacus / ThinkCell / UpSlide</strong> — commercial Excel→PowerPoint/Word link-maintenance add-ins commonly used at investment banks and PE shops.</li>
+</ul>
+
+<h2>3. What the three research threads found</h2>
+
+<h3>3.1 Finance-industry practice</h3>
+
+<p>The market has converged on three tiers:</p>
+
+<table>
+<thead>
+<tr><th>Tier</th><th>Tool</th><th class="num">Cost</th><th>Scope</th><th>Common?</th></tr>
+</thead>
+<tbody>
+<tr><td>Discipline only</td><td>Master assumptions tab + named ranges</td><td class="num">$0</td><td>Inside one model</td><td>Universal baseline</td></tr>
+<tr><td>Link-layer add-in</td><td><a href="https://www.think-cell.com/en/resources/manual/exceldatalinks">ThinkCell</a></td><td class="num">~$230-327/yr</td><td>Excel → PPT charts only</td><td>Dominant at IB</td></tr>
+<tr><td>Link-layer add-in</td><td><a href="https://help.macabacus.com/article/223-link-to-excel">Macabacus</a></td><td class="num">~$200-360/yr</td><td>Excel → PPT + Word, named-range linked</td><td>Heavy use at PE/IB</td></tr>
+<tr><td>Link-layer add-in</td><td><a href="https://upslide.net/features/link-excel-powerpoint/">UpSlide</a></td><td class="num">~$360/yr</td><td>Excel → PPT + Word + brand layer</td><td>Mid-tier IB / European</td></tr>
+<tr><td>Enterprise platform</td><td><a href="https://www.workiva.com/platform">Workiva</a></td><td class="num">~$36-155K/yr</td><td>Same number in 300+ disclosures</td><td>SEC reporting standard</td></tr>
+<tr><td>FP&amp;A platform</td><td><a href="https://www.anaplan.com">Anaplan</a> / <a href="https://www.pigment.com">Pigment</a> / <a href="https://www.venasolutions.com/">Vena</a></td><td class="num">$50K-$500K+/yr</td><td>Cross-team planning</td><td>Corporate FP&amp;A only</td></tr>
+</tbody>
+</table>
+
+<p>For a single-user shop where the deliverables are mostly chart-and-table-embedded slides plus prose briefs, the natural fit is <strong>Macabacus single-seat</strong> — it links Excel <em>named ranges</em> (which the BOM model already uses) into both PPT and Word, with a one-click "Manage Links" refresh dialog. ThinkCell is PPT-only and misses Word entirely; UpSlide has more enterprise overhead than is useful at single-seat.</p>
+
+<h3>3.2 Software-architecture patterns</h3>
+
+<p>Independent of any finance tool, the established pattern is <strong>SSOT + explicit dependencies + dirty-flag</strong>:</p>
+
+<ul>
+  <li>Excel holds the canonical numbers (already true in the BOM model).</li>
+  <li>Every downstream artifact <em>declares</em> what it depends on (which named ranges, which model version).</li>
+  <li>A build system (Make, Snakemake, or a thin Python equivalent) detects when sources have changed and rebuilds dependents on demand.</li>
+  <li>For prose-plus-numeric deliverables, <a href="https://quarto.org/docs/output-formats/all-formats.html">Quarto</a> compiles a single source file (markdown prose + inline value lookups) into Word, HTML, PDF, or PowerPoint.</li>
+</ul>
+
+<p>One-sentence summary from Thread 2: <em>"Excel = source. Python orchestrator + Quarto = render. Makefile = stale-check."</em> This is the dominant production architecture for automated finance reporting (Apryse Fluent, Vena, Omnidocs Create, Nemeth's 3-layer pattern). The cost is build effort, not subscription.</p>
+
+<p>The catch for John's workflow: prose-heavy briefs <em>flatten</em> when forced into templates. A 2,500-word memo with embedded figures doesn't translate cleanly into <code>{{ revenue_2030 }}</code> placeholders. Quarto is great for tear sheets and comp tables; less great for narrative briefs.</p>
+
+<h3>3.3 AI-agent approaches</h3>
+
+<p>The newest finding, and the most consequential: <strong>no 2026 vendor ships cross-document coherence for finance Office-file graphs under AI-agent stewardship.</strong> Coding-agent tooling (Cursor, Aider, Devin) solves source-code coherence — but does not extend to the xlsx + docx + pptx + md + html graph that John actually produces. LangChain's 2026 enterprise report: <strong>more than 60% of agent production incidents are state-management failures</strong> — which is exactly this problem class.</p>
+
+<p>What Claude Code already provides (~80% of the substrate per Thread 3):</p>
+
+<ul>
+  <li><strong>Hooks</strong> — can fire on every <code>xlsx</code> write to re-hash cited numbers and stale-flag downstream artifacts</li>
+  <li><strong>Skills</strong> — can encode the reconciliation discipline as <code>citation-coherence-audit</code></li>
+  <li><strong>Subagents</strong> — already used for the M1/M2/M3 pre-ship audit pattern</li>
+  <li><strong>MCP servers</strong> — promising for file-change pub/sub but current implementations are mostly request/response</li>
+  <li><strong>Auto-memory</strong> — wrong layer for per-packet provenance (it's for invariants)</li>
+</ul>
+
+<p>What's missing (the 20% gap): a structured <code>provenance.json</code> manifest per model that maps every cited number to <code>{id, value, model_cell, hash}</code>, plus the hook that detects drift, plus the skill that runs reconciliation. Thread 3 estimates this as ~1 day of custom build on existing primitives.</p>
+
+<h2>4. The four options on the table</h2>
+
+<div class="option-box">
+<h3>Option A — Custom Claude Code provenance layer</h3>
+<p>
+  <span class="pill cost">~1 day build</span>
+  <span class="pill cov">Coverage: all AI-built artifacts</span>
+  <span class="pill risk">Risk: custom maintenance</span>
+</p>
+<p><strong>How it works:</strong> A <code>provenance.json</code> file sits next to each model. Every cited number has an entry like <code>{"id": "frontier_share_2026", "value": 0.075, "model_cell": "Inputs!C25", "hash": "a3f9..."}</code>. Briefs, slides, memos, and emails reference numbers by ID, not by raw value. A <code>PostToolUse</code> hook re-hashes on every xlsx write and stale-flags downstream artifacts whose referenced hashes no longer match. A <code>coherence-audit</code> skill + subagent runs the reconciliation pass on demand.</p>
+<p><strong>What it catches:</strong> Today's BOM episode — F-column source/note stale, brief number stale, README still saying "30%/40%/50%".</p>
+<p><strong>What it doesn't catch:</strong> Numbers John types into an Excel chart manually outside of Claude's edit path.</p>
+</div>
+
+<div class="option-box">
+<h3>Option B — Macabacus + existing discipline</h3>
+<p>
+  <span class="pill cost">~$200-360/yr</span>
+  <span class="pill cov">Coverage: Excel → PPT/Word charts &amp; tables</span>
+  <span class="pill risk">Risk: prose numbers still manual</span>
+</p>
+<p><strong>How it works:</strong> Buy Macabacus single-seat. In any client deck or Word memo, embed Excel objects as named-range links instead of typing values or pasting screenshots. A single "Manage Links" refresh propagates the new model values into every linked chart and table. Continue to enforce the "model is source of truth" rule for any prose numbers (manual reconciliation).</p>
+<p><strong>What it catches:</strong> Chart and table drift in PowerPoint and Word — the most visible client-facing surface.</p>
+<p><strong>What it doesn't catch:</strong> Inline prose numbers like "2030 token revenue compresses to $1,874B" — still typed by hand. And Macabacus is built for a human at the Excel keyboard; Claude operating headless doesn't drive it.</p>
+</div>
+
+<div class="option-box">
+<h3>Option C — SSOT + template render (Quarto-driven)</h3>
+<p>
+  <span class="pill cost">2-3 days build + rework</span>
+  <span class="pill cov">Coverage: all deliverable types</span>
+  <span class="pill risk">Risk: prose flattens; existing briefs must be redone</span>
+</p>
+<p><strong>How it works:</strong> Build a Python orchestrator (<code>build_brief.py model.xlsx</code>) that reads named ranges and renders Word via <code>docxtpl</code>, PPT via <code>python-pptx</code>, HTML/MD via Jinja2. For narrative deliverables with embedded numbers, write in Quarto <code>.qmd</code> source files that compile to Word + HTML + PDF + PPT from one master. A Makefile (or thin Python equivalent) declares which artifacts depend on which Excel + template combinations.</p>
+<p><strong>What it catches:</strong> Everything — total dirty-flag tracking across all deliverable formats.</p>
+<p><strong>What it doesn't catch:</strong> The flattening tax on prose is real. A meaty 2,500-word brief written as Quarto template + value lookups reads more clinical than one written freehand. Existing briefs require a one-time rewrite into templated form.</p>
+</div>
+
+<div class="option-box recommended">
+<h3>Option D — Hybrid (A + B + selective C)</h3>
+<p>
+  <span class="pill cost">~1 day build + $200-360/yr</span>
+  <span class="pill cov">Coverage: AI-built + human-Excel-built + narrative + tabular</span>
+  <span class="pill risk">Risk: two systems but minimal overlap</span>
+</p>
+<p><strong>How it works:</strong></p>
+<ul>
+  <li><strong>Build Option A's provenance layer</strong> — the AI-agent-native piece. Covers the missing 20% Claude Code doesn't ship.</li>
+  <li><strong>Buy Macabacus single-seat</strong> — for the human-Excel-power-user moments where you're embedding a chart or table from a named range into a client deck or Word memo. Cheap insurance.</li>
+  <li><strong>Selectively adopt Quarto</strong> for pure-numeric deliverables (tear sheets, comp tables, archetype crosswalks) — the prose-flattening tax is acceptable when the deliverable is mostly numbers and small bullets. Don't commit prose briefs to Quarto.</li>
+</ul>
+<p>This satisfies the "one unified solution over patchwork" preference: <strong>the provenance layer IS the unified solution</strong> for AI-built artifacts. Macabacus is an optional speed-up for the manual-Excel moments. Quarto is a future experiment, not a commitment.</p>
+</div>
+
+<h2>5. Recommendation</h2>
+
+<p><strong>Option D (Hybrid).</strong> Specifically:</p>
+
+<ol>
+  <li><strong>Build the provenance layer first.</strong> ~1 day of focused work. Output: a <code>provenance.json</code> spec, a generator that reads any xlsx and emits the manifest, a <code>PostToolUse</code> hook that detects drift, and a <code>citation-coherence-audit</code> skill. Test against the BOM token model + its three downstream deliverables (validation brief, V4 memo, Marimekko spec). Verify it catches the F-column episode retrospectively.</li>
+  <li><strong>Decide on Macabacus after.</strong> The provenance layer covers AI-built work. Macabacus only adds value for chart/table embedding in PPT or Word that <em>you</em> drive at the Excel keyboard. If your near-term roadmap involves heavy deck-building (e.g., the L-shape Marimekko BOM-by-archetype series), it pays for itself; if it's mostly Claude-built briefs, defer.</li>
+  <li><strong>Don't commit to Quarto.</strong> Try it once on a tear-sheet or comp-table deliverable. If the prose flattening is acceptable for that artifact type, expand. Otherwise leave it.</li>
+</ol>
+
+<h2>6. What I need from you to proceed</h2>
+
+<p>Three decisions in priority order:</p>
+
+<ol>
+  <li><strong>OK to build the provenance layer (Option A)?</strong> If yes, I'll spec it as a new packet with a clean design before building. Open questions to settle in the spec: where the manifest lives (next to model, or central registry), how IDs are minted (named-range name? content-hashed?), and how downstream artifacts reference IDs (custom markdown syntax? HTML data attributes? plain text with grep-style matching?).</li>
+  <li><strong>Macabacus — buy now, defer, or skip?</strong> $200-360/yr single-seat. Closest fit to the human-Excel-built half of the work product graph.</li>
+  <li><strong>Quarto pilot — pick a deliverable, or skip?</strong> If yes, candidate is the L-shape Marimekko spec or a future tear-sheet.</li>
+</ol>
+
+<h2>7. Sources cited</h2>
+
+<ol class="source-list">
+  <li><a href="https://www.think-cell.com/en/resources/manual/exceldatalinks">ThinkCell — Excel data links manual</a></li>
+  <li><a href="https://www.g2.com/products/think-cell/pricing">ThinkCell pricing — G2</a></li>
+  <li><a href="https://help.macabacus.com/article/223-link-to-excel">Macabacus — Link to Excel</a></li>
+  <li><a href="https://macabacus.com/pricing">Macabacus pricing</a></li>
+  <li><a href="https://upslide.net/features/link-excel-powerpoint/">UpSlide — Excel-to-PPT link feature</a></li>
+  <li><a href="https://support.upslide.net/hc/en-us/articles/360015613080-How-to-link-Excel-data-in-Word">UpSlide — Word link how-to</a></li>
+  <li><a href="https://www.workiva.com/platform">Workiva Platform</a></li>
+  <li><a href="https://www.vendr.com/marketplace/workiva">Workiva pricing — Vendr</a></li>
+  <li><a href="https://www.anaplan.com">Anaplan</a> · <a href="https://www.pigment.com">Pigment</a> · <a href="https://www.venasolutions.com/">Vena</a></li>
+  <li><a href="https://quarto.org/docs/output-formats/all-formats.html">Quarto — output formats</a></li>
+  <li><a href="https://quarto.org/docs/computations/parameters.html">Quarto — parameterized reports</a></li>
+  <li><a href="https://docxtpl.readthedocs.io/">python-docx-template (docxtpl)</a></li>
+  <li><a href="https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html">Snakemake rules — incremental rebuild</a></li>
+  <li><a href="https://docs.ipfs.tech/concepts/merkle-dag/">IPFS Merkle DAG</a> (content addressing reference)</li>
+  <li><a href="https://www.getdbt.com/product/semantic-layer">dbt Semantic Layer</a></li>
+  <li><a href="https://alexnemethdata.com/blog/how-to-auto-generate-monthly-financial-reports/">Alex Nemeth — 3-layer auto-generated reports</a></li>
+  <li><a href="https://news.ycombinator.com/item?id=39370167">Quarto HN discussion (dev AMA)</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/troubleshoot/microsoft-365-apps/excel/external-links-calculated-open-workbook-earlier-version-excel">Microsoft Learn — Excel external links</a></li>
+  <li><a href="https://3emanagement.org/whitepapers/breaking-links-in-excel">3E Management — Breaking Links in Excel whitepaper</a></li>
+  <li>Anthropic Claude Code documentation (hooks, skills, MCP, subagents, auto-memory) — primary plumbing referenced throughout</li>
+  <li>LangChain 2026 enterprise agent report (state-management failure mode statistic) — Thread 3</li>
+  <li>Full source files saved to <code>research/2026-05-18-cross-document-coherence/01-</code> through <code>03-</code></li>
+</ol>
+
+<p class="footer-note">Underlying source files: <code>research/2026-05-18-cross-document-coherence/</code> (three subdirectories — finance-industry-practice, software-architecture-patterns, ai-agent-approaches — plus 00-synthesis.md). Every URL above was visited and content verified during the 2026-05-18 research run.</p>
+
+</body>
+</html>

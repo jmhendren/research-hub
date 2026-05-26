@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentic AI — A Working Primer · 2026-05-15</title>
+<style>
+  :root {
+    --ink:#1A1A1A; --slate:#5B6B7E; --navy:#1F3A5F; --teal:#2E8B8B;
+    --amber:#D4923C; --crimson:#A8423B; --paper:#FAFAF7; --rule:#D9D5CB;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  body {
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    color:var(--ink); background:var(--paper); margin:0;
+    line-height:1.5; font-size:14.5px;
+  }
+  .wrap { max-width:1080px; margin:0 auto; padding:36px 44px 64px; }
+  header { border-bottom:1px solid var(--rule); padding-bottom:14px; margin-bottom:24px; }
+  .eyebrow { color:var(--slate); font-size:12px; letter-spacing:0.04em; text-transform:uppercase; }
+  h1 { margin:6px 0 4px; font-size:26px; font-weight:800; letter-spacing:-0.01em; }
+  h1 .sub { font-weight:500; color:var(--slate); font-size:15px; }
+  h2 { font-size:16px; font-weight:700; margin:24px 0 8px; letter-spacing:-0.005em; }
+  h3 { font-size:13px; font-weight:700; margin:18px 0 6px; text-transform:uppercase; letter-spacing:0.05em; color:var(--slate); }
+  p, li { font-size:14px; }
+  p { margin:0 0 10px; }
+  .meta { color:var(--slate); font-size:12.5px; }
+  a { color:var(--navy); text-decoration:none; border-bottom:1px dotted var(--slate); }
+  a:hover { color:var(--teal); border-bottom-color:var(--teal); }
+
+  table { border-collapse:collapse; width:100%; font-size:13px; margin:8px 0 14px; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--rule); vertical-align:top; }
+  th { font-weight:700; color:var(--slate); font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; background:#F2EFE6; }
+  td.num { text-align:right; font-variant-numeric:tabular-nums; }
+
+  ul.tight { margin:6px 0 10px 0; padding-left:20px; }
+  ul.tight li { margin-bottom:4px; }
+
+  .callout {
+    border-left:3px solid var(--amber); padding:10px 14px; background:#FFF8EA;
+    border-radius:0 6px 6px 0; margin:14px 0; font-size:13.5px;
+  }
+  .callout .ttl { font-weight:700; margin-bottom:4px; }
+
+  .sources { font-size:12.5px; background:#F2EFE6; padding:14px 18px; border-radius:6px; margin-top:14px; }
+  .sources li { margin-bottom:5px; }
+  .sources h3 { margin-top:10px; }
+  .sources h3:first-child { margin-top:0; }
+
+  footer { margin-top:36px; padding-top:14px; border-top:1px solid var(--rule); color:var(--slate); font-size:12px; }
+
+  /* Figures — inline SVG diagrams */
+  figure.diagram {
+    margin: 14px 0 18px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  figure.diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+  figure.diagram figcaption {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--slate);
+    font-style: italic;
+  }
+  figure.diagram figcaption .fig-num {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  /* SVG text defaults — picked up by inline text elements */
+  svg .lbl { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 12px; fill: #1A1A1A; }
+  svg .lbl-sm { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 10.5px; fill: #1A1A1A; }
+  svg .lbl-xs { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 9.5px; fill: #5B6B7E; }
+  svg .lbl-cap { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 10px; fill: #5B6B7E; letter-spacing: 0.06em; text-transform: uppercase; }
+  svg .lbl-hd { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 700; fill: #1F3A5F; letter-spacing: 0.04em; text-transform: uppercase; }
+  svg .lbl-mono { font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 10px; fill: #1A1A1A; }
+  svg .box-fill-paper { fill: #FAFAF7; }
+  svg .box-fill-tint  { fill: #F2EFE6; }
+  svg .box-fill-navy  { fill: #1F3A5F; }
+  svg .box-fill-teal  { fill: #2E8B8B; }
+  svg .box-fill-amber { fill: #D4923C; }
+  svg .stroke-navy { stroke: #1F3A5F; }
+  svg .stroke-slate { stroke: #5B6B7E; }
+  svg .stroke-rule { stroke: #D9D5CB; }
+  svg .stroke-teal { stroke: #2E8B8B; }
+  svg .stroke-amber { stroke: #D4923C; }
+
+  @media print {
+    @page { size: Letter; margin: 0.4in 0.5in 0.55in 0.5in;
+      @bottom-center {
+        content: "Page " counter(page) " of " counter(pages);
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 8pt;
+        color: #5B6B7E;
+      }
+    }
+    body { font-size:9pt; line-height:1.3; }
+    .wrap { padding:0; max-width:none; }
+    header { padding-bottom:6px; margin-bottom:8px; }
+    h1 { font-size:14pt; margin:2px 0 2px; }
+    h1 .sub { font-size:10pt; }
+    h2 { font-size:10pt; margin:8px 0 2px; }
+    h3 { font-size:8.5pt; margin:6px 0 2px; }
+    p { margin:0 0 5px; }
+    p, li { font-size:9pt; }
+    ul.tight { margin:2px 0 5px 0; padding-left:18px; }
+    ul.tight li { margin-bottom:1px; }
+    table { font-size:8pt; margin:3px 0 6px; page-break-inside:avoid; }
+    th, td { padding:3px 5px; }
+    .callout { padding:5px 9px; margin:5px 0; font-size:9pt; page-break-inside:avoid; }
+    .sources { padding:6px 10px; font-size:8pt; columns:2; column-gap:18px; }
+    .sources li { margin-bottom:1px; break-inside:avoid; }
+    .sources h3 { font-size:8pt; break-after:avoid; }
+    footer { margin-top:10px; padding-top:5px; font-size:7.5pt; }
+    a { color:var(--ink); border-bottom:none; }
+    figure.diagram { margin:6px 0 8px; page-break-inside:avoid; }
+    figure.diagram figcaption { font-size:7.5pt; margin-top:3px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Agentic AI primer · 2026-05-15 · Generic explainer</div>
+  <h1>Agentic AI — A Working Primer<br><span class="sub">What it is, how it works, what it changes about the infrastructure underneath</span></h1>
+  <div class="meta" style="margin-top:8px"><strong>Length:</strong> ~5 pages. &nbsp;·&nbsp; <strong>Purpose:</strong> Working vocabulary of "agentic AI" — what it is, how it works mechanically, what it changes about the infrastructure underneath, and why those changes matter for the AI-infra capex thesis. Sister to the token primer; read that first if you haven't.</div>
+</header>
+
+<h2>1. What agentic AI is</h2>
+<p>An <strong>agent</strong> is a language model wrapped in a loop. Where a chatbot answers one question and stops, an agent reads a task, decides on an <strong>action</strong>, observes the result, updates what it knows, and loops — taking dozens or hundreds of steps before producing a single user-visible answer. The model itself does not run code or call services; it emits text. The <strong>harness</strong> — the program around the model — parses that text, executes the requested action (read a file, query a database, send an email, run a test), and feeds the result back into the next prompt. The loop continues until the agent reports done or the harness stops it.</p>
+
+<p>The formal academic framing is the <strong>ReAct paper</strong> (Yao et al., October 2022). ReAct stands for <strong>"Reasoning and Acting"</strong> and its central move is to interleave the two in a single language-model trace rather than treat them as separate problems (<a href="https://arxiv.org/abs/2210.03629">Yao et al., 2022, <em>ReAct: Synergizing Reasoning and Acting in Language Models</em></a>). Every step is one trip through reason → act → observe.</p>
+
+<p>That structural difference vs. a chatbot — looping, calling external services, accumulating state — is what makes the system <strong>agentic</strong>. It also re-shapes the underlying infrastructure: more tokens consumed per task, different network paths, new memory tiers, a different mix of GPU and CPU silicon at the cluster level. The rest of this primer walks through those shifts.</p>
+
+<h2>2. How it works — the protocol stack</h2>
+<p>Three layers stacked on top of each other. The bottom layer is the loop; the middle is how the model emits an action; the top is how the application talks to third-party tools.</p>
+
+<p><strong>The loop (ReAct).</strong> The harness sends a prompt; the model writes a short rationale ("I need today's weather for Paris") and emits a structured request to call a tool. The harness runs the tool, appends the result to the conversation, and re-prompts the model. The model is stateless between turns; the harness carries state forward by appending to the conversation each time. This is the underlying reason agentic systems are so token-hungry — every loop iteration re-reads everything that came before it.</p>
+
+<p><strong>Tool-use schemas.</strong> Both Anthropic and OpenAI ship a structured protocol for the action step. The developer provides a <strong>JSON Schema</strong> that declares each tool's name, description, and arguments; the model emits a typed call that the harness can execute programmatically. Anthropic's framing: <em>"Tool use lets Claude call functions you define or that Anthropic provides. Claude decides when to call a tool based on the user's request and the tool's description, then returns a structured call that your application executes (client tools) or that Anthropic executes (server tools)"</em> (<a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Anthropic, "Tool use with Claude"</a>). Claude emits a <code>tool_use</code> block; OpenAI's equivalent is <code>tool_calls</code> in the Responses API (<a href="https://developers.openai.com/api/docs/guides/function-calling">OpenAI, "Function calling"</a>). Both vendors offer a <code>strict: true</code> mode that guarantees the call matches the schema exactly — closing the gap where earlier models would sometimes emit malformed JSON. Structurally, this is <strong>remote procedure call</strong> (RPC, a standard way for one program to invoke a function in another) embedded inside the conversation.</p>
+
+<p><strong>The Model Context Protocol (MCP).</strong> Function calling solved how one model talks to one developer's own tools. <strong>MCP</strong> solves what happens when every AI application wants to talk to every tool. Anthropic launched MCP on November 25, 2024 with the launch-post framing: <em>"Even the most sophisticated models are constrained by their isolation from data — trapped behind information silos and legacy systems. Every new data source requires its own custom implementation"</em> (<a href="https://www.anthropic.com/news/model-context-protocol">Anthropic, "Introducing the Model Context Protocol"</a>). The official spec uses a USB-C analogy — <em>"MCP provides a standardized way to connect AI applications to external systems"</em> (<a href="https://modelcontextprotocol.io/">modelcontextprotocol.io</a>). Without MCP, connecting M AI applications to N data sources requires M×N bespoke integrations. With MCP, each side speaks the protocol; M+N implementations cover the same ground.</p>
+
+<p>The adoption timeline is the load-bearing signal: launched Nov 25, 2024; <strong>OpenAI adopted MCP in March 2025</strong>, <strong>Google DeepMind in April 2025</strong>, <strong>Microsoft via Semantic Kernel through 2025</strong>; in December 2025 Anthropic donated MCP to the new <strong>Agentic AI Foundation under the Linux Foundation</strong>, co-founded with Block and OpenAI (<a href="https://en.wikipedia.org/wiki/Model_Context_Protocol">Wikipedia consolidating dated record; primary corroboration in each vendor's developer changelog</a>). All three major foundation-model labs converged on a shared three-piece protocol stack — ReAct-style loop, schema-validated tool calls, MCP as the cross-vendor integration layer — within five months.</p>
+
+<p><strong>Anchor products.</strong> Every modern agent product runs some version of this stack. <strong>Claude Code</strong> (Anthropic, launched Feb 24 2025) — <em>"reads your codebase, edits files, runs commands, and integrates with your development tools"</em> (<a href="https://code.claude.com/docs/en/overview">Anthropic Claude Code overview</a>). <strong>Cursor</strong> — multi-model agent inside a VS Code fork; supports Anthropic, OpenAI, Google, xAI, and its own model Composer 2. <strong>Devin</strong> (Cognition, March 12 2024) — <em>"a tireless, skilled teammate, equally ready to build alongside you or independently complete tasks"</em> — first to ship the marketing of "autonomous software engineer," scored 13.86% on SWE-bench end-to-end at launch (<a href="https://www.cognition.ai/blog/introducing-devin">Cognition</a>); Cognition has not publicly disclosed Devin's internal architecture. <strong>Anthropic computer use</strong> (Oct 22 2024) — gives the model a screenshot tool and mouse/keyboard actions, scored 14.9% on OSWorld at launch (<a href="https://www.anthropic.com/news/3-5-models-and-computer-use">Anthropic</a>). <strong>OpenAI Agents SDK + Responses API</strong> (March 11 2025) — OpenAI's consolidated agent stack with built-in web search, file search, and computer-use tools.</p>
+
+<h2>3. The hardware, re-covered for agents</h2>
+<p>Per the token primer §4, every LLM call stresses four GPU resources: compute (FP16/FP8 TFLOPS), HBM bandwidth, HBM capacity, and inter-GPU NVLink. Agent steps stress those resources differently from chatbot calls, in three concrete ways.</p>
+
+<p><strong>Multi-turn KV-cache pressure.</strong> Quick refresher on the hardware terms used below — covered in detail in the token primer §4. A modern AI accelerator is a <strong>GPU</strong> (NVIDIA's H100, H200, or Blackwell B200) carrying two on-package memories: <strong>HBM</strong> (high-bandwidth memory, the fast scratchpad where the model's weights and active state live during a call) measured in gigabytes of capacity and terabytes-per-second of bandwidth. Inter-GPU links — <strong>NVLink</strong> — let several GPUs talk to each other when a model is too big for one. Compute throughput is measured in <strong>TFLOPS</strong> (trillions of floating-point operations per second). The current Hopper / Hopper-200 / Blackwell generations carry 80 / 141 / 192 GB of HBM per GPU respectively (<a href="https://www.nvidia.com/en-us/data-center/h100/">NVIDIA H100</a>, <a href="https://www.nvidia.com/en-us/data-center/h200/">H200</a>, <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">DGX B200</a>). The <strong>KV-cache</strong> is the model's running record of attention computations — <em>"what I've already looked at in this conversation"</em> — and it lives in HBM during a call. NVIDIA's own inference guide notes the cache grows <em>"linearly with batch size and sequence length"</em> and <em>"can have a large memory footprint"</em> (<a href="https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/">NVIDIA Developer Blog</a>). NVIDIA's worked example: Llama 2 7B at 16-bit precision, batch size 1, the KV-cache alone is ~2 GB. Agentic workloads compound this on both axes. Sequence length grows per task because every step appends its tool calls, observations, and reasoning to the same context window — Stanford's measurement of agentic coding tasks: <em>"consuming 1000x more tokens than code reasoning and code chat"</em> (<a href="https://digitaleconomy.stanford.edu/news/how-are-ai-agents-spending-your-tokens/">Stanford Digital Economy Lab</a>). And as context grows, the GPU holds fewer concurrent conversations in HBM — a direct linear tradeoff. At 4K context, a 7B model fits ~278 users per GPU; at 32K, ~35.</p>
+
+<figure class="diagram" aria-label="GPU memory hierarchy for agentic workloads">
+  <svg viewBox="0 0 1000 440" role="img" xmlns="http://www.w3.org/2000/svg">
+    <style>
+      .lbl { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; }
+      .lbl-sm { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10.5px; }
+      .lbl-xs { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 9.5px; }
+      .lbl-cap { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+      .lbl-hd { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+      .lbl-mono { font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 10px; }
+    </style>
+    <defs>
+      <marker id="d1arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#5B6B7E"/>
+      </marker>
+      <marker id="d1arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#D4923C"/>
+      </marker>
+    </defs>
+
+    <!-- Column headers -->
+    <text x="20" y="22" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#5B6B7E">Memory tier</text>
+    <text x="305" y="22" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#5B6B7E">Capacity (per GPU)</text>
+    <text x="500" y="22" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#5B6B7E">Bandwidth</text>
+    <text x="640" y="22" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#5B6B7E">Where the work lives</text>
+
+    <!-- TIER 1: HBM (on-package) -->
+    <rect x="20" y="36" width="260" height="56" rx="3" fill="#1F3A5F"/>
+    <text x="36" y="60" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">HBM3 / HBM3e (on-package)</text>
+    <text x="36" y="78" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" opacity="0.85">Weights · KV-cache · activations</text>
+    <text x="305" y="60" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">80 / 141 / 192 GB</text>
+    <text x="305" y="78" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">H100 · H200 · B200</text>
+    <text x="500" y="60" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">~3.35 TB/s</text>
+    <text x="500" y="78" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">H100 SXM</text>
+    <text x="640" y="60" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Prefill compute · decode stream</text>
+    <text x="640" y="78" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">KV-cache grows linearly with context length</text>
+
+    <!-- TIER 2: DRAM (warm context) -->
+    <rect x="20" y="106" width="260" height="56" rx="3" fill="#2E8B8B"/>
+    <text x="36" y="130" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">DRAM — warm context</text>
+    <text x="36" y="148" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" opacity="0.9">KV-cache spill, tier 1</text>
+    <text x="305" y="130" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">~1–4 TB</text>
+    <text x="305" y="148" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">host or pooled</text>
+    <text x="500" y="130" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">~0.4–0.8 TB/s</text>
+    <text x="500" y="148" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">DDR5 host channels</text>
+    <text x="640" y="130" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">New tier under NVIDIA CMX</text>
+    <text x="640" y="148" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Reached via Bluefield-4 DPU</text>
+
+    <!-- TIER 3: NVMe SSD (warm context, deeper) -->
+    <rect x="20" y="176" width="260" height="56" rx="3" fill="#F2EFE6" stroke="#5B6B7E" stroke-width="1"/>
+    <text x="36" y="200" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">NVMe SSD — warm context</text>
+    <text x="36" y="218" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">KV-cache spill, tier 2</text>
+    <text x="305" y="200" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">~30–120 TB</text>
+    <text x="305" y="218" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">per cluster pool</text>
+    <text x="500" y="200" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">~10–30 GB/s</text>
+    <text x="500" y="218" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">PCIe Gen5 NVMe</text>
+    <text x="640" y="200" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Long-context, multi-turn agents</text>
+    <text x="640" y="218" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Solidigm · Micron · Kioxia</text>
+
+    <!-- TIER 4: bulk storage -->
+    <rect x="20" y="246" width="260" height="50" rx="3" fill="#FAFAF7" stroke="#D9D5CB" stroke-width="1"/>
+    <text x="36" y="268" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">Bulk storage</text>
+    <text x="36" y="284" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#5B6B7E">Checkpoints, datasets</text>
+    <text x="305" y="268" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">PB+</text>
+    <text x="500" y="268" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">~1–5 GB/s</text>
+    <text x="640" y="268" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Cold; not in hot path</text>
+
+    <!-- Spill arrow on left side -->
+    <line x1="8" y1="64" x2="8" y2="270" stroke="#D4923C" stroke-width="1.4" marker-end="url(#d1arrow-amber)"/>
+    <text x="14" y="170" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#D4923C" font-weight="700" transform="rotate(-90 14 170)" text-anchor="middle">KV-cache spill (long context)</text>
+
+    <!-- Divider -->
+    <line x1="20" y1="320" x2="980" y2="320" stroke="#D9D5CB" stroke-width="1"/>
+
+    <!-- BOTTOM HALF: rack-level GPU+NVLink + CPU 1:6 -->
+    <text x="20" y="342" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#5B6B7E">Rack — eight GPUs on NVLink</text>
+    <text x="600" y="342" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#5B6B7E">Cluster — Fairwater pattern</text>
+
+    <!-- GPU row -->
+    <g>
+      <!-- 8 small GPU+HBM cells -->
+      <g>
+        <rect x="20" y="354" width="56" height="70" rx="2" fill="#1F3A5F"/>
+        <text x="48" y="378" text-anchor="middle" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text>
+        <rect x="24" y="395" width="22" height="22" fill="#2E8B8B"/>
+        <rect x="50" y="395" width="22" height="22" fill="#2E8B8B"/>
+        <text x="48" y="411" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7">HBM</text>
+      </g>
+      <g><rect x="80" y="354" width="56" height="70" rx="2" fill="#1F3A5F"/><text x="108" y="378" text-anchor="middle" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text><rect x="84" y="395" width="22" height="22" fill="#2E8B8B"/><rect x="110" y="395" width="22" height="22" fill="#2E8B8B"/><text x="108" y="411" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7">HBM</text></g>
+      <g><rect x="140" y="354" width="56" height="70" rx="2" fill="#1F3A5F"/><text x="168" y="378" text-anchor="middle" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text><rect x="144" y="395" width="22" height="22" fill="#2E8B8B"/><rect x="170" y="395" width="22" height="22" fill="#2E8B8B"/><text x="168" y="411" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7">HBM</text></g>
+      <g><rect x="200" y="354" width="56" height="70" rx="2" fill="#1F3A5F"/><text x="228" y="378" text-anchor="middle" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text><rect x="204" y="395" width="22" height="22" fill="#2E8B8B"/><rect x="230" y="395" width="22" height="22" fill="#2E8B8B"/><text x="228" y="411" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7">HBM</text></g>
+      <g><rect x="260" y="354" width="56" height="70" rx="2" fill="#1F3A5F"/><text x="288" y="378" text-anchor="middle" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text><rect x="264" y="395" width="22" height="22" fill="#2E8B8B"/><rect x="290" y="395" width="22" height="22" fill="#2E8B8B"/><text x="288" y="411" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7">HBM</text></g>
+      <g><rect x="320" y="354" width="56" height="70" rx="2" fill="#1F3A5F"/><text x="348" y="378" text-anchor="middle" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text><rect x="324" y="395" width="22" height="22" fill="#2E8B8B"/><rect x="350" y="395" width="22" height="22" fill="#2E8B8B"/><text x="348" y="411" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7">HBM</text></g>
+      <g><rect x="380" y="354" width="56" height="70" rx="2" fill="#1F3A5F"/><text x="408" y="378" text-anchor="middle" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text><rect x="384" y="395" width="22" height="22" fill="#2E8B8B"/><rect x="410" y="395" width="22" height="22" fill="#2E8B8B"/><text x="408" y="411" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7">HBM</text></g>
+      <g><rect x="440" y="354" width="56" height="70" rx="2" fill="#1F3A5F"/><text x="468" y="378" text-anchor="middle" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text><rect x="444" y="395" width="22" height="22" fill="#2E8B8B"/><rect x="470" y="395" width="22" height="22" fill="#2E8B8B"/><text x="468" y="411" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7">HBM</text></g>
+      <!-- NVLink rail -->
+      <line x1="20" y1="349" x2="496" y2="349" stroke="#2E8B8B" stroke-width="2"/>
+      <text x="258" y="343" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2E8B8B" font-weight="700">NVLink — 900 GB/s (H100) · 1,800 GB/s (B200)</text>
+    </g>
+
+    <!-- Bluefield-4 bridge -->
+    <rect x="510" y="378" width="68" height="34" rx="3" fill="#D4923C"/>
+    <text x="544" y="394" text-anchor="middle" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">Bluefield-4</text>
+    <text x="544" y="406" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7">DPU bridge</text>
+    <!-- arrow from rack to warm-context tier -->
+    <line x1="498" y1="395" x2="510" y2="395" stroke="#D4923C" stroke-width="1.5" marker-end="url(#d1arrow-amber)"/>
+    <line x1="544" y1="378" x2="544" y2="240" stroke="#D4923C" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#d1arrow-amber)"/>
+    <text x="552" y="310" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#D4923C" font-weight="700">to warm-context tier</text>
+
+    <!-- CPU + storage building -->
+    <rect x="600" y="354" width="380" height="74" rx="3" fill="#FAFAF7" stroke="#1F3A5F" stroke-width="1.2"/>
+    <text x="612" y="375" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700" fill="#1F3A5F">CPU + storage building</text>
+    <text x="612" y="392" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Orchestration · tool calls · JSON · vector retrieval</text>
+    <text x="612" y="410" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">KV-cache management · scheduling</text>
+    <!-- 1:6 ratio badge -->
+    <rect x="870" y="362" width="100" height="56" rx="3" fill="#F2EFE6" stroke="#1F3A5F" stroke-width="0.8"/>
+    <text x="920" y="383" text-anchor="middle" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#5B6B7E">Power split</text>
+    <text x="920" y="404" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700" font-size="15" fill="#1F3A5F">1 : 6</text>
+    <text x="920" y="418" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">CPU : GPU MW</text>
+  </svg>
+  <figcaption><span class="fig-num">Figure 1.</span> The memory hierarchy and rack-level layout for agentic workloads. Inside the rack, eight GPUs with on-package HBM share an NVLink fabric; the KV-cache spills off-HBM through a Bluefield-4 DPU into a new "warm context" tier of DRAM then NVMe SSD. At cluster level, a dedicated CPU-and-storage building handles orchestration — Microsoft's Fairwater split estimated at roughly 1 CPU MW for every 6 GPU MW.</figcaption>
+</figure>
+
+<p><strong>The KV-cache offload tier — NVIDIA CMX.</strong> Long-context, multi-turn agents now routinely push the KV-cache past on-package HBM's 80 / 141 / 192 GB ceiling on Hopper / Hopper-200 / Blackwell. NVIDIA's response, announced at GTC 2026, is <strong>CMX</strong> (the Context Memory Storage Platform): a system that lets the KV-cache spill from HBM to a cheaper, larger tier of conventional DRAM and NAND SSDs, controlled by <strong>Bluefield-4</strong> — NVIDIA's data-processing unit (DPU, a network-attached processor that handles I/O and storage). SemiAnalysis's coverage of the GTC 2026 announcement: <em>"CMX addresses a growing bottleneck in modern inference infrastructure: the rapid expansion of KV Cache required to support long-context and agentic workloads. KV cache grows linearly with input sequence length and number of users and is the primary tier of memory expansion that inference must address"</em> (SemiAnalysis, <em>"GTC 2026: The Inference Kingdom Expands,"</em> Mar 24 2026; full coverage indexed in Noldor). The architectural meaning is a new memory tier in every agent-serving cluster — a <strong>"warm context"</strong> layer between HBM and bulk storage that did not exist as a distinct line item before. Vendors building into that tier include NVIDIA (Bluefield-4 + CMX), Celestial AI (optical-interconnected DRAM), and the NAND/SSD vendors (Solidigm, Micron) supplying the underlying storage capacity.</p>
+
+<p><strong>Cluster-level CPU pull-through.</strong> Per-token economics are GPU-led — covered in the token primer §4 — but per-cluster capex pulls CPU back in. Each agent step still runs as a normal LLM forward pass on the GPU, but the agent loop's surrounding work — running tool calls, parsing JSON, retrieving from vector stores, managing the KV-cache spill across the cluster — runs on CPU. Microsoft's "Fairwater" AI campus for OpenAI is architected with a separate air-cooled CPU-and-storage building alongside the dense GPU building; Microsoft has publicly stated the network includes <em>"millions of CPU cores for operational compute tasks"</em> (<a href="https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/">Microsoft Source, Nov 12 2025</a>). SemiAnalysis's satellite-imagery analysis estimates the split at <strong>48 MW CPU vs 295 MW GPU — roughly 1:6</strong> — and projects that ratio rises as GPU performance-per-watt improves faster than CPU performance-per-watt (SemiAnalysis, <em>"CPUs Are Back,"</em> Feb 2026). The IR confirmation lives in both major server-CPU vendors' Q4 2025 calls: AMD's Lisa Su flagged <em>"agentic workloads spinning off a lot of work going to traditional CPU tasks"</em> driving <em>"strong double-digit"</em> 2026 server-CPU TAM growth (<a href="https://www.fool.com/earnings/call-transcripts/2026/02/03/amd-amd-q4-2025-earnings-call-transcript/">AMD Q4 2025 earnings call, Feb 3 2026</a>); Intel's Lip-Bu Tan framed the same dynamic as <em>"a shift from human-prompted requests to persistent and recursive commands driven by computer-to-computer interactions"</em> (<a href="https://www.fool.com/earnings/call-transcripts/2026/01/23/intel-intc-q4-2025-earnings-call-transcript/">Intel Q4 2025 earnings call, Jan 22 2026</a>); Meta's April 2026 AWS Graviton partnership commits <em>"tens of millions of Graviton cores"</em> explicitly for <em>"agentic AI — autonomous systems that reason, plan, and execute complex tasks"</em> (<a href="https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/">Meta, April 2026</a>).</p>
+
+<h2>4. How agentic AI changes a workflow — three case studies</h2>
+<p>A workflow's "agentic" upgrade is not just about productivity. The data path, the artifacts produced, and the infrastructure footprint all change. Three documented cases.</p>
+
+<h3>4.1 Coding — the cleanest quantitative anchor</h3>
+<p><strong>Old flow.</strong> Engineer types code into an IDE. Local files, local compile, local tests. Network traffic from the developer's machine: git pulls/pushes, package-manager fetches, occasional doc lookups. The only AI bytes on the wire are short autocomplete suggestions (original GitHub Copilot: snippets in, single-line completions out).</p>
+
+<p><strong>New flow.</strong> Engineer types a natural-language task into Claude Code, Cursor, GitHub Copilot agent mode, or Devin. The agent reads files via a <code>Read</code> tool, grep/glob to locate symbols, edits files via an <code>Edit</code> tool, runs shell commands via a <code>Bash</code> tool — compiling, testing, opening branches, drafting PRs. Per Anthropic, Claude Code can write tests for untested code, fix lint errors across a project, resolve merge conflicts, update dependencies, and write release notes (<a href="https://code.claude.com/docs/en/overview">Anthropic Claude Code overview</a>). GitHub's Copilot coding agent runs in <em>"its own ephemeral development environment, powered by GitHub Actions,"</em> meaning execution moves off the developer's laptop into GitHub's hosted infrastructure (<a href="https://docs.github.com/en/copilot/concepts/about-copilot-coding-agent">GitHub docs</a>).</p>
+
+<p><strong>What changed.</strong> Per Bai et al. (Stanford/MIT/Microsoft Research/Anthropic), <em>"agentic tasks are uniquely expensive, consuming 1000x more tokens than code reasoning and code chat"</em>; <em>"runs on the same task can differ by up to 30x in total tokens"</em>; and <em>"Kimi-K2 and Claude-Sonnet-4.5, on average, consume over 1.5 million more tokens than GPT-5"</em> on identical SWE-bench Verified tasks (<a href="https://arxiv.org/abs/2604.22750">arXiv 2604.22750</a>, 24 Apr 2026). Input tokens dominate cost — the agent re-reads the full conversation history every turn. Cursor adds operational color: <em>"In a focused sprint earlier this year, we drove all tool calls to at least 2 or often 3 9s of reliability"</em> (<a href="https://cursor.com/blog/continually-improving-agent-harness">Cursor engineering blog</a>); semantic search across an indexed codebase is <em>"one of the biggest drivers of agent performance,"</em> with cross-user index reuse made possible because clones within one organization <em>"average 92% similarity"</em> (<a href="https://cursor.com/blog/secure-codebase-indexing">Cursor, indexing</a>). <strong>Codebase indexing is a new infrastructure layer that did not exist in the autocomplete era.</strong> Macro footprint: SemiAnalysis estimates <em>"4% of GitHub public commits are being authored by Claude Code right now. At the current trajectory, we believe that Claude Code will be 20%+ of all daily commits by the end of 2026"</em> (SemiAnalysis, <em>"Claude Code is the Inflection Point,"</em> Feb 2026; indexed in Noldor).</p>
+
+<h3>4.2 Voice customer service — the cleanest network-rerouting story</h3>
+<p><strong>Old flow.</strong> Caller dials a 1-800 number. The call rides telco signalling protocols (SS7 for traditional circuit-switched lines; SIP — Session Initiation Protocol — for modern IP-based ones) into a <strong>contact-center-as-a-service</strong> (CCaaS) provider's session border controllers, gets queued, and terminates on a human agent's softphone. CCaaS providers — Five9, NICE, Genesys, Twilio Flex — handle queuing, routing, <strong>IVR</strong> menus (interactive voice response — "press 1 for billing"), CRM integration. Voice bytes themselves ride <strong>RTP</strong> (real-time transport protocol, the standard for streaming audio) between the telco edge and the CCaaS data center; no LLM is in the loop.</p>
+
+<p><strong>New flow.</strong> The call lands at the telco / CCaaS, but now flows over a <strong>WebSocket</strong> — a long-lived two-way HTTP connection that keeps a streaming session open — to a streaming <strong>speech-to-text</strong> (STT) endpoint. The transcript is streamed token-by-token into an LLM. The LLM's response tokens are streamed into a <strong>text-to-speech</strong> (TTS) endpoint. Synthesized audio is streamed back to the caller. The LLM can invoke tool calls mid-conversation — "transfer to human," "look up order," "process refund." Twilio's ConversationRelay documentation describes the architecture: a WebSocket session between the caller's call leg and ConversationRelay handles the speech-text conversions and orchestrates LLM calls in real time (<a href="https://www.twilio.com/docs/voice/conversationrelay">Twilio docs</a>), with documented STT/TTS providers Deepgram, Google, Amazon Polly, and ElevenLabs.</p>
+
+<figure class="diagram" aria-label="Voice customer service — old flow vs new agentic flow">
+  <svg viewBox="0 0 1000 460" role="img" xmlns="http://www.w3.org/2000/svg">
+    <style>
+      .lbl { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; }
+      .lbl-sm { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10.5px; }
+      .lbl-xs { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 9.5px; }
+      .lbl-cap { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+      .lbl-hd { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+      .lbl-mono { font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 10px; }
+    </style>
+    <defs>
+      <marker id="d2arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#5B6B7E"/>
+      </marker>
+      <marker id="d2arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#2E8B8B"/>
+      </marker>
+    </defs>
+
+    <!-- ===== Old flow panel ===== -->
+    <text x="20" y="22" font-size="11" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700" letter-spacing="0.4" fill="#1F3A5F">A. Old flow — circuit-switched / SIP to human</text>
+    <text x="20" y="38" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">One linear path. Voice bytes terminate at a CCaaS data center near a telco peering point.</text>
+
+    <!-- Caller -->
+    <g><rect x="20" y="64" width="120" height="58" rx="3" fill="#FAFAF7" stroke="#5B6B7E" stroke-width="1"/>
+       <text x="80" y="86" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">Caller</text>
+       <text x="80" y="103" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">1-800 number</text>
+       <text x="80" y="116" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle">RTP / SIP</text>
+    </g>
+    <!-- Telco -->
+    <g><rect x="220" y="64" width="120" height="58" rx="3" fill="#FAFAF7" stroke="#5B6B7E" stroke-width="1"/>
+       <text x="280" y="86" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">Telco</text>
+       <text x="280" y="103" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">SS7 / SIP</text>
+    </g>
+    <!-- CCaaS -->
+    <g><rect x="420" y="64" width="120" height="58" rx="3" fill="#FAFAF7" stroke="#5B6B7E" stroke-width="1"/>
+       <text x="480" y="86" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">CCaaS</text>
+       <text x="480" y="103" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Five9 · NICE · Twilio</text>
+       <text x="480" y="116" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">IVR · queue · routing</text>
+    </g>
+    <!-- Human -->
+    <g><rect x="620" y="64" width="120" height="58" rx="3" fill="#FAFAF7" stroke="#5B6B7E" stroke-width="1"/>
+       <text x="680" y="86" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">Human agent</text>
+       <text x="680" y="103" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">softphone</text>
+    </g>
+    <!-- CRM (tail) -->
+    <g><rect x="820" y="64" width="120" height="58" rx="3" fill="#F2EFE6" stroke="#5B6B7E" stroke-width="0.8"/>
+       <text x="880" y="86" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">CRM entry</text>
+       <text x="880" y="103" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">audio file + notes</text>
+    </g>
+    <!-- chained arrows -->
+    <line x1="140" y1="93" x2="220" y2="93" stroke="#5B6B7E" stroke-width="1.2" marker-end="url(#d2arrow)"/>
+    <line x1="340" y1="93" x2="420" y2="93" stroke="#5B6B7E" stroke-width="1.2" marker-end="url(#d2arrow)"/>
+    <line x1="540" y1="93" x2="620" y2="93" stroke="#5B6B7E" stroke-width="1.2" marker-end="url(#d2arrow)"/>
+    <line x1="740" y1="93" x2="820" y2="93" stroke="#5B6B7E" stroke-width="1.2" marker-end="url(#d2arrow)"/>
+
+    <!-- Endpoint count tag -->
+    <rect x="820" y="138" width="140" height="34" rx="3" fill="#FAFAF7" stroke="#5B6B7E" stroke-width="0.8"/>
+    <text x="890" y="152" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Endpoints in the loop</text>
+    <text x="890" y="167" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700" fill="#1F3A5F">4</text>
+
+    <!-- separator -->
+    <line x1="20" y1="200" x2="980" y2="200" stroke="#D9D5CB" stroke-width="1"/>
+
+    <!-- ===== New flow panel ===== -->
+    <text x="20" y="226" font-size="11" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700" letter-spacing="0.4" fill="#1F3A5F">B. New flow — WebSocket fan-out across streaming endpoints</text>
+    <text x="20" y="242" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">One caller; many concurrent streams. ~800 ms end-to-end budget per turn.</text>
+
+    <!-- Caller -->
+    <g><rect x="20" y="268" width="120" height="58" rx="3" fill="#FAFAF7" stroke="#5B6B7E" stroke-width="1"/>
+       <text x="80" y="290" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">Caller</text>
+       <text x="80" y="307" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">RTP / SIP</text>
+    </g>
+    <!-- Telco / CCaaS edge (orchestrator) -->
+    <g><rect x="200" y="258" width="160" height="78" rx="3" fill="#1F3A5F"/>
+       <text x="280" y="282" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">Telco · CCaaS edge</text>
+       <text x="215" y="299" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="9.5" fill="#FAFAF7" opacity="0.9">Twilio ConversationRelay</text>
+       <text x="222" y="314" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="9.5" fill="#FAFAF7" opacity="0.9">Voice ↔ WebSocket</text>
+       <text x="248" y="328" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="9.5" fill="#FAFAF7" opacity="0.9">orchestrator</text>
+    </g>
+    <line x1="140" y1="297" x2="200" y2="297" stroke="#5B6B7E" stroke-width="1.2" marker-end="url(#d2arrow)"/>
+
+    <!-- Four fan-out clusters -->
+    <!-- STT -->
+    <g><rect x="440" y="218" width="140" height="58" rx="3" fill="#FAFAF7" stroke="#2E8B8B" stroke-width="1.4"/>
+       <text x="510" y="240" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">STT cluster</text>
+       <text x="510" y="257" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Deepgram · Google</text>
+       <text x="510" y="269" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">≤ 300 ms latency</text>
+    </g>
+    <!-- LLM -->
+    <g><rect x="440" y="282" width="140" height="58" rx="3" fill="#FAFAF7" stroke="#2E8B8B" stroke-width="1.4"/>
+       <text x="510" y="304" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">LLM cluster</text>
+       <text x="510" y="321" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Anthropic · OpenAI</text>
+       <text x="510" y="333" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">reasoning + tool calls</text>
+    </g>
+    <!-- TTS -->
+    <g><rect x="440" y="346" width="140" height="58" rx="3" fill="#FAFAF7" stroke="#2E8B8B" stroke-width="1.4"/>
+       <text x="510" y="368" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">TTS cluster</text>
+       <text x="510" y="385" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">ElevenLabs · Polly · Aura-2</text>
+       <text x="510" y="397" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">≤ 200 ms TTFB</text>
+    </g>
+    <!-- Tool-call -->
+    <g><rect x="640" y="282" width="140" height="58" rx="3" fill="#FAFAF7" stroke="#D4923C" stroke-width="1.4"/>
+       <text x="710" y="304" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">Tool-call layer</text>
+       <text x="710" y="321" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">CRM · order DB · billing</text>
+       <text x="710" y="333" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">"look up · refund · transfer"</text>
+    </g>
+
+    <!-- WebSocket arrows from orchestrator to STT/LLM/TTS -->
+    <path d="M360,288 C400,260 410,250 440,247" fill="none" stroke="#2E8B8B" stroke-width="1.4" marker-end="url(#d2arrow-teal)"/>
+    <path d="M360,297 L440,310" fill="none" stroke="#2E8B8B" stroke-width="1.4" marker-end="url(#d2arrow-teal)"/>
+    <path d="M360,307 C400,340 410,360 440,373" fill="none" stroke="#2E8B8B" stroke-width="1.4" marker-end="url(#d2arrow-teal)"/>
+    <!-- LLM <-> tool-call -->
+    <line x1="580" y1="310" x2="640" y2="310" stroke="#D4923C" stroke-width="1.4" marker-end="url(#d2arrow-teal)" stroke="#D4923C"/>
+    <line x1="640" y1="320" x2="580" y2="320" stroke="#D4923C" stroke-width="1.4" marker-end="url(#d2arrow-teal)" stroke="#D4923C"/>
+
+    <!-- Return audio arrow back to caller -->
+    <path d="M440,373 C300,420 200,420 140,330" fill="none" stroke="#5B6B7E" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#d2arrow)"/>
+    <text x="240" y="412" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#5B6B7E">audio chunks back to caller</text>
+
+    <!-- Endpoint count tag -->
+    <rect x="820" y="282" width="140" height="58" rx="3" fill="#FAFAF7" stroke="#1F3A5F" stroke-width="1"/>
+    <text x="890" y="304" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Endpoints in the loop</text>
+    <text x="890" y="324" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700" font-size="18" fill="#1F3A5F">7</text>
+    <text x="890" y="338" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">on different infrastructure</text>
+
+    <!-- Legend -->
+    <g transform="translate(20,430)">
+      <line x1="0" y1="0" x2="22" y2="0" stroke="#2E8B8B" stroke-width="1.4"/>
+      <text x="28" y="4" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">WebSocket stream</text>
+      <line x1="160" y1="0" x2="182" y2="0" stroke="#D4923C" stroke-width="1.4"/>
+      <text x="188" y="4" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Tool call (mid-conversation)</text>
+      <line x1="360" y1="0" x2="382" y2="0" stroke="#5B6B7E" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="388" y="4" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Audio back to caller</text>
+    </g>
+  </svg>
+  <figcaption><span class="fig-num">Figure 2.</span> Voice customer service — before and after. The old flow rides a single linear path (caller → telco → CCaaS → human → CRM entry). The new flow keeps the same telco edge but fans the conversation out over WebSockets to streaming STT, LLM, TTS, and tool-call clusters per turn. Endpoint count in the loop rises from four to seven, each on different infrastructure.</figcaption>
+</figure>
+
+<p><strong>What changed.</strong> Voice bytes that used to terminate at a CCaaS data center near a telco peering point now mirror over WebSocket to three new endpoints per turn: a streaming STT provider's cluster (Deepgram, Google), an LLM provider's cluster (Anthropic, OpenAI), and a streaming TTS provider's cluster (ElevenLabs, Polly). Each on different infrastructure. Latency is unforgiving: Deepgram publishes <em>"transcription latency in 300 milliseconds or less for streaming workloads"</em> (<a href="https://developers.deepgram.com/docs/measuring-streaming-latency">Deepgram streaming latency</a>), and its Aura-2 TTS targets sub-200 ms time-to-first-byte on the audio-output side (<a href="https://deepgram.com/learn/aura-2">Deepgram Aura-2</a>). Total wall-clock budget for a human-feeling voice agent is roughly 800 ms end-to-end. Deepgram prices its Voice Agent API (STT + LLM + TTS + orchestration bundled) at <em>"$4.50 per hour"</em> (<a href="https://deepgram.com/learn/voice-agent-api-generally-available">Deepgram Voice Agent</a>) — a different unit economics from per-license CCaaS subscription pricing. New artifacts: a real-time transcript (text), an LLM trace with reasoning and tool calls (JSON), TTS audio chunks (binary), and end-of-call summaries — where the old flow generated one audio file plus a CRM entry.</p>
+
+<h3>4.3 Non-voice customer service — the deflection-economics anchor</h3>
+<p><strong>Old flow.</strong> A ticket arrives via email, chat widget, or web form. Help-desk software (Zendesk, Intercom, Salesforce Service Cloud, ServiceNow) routes it to a queue based on rule-based triggers. A human agent picks it up, looks up the customer, writes a reply. SLAs measured in hours or days. Pre-LLM bots used deterministic decision trees, keyword routing, scripted FAQs.</p>
+
+<p><strong>New flow.</strong> An AI agent (Intercom Fin, Zendesk AI, Salesforce Agentforce, Forethought) reads the ticket, retrieves relevant context from the company's knowledge base via <strong>RAG</strong> (retrieval-augmented generation: searching a vector database to fetch the right context, rather than stuffing everything into the prompt), calls tools to look up order status / customer history / billing, generates a reply, and either sends it or hands off to a human with a draft. Intercom defines the operational metric formally: <em>"Automation rate = Involvement rate × Resolution rate. If Fin is involved in 50% of eligible conversations and resolves 60% of those, your automation rate is 30%"</em> (<a href="https://www.intercom.com/help/en/articles/13533623-fin-ai-agent-automation-rate">Intercom</a>).</p>
+
+<figure class="diagram" aria-label="Non-voice customer service — agent with RAG and tool calls">
+  <svg viewBox="0 0 1000 420" role="img" xmlns="http://www.w3.org/2000/svg">
+    <style>
+      .lbl { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; }
+      .lbl-sm { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10.5px; }
+      .lbl-xs { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 9.5px; }
+      .lbl-cap { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+      .lbl-hd { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+      .lbl-mono { font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 10px; }
+    </style>
+    <defs>
+      <marker id="d3arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#5B6B7E"/>
+      </marker>
+      <marker id="d3arrow-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#2E8B8B"/>
+      </marker>
+      <marker id="d3arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#D4923C"/>
+      </marker>
+    </defs>
+
+    <!-- Title -->
+    <text x="20" y="22" font-size="11" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700" letter-spacing="0.4" fill="#1F3A5F">Non-voice ticket flow with RAG + tool calls</text>
+
+    <!-- Central LLM agent -->
+    <rect x="370" y="160" width="240" height="100" rx="4" fill="#1F3A5F"/>
+    <text x="441" y="190" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#FAFAF7" font-weight="700">AI agent (LLM)</text>
+    <text x="406" y="210" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="10.5" fill="#FAFAF7" opacity="0.9">Intercom Fin · Zendesk AI</text>
+    <text x="380" y="226" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="10.5" fill="#FAFAF7" opacity="0.9">Salesforce Agentforce · Forethought</text>
+    <text x="427" y="246" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="9.5" fill="#FAFAF7" opacity="0.8">ReAct loop · multi-step</text>
+
+    <!-- LEFT: ticket inbox (input) -->
+    <rect x="40" y="180" width="180" height="64" rx="3" fill="#FAFAF7" stroke="#5B6B7E" stroke-width="1"/>
+    <text x="130" y="204" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">Ticket inbox</text>
+    <text x="130" y="221" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">email · chat widget · web form</text>
+    <text x="130" y="234" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Zendesk · Intercom · ServiceNow</text>
+    <line x1="220" y1="212" x2="370" y2="212" stroke="#5B6B7E" stroke-width="1.4" marker-end="url(#d3arrow)"/>
+    <text x="295" y="204" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#5B6B7E">incoming ticket</text>
+
+    <!-- TOP: vector DB / knowledge base (RAG) -->
+    <rect x="370" y="40" width="240" height="76" rx="3" fill="#FAFAF7" stroke="#2E8B8B" stroke-width="1.4"/>
+    <text x="490" y="64" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">Vector DB · knowledge base</text>
+    <text x="490" y="82" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Pinecone · Weaviate · Qdrant</text>
+    <text x="490" y="96" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">HNSW / IVF index · embeddings</text>
+    <text x="490" y="109" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#5B6B7E">docs · FAQs · policies · prior cases</text>
+    <!-- bi-directional RAG arrows -->
+    <line x1="470" y1="160" x2="470" y2="116" stroke="#2E8B8B" stroke-width="1.5" marker-end="url(#d3arrow-teal)"/>
+    <line x1="510" y1="116" x2="510" y2="160" stroke="#2E8B8B" stroke-width="1.5" marker-end="url(#d3arrow-teal)"/>
+    <text x="620" y="135" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2E8B8B" font-weight="700">RAG retrieval</text>
+    <text x="620" y="148" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#5B6B7E">5–10 top chunks</text>
+
+    <!-- RIGHT: tool calls to backend DBs -->
+    <rect x="760" y="156" width="220" height="36" rx="3" fill="#FAFAF7" stroke="#D4923C" stroke-width="1.4"/>
+    <text x="870" y="174" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">Order DB</text>
+    <text x="870" y="187" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">customer history · status</text>
+
+    <rect x="760" y="200" width="220" height="36" rx="3" fill="#FAFAF7" stroke="#D4923C" stroke-width="1.4"/>
+    <text x="870" y="218" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">CRM</text>
+    <text x="870" y="231" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">profile · entitlements · contract</text>
+
+    <rect x="760" y="244" width="220" height="36" rx="3" fill="#FAFAF7" stroke="#D4923C" stroke-width="1.4"/>
+    <text x="870" y="262" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">Billing</text>
+    <text x="870" y="275" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">refund · invoice · charge</text>
+
+    <line x1="610" y1="195" x2="760" y2="174" stroke="#D4923C" stroke-width="1.4" marker-end="url(#d3arrow-amber)"/>
+    <line x1="610" y1="210" x2="760" y2="218" stroke="#D4923C" stroke-width="1.4" marker-end="url(#d3arrow-amber)"/>
+    <line x1="610" y1="225" x2="760" y2="262" stroke="#D4923C" stroke-width="1.4" marker-end="url(#d3arrow-amber)"/>
+    <text x="704" y="148" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#D4923C" font-weight="700">tool calls</text>
+
+    <!-- BOTTOM: reply OR human handoff -->
+    <rect x="280" y="320" width="190" height="62" rx="3" fill="#FAFAF7" stroke="#5B6B7E" stroke-width="1"/>
+    <text x="375" y="343" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">Auto-reply sent</text>
+    <text x="375" y="360" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">customer receives response</text>
+    <text x="375" y="373" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#5B6B7E">~$0.99 per resolution</text>
+
+    <rect x="510" y="320" width="190" height="62" rx="3" fill="#FAFAF7" stroke="#5B6B7E" stroke-width="1"/>
+    <text x="605" y="343" text-anchor="middle" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">Human handoff</text>
+    <text x="605" y="360" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">draft reply + ticket context</text>
+    <text x="605" y="373" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#5B6B7E">CSAT / SLA still measured</text>
+
+    <line x1="450" y1="260" x2="375" y2="320" stroke="#5B6B7E" stroke-width="1.4" marker-end="url(#d3arrow)"/>
+    <line x1="530" y1="260" x2="605" y2="320" stroke="#5B6B7E" stroke-width="1.4" marker-end="url(#d3arrow)"/>
+    <text x="490" y="298" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#5B6B7E">resolution branch</text>
+
+    <!-- Automation rate formula box (bottom-right) -->
+    <rect x="740" y="320" width="240" height="62" rx="3" fill="#F2EFE6" stroke="#1F3A5F" stroke-width="0.8"/>
+    <text x="860" y="338" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#5B6B7E">Operational metric (Intercom)</text>
+    <text x="860" y="358" text-anchor="middle" font-size="10" font-family="'SF Mono', Menlo, Consolas, monospace" fill="#1F3A5F" font-weight="700">Automation rate</text>
+    <text x="860" y="374" text-anchor="middle" font-size="10" font-family="'SF Mono', Menlo, Consolas, monospace" fill="#1A1A1A">= Involvement × Resolution</text>
+
+    <!-- Side label for left input region -->
+    <text x="40" y="160" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#5B6B7E">Input</text>
+    <text x="370" y="32" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#5B6B7E">Knowledge layer (RAG)</text>
+    <text x="760" y="148" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#5B6B7E">Backend tools</text>
+    <text x="280" y="312" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#5B6B7E">Output</text>
+  </svg>
+  <figcaption><span class="fig-num">Figure 3.</span> Non-voice customer service after the agentic upgrade. A ticket flows into the LLM agent in the center; the agent retrieves context from the company's vector database (RAG), calls tools against the order, CRM, and billing systems, then either resolves the ticket directly or hands off to a human with a draft. Operational efficacy is tracked as <em>Automation rate = Involvement × Resolution</em>.</figcaption>
+</figure>
+
+<p><strong>What changed.</strong> Fin.ai publishes <em>"Fin averages a 67% resolution rate across its customer base, with top-performing customers reaching 80-84%"</em> (<a href="https://fin.ai/learn/ai-agent-kpis-enterprise-performance-metrics-framework">Fin.ai KPIs framework</a>) at <em>"$0.99 per resolution"</em> — vendor self-disclosure, but the price is observable. <strong>Klarna is the most cited deployment, with the most complete public record on both sides of the question.</strong> Klarna's Feb 27 2024 press release: the AI assistant <em>"has had 2.3 million conversations, two-thirds of Klarna's customer service chats,"</em> doing <em>"the equivalent work of 700 full-time agents,"</em> with customers resolving <em>"in less than 2 mins compared to 11 mins previously"</em> and <em>"a 25% drop in repeat inquiries,"</em> estimated to drive <em>"$40 million USD in profit improvement"</em> (<a href="https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/">Klarna press release</a>). Fifteen months later, Klarna was <em>"turning back to people to help with customer service work"</em> (<a href="https://www.customerexperiencedive.com/news/klarna-reinvests-human-talent-customer-service-AI-chatbot/747586/">CX Dive, May 2025</a>) — the deflection and unit-economics numbers survive; the framing that AI permanently replaced 700 customer-service agents did not. Where ticket data used to stay inside one help-desk platform, every turn now serializes ticket text + retrieved knowledge-base chunks + customer context into a prompt sent to an LLM endpoint — measurable per-interaction inference cost where before there was only platform-license cost.</p>
+
+<h2>5. Knock-on infrastructure effects</h2>
+<p>Five second-order shifts, sized to what's currently disclosed in primary sources.</p>
+
+<figure class="diagram" aria-label="AI cluster network topology — three scale axes and east-west vs north-south traffic">
+  <svg viewBox="0 0 1000 450" role="img" xmlns="http://www.w3.org/2000/svg">
+    <style>
+      .lbl { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; }
+      .lbl-sm { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10.5px; }
+      .lbl-xs { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 9.5px; }
+      .lbl-cap { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+      .lbl-hd { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+      .lbl-mono { font-family: 'SF Mono', Menlo, Consolas, monospace; font-size: 10px; }
+    </style>
+    <defs>
+      <marker id="d4arrow-ew" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#2E8B8B"/>
+      </marker>
+      <marker id="d4arrow-ns" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#D4923C"/>
+      </marker>
+    </defs>
+
+    <text x="20" y="22" font-size="11" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700" letter-spacing="0.4" fill="#1F3A5F">Three scale axes — and where each shape of traffic lives</text>
+
+    <!-- OUTER: campus / region (scale-across) -->
+    <rect x="40" y="48" width="780" height="340" rx="4" fill="none" stroke="#1F3A5F" stroke-width="1.5" stroke-dasharray="6,4"/>
+    <text x="56" y="68" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#1F3A5F">Campus / region · scale-across</text>
+    <text x="56" y="84" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Spectrum-XGS Ethernet · DCI fiber · metro &amp; long-haul</text>
+
+    <!-- MIDDLE: building (scale-out) -->
+    <rect x="80" y="106" width="560" height="262" rx="4" fill="none" stroke="#2E8B8B" stroke-width="1.5"/>
+    <text x="96" y="126" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#2E8B8B">Building · scale-out</text>
+    <text x="96" y="142" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Backend Ethernet · 400G / 800G · Spectrum-X · Arista 7800R</text>
+
+    <!-- INNER: rack (scale-up) -->
+    <rect x="120" y="170" width="220" height="180" rx="4" fill="none" stroke="#D4923C" stroke-width="1.5"/>
+    <text x="136" y="188" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#D4923C">Rack · scale-up</text>
+    <text x="136" y="204" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">NVLink · 900–1,800 GB/s</text>
+
+    <!-- Rack content — 4 GPU boxes connected by NVLink -->
+    <g>
+      <rect x="136" y="216" width="42" height="56" rx="2" fill="#1F3A5F"/>
+      <text x="157" y="247" text-anchor="middle" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text>
+      <rect x="184" y="216" width="42" height="56" rx="2" fill="#1F3A5F"/>
+      <text x="205" y="247" text-anchor="middle" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text>
+      <rect x="232" y="216" width="42" height="56" rx="2" fill="#1F3A5F"/>
+      <text x="253" y="247" text-anchor="middle" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text>
+      <rect x="280" y="216" width="42" height="56" rx="2" fill="#1F3A5F"/>
+      <text x="301" y="247" text-anchor="middle" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text>
+      <!-- east-west arrows between GPUs -->
+      <line x1="178" y1="244" x2="184" y2="244" stroke="#2E8B8B" stroke-width="1"/>
+      <line x1="226" y1="244" x2="232" y2="244" stroke="#2E8B8B" stroke-width="1"/>
+      <line x1="274" y1="244" x2="280" y2="244" stroke="#2E8B8B" stroke-width="1"/>
+      <!-- ew bidirectional arrows below GPUs -->
+      <path d="M157,290 L300,290" fill="none" stroke="#2E8B8B" stroke-width="1.3"/>
+      <polygon points="155,290 161,287 161,293" fill="#2E8B8B"/>
+      <polygon points="302,290 296,287 296,293" fill="#2E8B8B"/>
+      <text x="205" y="305" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2E8B8B" font-weight="700">east-west</text>
+      <text x="178" y="318" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#5B6B7E">activations · KV-cache</text>
+    </g>
+
+    <!-- Second rack inside building (to show scale-out E-W) -->
+    <rect x="380" y="170" width="220" height="180" rx="4" fill="none" stroke="#D4923C" stroke-width="1.5"/>
+    <text x="396" y="188" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#D4923C">Rack 2 · scale-up</text>
+    <g>
+      <rect x="396" y="216" width="42" height="56" rx="2" fill="#1F3A5F"/>
+      <text x="417" y="247" text-anchor="middle" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text>
+      <rect x="444" y="216" width="42" height="56" rx="2" fill="#1F3A5F"/>
+      <text x="465" y="247" text-anchor="middle" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text>
+      <rect x="492" y="216" width="42" height="56" rx="2" fill="#1F3A5F"/>
+      <text x="513" y="247" text-anchor="middle" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text>
+      <rect x="540" y="216" width="42" height="56" rx="2" fill="#1F3A5F"/>
+      <text x="561" y="247" text-anchor="middle" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text>
+      <line x1="438" y1="244" x2="444" y2="244" stroke="#2E8B8B" stroke-width="1"/>
+      <line x1="486" y1="244" x2="492" y2="244" stroke="#2E8B8B" stroke-width="1"/>
+      <line x1="534" y1="244" x2="540" y2="244" stroke="#2E8B8B" stroke-width="1"/>
+    </g>
+
+    <!-- Scale-out E-W between racks -->
+    <path d="M340,244 L380,244" fill="none" stroke="#2E8B8B" stroke-width="2"/>
+    <polygon points="338,244 344,241 344,247" fill="#2E8B8B"/>
+    <polygon points="382,244 376,241 376,247" fill="#2E8B8B"/>
+    <text x="346" y="234" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2E8B8B" font-weight="700">E-W</text>
+
+    <!-- Second building (to show scale-across between buildings/sites) -->
+    <rect x="660" y="106" width="140" height="262" rx="4" fill="none" stroke="#2E8B8B" stroke-width="1.5"/>
+    <text x="676" y="126" font-size="10" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" letter-spacing="0.6" fill="#2E8B8B">Building 2</text>
+    <text x="676" y="142" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">scale-out</text>
+    <rect x="676" y="170" width="108" height="180" rx="4" fill="none" stroke="#D4923C" stroke-width="1.5"/>
+    <g>
+      <rect x="688" y="216" width="36" height="50" rx="2" fill="#1F3A5F"/>
+      <text x="706" y="245" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text>
+      <rect x="730" y="216" width="36" height="50" rx="2" fill="#1F3A5F"/>
+      <text x="748" y="245" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#FAFAF7" font-weight="700">GPU</text>
+      <line x1="724" y1="241" x2="730" y2="241" stroke="#2E8B8B" stroke-width="1"/>
+    </g>
+    <text x="730" y="295" text-anchor="middle" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#5B6B7E">other site</text>
+
+    <!-- Scale-across E-W between buildings (dashed because it's WAN-like fiber) -->
+    <path d="M640,244 L660,244" fill="none" stroke="#2E8B8B" stroke-width="2" stroke-dasharray="5,3"/>
+    <polygon points="638,244 644,241 644,247" fill="#2E8B8B"/>
+    <polygon points="662,244 656,241 656,247" fill="#2E8B8B"/>
+    <text x="605" y="234" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#2E8B8B" font-weight="700">scale-across E-W</text>
+
+    <!-- NORTH-SOUTH exit to user/internet cloud -->
+    <g>
+      <ellipse cx="900" cy="120" rx="60" ry="36" fill="#F2EFE6" stroke="#D4923C" stroke-width="1.4"/>
+      <text x="884" y="118" font-size="12" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700">User</text>
+      <text x="881" y="134" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">internet</text>
+    </g>
+    <!-- N-S arrow from outer dotted boundary to user cloud -->
+    <line x1="820" y1="120" x2="848" y2="120" stroke="#D4923C" stroke-width="2" marker-end="url(#d4arrow-ns)"/>
+    <line x1="848" y1="120" x2="820" y2="120" stroke="#D4923C" stroke-width="2" marker-end="url(#d4arrow-ns)"/>
+    <text x="810" y="106" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#D4923C" font-weight="700">north-south</text>
+
+    <!-- Profile callout: chatbot vs agent -->
+    <rect x="40" y="400" width="430" height="40" rx="3" fill="#F2EFE6" stroke="#5B6B7E" stroke-width="0.8"/>
+    <text x="52" y="418" font-size="10.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"><tspan fill="#D4923C" font-weight="700">Chatbot:</tspan> mostly north-south &nbsp;&middot;&nbsp; <tspan fill="#2E8B8B" font-weight="700">Agent:</tspan> mostly east-west at all three scales</text>
+    <text x="52" y="432" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">70–90% of AI data-center flows stay inside the facility (industry commentary)</text>
+
+    <!-- Legend -->
+    <g transform="translate(500,408)">
+      <line x1="0" y1="-2" x2="22" y2="-2" stroke="#2E8B8B" stroke-width="2"/>
+      <text x="28" y="2" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">East-west (within facility)</text>
+      <line x1="0" y1="14" x2="22" y2="14" stroke="#D4923C" stroke-width="2"/>
+      <text x="28" y="18" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">North-south (to / from internet)</text>
+      <line x1="240" y1="-2" x2="262" y2="-2" stroke="#2E8B8B" stroke-width="2" stroke-dasharray="5,3"/>
+      <text x="268" y="2" font-size="9.5" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">Scale-across (DC ↔ DC fiber)</text>
+    </g>
+  </svg>
+  <figcaption><span class="fig-num">Figure 4.</span> Three nested scale axes inside an AI build-out. <em>Scale-up</em> connects GPUs within a rack via NVLink; <em>scale-out</em> connects racks within a building via backend Ethernet; <em>scale-across</em> connects buildings within (and between) campuses via NVIDIA's Spectrum-XGS Ethernet and DCI fiber. Agentic workloads generate east-west traffic at all three nesting levels; only the final reply rides the north-south path back to the user.</figcaption>
+</figure>
+
+<p><strong>Network traffic — east-west dominance and DC-to-DC pull-through.</strong> A data-center network has two directions: <strong>north-south</strong> is traffic between the facility and end users on the internet; <strong>east-west</strong> is everything that stays inside the facility, between servers. For a chatbot Q&amp;A the work is mostly north-south. For an agent it's mostly east-west: each tool call, vector-store lookup, code execution, and follow-up LLM step terminates on a different server inside the same facility, and the agent loops through many such steps per user-visible answer. Industry coverage puts east-west at 70–90% of total flows inside AI-driven data centers (commentary-grade; the agentic-specific fraction is not yet primary-disclosed). Arista's FY26 10-K: <em>"Modern AI applications need high-bandwidth, lossless, low-latency, scalable, multi-tenant networks that interconnect hundreds or thousands of accelerators at high speed from 100Gbps to 400Gbps, evolving to 800Gbps and beyond"</em> (<a href="https://www.arista.com/en/solutions/ai-networking">Arista AI networking</a>). Google's Jupiter fabric supports <em>"more than 6Pb/sec of datacenter bandwidth"</em> — Google's own engineering disclosure notes Jupiter has evolved beyond its early non-blocking-Clos design (a hierarchical multi-stage topology where every server can reach every other server through bounded hops) toward an <strong>optical-circuit-switched</strong> direct-mesh architecture (<a href="https://cloud.google.com/blog/topics/systems/the-evolution-of-googles-jupiter-data-center-network">Google Cloud blog</a>) — the kind of fabric needed when every agent step generates new east-west flows. And the long-haul story: NVIDIA's <strong>Spectrum-XGS Ethernet</strong>, launched at Hot Chips Aug 22 2025, extends NVIDIA's Spectrum-X backend networking <em>"to interconnect multiple, distributed data centers to form massive AI super-factories capable of giga-scale intelligence,"</em> framed against the fact that <em>"individual data centers are reaching the limits of power and capacity within a single facility"</em> (<a href="https://nvidianews.nvidia.com/news/nvidia-introduces-spectrum-xgs-ethernet-to-connect-distributed-data-centers-into-giga-scale-ai-super-factories">NVIDIA press release</a>). NVIDIA calls this new fabric category <strong>"scale-across,"</strong> distinct from <strong>scale-up</strong> (more GPUs in one rack) and <strong>scale-out</strong> (more racks in one building) — and it drives the metro and long-haul fiber capex thesis carried by TD Cowen on Ciena (<em>"As AI clusters scale, it is no longer sufficient to optimize only the backend fabric inside a single facility"</em>) and JPMorgan on Dycom (<em>"A critical component of these infrastructure builds is the metro and long-haul fiber"</em>).</p>
+
+<p><strong>Memory hierarchy — vector databases and persistent state.</strong> Agents lean on <strong>vector databases</strong> — Pinecone, Weaviate, Qdrant — to keep their working knowledge bounded. A vector database stores text, images, or other modalities as numerical fingerprints called <strong>embeddings</strong> (high-dimensional vectors), so a query can retrieve the semantically closest matches rather than exact word matches. That's what makes RAG cheap: rather than stuffing a million tokens of company documents into every prompt, the agent embeds the user's question, queries the vector DB, retrieves the 5–10 most relevant chunks, and includes only those in the LLM call. Most production vector DBs use <strong>HNSW</strong> (Hierarchical Navigable Small World, a multi-layer graph index with logarithmic lookup time) and/or <strong>IVF</strong> (Inverted File Index, partitions vectors into clusters and searches the relevant one). Weaviate's own framing: HNSW gives <em>"logarithmic time complexity"</em> vs a flat index's linear cost (<a href="https://docs.weaviate.io/weaviate/concepts/vector-index">Weaviate docs</a>). Persistent <strong>memory</strong> across sessions is the other new layer. Anthropic shipped Memory as a Claude product feature: launched to Team and Enterprise on Sep 11 2025, expanded to Pro and Max on Oct 23 2025 (<a href="https://claude.com/blog/memory">Anthropic Memory blog</a>). The architecture: Claude generates a project-scoped text summary that persists across conversations and gets re-injected into the system prompt of new ones; users can view and edit it directly.</p>
+
+<p><strong>Security surface.</strong> Agents enlarge the attack surface in three ways. <strong>Prompt injection</strong> is the foundational risk — per OWASP, <em>"A Prompt Injection Vulnerability occurs when user prompts alter the LLM's behavior or output in unintended ways,"</em> with the <em>indirect</em> variant — malicious instructions hidden in third-party content the agent retrieves (a webpage, a PDF, a vector-DB record) — being especially insidious for agents that fetch outside data (<a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/">OWASP LLM01</a>). <strong>Excessive Agency</strong> is the agent-specific category in OWASP's 2025 LLM Top 10: <em>"An LLM-based system is often granted a degree of agency by its developer — the ability to call functions or interface with other systems"</em> — the vulnerability arises from excessive functionality, excessive permissions, or excessive autonomy (<a href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/">OWASP LLM06</a>). Recommended mitigations are essentially principle-of-least-privilege adapted to agents — minimize tools, restrict permissions, require human approval for high-impact actions. <strong>Supply-chain risk</strong> rides on top of MCP: an agent connecting to a third-party MCP server is trusting that server's code, the data it serves, and any tool calls it offers. Anthropic's own 2025 <em>"agentic misalignment"</em> research stress-tested 16 frontier models and found that <em>"in at least some cases, models from all developers resorted to malicious insider behaviors when that was the only way to avoid replacement or achieve their goals — including blackmailing officials and leaking sensitive information"</em> (<a href="https://www.anthropic.com/research/agentic-misalignment">Anthropic research</a>) — those behaviors emerged under forced-binary stress tests, not in normal operation, but the finding is that current safety training does not reliably prevent them. New infrastructure spend follows the new attack surface — Zscaler, Palo Alto, and emerging vendors like Lasso Security and Protect AI are scaling into the agent-monitoring category.</p>
+
+<p><strong>Work-product shift.</strong> Agents produce more structured outputs (markdown, JSON, code, tool-call payloads) and fewer rendered binaries (PDFs, PowerPoint, images) than human creative work. Every major agent framework — LangGraph, OpenAI Agents SDK, Anthropic tool use, MCP — standardizes on JSON-serialized state. The downstream effects are plausible but unsized: storage type-mix shifts toward text and structured data; rendering overhead falls; artifacts are diff-friendly. <strong>This is a hypothesis, not a measured effect</strong> — no hyperscaler or analyst report yet quantifies the shift in storage-tier or rendering-load terms. Worth tracking, not yet a sized investment claim.</p>
+
+<h2>6. Why this matters — thesis tie-back</h2>
+<p>Two structural reasons agentic AI matters for the AI-infrastructure capex thesis.</p>
+
+<div class="callout">
+  <div class="ttl">(a) The bill of materials looks different</div>
+  <p style="margin:0">Modeling AI-data-center capex on a per-archetype basis — training-core, inference, legacy enterprise, edge, agentic — surfaces that <strong>agentic clusters carry the highest network + interconnect share (10.4% of cluster all-in, vs 6.5–7.9% in every other archetype) AND the highest fiber + optics share (3.7% vs 1.3–2.9%) AND the lowest land/shell/EPC share (10.4% vs 15.4–37.2%)</strong> at a frontier-tier <strong>$34.6M/MW</strong>. Three reasons it shows up that way: agent tasks execute across many accelerators with persistent state passed between them, so the NVLink + Spectrum-X scale-up fabric runs larger per dollar of compute; tool-call and DC-to-DC traffic is <em>super-linear and symmetrical</em> — unlike one-way CDN traffic (where content flows out to viewers in a single direction), every agent step round-trips, and a 100 ms delay breaks the reasoning loop, pulling 400G/800G long-haul interconnect from optional to standard; and <strong>disaggregated-prefill architectures</strong> — splitting the prompt-ingestion (prefill) and answer-generation (decode) steps of every LLM call onto different GPU SKUs — push fast-but-cheap <strong>GDDR7</strong> memory (commodity gaming-GPU memory used for prefill in NVIDIA's new Rubin CPX racks) onto server-side bills for the first time alongside <strong>HBM4</strong> (the latest premium on-package GPU memory) and the new NVMe-SSD KV-cache tier. <strong>The investment-relevant fact: a capex pool sized at the unified-DC level under-prices the network, fiber, and CPU lines that an agentic-heavy build-out actually consumes.</strong></p>
+</div>
+
+<div class="callout" style="border-left-color:var(--navy); background:#EEF2F7">
+  <div class="ttl">(b) Bottom-up token demand outruns top-down forecaster anchors</div>
+  <p style="margin:0">A bottom-up token-economics model — one that sizes the AI-infra capex pool as <code>industry token volume × deflated $/MTok × hyperscaler capex-to-revenue ratio</code> rather than backing into a number from analyst-led top-down forecasts — produces a <strong>2030 capex pool of ~$2,837B under a Base scenario</strong> (1,000× agentic-intensity multiplier, 30% agentic share of workload, mainstream adoption), against the corresponding Goldman Sachs top-down anchor of <strong>$1,860B</strong> (extrapolated from Goldman's published 2029 figure of $1,570B). That is a ratio of <strong>1.53× (Base), with the bottom-up vs top-down overshoot widening to 1.86× under Bull-case knob settings and contracting to 0.93× under Bear</strong> — bottom-up never reaches top-down in the Bear case. The crossover happens between 2028 and 2030: bottom-up runs at 8.5% of top-down in 2026, 39.7% in 2028, then leaps above by 2030. <strong>Three structural drivers:</strong> ~80%/yr commodity $/MTok deflation (token primer §7); ~80%/yr industry token-volume CAGR; and Stanford's 1,000× per-task token-consumption multiplier for agentic vs single-call workloads. <em>Caveats worth flagging:</em> (i) Goldman's 2030 figure is a model-internal extrapolation from the published 2029 anchor — against BofA's stated $2,500B 2030 anchor instead, the Base ratio compresses to ~1.13×; (ii) the 80% token-volume growth rate is the single most load-bearing assumption; (iii) an outer-edge "1M× continuous-agents" scenario produces non-physical numbers and should be read as bound-testing, not forecasting.</p>
+</div>
+
+<p><strong>External corroboration of the additive view.</strong> Bank of America raised its 2030 AI data-center forecast from $1.4T to <strong>$1.7T on May 13 2026</strong>, explicitly framed as <em>"additive to the overall market"</em> citing <em>"diversification of compute and memory components"</em> — the same CPU-pull-through and SRAM/specialty-memory categories the BOM archetype model carries (<a href="https://www.investing.com/news/stock-market-news/bank-of-america-raises-ai-data-center-market-forecast-to-17-trillion-by-2030-93CH-4683475">BofA, May 13 2026</a>). Microsoft's Satya Nadella, on the Q3 FY2026 earnings call (April 29 2026), described the shift in enterprise software unit economics from a per-user business model to a per-user and usage model in which agents working on behalf of users (or with them) create the value — the enterprise-side statement of the same additive framing (<a href="https://www.fool.com/earnings/call-transcripts/2026/04/29/microsoft-msft-q3-2026-earnings-transcript/">Microsoft Q3 FY26 earnings call transcript</a>).</p>
+
+<p><strong>In one sentence:</strong> consensus underprices agentic AI in two ways at once — it under-models the cluster-level bill of materials, and it under-counts the token-volume × intensity multiplier that drives demand for the underlying compute. The bottom-up math compounds into a capex pool that runs 1.5× to 1.9× the published 2030 anchors by Base / Bull cases.</p>
+
+<h2>Sources (all verified 2026-05-15)</h2>
+<div class="sources">
+  <h3>§1 — What agentic AI is</h3>
+  <ul>
+    <li><a href="https://arxiv.org/abs/2210.03629">Yao et al., 2022, <em>ReAct: Synergizing Reasoning and Acting in Language Models</em></a></li>
+  </ul>
+
+  <h3>§2 — The protocol stack</h3>
+  <ul>
+    <li><a href="https://arxiv.org/abs/2302.04761">Schick et al., 2023, <em>Toolformer: Language Models Can Teach Themselves to Use Tools</em></a></li>
+    <li><a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview">Anthropic — Tool use with Claude (documentation)</a></li>
+    <li><a href="https://developers.openai.com/api/docs/guides/function-calling">OpenAI — Function calling guide</a></li>
+    <li><a href="https://www.anthropic.com/news/model-context-protocol">Anthropic — Introducing the Model Context Protocol (Nov 25, 2024)</a></li>
+    <li><a href="https://modelcontextprotocol.io/">Model Context Protocol — modelcontextprotocol.io</a></li>
+    <li><a href="https://modelcontextprotocol.io/docs/learn/architecture">Model Context Protocol — Architecture spec</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Model_Context_Protocol">Wikipedia — Model Context Protocol (consolidating dated adoption record)</a></li>
+    <li><a href="https://www.anthropic.com/news/claude-3-7-sonnet">Anthropic — Claude 3.7 Sonnet and Claude Code (Feb 24, 2025)</a></li>
+    <li><a href="https://code.claude.com/docs/en/overview">Anthropic — Claude Code overview docs</a></li>
+    <li><a href="https://www.cursor.com/">Cursor homepage</a></li>
+    <li><a href="https://www.cognition.ai/blog/introducing-devin">Cognition — Introducing Devin (Mar 12, 2024)</a></li>
+    <li><a href="https://www.anthropic.com/news/3-5-models-and-computer-use">Anthropic — Introducing computer use (Oct 22, 2024)</a></li>
+    <li><a href="https://openai.github.io/openai-agents-python/">OpenAI Agents SDK Python docs</a></li>
+  </ul>
+
+  <h3>§3 — The hardware, re-covered for agents</h3>
+  <ul>
+    <li><a href="https://www.nvidia.com/en-us/data-center/h100/">NVIDIA H100 Tensor Core GPU — product page</a></li>
+    <li><a href="https://www.nvidia.com/en-us/data-center/h200/">NVIDIA H200 Tensor Core GPU — product page</a></li>
+    <li><a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">NVIDIA DGX B200 — product page</a></li>
+    <li><a href="https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/">NVIDIA Developer Blog — Mastering LLM Techniques: Inference Optimization</a></li>
+    <li><a href="https://digitaleconomy.stanford.edu/news/how-are-ai-agents-spending-your-tokens/">Stanford Digital Economy Lab — How are AI agents spending your tokens? (May 5, 2026)</a></li>
+    <li><a href="https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/">Microsoft Source — Microsoft connects datacenters to build its first AI superfactory (Nov 12, 2025)</a></li>
+    <li><a href="https://www.fool.com/earnings/call-transcripts/2026/02/03/amd-amd-q4-2025-earnings-call-transcript/">AMD Q4 2025 earnings call transcript (Feb 3, 2026; via Motley Fool)</a></li>
+    <li><a href="https://www.fool.com/earnings/call-transcripts/2026/01/23/intel-intc-q4-2025-earnings-call-transcript/">Intel Q4 2025 earnings call transcript (Jan 22, 2026; via Motley Fool)</a></li>
+    <li><a href="https://about.fb.com/news/2026/04/meta-partners-with-aws-on-graviton-chips-to-power-agentic-ai/">Meta partners with AWS on Graviton chips to power agentic AI (April 2026)</a></li>
+    <li>SemiAnalysis, <em>"CPUs Are Back: The Datacenter CPU Landscape in 2026"</em> (Feb 2026; paywalled). Local: <code>research/2026-05-15-token-primer/SEMIANALYSIS-CPU-ASSESSMENT.md</code></li>
+    <li>SemiAnalysis, <em>"GTC 2026: The Inference Kingdom Expands"</em> (Mar 24, 2026; paywalled; indexed in Noldor)</li>
+  </ul>
+
+  <h3>§4 — How agentic AI changes a workflow</h3>
+  <ul>
+    <li><a href="https://arxiv.org/abs/2604.22750">Bai et al., 2026, <em>How Do AI Agents Spend Your Money?</em> (arXiv 2604.22750)</a></li>
+    <li><a href="https://code.claude.com/docs/en/overview">Anthropic — Claude Code overview docs</a></li>
+    <li><a href="https://docs.github.com/en/copilot/concepts/about-copilot-coding-agent">GitHub — About Copilot coding agent</a></li>
+    <li><a href="https://cursor.com/blog/continually-improving-agent-harness">Cursor — Continually improving our agent harness (Apr 30, 2026)</a></li>
+    <li><a href="https://cursor.com/blog/secure-codebase-indexing">Cursor — Securely indexing large codebases</a></li>
+    <li>SemiAnalysis, <em>"Claude Code is the Inflection Point"</em> (Feb 5, 2026; paywalled; indexed in Noldor)</li>
+    <li><a href="https://www.twilio.com/docs/voice/conversationrelay">Twilio — ConversationRelay documentation</a></li>
+    <li><a href="https://developers.deepgram.com/docs/measuring-streaming-latency">Deepgram — Measuring streaming latency</a></li>
+    <li><a href="https://deepgram.com/learn/voice-agent-api-generally-available">Deepgram — Voice Agent API generally available</a></li>
+    <li><a href="https://www.intercom.com/help/en/articles/13533623-fin-ai-agent-automation-rate">Intercom — Fin AI Agent automation rate</a></li>
+    <li><a href="https://fin.ai/learn/ai-agent-kpis-enterprise-performance-metrics-framework">Fin.ai — AI Agent KPIs framework</a></li>
+    <li><a href="https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/">Klarna press release — AI assistant handles two-thirds of customer service chats (Feb 27, 2024)</a></li>
+    <li><a href="https://www.customerexperiencedive.com/news/klarna-reinvests-human-talent-customer-service-AI-chatbot/747586/">CX Dive — Klarna changes its AI tune and again recruits humans for customer service (May 2025)</a></li>
+  </ul>
+
+  <h3>§5 — Knock-on infrastructure effects</h3>
+  <ul>
+    <li><a href="https://nvidianews.nvidia.com/news/nvidia-introduces-spectrum-xgs-ethernet-to-connect-distributed-data-centers-into-giga-scale-ai-super-factories">NVIDIA — Spectrum-XGS Ethernet press release (Aug 22, 2025)</a></li>
+    <li><a href="https://www.arista.com/en/solutions/ai-networking">Arista — AI Networking solutions</a></li>
+    <li><a href="https://cloud.google.com/blog/topics/systems/the-evolution-of-googles-jupiter-data-center-network">Google Cloud — The evolution of Google's Jupiter data center network</a></li>
+    <li>TD Cowen, <em>"Initiate at Buy: No Datacenter Is An Island"</em> and <em>"Photonics Leader With Attractive Model"</em> (Mar 11, 2026; indexed in Noldor)</li>
+    <li>JPMorgan, <em>"Dycom Industries: Premier Communications Construction Services Provider"</em> (Apr 21, 2025; indexed in Noldor)</li>
+    <li><a href="https://docs.pinecone.io/guides/get-started/overview">Pinecone docs — Overview</a></li>
+    <li><a href="https://www.pinecone.io/learn/series/faiss/hnsw/">Pinecone Learn — HNSW</a></li>
+    <li><a href="https://docs.weaviate.io/weaviate/concepts/vector-index">Weaviate docs — Vector index</a></li>
+    <li><a href="https://claude.com/blog/memory">Anthropic Memory feature launch</a></li>
+    <li><a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/">OWASP — LLM01: Prompt Injection</a></li>
+    <li><a href="https://genai.owasp.org/llmrisk/llm062025-excessive-agency/">OWASP — LLM06:2025 Excessive Agency</a></li>
+    <li><a href="https://www.anthropic.com/research/agentic-misalignment">Anthropic — Agentic Misalignment research</a></li>
+  </ul>
+
+  <h3>§6 — Thesis tie-back</h3>
+  <ul>
+    <li>BOM archetype model: <code>models/dc-archetype-bom-2026-05-12.xlsx</code> (sheets <code>A1_Comparison</code>, <code>06_AgenticAI</code>)</li>
+    <li>Bottom-up token model: <code>models/bom-token-model-2026-05-14.xlsx</code> (sheets <code>Driver_Tree_2030</code>, <code>Reconciliation</code>, <code>Inputs</code>; live recalc at <code>research/2026-05-15-agentic-ai-primer/05-token-model-recalc.md</code>)</li>
+    <li><a href="https://www.investing.com/news/stock-market-news/bank-of-america-raises-ai-data-center-market-forecast-to-17-trillion-by-2030-93CH-4683475">Bank of America — AI data center forecast raise to $1.7T (May 13, 2026)</a></li>
+    <li><a href="https://www.fool.com/earnings/call-transcripts/2026/04/29/microsoft-msft-q3-2026-earnings-transcript/">Microsoft Q3 FY2026 earnings call transcript (Apr 29, 2026; via Motley Fool)</a></li>
+    <li><a href="https://www.morganstanley.com/insights/articles/nvidia-jensen-huang-compute-new-economic-engine-tmt-2026">Jensen Huang at Morgan Stanley TMT, March 4, 2026</a></li>
+  </ul>
+</div>
+
+<footer>
+  Agentic AI primer · 2026-05-15 · Generic explainer · Sister to the token primer (<code>docs/briefs/2026-05-15-token-primer.md</code>) · Research store at <code>research/2026-05-15-agentic-ai-primer/</code>
+</footer>
+
+</div>
+</body>
+</html>

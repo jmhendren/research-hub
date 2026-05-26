@@ -1,0 +1,2016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategy Memorandum — AI in Private Equity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-alt: #F7F7F4;
+    --ink: #1A1A1A;
+    --ink-soft: #3D3D3D;
+    --muted: #6B6B6B;
+    --muted-soft: #9A9A9A;
+    --rule: #D9D9D6;
+    --rule-soft: #E8E8E5;
+
+    --navy: #0E2A47;
+    --navy-deep: #08182B;
+    --burgundy: #8B2332;
+    --burgundy-soft: #A04652;
+    --ochre: #9C7626;
+    --moss: #4F5C3A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Source Serif 4', 'Times New Roman', Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 56px;
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    border-bottom: 1px solid var(--ink);
+    padding: 56px 0 32px;
+    margin-bottom: 56px;
+  }
+
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 36px;
+  }
+
+  .masthead-top .doctype {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .masthead-top .draft {
+    color: var(--burgundy);
+    font-weight: 600;
+  }
+
+  .title-block {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 56px;
+    align-items: end;
+  }
+
+  h1.title {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 60;
+    font-weight: 400;
+    font-size: clamp(36px, 4.8vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+  }
+
+  h1.title .subtitle {
+    display: block;
+    margin-top: 14px;
+    font-size: 0.5em;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0;
+    font-style: italic;
+  }
+
+  .dossier {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11px;
+    line-height: 1.85;
+    color: var(--ink);
+    border-top: 1px solid var(--ink);
+    padding-top: 14px;
+  }
+
+  .dossier .row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 12px;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .dossier .row:last-child { border-bottom: none; }
+
+  .dossier dt {
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 9.5px;
+    font-weight: 500;
+    padding-top: 2px;
+  }
+
+  .dossier dd {
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 11.5px;
+  }
+
+  .deck {
+    margin-top: 28px;
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 24;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    font-weight: 400;
+    max-width: 760px;
+  }
+
+  /* ============ NAV STRIP ============ */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    margin: 0 -56px 48px;
+    padding: 12px 56px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    display: flex;
+    gap: 28px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .nav a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .nav a:hover { color: var(--navy); }
+
+  .nav .nav-num {
+    color: var(--burgundy);
+    margin-right: 6px;
+    font-weight: 600;
+  }
+
+  /* ============ SECTION HEADERS ============ */
+  section {
+    margin-bottom: 80px;
+    scroll-margin-top: 80px;
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 28px;
+    align-items: baseline;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .section-num {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--burgundy);
+    text-transform: uppercase;
+  }
+
+  h2.section-title {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 36;
+    font-size: 28px;
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -0.008em;
+    color: var(--ink);
+  }
+
+  .section-eyebrow {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  /* ============ BODY COPY ============ */
+  .prose {
+    max-width: 720px;
+  }
+
+  .prose p {
+    margin-bottom: 1.15em;
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  .prose p.lead {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 400;
+    margin-bottom: 1.3em;
+  }
+
+  .prose strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .prose em {
+    font-style: italic;
+  }
+
+  .prose a {
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    transition: border-color 0.15s;
+  }
+  .prose a:hover { border-color: var(--navy); }
+
+  .prose ul.list-clean {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 24px;
+  }
+
+  .prose ul.list-clean li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  .prose ul.list-clean li::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 17px;
+    width: 6px;
+    height: 1px;
+    background: var(--burgundy);
+  }
+
+  code.inline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.88em;
+    background: var(--bg-alt);
+    padding: 2px 6px;
+    color: var(--navy);
+    border: 1px solid var(--rule-soft);
+  }
+
+  /* ============ TIMELINE ============ */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+    margin: 28px 0 8px;
+  }
+
+  .timeline-item {
+    padding: 24px 22px;
+    position: relative;
+    border-right: 1px solid var(--rule);
+    background: var(--bg);
+  }
+
+  .timeline-item:last-child { border-right: none; }
+
+  .timeline-item:hover { background: var(--bg-alt); }
+
+  .timeline-date {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .timeline-headline {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 24;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .timeline-note {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  /* ============ THREE LAYER ============ */
+  .layers {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    margin: 28px 0;
+    border: 1px solid var(--rule);
+  }
+
+  .layer {
+    padding: 28px 26px;
+    background: var(--bg);
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+
+  .layer:last-child { border-right: none; }
+
+  .layer-num {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .layer h3 {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 36;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+
+  .layer p {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* ============ TWO COLUMN CASE ============ */
+  .versus {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+  }
+
+  .case {
+    padding: 32px 30px;
+    background: var(--bg);
+  }
+
+  .case.buy { border-right: 1px solid var(--rule); }
+
+  .case-eyebrow {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .case.buy .case-eyebrow { color: var(--navy); }
+  .case.build .case-eyebrow { color: var(--burgundy); }
+
+  .case h3 {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 36;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .case h3 em {
+    font-style: italic;
+  }
+
+  .case.buy h3 em { color: var(--navy); }
+  .case.build h3 em { color: var(--burgundy); }
+
+  .case ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .case li {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink);
+    padding: 12px 0 12px 22px;
+    border-bottom: 1px solid var(--rule-soft);
+    position: relative;
+  }
+
+  .case li:last-child { border-bottom: none; }
+
+  .case li::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 22px;
+    width: 8px;
+    height: 1px;
+  }
+
+  .case.buy li::before { background: var(--navy); }
+  .case.build li::before { background: var(--burgundy); }
+
+  /* ============ RECOMMENDATION ============ */
+  .recommendation {
+    background: var(--navy);
+    color: #FFFFFF;
+    padding: 44px 40px;
+    margin: 28px 0;
+    border: 1px solid var(--navy-deep);
+  }
+
+  .recommendation .rec-eyebrow {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 18px;
+    font-weight: 500;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .recommendation h3 {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 60;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.15;
+    letter-spacing: -0.008em;
+    color: #FFFFFF;
+    max-width: 760px;
+    margin-bottom: 16px;
+  }
+
+  .recommendation .rec-body {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 720px;
+  }
+
+  .rec-stack {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 36px;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .stack-tier {
+    padding: 22px 20px 4px;
+    border-right: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .stack-tier:last-child { border-right: none; }
+
+  .stack-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.55);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .stack-title {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 24;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.2;
+    color: #FFFFFF;
+    margin-bottom: 8px;
+  }
+
+  .stack-detail {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* ============ COST TABLE ============ */
+  .cost-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-family: 'Source Serif 4', serif;
+  }
+
+  .cost-table thead th {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--ink);
+    border-top: 1px solid var(--ink);
+  }
+
+  .cost-table thead th:first-child { padding-left: 0; }
+  .cost-table thead th:last-child { padding-right: 0; }
+
+  .cost-table tbody td {
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    font-size: 14.5px;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+
+  .cost-table tbody td:first-child { padding-left: 0; }
+  .cost-table tbody td:last-child { padding-right: 0; }
+
+  .cost-table tr.recommended td {
+    background: var(--bg-alt);
+  }
+
+  .cost-table tr.recommended td:first-child {
+    box-shadow: inset 3px 0 0 var(--burgundy);
+    padding-left: 14px;
+    font-weight: 600;
+  }
+
+  .cost-table td.approach {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 24;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  .cost-table td.cost {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13.5px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .pill {
+    display: inline-block;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    padding: 3px 8px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .pill.high { background: var(--burgundy); color: #FFFFFF; }
+  .pill.medium { background: var(--ochre); color: #FFFFFF; }
+  .pill.low { background: var(--moss); color: #FFFFFF; }
+
+  .table-note {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--rule-soft);
+  }
+
+  /* ============ INTERACTIVE TAXONOMY ============ */
+  .tax-intro {
+    background: var(--bg-alt);
+    border-left: 3px solid var(--navy);
+    padding: 18px 24px;
+    margin: 14px 0 28px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink);
+    max-width: 880px;
+  }
+
+  .tax-intro strong { color: var(--ink); font-weight: 600; }
+
+  .tax-legend {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 14px 0 24px;
+    border: 1px solid var(--rule);
+  }
+
+  .legend-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 18px 20px;
+    border-right: 1px solid var(--rule);
+  }
+
+  .legend-item:last-child { border-right: none; }
+
+  .legend-swatch {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .legend-swatch.buy { background: var(--navy); }
+  .legend-swatch.build { background: var(--burgundy); }
+  .legend-swatch.compose { background: var(--ochre); }
+  .legend-swatch.skip { background: var(--muted-soft); }
+
+  .legend-text strong {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 600;
+  }
+  .legend-text span {
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+
+  .tax-filter {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  .filter-btn {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-soft);
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  .filter-btn.active {
+    background: var(--navy);
+    color: #FFFFFF;
+    border-color: var(--navy);
+  }
+
+  .filter-btn .count {
+    margin-left: 6px;
+    opacity: 0.55;
+    font-size: 9.5px;
+  }
+
+  .tax-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--rule);
+    border-bottom: none;
+  }
+
+  .tax-row {
+    background: var(--bg);
+    padding: 16px 22px;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-bottom: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    position: relative;
+  }
+
+  .tax-row:nth-child(2n) { border-right: none; }
+
+  .tax-row:hover {
+    background: var(--bg-alt);
+  }
+
+  .tax-row.expanded {
+    background: var(--bg-alt);
+    grid-column: 1 / -1;
+    border-right: none;
+  }
+
+  .tax-row-head {
+    display: grid;
+    grid-template-columns: 78px 1fr auto;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .tax-tag {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    padding: 4px 7px;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .tax-tag.buy { background: var(--navy); color: #FFFFFF; }
+  .tax-tag.build { background: var(--burgundy); color: #FFFFFF; }
+  .tax-tag.compose { background: var(--ochre); color: #FFFFFF; }
+  .tax-tag.skip { background: var(--muted-soft); color: #FFFFFF; }
+
+  .tax-title {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 18;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+
+  .tax-category {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+    font-weight: 500;
+  }
+
+  .tax-row-body {
+    display: none;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 840px;
+  }
+
+  .tax-row-body p { margin-bottom: 10px; }
+  .tax-row-body p:last-child { margin-bottom: 0; }
+  .tax-row-body em { color: var(--ink); font-style: italic; }
+
+  .tax-row-body .tag-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .tax-row-body .tool-chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.02em;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    padding: 3px 8px;
+    color: var(--ink);
+  }
+
+  .tax-row.expanded .tax-row-body { display: block; }
+  .tax-row.hidden { display: none; }
+
+  .tax-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--ink);
+    border-top: none;
+  }
+
+  .tax-stat {
+    padding: 18px 18px;
+    text-align: left;
+    border-right: 1px solid var(--rule);
+    background: var(--bg);
+  }
+
+  .tax-stat:last-child { border-right: none; }
+
+  .tax-stat-num {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 60;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 1;
+    color: var(--ink);
+    display: inline-block;
+  }
+  .tax-stat.buy .tax-stat-num { color: var(--navy); }
+  .tax-stat.build .tax-stat-num { color: var(--burgundy); }
+  .tax-stat.compose .tax-stat-num { color: var(--ochre); }
+  .tax-stat.skip .tax-stat-num { color: var(--muted); }
+
+  .tax-stat-label {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 600;
+  }
+
+  /* ============ OPEN QUESTIONS ============ */
+  .questions {
+    counter-reset: q;
+  }
+
+  .question {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 24px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .question:first-child { padding-top: 0; }
+  .question:last-child { border-bottom: none; }
+
+  .question::before {
+    counter-increment: q;
+    content: counter(q, decimal-leading-zero);
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--burgundy);
+    letter-spacing: 0.05em;
+  }
+
+  .question h4 {
+    font-family: 'Source Serif 4', serif;
+    font-variation-settings: 'opsz' 24;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .question p {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 760px;
+  }
+
+  /* ============ FOOTER ============ */
+  .colophon {
+    border-top: 1px solid var(--ink);
+    margin-top: 80px;
+    padding: 36px 0 56px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .colophon .col-grid {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+    margin-bottom: 28px;
+  }
+
+  .colophon h5 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .colophon ul { list-style: none; }
+  .colophon li { padding: 3px 0; }
+  .colophon a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    transition: color 0.15s;
+  }
+  .colophon a:hover { color: var(--navy); border-color: var(--navy); }
+
+  .colophon-foot {
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .container { padding: 0 24px; }
+    .nav { margin: 0 -24px 32px; padding: 12px 24px; }
+    .title-block { grid-template-columns: 1fr; gap: 28px; }
+    .section-header { grid-template-columns: 1fr; gap: 6px; }
+    h2.section-title { font-size: 22px; }
+    .timeline { grid-template-columns: 1fr 1fr; }
+    .timeline-item { border-right: none; border-bottom: 1px solid var(--rule); }
+    .layers { grid-template-columns: 1fr; }
+    .layer { border-right: none; border-bottom: 1px solid var(--rule); }
+    .versus { grid-template-columns: 1fr; }
+    .case.buy { border-right: none; border-bottom: 1px solid var(--rule); }
+    .tax-grid { grid-template-columns: 1fr; }
+    .tax-row { border-right: none; }
+    .tax-legend { grid-template-columns: 1fr 1fr; }
+    .legend-item { border-right: none; border-bottom: 1px solid var(--rule); }
+    .tax-summary { grid-template-columns: 1fr 1fr; }
+    .rec-stack { grid-template-columns: 1fr 1fr; }
+    .stack-tier { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.18); }
+    .colophon .col-grid { grid-template-columns: 1fr; gap: 24px; }
+    .recommendation { padding: 32px 24px; }
+    .recommendation h3 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-top">
+      <span class="doctype">Strategy Memorandum</span>
+      <span>For Discussion &mdash; Internal</span>
+      <span class="draft">Draft v0.2</span>
+    </div>
+
+    <div class="title-block">
+      <h1 class="title">
+        AI in Private Equity: Buy, Build, or Compose
+        <span class="subtitle">A working memo on the architecture choice facing a mid-market PE firm in mid-2026.</span>
+      </h1>
+
+      <dl class="dossier">
+        <div class="row"><dt>Date</dt><dd>19 May 2026</dd></div>
+        <div class="row"><dt>Audience</dt><dd>Partner Review</dd></div>
+        <div class="row"><dt>Scope</dt><dd>Mid-Market PE</dd></div>
+        <div class="row"><dt>AUM Band</dt><dd>$1&ndash;10B</dd></div>
+        <div class="row"><dt>Headcount</dt><dd>15&ndash;50 professionals</dd></div>
+        <div class="row"><dt>Source</dt><dd>AI Use Case vF</dd></div>
+      </dl>
+    </div>
+
+    <p class="deck">The platform layer for AI in finance shifted materially between January and May. This memo evaluates whether a mid-market PE firm should buy a vertical platform, build on Anthropic's stack, or compose the two — and recommends an architecture, with honest cost ranges and a tagged decomposition of every workflow in the source document.</p>
+  </header>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav">
+    <a href="#sec-1"><span class="nav-num">I.</span>Context</a>
+    <a href="#sec-2"><span class="nav-num">II.</span>Reframing</a>
+    <a href="#sec-3"><span class="nav-num">III.</span>Mid-Market Reality</a>
+    <a href="#sec-4"><span class="nav-num">IV.</span>Both Cases</a>
+    <a href="#sec-5"><span class="nav-num">V.</span>Recommendation</a>
+    <a href="#sec-6"><span class="nav-num">VI.</span>Economics</a>
+    <a href="#sec-7"><span class="nav-num">VII.</span>Workflow Taxonomy</a>
+    <a href="#sec-8"><span class="nav-num">VIII.</span>Implementation Risk</a>
+    <a href="#sec-9"><span class="nav-num">IX.</span>Open Questions</a>
+  </nav>
+
+  <!-- ============ SECTION I ============ -->
+  <section id="sec-1">
+    <header class="section-header">
+      <span class="section-num">§ I</span>
+      <div>
+        <span class="section-eyebrow">Context &mdash; What Has Changed</span>
+        <h2 class="section-title">The platform layer consolidated in the last four months.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p class="lead">The single most important fact for this discussion: on 5 May 2026, Anthropic launched a financial services agent suite that maps almost one-to-one onto the workflows in the source document. It is a signal that the platform layer is consolidating around exactly the work the document describes &mdash; and that the build-or-buy question is no longer "wait and see."</p>
+
+      <p>Four developments since January reshape the decision:</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">Mar &mdash; Apr 2026</div>
+        <div class="timeline-headline">Claude Cowork goes GA</div>
+        <div class="timeline-note">A non-technical workspace for analysts and partners. Role-based access, audit logs, observability. PwC rolling out to hundreds of thousands of professionals.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">9 Apr 2026</div>
+        <div class="timeline-headline">Managed Agents GA</div>
+        <div class="timeline-note">Hosted, scheduled, audit-logged agent runs via API. Enables the "fire-and-forget overnight work" tier &mdash; morning briefings, CRM hygiene, news monitoring.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">29 Apr 2026</div>
+        <div class="timeline-headline">Rogo Series D &mdash; $160M</div>
+        <div class="timeline-note">Approximately 35,000 finance professionals on the platform. Felix agentic system released. Offset acquired to add traceable spreadsheet work.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">5 May 2026</div>
+        <div class="timeline-headline">Anthropic finance plugins</div>
+        <div class="timeline-note">Ten agent templates released, including a private equity family. Eight new data connectors: Intralinks, Guidepoint, Third Bridge, D&amp;B, Verisk, IBISWorld, and others.</div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p style="margin-top: 28px;">The plugins Anthropic released &mdash; <code class="inline">private-equity</code>, <code class="inline">investment-banking</code>, <code class="inline">financial-analysis</code>, <code class="inline">fund-admin</code>, <code class="inline">operations</code> &mdash; ship as folders of plain markdown in a public GitHub repository. They are reference architectures, not finished products. Any firm can fork them and customize without writing code. This format matters for the build-or-buy decision in ways the rest of this memo unpacks.</p>
+    </div>
+  </section>
+
+  <!-- ============ SECTION II ============ -->
+  <section id="sec-2">
+    <header class="section-header">
+      <span class="section-num">§ II</span>
+      <div>
+        <span class="section-eyebrow">Reframing the Decision</span>
+        <h2 class="section-title">The lock-in question is really three questions, layered.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p>Treating "Rogo vs. Claude" as a single decision is what creates the lock-in feeling. It is in fact three layered decisions, and bundling them is precisely what vertical platforms offer and what platform vendors unbundle. Each layer can be evaluated &mdash; and, in principle, swapped &mdash; independently of the others.</p>
+    </div>
+
+    <div class="layers">
+      <article class="layer">
+        <div class="layer-num">Layer 01 &mdash; Model</div>
+        <h3>The reasoning engine</h3>
+        <p>The underlying LLM: Claude, GPT, Gemini, or a vendor's fine-tuned financial model. Replaceable as benchmarks evolve. Often the layer with the least durable advantage.</p>
+      </article>
+      <article class="layer">
+        <div class="layer-num">Layer 02 &mdash; Workflow</div>
+        <h3>The firm's playbook</h3>
+        <p>What defines &ldquo;when a CIM arrives, do X, then Y, then route to Z.&rdquo; This is where firm IP &mdash; templates, voice, criteria, prior judgments &mdash; lives and compounds.</p>
+      </article>
+      <article class="layer">
+        <div class="layer-num">Layer 03 &mdash; Interface</div>
+        <h3>The professional surface</h3>
+        <p>What an analyst or partner actually uses. Web application, Office plug-in, chat surface, dashboard. Where adoption is won or lost in week one.</p>
+      </article>
+    </div>
+
+    <div class="prose">
+      <p style="margin-top: 28px;">Vertical platforms bundle all three. That is their value proposition (fast time-to-value) and their structural risk (the bundle becomes harder to leave as it is configured). Anthropic's stack unbundles them: <em>Claude</em> is the model, <em>plugins</em> are the workflow, <em>Cowork</em> is the interface. Any layer can be swapped without rebuilding the others.</p>
+
+      <p>For a mid-market firm, the unbundling matters more than it would at a thousand-banker investment bank. Why is the subject of the next section.</p>
+    </div>
+  </section>
+
+  <!-- ============ SECTION III ============ -->
+  <section id="sec-3">
+    <header class="section-header">
+      <span class="section-num">§ III</span>
+      <div>
+        <span class="section-eyebrow">The Asymmetric Reality of Mid-Market</span>
+        <h2 class="section-title">At this scale, AI's value is partner leverage, not analyst replacement.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p>A 30-person firm does not see 5,000 CIMs a year. It sees, generously, 800. The industrialization of analyst work &mdash; the use case most vertical vendors lead with &mdash; is a real but secondary prize at this scale. The primary prize is something different:</p>
+
+      <p><strong>Giving every partner the leverage of a great senior associate</strong> &mdash; on demand, in the partner's own voice, against the firm's prior thinking, all the time.</p>
+
+      <p>That kind of leverage requires the AI to know things that are not in any vendor's training set, and will not be:</p>
+
+      <ul class="list-clean">
+        <li>The firm's IC voice and template structure</li>
+        <li>Prior diligence on adjacent deals &mdash; and what was missed in deals that went wrong</li>
+        <li>The firm's value-creation playbook for sub-verticals it focuses on</li>
+        <li>Each partner's analytical style and the issues they push on first in IC</li>
+        <li>LP relationships and what each LP cares about quarter-to-quarter</li>
+        <li>Sector theses and what would falsify them</li>
+      </ul>
+
+      <p>None of that lives in a vendor's model. It lives in prior memos, CRM, board decks, email, and partners' heads. The real lock-in question becomes: <strong>where does the firm's institutional memory get fed &mdash; into a vendor's system, or into a stack the firm owns?</strong></p>
+    </div>
+  </section>
+
+  <!-- ============ SECTION IV ============ -->
+  <section id="sec-4">
+    <header class="section-header">
+      <span class="section-num">§ IV</span>
+      <div>
+        <span class="section-eyebrow">Both Cases, Without Marketing</span>
+        <h2 class="section-title">The case for buying. The case for building.</h2>
+      </div>
+    </header>
+
+    <div class="versus">
+      <div class="case buy">
+        <div class="case-eyebrow">Path A &mdash; Vertical Platform</div>
+        <h3>The case for <em>buying</em> (Rogo, Hebbia, BlueFlame)</h3>
+        <ul>
+          <li>Time-to-value is genuinely fast. Analysts can be productive in a week.</li>
+          <li>Custom-trained financial models may outperform generic Claude on hard numeric reasoning. Hebbia publishes a financial benchmark suggesting model choice still matters for some tasks.</li>
+          <li>Pre-built data connectors &mdash; PitchBook, CapIQ, Bloomberg &mdash; save weeks of plumbing.</li>
+          <li>UI polish drives partner adoption. Partners will not tolerate clunky internal tools.</li>
+          <li>SOC2, security review, and enterprise procurement come pre-cleared.</li>
+          <li>The vendor handles infrastructure and roadmap. No internal "head of AI" required to ship.</li>
+        </ul>
+      </div>
+
+      <div class="case build">
+        <div class="case-eyebrow">Path B &mdash; Anthropic Stack</div>
+        <h3>The case for <em>building</em> (Claude + Cowork + plugins)</h3>
+        <ul>
+          <li>Anthropic already built the control plane. Cowork is the non-technical surface that would otherwise need to be built in-house.</li>
+          <li>Plugins are plain markdown in a git repository. Firm IP &mdash; templates, voice, criteria &mdash; lives in the firm's files, forkable by anyone with Claude's assistance.</li>
+          <li>The May 5 launch shipped a private-equity plugin family as a reference architecture. The firm forks, rather than starting from zero.</li>
+          <li>Vendor tools (Rogo, Hebbia, Tegus, PitchBook) become MCP tools that Claude calls. Capability, not platform.</li>
+          <li>Pricing scales with usage, not seat count. A partner who uses one hour a week pays for one hour.</li>
+          <li>The firm rides Anthropic's roadmap automatically &mdash; longer context, vision, improved tool use &mdash; rather than waiting on a vendor's product team.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION V — RECOMMENDATION ============ -->
+  <section id="sec-5">
+    <header class="section-header">
+      <span class="section-num">§ V</span>
+      <div>
+        <span class="section-eyebrow">Recommended Architecture</span>
+        <h2 class="section-title">A hybrid, weighted toward ownership.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p>The recommendation is a hybrid, weighted heavily toward Anthropic ownership rather than the conventional 50/50 split. Cost is not the argument &mdash; as &sect;VI shows, the hybrid is the most expensive of the three options. The argument is durability: the firm's institutional memory and voice live in the firm's files, not a vendor's database.</p>
+    </div>
+
+    <div class="recommendation">
+      <div class="rec-eyebrow">Recommended Architecture &mdash; Mid-Market PE, Mid-2026</div>
+      <h3>Buy narrowly. Build where voice lives. Compose everything else.</h3>
+      <p class="rec-body">Anthropic provides foundation, workflow engine, and interface. One vertical tool is purchased only where vertical depth genuinely wins &mdash; dataroom and contract interrogation with cell-level citations. Firm memory is exposed via private MCP and never leaves the firm's environment. The architecture is composable, not bundled, which preserves optionality as the platform layer continues to evolve.</p>
+
+      <div class="rec-stack">
+        <div class="stack-tier">
+          <div class="stack-label">Tier 01 &mdash; Foundation</div>
+          <div class="stack-title">Claude Enterprise + Cowork</div>
+          <div class="stack-detail">All 30 professionals. Claude Code for 2&ndash;3 power users. RBAC, audit, and observability are built in.</div>
+        </div>
+        <div class="stack-tier">
+          <div class="stack-label">Tier 02 &mdash; Workflows</div>
+          <div class="stack-title">Forked plugin family</div>
+          <div class="stack-detail">Customize <code style="font-family:'IBM Plex Mono',monospace;font-size:0.85em;background:rgba(255,255,255,0.08);padding:1px 4px;">ic-memo</code>, <code style="font-family:'IBM Plex Mono',monospace;font-size:0.85em;background:rgba(255,255,255,0.08);padding:1px 4px;">source</code>, <code style="font-family:'IBM Plex Mono',monospace;font-size:0.85em;background:rgba(255,255,255,0.08);padding:1px 4px;">screen-deal</code>, <code style="font-family:'IBM Plex Mono',monospace;font-size:0.85em;background:rgba(255,255,255,0.08);padding:1px 4px;">value-creation</code>. Add firm-specific plugins for LP DDQ, post-mortem, and thesis update.</div>
+        </div>
+        <div class="stack-tier">
+          <div class="stack-label">Tier 03 &mdash; Memory</div>
+          <div class="stack-title">Firm data lake via MCP</div>
+          <div class="stack-detail">Prior memos, board decks, portco financials, LP communications. Exposed on private network via MCP tunnels. External data via Intralinks, Guidepoint, PitchBook, CapIQ.</div>
+        </div>
+        <div class="stack-tier">
+          <div class="stack-label">Tier 04 &mdash; Strategic Buy</div>
+          <div class="stack-title">Hebbia (or equivalent)</div>
+          <div class="stack-detail">For dataroom and contract review where deterministic, cell-level citations matter. Exposed to Claude as an MCP tool, not as a separate surface.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION VI — ECONOMICS ============ -->
+  <section id="sec-6">
+    <header class="section-header">
+      <span class="section-num">§ VI</span>
+      <div>
+        <span class="section-eyebrow">Indicative Economics</span>
+        <h2 class="section-title">Approximate annual cost, 30-professional firm.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p style="margin-bottom: 18px;">Ranges below are directional &mdash; reflective of mid-market PE pricing observed in the field, not vendor list prices or enterprise quotes. Implementation effort is excluded.</p>
+    </div>
+
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th style="width: 28%;">Approach</th>
+          <th style="width: 20%;">Annual Recurring</th>
+          <th style="width: 16%;">Lock-In</th>
+          <th style="width: 14%;">Time to Value</th>
+          <th>Primary Trade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="approach">Rogo only</td>
+          <td class="cost">$20&ndash;30K</td>
+          <td><span class="pill high">High</span></td>
+          <td class="cost">Weeks</td>
+          <td>Firm IP lives in vendor templates. Difficult to compose with other systems.</td>
+        </tr>
+        <tr>
+          <td class="approach">Claude + Cowork only</td>
+          <td class="cost">$20&ndash;40K</td>
+          <td><span class="pill low">Low</span></td>
+          <td class="cost">2&ndash;3 months</td>
+          <td>Less polish on commodity workflows (e.g., document-heavy dataroom interrogation).</td>
+        </tr>
+        <tr class="recommended">
+          <td class="approach">Hybrid &mdash; Claude-weighted</td>
+          <td class="cost">$40&ndash;70K</td>
+          <td><span class="pill medium">Medium</span></td>
+          <td class="cost">4&ndash;6 weeks</td>
+          <td>Most expensive of the three. Requires one capable internal owner. Buys durability and composability.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="table-note">All three options sit comfortably below 1% of management fee for a fund of this scale. The decision is not driven by cost; it is driven by where the firm wants institutional memory to live and how much optionality the firm wants to preserve.</p>
+
+    <div class="prose">
+      <p style="margin-top: 24px;">The hybrid is <strong>the most expensive option of the three</strong> &mdash; not the cheapest. The argument for it is durability rather than savings. Anthropic-only is the cost-minimizer; Rogo-only is the speed-maximizer; the hybrid trades a moderate cost premium for ownership of the firm's most valuable layer (its memory and voice) and the ability to swap vendors at any layer without rebuilding the others.</p>
+
+      <p>The risk worth pressure-testing in &sect;VIII is whether the firm has the capacity to absorb the implementation work the hybrid requires. If the answer is no, the recommendation collapses toward Rogo.</p>
+    </div>
+  </section>
+
+  <!-- ============ SECTION VII — INTERACTIVE TAXONOMY ============ -->
+  <section id="sec-7">
+    <header class="section-header">
+      <span class="section-num">§ VII</span>
+      <div>
+        <span class="section-eyebrow">Source Document, Decomposed</span>
+        <h2 class="section-title">Every workflow tagged by treatment.</h2>
+      </div>
+    </header>
+
+    <div class="tax-intro">
+      Each row below is taken from the source document. Tags reflect a current view of how each workflow should be treated under the recommended architecture. <strong>Click any row to expand reasoning and suggested tooling.</strong> This is the working surface for further discussion &mdash; strategy is shaped by changing tags.
+    </div>
+
+    <div class="tax-legend">
+      <div class="legend-item">
+        <span class="legend-swatch buy"></span>
+        <span class="legend-text"><strong>Buy</strong><span>Commodity capability or document-heavy work where vertical depth wins.</span></span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch build"></span>
+        <span class="legend-text"><strong>Build</strong><span>Firm voice, judgment, or institutional memory. Lives in firm plugins.</span></span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch compose"></span>
+        <span class="legend-text"><strong>Compose</strong><span>Hybrid &mdash; vendor as a tool Claude calls inside a firm-defined workflow.</span></span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-swatch skip"></span>
+        <span class="legend-text"><strong>Defer</strong><span>Highest stakes, lowest leverage at this stage. Earn the right to automate later.</span></span>
+      </div>
+    </div>
+
+    <div class="tax-filter">
+      <span class="filter-label">Filter</span>
+      <button class="filter-btn active" data-filter="all">All <span class="count" id="count-all"></span></button>
+      <button class="filter-btn" data-filter="buy">Buy <span class="count" id="count-buy"></span></button>
+      <button class="filter-btn" data-filter="build">Build <span class="count" id="count-build"></span></button>
+      <button class="filter-btn" data-filter="compose">Compose <span class="count" id="count-compose"></span></button>
+      <button class="filter-btn" data-filter="skip">Defer <span class="count" id="count-skip"></span></button>
+    </div>
+
+    <div class="tax-grid" id="tax-grid">
+      <!-- INVESTMENT TEAM -->
+      <div class="tax-row" data-tag="build">
+        <div class="tax-row-head">
+          <span class="tax-tag build">Build</span>
+          <div>
+            <div class="tax-category">Investment &mdash; Screening</div>
+            <div class="tax-title">Thesis &amp; market mapping</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Sector maps and white-space identification are where the firm's proprietary view lives. A vendor will produce a generic sector map; the firm's edge is its specific view of where the gaps are. This belongs in a firm plugin that ingests sell-side research, BamSEC filings, and the firm data lake, then writes in the firm's voice.</p>
+          <div class="tag-row"><span class="tool-chip">claude + research plugin</span><span class="tool-chip">bamsec</span><span class="tool-chip">firm data lake</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="compose">
+        <div class="tax-row-head">
+          <span class="tax-tag compose">Compose</span>
+          <div>
+            <div class="tax-category">Investment &mdash; Screening</div>
+            <div class="tax-title">CIM &amp; teaser triage</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>The extraction work is commodity (Hebbia or Rogo will read a CIM well). The <em>scoring against thesis fit</em> and <em>routing</em> is firm-specific. Compose: a vendor MCP tool extracts the metrics; a firm plugin scores fit and writes the one-pager in the firm's voice.</p>
+          <div class="tag-row"><span class="tool-chip">hebbia (extract)</span><span class="tool-chip">firm screen-deal plugin</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="buy">
+        <div class="tax-row-head">
+          <span class="tax-tag buy">Buy</span>
+          <div>
+            <div class="tax-category">Investment &mdash; Screening</div>
+            <div class="tax-title">Competitive benchmarking</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Pulling public comps and trading multiples is a pure data-pipeline problem. CapIQ plus PitchBook MCP, or a vendor's pre-built feature. Not a place to reinvent.</p>
+          <div class="tag-row"><span class="tool-chip">capiq</span><span class="tool-chip">pitchbook</span><span class="tool-chip">comps plugin</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="build">
+        <div class="tax-row-head">
+          <span class="tax-tag build">Build</span>
+          <div>
+            <div class="tax-category">Investment &mdash; First-Round</div>
+            <div class="tax-title">First-look briefing memos</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Two pages on business model, market, financials, and key questions. This is where partner voice and firm pattern-matching across prior deals matter most. A firm plugin fed by prior memos in the data lake.</p>
+          <div class="tag-row"><span class="tool-chip">claude</span><span class="tool-chip">firm prior memos</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="compose">
+        <div class="tax-row-head">
+          <span class="tax-tag compose">Compose</span>
+          <div>
+            <div class="tax-category">Investment &mdash; First-Round</div>
+            <div class="tax-title">Industry primer generation</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Industry research draws mostly from external sources (IBISWorld, Third Bridge, expert transcripts). A generic LLM produces a competent primer; the <em>"so what for the firm"</em> overlay is firm-specific. Compose.</p>
+          <div class="tag-row"><span class="tool-chip">ibisworld</span><span class="tool-chip">third bridge</span><span class="tool-chip">tegus</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="build">
+        <div class="tax-row-head">
+          <span class="tax-tag build">Build</span>
+          <div>
+            <div class="tax-category">Investment &mdash; First-Round</div>
+            <div class="tax-title">Expert call prep &amp; questions</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Asking the right questions is the firm's edge. A plugin that knows the firm's thesis gaps, prior expert calls in the space, and what each partner cares about will produce better question lists than any vendor.</p>
+          <div class="tag-row"><span class="tool-chip">tegus</span><span class="tool-chip">glg</span><span class="tool-chip">firm thesis library</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="compose">
+        <div class="tax-row-head">
+          <span class="tax-tag compose">Compose</span>
+          <div>
+            <div class="tax-category">Investment &mdash; First-Round</div>
+            <div class="tax-title">Expert call synthesis</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Transcription and topic-extraction are commodity. Surfacing quotes <em>for or against the thesis</em> is firm-specific. Compose: Tegus handles transcripts; firm plugin handles thesis-mapping and updates the knowledge base.</p>
+          <div class="tag-row"><span class="tool-chip">tegus</span><span class="tool-chip">firm knowledge base</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="buy">
+        <div class="tax-row-head">
+          <span class="tax-tag buy">Buy</span>
+          <div>
+            <div class="tax-category">Investment &mdash; First-Round</div>
+            <div class="tax-title">Preliminary valuation</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Quick valuation ranges from comps and precedents are mechanical. Anthropic's <code class="inline">financial-analysis:comps</code> and <code class="inline">dcf</code> plugins handle this directly.</p>
+          <div class="tag-row"><span class="tool-chip">comps-analysis</span><span class="tool-chip">dcf-model</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="buy">
+        <div class="tax-row-head">
+          <span class="tax-tag buy">Buy</span>
+          <div>
+            <div class="tax-category">Investment &mdash; Deep Diligence</div>
+            <div class="tax-title">Dataroom ingestion &amp; indexing</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>The Hebbia sweet spot &mdash; cell-level citations across thousands of dataroom documents. Buy it. Expose to Claude as an MCP tool.</p>
+          <div class="tag-row"><span class="tool-chip">hebbia</span><span class="tool-chip">intralinks mcp</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="compose">
+        <div class="tax-row-head">
+          <span class="tax-tag compose">Compose</span>
+          <div>
+            <div class="tax-category">Investment &mdash; Deep Diligence</div>
+            <div class="tax-title">Financial diligence &mdash; QofE prep</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Reconciling management financials to GL is computationally heavy and benefits from a tool that traces every cell. Rogo's Offset acquisition targets exactly this. Compose: vendor handles the spreading; firm plugin frames the normalization narrative.</p>
+          <div class="tag-row"><span class="tool-chip">rogo/offset</span><span class="tool-chip">firm normalization plugin</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="build">
+        <div class="tax-row-head">
+          <span class="tax-tag build">Build</span>
+          <div>
+            <div class="tax-category">Investment &mdash; Deep Diligence</div>
+            <div class="tax-title">Customer cohort &amp; revenue quality</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>The math is standard; the judgment about which signals matter for <em>this</em> sector is the firm's view. A unit-economics plugin, using Anthropic's <code class="inline">private-equity:unit-economics</code> as a starting point.</p>
+          <div class="tag-row"><span class="tool-chip">unit-economics plugin</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="buy">
+        <div class="tax-row-head">
+          <span class="tax-tag buy">Buy</span>
+          <div>
+            <div class="tax-category">Investment &mdash; Deep Diligence</div>
+            <div class="tax-title">Contract &amp; legal review</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Contract-extraction with traceable citations is exactly where vertical tools earn their keep. Hebbia, Spellbook, or similar.</p>
+          <div class="tag-row"><span class="tool-chip">hebbia</span><span class="tool-chip">spellbook</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="compose">
+        <div class="tax-row-head">
+          <span class="tax-tag compose">Compose</span>
+          <div>
+            <div class="tax-category">Investment &mdash; Deep Diligence</div>
+            <div class="tax-title">IT, tech &amp; security review</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Mapping the stack uses standard scanners; the AI/automation upside scoring is firm-specific (and tied to the firm's portfolio AI playbook). Compose: external scan plus firm plugin for upside assessment.</p>
+          <div class="tag-row"><span class="tool-chip">snyk / wiz</span><span class="tool-chip">ai-readiness plugin</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="skip">
+        <div class="tax-row-head">
+          <span class="tax-tag skip">Defer</span>
+          <div>
+            <div class="tax-category">Investment &mdash; Deep Diligence</div>
+            <div class="tax-title">Tax &amp; structuring</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Highest stakes, lowest volume, hardest to recover from a hallucination. Tax counsel still owns this. AI's role is drafting questions for counsel and preparing briefing packs. Not the first workflow to automate.</p>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="skip">
+        <div class="tax-row-head">
+          <span class="tax-tag skip">Defer</span>
+          <div>
+            <div class="tax-category">Investment &mdash; Deep Diligence</div>
+            <div class="tax-title">Insurance review</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Broker continues to own this. Useful for surfacing claims-history patterns once a corpus exists, but not v0.1.</p>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="build">
+        <div class="tax-row-head">
+          <span class="tax-tag build">Build</span>
+          <div>
+            <div class="tax-category">Investment &mdash; Deep Diligence</div>
+            <div class="tax-title">Red flag log &amp; IC pre-read</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>The synthesis layer across every workstream. The firm's own framework for what counts as a red flag, what severity means, who owns mitigation. Highest-leverage build target after the IC memo itself.</p>
+          <div class="tag-row"><span class="tool-chip">firm red-flag plugin</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="compose">
+        <div class="tax-row-head">
+          <span class="tax-tag compose">Compose</span>
+          <div>
+            <div class="tax-category">Valuation</div>
+            <div class="tax-title">Full LBO model</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Anthropic ships an <code class="inline">lbo-model</code> plugin already. Fork it to the firm's templates and capital-structure conventions. Compose with Daloopa or a similar vendor for historicals.</p>
+          <div class="tag-row"><span class="tool-chip">lbo-model plugin (fork)</span><span class="tool-chip">daloopa</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="build">
+        <div class="tax-row-head">
+          <span class="tax-tag build">Build</span>
+          <div>
+            <div class="tax-category">IC &amp; Execution</div>
+            <div class="tax-title">IC memo &amp; presentation</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>The highest-leverage workflow in the firm. Fork <code class="inline">private-equity:ic-memo</code> and rebuild around the firm's section structure, voice, mandatory disclosures, and partner-by-partner objection patterns from prior IC meetings.</p>
+          <div class="tag-row"><span class="tool-chip">ic-memo plugin (fork)</span><span class="tool-chip">firm IC archive</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="build">
+        <div class="tax-row-head">
+          <span class="tax-tag build">Build</span>
+          <div>
+            <div class="tax-category">IC &amp; Execution</div>
+            <div class="tax-title">IC Q&amp;A prep</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Anticipating which partner asks what, in what order. Only works against the firm's IC archive. A pure build &mdash; and arguably more valuable than the IC memo itself for partner adoption.</p>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="skip">
+        <div class="tax-row-head">
+          <span class="tax-tag skip">Defer</span>
+          <div>
+            <div class="tax-category">IC &amp; Execution</div>
+            <div class="tax-title">Legal first drafts (SPA, etc.)</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Counsel continues to own these. Useful for redline-vs-precedent diffing eventually, but not v0.1. The blast radius of a missed change is too high.</p>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="build">
+        <div class="tax-row-head">
+          <span class="tax-tag build">Build</span>
+          <div>
+            <div class="tax-category">Portfolio &amp; Value Creation</div>
+            <div class="tax-title">100-day plan tracking</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>The firm's playbook for value creation is the firm's edge. Encode it. Anthropic ships <code class="inline">private-equity:value-creation</code> as a head start.</p>
+          <div class="tag-row"><span class="tool-chip">value-creation plugin (fork)</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="compose">
+        <div class="tax-row-head">
+          <span class="tax-tag compose">Compose</span>
+          <div>
+            <div class="tax-category">Portfolio &amp; Value Creation</div>
+            <div class="tax-title">Board meeting prep</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Pre-read summarization is commodity; surfacing off-plan KPIs against the firm's specific value-creation framework is firm-specific. Compose.</p>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="buy">
+        <div class="tax-row-head">
+          <span class="tax-tag buy">Buy</span>
+          <div>
+            <div class="tax-category">Portfolio &amp; Value Creation</div>
+            <div class="tax-title">Strategic buyer identification</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>PitchBook and CapIQ have the M&amp;A history, capacity scoring, and ownership data. Anthropic's <code class="inline">investment-banking:buyer-list</code> covers this directly.</p>
+          <div class="tag-row"><span class="tool-chip">buyer-list plugin</span><span class="tool-chip">pitchbook</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="build">
+        <div class="tax-row-head">
+          <span class="tax-tag build">Build</span>
+          <div>
+            <div class="tax-category">IR &amp; Fundraising</div>
+            <div class="tax-title">DDQ population (ILPA, custom)</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Firm voice and firm history. A plugin that ingests prior DDQ responses, current annual meeting decks, and quarterly reports, and writes in the IR team's voice. The highest-ROI IR build target.</p>
+          <div class="tag-row"><span class="tool-chip">firm DDQ plugin</span><span class="tool-chip">prior DDQ archive</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="build">
+        <div class="tax-row-head">
+          <span class="tax-tag build">Build</span>
+          <div>
+            <div class="tax-category">IR &amp; Fundraising</div>
+            <div class="tax-title">LP-tailored communications</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Different LPs care about different KPIs (DPI, exits, ESG, sector mix). A plugin that knows each LP's hot-button items and prior questions is uniquely firm-specific.</p>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="compose">
+        <div class="tax-row-head">
+          <span class="tax-tag compose">Compose</span>
+          <div>
+            <div class="tax-category">IR &amp; Fundraising</div>
+            <div class="tax-title">CRM-based LP analysis</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>CRM is the system of record (Affinity, DealCloud, Salesforce). Expose via MCP; firm plugin handles prioritization, follow-up scheduling, conference logic.</p>
+          <div class="tag-row"><span class="tool-chip">affinity / dealcloud mcp</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="build">
+        <div class="tax-row-head">
+          <span class="tax-tag build">Build</span>
+          <div>
+            <div class="tax-category">Business Development</div>
+            <div class="tax-title">Personalized outreach generation</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Generic vendors produce generic outreach. Founder-specific messaging that references the firm's recent thinking, prior interactions, and shared connections is a firm build &mdash; and is exactly what closes proprietary deals.</p>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="compose">
+        <div class="tax-row-head">
+          <span class="tax-tag compose">Compose</span>
+          <div>
+            <div class="tax-category">Business Development</div>
+            <div class="tax-title">Banker / intermediary intelligence</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Vendor handles deal-history and recent-mandate scraping; firm plugin layers in CRM history and firm-specific assessment. Compose.</p>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="build">
+        <div class="tax-row-head">
+          <span class="tax-tag build">Build</span>
+          <div>
+            <div class="tax-category">Business Development</div>
+            <div class="tax-title">Institutional memory engine</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>A searchable knowledge base across every CIM, IC memo, banker interaction, and expert call &mdash; in the firm's environment, under firm governance. This compounds. <strong>Arguably the highest long-term-value build target in the document.</strong></p>
+          <div class="tag-row"><span class="tool-chip">firm data lake + MCP</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="buy">
+        <div class="tax-row-head">
+          <span class="tax-tag buy">Buy</span>
+          <div>
+            <div class="tax-category">Legal &amp; Compliance</div>
+            <div class="tax-title">KYC / AML screening</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Anthropic ships <code class="inline">operations:kyc-doc-parse</code> and <code class="inline">kyc-rules</code> directly. Use them; integrate with ACA workflow.</p>
+          <div class="tag-row"><span class="tool-chip">kyc-doc-parse</span><span class="tool-chip">kyc-rules</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="compose">
+        <div class="tax-row-head">
+          <span class="tax-tag compose">Compose</span>
+          <div>
+            <div class="tax-category">Legal &amp; Compliance</div>
+            <div class="tax-title">Form ADV maintenance</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Numerical backup pulls from firm data; policy drafting uses Anthropic's compliance plugin. Compose.</p>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="buy">
+        <div class="tax-row-head">
+          <span class="tax-tag buy">Buy</span>
+          <div>
+            <div class="tax-category">General</div>
+            <div class="tax-title">Email triage &amp; calendar management</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Cowork ships with native Outlook and Gmail integration. Out of the box for everyone on day one.</p>
+          <div class="tag-row"><span class="tool-chip">cowork + outlook</span></div>
+        </div>
+      </div>
+
+      <div class="tax-row" data-tag="build">
+        <div class="tax-row-head">
+          <span class="tax-tag build">Build</span>
+          <div>
+            <div class="tax-category">General</div>
+            <div class="tax-title">Morning briefing</div>
+          </div>
+          <i data-lucide="chevron-down" width="16" height="16" style="color:var(--muted);"></i>
+        </div>
+        <div class="tax-row-body">
+          <p>Personalized to portfolio, watchlist, and current pipeline. Runs as a Managed Agent on schedule. Pure firm build &mdash; the personalization is the whole product.</p>
+          <div class="tag-row"><span class="tool-chip">managed agent</span><span class="tool-chip">portfolio data</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tax-summary">
+      <div class="tax-stat buy">
+        <span class="tax-stat-num" id="stat-buy">0</span>
+        <div class="tax-stat-label">Buy</div>
+      </div>
+      <div class="tax-stat build">
+        <span class="tax-stat-num" id="stat-build">0</span>
+        <div class="tax-stat-label">Build</div>
+      </div>
+      <div class="tax-stat compose">
+        <span class="tax-stat-num" id="stat-compose">0</span>
+        <div class="tax-stat-label">Compose</div>
+      </div>
+      <div class="tax-stat skip">
+        <span class="tax-stat-num" id="stat-skip">0</span>
+        <div class="tax-stat-label">Defer</div>
+      </div>
+    </div>
+
+    <div class="prose" style="margin-top: 28px;">
+      <p>The pattern: <strong>roughly two-thirds of the workflows are either Build or Compose</strong> &mdash; firm-specific work, or work where the firm's view is the differentiator. That ratio is the strongest single argument against buying a one-stop vertical platform. The work the firm uniquely cares about is the majority of the document, and none of it sits cleanly inside a vendor's product.</p>
+    </div>
+  </section>
+
+  <!-- ============ SECTION VIII ============ -->
+  <section id="sec-8">
+    <header class="section-header">
+      <span class="section-num">§ VIII</span>
+      <div>
+        <span class="section-eyebrow">Implementation Risk</span>
+        <h2 class="section-title">The recommendation requires one capable internal owner.</h2>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p>The single most important operational question under the recommendation in &sect;V is whether the firm has one capable internal owner for the workflow layer. Not necessarily a coder &mdash; someone who can sit with a partner, observe how an IC memo actually gets written, and translate the practice into a plugin (with Claude doing the writing).</p>
+
+      <p>Call the role "BizOps for AI." A capable Chief of Staff or Head of Data with the right disposition can do this. So can a thoughtful senior associate who likes systems work and is willing to spend a slice of every week on it. The role does not need to be full-time at a firm of this size, but the responsibility must sit somewhere accountable.</p>
+
+      <p>If the firm cannot or will not establish that ownership, the vendor path is more honest about the tradeoff: pay more on a fully-loaded basis, accept less composability, but do not depend on internal capability that does not exist.</p>
+
+      <p>Every other decision in this memo flows from this one.</p>
+    </div>
+  </section>
+
+  <!-- ============ SECTION IX ============ -->
+  <section id="sec-9">
+    <header class="section-header">
+      <span class="section-num">§ IX</span>
+      <div>
+        <span class="section-eyebrow">Open Questions</span>
+        <h2 class="section-title">Where this memo wants pressure next.</h2>
+      </div>
+    </header>
+
+    <div class="questions">
+      <div class="question">
+        <div>
+          <h4>Does the &sect;VII tagging hold up under partner review?</h4>
+          <p>The thesis hinges on the claim that roughly two-thirds of the document is firm-specific. If a partner reads the taxonomy and disagrees on (for example) IC memo or value-creation plan as a build target, the recommended architecture changes meaningfully.</p>
+        </div>
+      </div>
+
+      <div class="question">
+        <div>
+          <h4>Is the "one capable internal owner" assumption realistic for the firm under discussion?</h4>
+          <p>This is the operational fulcrum. If the answer is no, the recommendation collapses toward Path A (vendor).</p>
+        </div>
+      </div>
+
+      <div class="question">
+        <div>
+          <h4>Which workflow do we prototype first?</h4>
+          <p>The IC memo is the natural candidate &mdash; highest leverage, most voice-sensitive, most visible to partners. Building it well validates the entire approach; building it badly is recoverable. Arguments exist for the morning briefing (lowest stakes, fastest visible value) or the DDQ plugin (highest IR-team ROI). The choice should be deliberate.</p>
+        </div>
+      </div>
+
+      <div class="question">
+        <div>
+          <h4>What is the firm's posture on data residency?</h4>
+          <p>The architecture assumes prior memos and CRM data can be exposed to Claude via MCP. If the firm requires data to remain in a specific region or environment, the model-layer choice tightens and may push toward self-hosted Claude or a vendor with stricter deployment options.</p>
+        </div>
+      </div>
+
+      <div class="question">
+        <div>
+          <h4>Should the analysis expand to adjacent workflows?</h4>
+          <p>The source document is comprehensive but treats AI workflows as discrete. The compounding value comes from workflows feeding each other &mdash; expert call synthesis feeding the IC memo feeding the post-mortem feeding the next thesis. Worth mapping the connections, not just the rows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="colophon">
+    <div class="col-grid">
+      <div>
+        <h5>Document</h5>
+        Working memo prepared for internal partner discussion. Draft v0.2. Set in Source Serif 4 and IBM Plex.
+      </div>
+      <div>
+        <h5>Sources Consulted</h5>
+        <ul>
+          <li><a href="https://www.anthropic.com/news/finance-agents" target="_blank">Anthropic &mdash; Agents for financial services, 5 May 2026</a></li>
+          <li><a href="https://github.com/anthropics/financial-services" target="_blank">anthropics/financial-services (GitHub)</a></li>
+          <li><a href="https://thenewstack.io/anthropic-takes-claude-cowork-out-of-preview-and-straight-into-the-enterprise/" target="_blank">Claude Cowork GA &mdash; The New Stack</a></li>
+          <li><a href="https://pasqualepillitteri.it/en/news/755/anthropic-managed-agents-cowork-ga-april-9-2026" target="_blank">Managed Agents and Cowork GA, 9 April 2026</a></li>
+          <li><a href="https://www.prnewswire.com/news-releases/rogo-raises-160m-series-d-to-scale-the-agentic-platform-for-finance-302756546.html" target="_blank">Rogo Series D announcement, 29 April 2026</a></li>
+          <li><a href="https://www.hebbia.com/resources/rogo-competitors" target="_blank">Top Rogo Competitors &mdash; Hebbia (2026)</a></li>
+          <li><a href="https://www.transacted.io/blog/ai-private-equity-diligence-software" target="_blank">AI PE Diligence Platforms &mdash; Transacted (2026)</a></li>
+          <li><a href="https://code.claude.com/docs/en/plugin-marketplaces" target="_blank">Claude Code Plugin Marketplaces documentation</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="colophon-foot">
+      <span>Strategy Memorandum &mdash; AI in Private Equity</span>
+      <span>Draft v0.2 &mdash; 19 May 2026 &mdash; Internal Discussion</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  if (window.lucide) lucide.createIcons();
+
+  function tallyStats() {
+    const rows = document.querySelectorAll('.tax-row');
+    const counts = { buy: 0, build: 0, compose: 0, skip: 0 };
+    rows.forEach(r => { counts[r.dataset.tag]++; });
+    document.getElementById('stat-buy').textContent = counts.buy;
+    document.getElementById('stat-build').textContent = counts.build;
+    document.getElementById('stat-compose').textContent = counts.compose;
+    document.getElementById('stat-skip').textContent = counts.skip;
+    document.getElementById('count-all').textContent = `· ${rows.length}`;
+    document.getElementById('count-buy').textContent = `· ${counts.buy}`;
+    document.getElementById('count-build').textContent = `· ${counts.build}`;
+    document.getElementById('count-compose').textContent = `· ${counts.compose}`;
+    document.getElementById('count-skip').textContent = `· ${counts.skip}`;
+  }
+  tallyStats();
+
+  document.querySelectorAll('.tax-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const wasExpanded = row.classList.contains('expanded');
+      document.querySelectorAll('.tax-row.expanded').forEach(r => r.classList.remove('expanded'));
+      if (!wasExpanded) row.classList.add('expanded');
+    });
+  });
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.tax-row').forEach(row => {
+        if (filter === 'all' || row.dataset.tag === filter) {
+          row.classList.remove('hidden');
+        } else {
+          row.classList.add('hidden');
+          row.classList.remove('expanded');
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentic AI in Financial Services — What's Actually Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --bg-alt: #F7F7F4;
+  --ink: #1A1A1A;
+  --ink-soft: #3D3D3D;
+  --muted: #6B6B6B;
+  --rule: #D9D9D6;
+  --rule-soft: #E8E8E5;
+  --navy: #0E2A47;
+  --burgundy: #8B2332;
+  --ochre: #9C7626;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Source Serif 4', 'Times New Roman', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.62;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 56px 48px 96px;
+}
+h1, h2, h3, h4 {
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--navy);
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
+  line-height: 1.25;
+}
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 0;
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 18px;
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-size: 22px;
+  margin-top: 2.2em;
+  border-bottom: 1px solid var(--rule-soft);
+  padding-bottom: 10px;
+  color: var(--burgundy);
+}
+h3 {
+  font-size: 18px;
+  color: var(--navy);
+}
+h4 { font-size: 16px; color: var(--ink-soft); }
+p { margin: 0 0 1.05em; }
+strong { color: var(--ink); font-weight: 600; }
+em { color: var(--ink-soft); }
+a {
+  color: var(--burgundy);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(139, 35, 50, 0.25);
+  transition: border-bottom-color 0.15s ease;
+}
+a:hover { border-bottom-color: var(--burgundy); }
+ul, ol { margin: 0 0 1.05em; padding-left: 1.4em; }
+li { margin-bottom: 0.4em; }
+li > p { margin: 0 0 0.4em; }
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2.4em 0;
+}
+blockquote {
+  margin: 0 0 1.05em;
+  padding: 0.6em 1em;
+  border-left: 3px solid var(--ochre);
+  background: var(--bg-alt);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+code {
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-size: 0.88em;
+  background: var(--bg-alt);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--navy);
+}
+pre {
+  background: var(--bg-alt);
+  padding: 14px 18px;
+  overflow-x: auto;
+  border-radius: 4px;
+  margin: 0 0 1.05em;
+  border: 1px solid var(--rule-soft);
+}
+pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 0.85em;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0 1.4em;
+  font-size: 0.95em;
+  font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+th {
+  background: var(--bg-alt);
+  color: var(--navy);
+  font-weight: 600;
+  border-bottom: 2px solid var(--rule);
+  font-size: 0.92em;
+}
+tr:last-child td { border-bottom: 1px solid var(--rule); }
+.meta {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule-soft);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+@media (max-width: 720px) {
+  .container { padding: 32px 22px 64px; }
+  body { font-size: 16px; }
+  h1 { font-size: 26px; }
+  h2 { font-size: 20px; }
+  table { font-size: 0.88em; }
+  th, td { padding: 7px 8px; }
+}
+@media print {
+  body { font-size: 11pt; line-height: 1.45; }
+  .container { max-width: none; padding: 24pt 36pt; }
+  a { color: var(--ink); border-bottom: 0; }
+  h1, h2, h3 { page-break-after: avoid; }
+  table, blockquote { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="meta">2026-05-19 · Companion to the 2026-05-15 Agentic AI Primer</div>
+<h1 id="agentic-ai-in-financial-services-whats-actually-live">Agentic AI in Financial Services — What's Actually Live</h1>
+<p><strong>Companion:</strong> <code>docs/briefs/2026-05-15-agentic-ai-primer.md</code> (read for the underlying mechanics — ReAct loops, tool use, MCP, the latency-budget argument). This piece is the FS application layer: who is shipping what, where the dollars are moving, and what's still science fiction.</p>
+<p><strong>Anchor question:</strong> <em>"Are they building agents for trading? Are AI use cases piling up in hedge funds and Citadels of the world? What are the use cases of a bank?"</em></p>
+<p><strong>One-line answer.</strong> Yes, the use cases are piling up — but almost all the production deployment so far is in <strong>knowledge-worker augmentation</strong> (research, coding, document summarization, advisor and banker copilots) and <strong>back-office</strong> workflows (KYC/AML, claims, customer service). Agents on the actual trade execution path remain rare and constrained, and HFT is structurally off-limits for LLM-style agents on latency grounds. The biggest disclosed AI spend in the sector is JPMorgan at <strong>~$2B/year specifically on AI</strong> inside a <strong>$19.8B 2026 technology budget</strong> — and JPM has reclassified AI from "discretionary innovation" to "core infrastructure."</p>
+<p><strong>Terms defined on first use:</strong> <em>HFT</em> (high-frequency trading — strategies that execute in microseconds to milliseconds, where any added wall-clock latency destroys the edge); <em>KYC</em> (Know Your Customer — the identity-verification and risk-rating workflow banks run on every new account); <em>AML</em> (Anti-Money Laundering — the transaction-monitoring and suspicious-activity-reporting workflow run continuously on existing accounts); <em>SR 11-7</em> (the 2011 US bank-regulator framework that governs how financial institutions validate, document, and govern any quantitative model used in decisions — including AI models — superseded April 17, 2026 by revised guidance that explicitly <em>does not</em> yet cover generative or agentic AI); <em>RAG</em> (retrieval-augmented generation — the standard technique of fetching relevant documents from a vector database and including them in an LLM prompt, rather than relying on what the model memorized in training); <em>CIB</em> (corporate and investment banking — the sell-side trading, M&amp;A advisory, and capital-markets businesses inside a universal bank); <em>CCAR</em> (Comprehensive Capital Analysis and Review — the annual Fed stress test that requires banks above $100B in assets to model losses under macro-scenario shocks).</p>
+<hr>
+<h2 id="1-map-of-fs-ai-use-cases-by-subsector">1. Map of FS AI use cases by subsector</h2>
+<p>The seven subsectors below organize the rest of this piece. The pattern, read top-to-bottom: as you move from <strong>HFT</strong> at the top (microsecond decisions, no LLMs anywhere on the hot path) toward <strong>insurance back office</strong> at the bottom (multi-day workflows, agents already shipping), the latency budget relaxes and the agentic surface area expands.</p>
+<table>
+<thead>
+<tr>
+<th>Subsector</th>
+<th>Where AI is live today</th>
+<th>Latency-sensitive on hot path?</th>
+<th>Agentic depth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HFT / quant trading</strong> (Citadel Securities, Jane Street, Virtu, Hudson River Trading)</td>
+<td>ML for signal generation and execution; classical/deep ML, not LLMs</td>
+<td>Microsecond budget — no LLM on hot path</td>
+<td>None on execution; offline training only</td>
+</tr>
+<tr>
+<td><strong>Discretionary hedge funds</strong> (Citadel, Bridgewater, multi-managers)</td>
+<td>Research assistants, document summarization, machine-learning macro funds</td>
+<td>Decision horizon: minutes to days</td>
+<td>Read-only research agents; one full-AI macro fund (Bridgewater AIA)</td>
+</tr>
+<tr>
+<td><strong>Long-only asset managers</strong> (BlackRock, Vanguard, Fidelity)</td>
+<td>Aladdin/eFront Copilot, client-summary generation, advisor commentary, internal RAG</td>
+<td>Decision horizon: days to weeks</td>
+<td>Workflow agents inside the platform, not on trade execution</td>
+</tr>
+<tr>
+<td><strong>Investment banking (CIB)</strong> (Goldman, Morgan Stanley, JPM CIB)</td>
+<td>Coding agents (Devin, Copilot), banker copilots (GS AI Assistant), research assistants (AskResearchGPT)</td>
+<td>Days-to-weeks workflows for advisory; sub-second for trading</td>
+<td>Heavy on coding side; banker copilots are RAG, not autonomous</td>
+</tr>
+<tr>
+<td><strong>Retail brokerage</strong> (Robinhood Cortex, IBKR Ask IBKR, Schwab)</td>
+<td>Conversational research assistants; trade-idea generation with human confirmation</td>
+<td>Order entry has human in the loop</td>
+<td>Limited agency — agent surfaces an order, customer clicks</td>
+</tr>
+<tr>
+<td><strong>Retail / commercial banking</strong> (JPM, BofA, Citi, Wells, HSBC)</td>
+<td>Customer-service bots (BofA Erica — 200M Q4 2025 interactions), document review (JPM COIN), KYC/AML, fraud, internal LLM platforms (JPM LLM Suite — 200K users)</td>
+<td>Minutes to days for the workflows AI touches</td>
+<td>Agentic deployment beginning in 2025-26 for KYC/AML, advisor support</td>
+</tr>
+<tr>
+<td><strong>Insurance</strong> (Lemonade, Progressive, Allstate, large P&amp;C carriers)</td>
+<td>First-notice-of-loss intake, photo-based damage estimation, claims triage, agent-assist</td>
+<td>Hours to days for claims</td>
+<td>Highest agentic depth in FS — Lemonade processes simple claims end-to-end</td>
+</tr>
+</tbody>
+</table>
+<p>Two cuts cross the table: <strong>front-office (revenue-touching)</strong> versus <strong>back-office (cost-cutting)</strong>, and <strong>on-trade-path</strong> versus <strong>off-trade-path</strong>. The honest read is that almost every shipped deployment is <strong>back-office and off-trade-path</strong> — augmentation of human decisions, automation of paperwork, deflection of customer-service load. Front-office, on-trade-path agentic AI exists in two narrow forms: Bridgewater's AIA Macro Fund (machine-learning-led, but not LLM-agent-led on execution) and a thin layer of retail-brokerage assistants that require human click-confirmation before any order goes in.</p>
+<hr>
+<h2 id="2-whats-actually-being-done-today-per-public-disclosures">2. What's actually being done today — per public disclosures</h2>
+<p>This section walks through the named deployments worth tracking. Each subsection cites primary sources or first-rate trade press; vendor self-disclosure is flagged as such.</p>
+<h3 id="21-jpmorgan-llm-suite-indexgpt-coin">2.1 JPMorgan — LLM Suite, IndexGPT, COIN</h3>
+<p>JPM is the cleanest single-company case study in FS, because of the volume of public disclosure. Three named systems:</p>
+<ul>
+<li><strong>COIN</strong> (Contract Intelligence) — the pre-LLM workhorse. Reviews commercial loan agreements; JPM has long disclosed the system displaced roughly <strong>360,000 hours/year</strong> of manual contract review with a <strong>near-zero error rate</strong>. Predates the current generative-AI wave and is closer to traditional NLP than to an agent (<a href="https://ctomagazine.com/jp-morgan-chase-accelerates-ai-adoption/">CTO Magazine — JP Morgan Chase Accelerates AI Adoption</a>).</li>
+<li><strong>LLM Suite</strong> — the internal generative-AI workbench. JPMorgan disclosed in June 2025 that the platform <em>"went from zero to 200,000 onboarded users within eight months"</em> of its summer 2024 release (<a href="https://www.jpmorganchase.com/about/technology/blog/llmsuite-ab-award">JPMorgan Chase — LLM Suite named 2025 "Innovation of the Year"</a> · local: <code>…/snapshots/2026-05-19-jpm-llm-suite-blog.html</code>). Per industry reporting on October 2025 JPMorgan disclosures, <em>"Over 40,000 of its software engineers use AI coding assistants"</em> and the firm has roughly 200,000 LLM Suite users out of ~317,000 total employees (<a href="https://www.emarketer.com/content/ai-arms-race-jpmorgan-2-billion">eMarketer — In the AI arms race, JPMorgan is unstoppable</a> · local: <code>…/snapshots/2026-05-19-emarketer-jpmorgan-ai.html</code>). Specific application counts (around 100 generative-AI apps in production; other sources cite 300+ or 450+ total AI use cases including pre-generative ML) vary across third-party summaries and are best read as a range rather than a precise count.</li>
+<li><strong>IndexGPT</strong> — customer-facing generative tool that surfaces thematic investment ideas; modest in deployment scale relative to LLM Suite.</li>
+</ul>
+<p>Spend disclosure: per third-party reporting on JPMorgan disclosures, <em>"JPMorgan Chase spends $2 billion per year on AI and finds an equal amount of cost savings as a result"</em> (<a href="https://www.emarketer.com/content/ai-arms-race-jpmorgan-2-billion">eMarketer — In the AI arms race, JPMorgan is unstoppable, Oct 9 2025</a> · local: <code>…/snapshots/2026-05-19-emarketer-jpmorgan-ai.html</code>). Crypto.news framing of the same disclosures: JPMorgan <em>"has moved its AI spending out of the discretionary innovation category and placed it alongside data centers, payment systems, and core risk controls inside its $19.8bn total technology budget for 2026"</em> (<a href="https://crypto.news/jpmorgan-makes-ai-core-infrastructure-spending/">crypto.news — JPMorgan makes AI core infrastructure spending</a> · local: <code>…/snapshots/2026-05-19-crypto-news-jpmorgan-ai.html</code>). The reclassification matters: it removes AI spend from the line that gets cut first when markets turn.</p>
+<h3 id="22-goldman-sachs-gs-ai-assistant-devin">2.2 Goldman Sachs — GS AI Assistant + Devin</h3>
+<p>Two layers, one for knowledge workers, one for engineers.</p>
+<ul>
+<li><strong>GS AI Assistant</strong> — firm-wide knowledge-worker copilot. Pilot through early 2025 with ~10,000 employees; firm-wide launch <strong>June 23, 2025</strong> to ~46,500 knowledge workers, with adoption above 50% at launch and a stated goal of 100% by 2026. Use cases: document summarization, email drafting, pitch-deck drafting, descriptive analytics, language translation, and (as a sub-mode) a <em>Banker Copilot</em> (<a href="https://belitsoft.com/news/goldman-sachs-ai-assistant-23072025">Belitsoft — Goldman Sachs AI Assistant</a> · <a href="https://www.foxbusiness.com/technology/goldman-sachs-announces-firmwide-launch-ai-assistant">Fox Business — Goldman Sachs rolls out firmwide AI assistant</a>).</li>
+<li><strong>Cognition Devin</strong> — pilot to roll out <strong>"hundreds of instances of Devin, potentially growing to thousands"</strong> alongside Goldman's ~12,000 human developers, with <strong>human supervision on every instance</strong>. CIO Marco Argenti's framing: a <em>"hybrid"</em> workforce in which Devin agents are supervised by humans rather than replacing them, targeting <strong>20% efficiency gains</strong> as a productivity uplift rather than a headcount-substitution play. Use cases: legacy code management, refactoring, debugging (<a href="https://techcrunch.com/2025/07/11/goldman-sachs-is-testing-viral-ai-agent-devin-as-a-new-employee/">TechCrunch — Goldman Sachs is testing viral AI agent Devin</a> · local: <code>…/snapshots/2026-05-19-goldman-devin-techcrunch.html</code> · <a href="https://www.cnbc.com/2025/07/11/goldman-sachs-autonomous-coder-pilot-marks-major-ai-milestone.html">CNBC — Goldman piloting first autonomous coder</a> · local: <code>…/snapshots/2026-05-19-cnbc-goldman-devin-wayback.html</code> · <a href="https://cognition.ai/blog/devin-annual-performance-review-2025">Cognition — Devin 2025 Performance Review</a>; per Cognition's own disclosure, Devin <em>"is 4x faster at problem solving"</em> and <em>"67% of its PRs are now merged vs 34% last year"</em>).</li>
+</ul>
+<h3 id="23-morgan-stanley-ai-morgan-stanley-assistant-debrief-askresearchgpt">2.3 Morgan Stanley — AI @ Morgan Stanley Assistant, Debrief, AskResearchGPT</h3>
+<p>Three deployments stack in wealth and research.</p>
+<ul>
+<li><strong>AI @ Morgan Stanley Assistant</strong> — chatbot built with OpenAI that gives advisors natural-language access to Morgan Stanley's research and intellectual-capital corpus. Per Atul Dalmia, Chief Analytics Officer, Morgan Stanley Wealth Management (CDO Magazine interview): <em>"98% of our financial advisors actively use this tool, and it has increased productivity"</em> (<a href="https://www.cdomagazine.tech/aiml/98-of-morgan-stanley-wealth-management-advisors-use-its-ai-chatbot-with-improved-productivity-cao-explains-how">CDO Magazine — 98% of Morgan Stanley advisors use its AI chatbot</a> · local: <code>research/2026-05-19-financial-services-ai-primer/snapshots/2026-05-19-cdo-magazine-morgan-stanley.html</code>). OpenAI's own case study describes the underlying use case as natural-language access to the firm's research database, replacing keyword search (<a href="https://openai.com/index/morgan-stanley/">OpenAI — Morgan Stanley case study</a> · local: <code>…/snapshots/2026-05-19-openai-morgan-stanley-wayback.html</code>).</li>
+<li><strong>AI @ Morgan Stanley Debrief</strong> — separate GenAI tool that summarizes Zoom client meetings (with client consent), generates CRM-ready notes, and drafts follow-up emails. Dalmia on Debrief's impact: <em>"It has driven efficiency. It's more like an eight or nine on a scale of ten in terms of impact"</em> (<a href="https://www.cdomagazine.tech/aiml/98-of-morgan-stanley-wealth-management-advisors-use-its-ai-chatbot-with-improved-productivity-cao-explains-how">CDO Magazine — same source</a>).</li>
+<li><strong>AskResearchGPT</strong> — research-side equivalent for Institutional Securities (sell-side trading and research division). Synthesizes unstructured data from the firm's research corpus and exports findings into client-ready outputs (<a href="https://www.morganstanley.com/press-releases/morgan-stanley-research-announces-askresearchgpt">Morgan Stanley press release — AskResearchGPT</a> · local: <code>research/2026-05-19-financial-services-ai-primer/snapshots/2026-05-19-morgan-stanley-askresearchgpt.html</code>).</li>
+</ul>
+<h3 id="24-blackrock-aladdin-copilot-efront-copilot-auto-commentary">2.4 BlackRock — Aladdin Copilot, eFront Copilot, Auto Commentary</h3>
+<p>Aladdin is the dominant institutional asset-management platform — approximately $25 trillion in assets are managed on Aladdin and over 1,000 organizations use it for portfolio management, risk analytics, trading, operations, and compliance (<a href="https://businesstats.com/blackrock-aladdin-platform/">BusinessStats — $25T Assets BlackRock Aladdin Platform Statistics 2026, updated March 2026</a> · local: <code>…/snapshots/2026-05-19-businesstats-aladdin.html</code>). Three AI surfaces sit on top of it:</p>
+<ul>
+<li><strong>Aladdin Copilot</strong> — natural-language interface over Aladdin's public-markets risk and portfolio data. The Microsoft / BlackRock joint blog describes Aladdin as <em>"a technology platform hosted on Microsoft Azure"</em> — the brief's two cited sources support generic Azure hosting; the specific "Azure OpenAI Service" branding is not directly named in either of those two sources (<a href="https://www.microsoft.com/en-us/industry/blog/financial-services/2024/09/30/elevating-investment-management-tech-ai-powered-leadership-from-blackrock-and-microsoft/">Microsoft — Elevating investment management tech: AI-powered leadership from BlackRock and Microsoft, Sep 30 2024</a> · local: <code>…/snapshots/2026-05-19-microsoft-blackrock-aladdin.html</code> · <a href="https://www.blackrock.com/aladdin/solutions/aladdin-copilot">BlackRock — Aladdin Copilot</a> · local: <code>…/snapshots/2026-05-19-blackrock-aladdin-copilot.html</code>).</li>
+<li><strong>eFront Copilot</strong> — same shape, but on the private-markets side (eFront is BlackRock's PE/credit fund-administration platform) (<a href="https://www.efront.com/en/alternative-investment-software/efront-copilot">eFront Copilot product page</a> · local: <code>…/snapshots/2026-05-19-efront-copilot-wayback.html</code>).</li>
+<li><strong>Aladdin Wealth Auto Commentary</strong> — October 2025, launched with Morgan Stanley as first client; generates personalized portfolio commentary for advisors. This is the first concrete example of an asset-manager-platform agent producing client-facing output (<a href="https://www.blackrock.com/aladdin/discover/aladdin-wealth-launches-ai-enabled-commentary-tool-at-morgan-stanley">BlackRock — Aladdin Wealth AI commentary tool</a> · local: <code>…/snapshots/2026-05-19-blackrock-wealth-wayback2.html</code>).</li>
+</ul>
+<h3 id="25-bridgewater-aia-labs-and-the-aia-macro-fund">2.5 Bridgewater — AIA Labs and the AIA Macro Fund</h3>
+<p>Bridgewater under Co-CIO Greg Jensen and Chief Scientist Jasjeet Sekhon launched the <strong>AIA Macro Fund in July 2024</strong> with approximately $2B initial capital (Fortune, Bloomberg). Bridgewater's own AIA Labs page describes the systems as managing <em>"billions of dollars"</em> and frames AIA as <em>"an artificial investor designed to perform rigorous, explainable, fundamental research"</em> with the <strong>AIA Forecaster</strong> described as <em>"the first publicly documented AI system to verifiably match the performance of expert human forecasters at scale."</em> Bridgewater emphasizes <em>causal reasoning</em> and <em>explainability</em> rather than labeling the architecture as ML- or LLM-agent-driven. Secondary press reports describe the fund as using proprietary ML models alongside LLMs from OpenAI, Anthropic, and Perplexity, with a regime-classification approach (growth acceleration / stagflation / deflation) positioning across FX, commodities, government bonds (<a href="https://www.bridgewater.com/aia-labs">Bridgewater — AIA Labs</a> · <a href="https://fortune.com/2024/07/01/bridgewater-2-billion-fund-machine-learning-decision-making-openai-anthropic-perplexity/">Fortune — Bridgewater $2B fund</a> · <a href="https://www.bloomberg.com/professional/insights/trading/bridwater-now-has-2bn-fund-run-by-machine-learning/">Bloomberg Professional Services</a> · <a href="https://www.institutionalinvestor.com/article/behind-bridgewaters-surge">Institutional Investor — Behind Bridgewater's Surge</a>). Specific 2025 return figures (an 11.9% figure has circulated in secondary trade press) are not confirmed on Bridgewater's own disclosure and should be treated as secondary-attribution only.</p>
+<p>The Bridgewater frame matters because it's the <strong>only large-fund public commitment</strong> to AI-driven decision-making at the fund-product level. Important caveat: per Bridgewater's framing, AIA is closer to an <em>"artificial investor"</em> doing fundamental research than to an LLM agent calling trade execution — the LLMs feed signal generation and reasoning; the trade decision is a separate model output operating under Bridgewater's standard risk-control architecture.</p>
+<h3 id="26-citadel-ai-assistant-for-equities-investors">2.6 Citadel — AI Assistant for equities investors</h3>
+<p>Hedge fund Citadel rolled out an internal AI Assistant for equities investors, disclosed at Reuters Next in <strong>December 2025</strong> by CTO Umesh Subramanian. Trained on licensed transcripts, regulatory filings, brokerage research, and Citadel's proprietary strategies. Surfaces risks, generates tailored research, and creates reading lists aligned to investor portfolios. Use spans <em>"almost all of the firm's equities investors"</em> (<a href="https://www.hedgeweek.com/citadel-rolls-out-ai-research-assistant/">Hedgeweek — Citadel rolls out AI research assistant</a> · local: <code>research/2026-05-19-financial-services-ai-primer/snapshots/2026-05-19-citadel-hedgeweek.html</code> · <a href="https://www.investing.com/news/stock-market-news/citadel-debuts-new-ai-tool-for-equities-investors-cto-subramanian-says-4396760">Investing.com — Citadel debuts AI tool for equities investors (Reuters wire)</a>). Ken Griffin himself has been explicit that <strong>investment decisions remain with humans</strong>. Speaking at the JPMorgan Robin Hood Investors Conference in October 2025, Griffin said that while GenAI can enhance productivity, it <em>"just falls short"</em> for uncovering alpha — and noted that the technology has not replaced the human work of investing (<a href="https://www.hedgeweek.com/generative-ai-fails-to-deliver-alpha-for-hedge-funds-says-griffin/">Hedgeweek — Generative AI fails to deliver alpha for hedge funds, says Griffin</a> · local: <code>…/snapshots/2026-05-19-hedgeweek-griffin-genai.html</code> · <a href="https://www.bloomberg.com/news/articles/2025-10-15/ken-griffin-says-genai-fails-to-help-hedge-funds-produce-alpha">Bloomberg — Ken Griffin Says GenAI Fails to Help Hedge Funds Produce Alpha, Oct 15 2025</a> (primary source — 403 to crawler + Wayback; verbatim partial quote sourced via Hedgeweek)).</p>
+<p>The contrast with Bridgewater is important. Bridgewater is willing to let ML drive the trade; Citadel is explicit that AI is a research-augmentation tool only.</p>
+<h3 id="27-blackrock-peers-vanguard-fidelity">2.7 BlackRock peers — Vanguard, Fidelity</h3>
+<ul>
+<li><strong>Vanguard</strong> — first client-facing generative-AI feature shipped May 2025 (advisor-facing client-summary article generator). In-house chatbot for hyper-personalized client guidance targeted for 2026. Contact-center copilot (<em>Crew Assist</em>) running on Azure OpenAI (<a href="https://corporate.vanguard.com/content/corporatesite/us/en/corp/who-we-are/pressroom/press-release-vanguard-unveils-generative-ai-client-summaries-for-financial-advisors-050525.html">Vanguard press release — generative AI client summaries</a> · local: <code>…/snapshots/2026-05-19-vanguard-client-summaries.html</code>).</li>
+<li><strong>Fidelity</strong> — discloses <strong>&gt;two-thirds of wealth-management firms</strong> are already using generative AI in their 2025 AI Pulse Survey, but Fidelity's own deployments are less publicly itemized than peers'.</li>
+</ul>
+<h3 id="28-bloomberg-factset-sp-capital-iq-moodys-msci-the-data-vendor-layer">2.8 Bloomberg, FactSet, S&amp;P Capital IQ, Moody's, MSCI — the data-vendor layer</h3>
+<p>The financial-data vendors are racing to embed an LLM-driven interface over their corpora before clients build their own.</p>
+<ul>
+<li><strong>BloombergGPT</strong> — Bloomberg published the <a href="https://arxiv.org/abs/2303.17564">50-billion-parameter financial LLM paper</a> in March 2023, and since then has chosen to surface generative-AI features inside the Bloomberg Terminal rather than expose BloombergGPT as a standalone product. Bloomberg's first publicly disclosed generative-AI Terminal feature was earnings-transcript summarization, with a broader AI-powered document search and research tool rolling out by end-2025 (<a href="https://www.itbrew.com/stories/2025/11/06/inside-the-bloomberg-terminal-ai">itbrew — Inside the Bloomberg Terminal's AI, Nov 6 2025</a> · local: <code>…/snapshots/2026-05-19-itbrew-bloomberg-terminal-ai.html</code>). Net: Bloomberg was the first big FS-data player to ship a domain LLM, but its productization path is bundle-into-Terminal rather than standalone-AI-product.</li>
+<li><strong>FactSet Mercury</strong> — conversational agentic-orchestration layer launched 2024-25, with an aggressive 2025 product slate: <strong>Pitch Creator</strong> (chart-creator, slide assistant, template assistant — automating junior-banker pitchbook work) and <strong>IRN 2.0</strong> (Mercury-backed research management). Mercury is also exposed as a Conversational API for clients to embed inside their own stacks (<a href="https://investor.factset.com/news-releases/news-release-details/factset-launches-factset-mercury-supercharge-junior-banker">FactSet — FactSet Mercury launch</a> · <a href="https://investor.factset.com/news-releases/news-release-details/factset-launches-ai-powered-pitch-creator">FactSet — Pitch Creator launch</a> · <a href="https://www.waterstechnology.com/emerging-technologies/7952116/factset-launches-conversational-ai-for-increased-productivity">WatersTechnology coverage</a>).</li>
+<li><strong>Moody's Research Assistant</strong> — launched December 2023. Per Moody's own white paper analyzing 100,000+ user interactions: <em>"customers consume up to 60% more research while simultaneously reducing time spent on tasks by 30% on average,"</em> with a <em>"significant uptick in recurring platform users, with peaks showing almost 300% increase during its second quarter in market"</em> (<a href="https://www.moodys.com/web/en/us/site-assets/genai-research-assistant-financial-services.pdf">Moody's — GenAI-powered Research Assistant drives significant efficiency gains for financial services industry, PDF</a> · local: <code>…/snapshots/2026-05-19-moodys-research-assistant-pdf.pdf</code>). Now graduating to an <em>Agentic Solution</em> (modular agents that complete analytical tasks end-to-end) (<a href="https://www.moodys.com/web/en/us/creditview/blog/from-research-assistant-to-agentic-solution-with-cristina-pieretti.html">Moody's — Research Assistant to Agentic Solution</a> · local: <code>…/snapshots/2026-05-19-moodys-research-assistant.html</code>).</li>
+<li><strong>S&amp;P Capital IQ / MSCI</strong> — both have shipped GenAI features over their data moats. S&amp;P Global's <strong>ChatIQ</strong> is a GenAI-powered research assistant inside Capital IQ Pro, launched November 2024 in partnership with Kensho and extended with Document Intelligence 2.0 in October 2025 (<a href="https://press.spglobal.com/2025-10-22-S-P-Global-Redefines-Financial-Insights-with-New-AI-Powered-Multi-Document-Research-and-Analysis-Tool-in-Capital-IQ-Pro-ChatIQ">S&amp;P Global press release — S&amp;P Global Redefines Financial Insights with New AI-Powered Multi-Document Research and Analysis Tool in Capital IQ Pro ChatIQ, Oct 22 2025</a> · local: <code>…/snapshots/2026-05-19-spglobal-chatiq.html</code>). <strong>MSCI</strong> has an expanded Google Cloud partnership specifically to deliver generative-AI solutions for the investment industry — risk-signals products and conversational interfaces layered over MSCI's data (<a href="https://www.businesswire.com/news/home/20230829773754/en/MSCI-Expands-Partnership-with-Google-Cloud-to-Accelerate-Generative-AI-Solutions-for-the-Investment-Industry">MSCI — MSCI Expands Partnership with Google Cloud to Accelerate Generative AI Solutions for the Investment Industry, Aug 2023</a> (punted: businesswire 403 to crawler; framing held to the partnership scope the press release actually carries)). The pattern is consistent: every data vendor is converting its data moat into a conversational interface to defend share.</li>
+</ul>
+<h3 id="29-buy-side-ai-startups-hebbia-rogo-alphasense">2.9 Buy-side AI startups — Hebbia, Rogo, AlphaSense</h3>
+<p>The startup layer. Three names worth tracking:</p>
+<ul>
+<li><strong>Rogo</strong> — Series D <strong>$160M led by Kleiner Perkins</strong>, announced April 29, 2026, with co-investors Sequoia, Thrive Capital, Khosla Ventures, J.P. Morgan Growth Equity Partners, BoxGroup, Mantis VC, Jack Altman, Evantic, and <strong>Positive Sum</strong>. The Series D brings Rogo's total funding to more than $300M. Per Rogo's own PR Newswire release: Rogo is <em>"trusted by more than 35,000 professionals at the world's top investment banks, private equity firms, and asset managers"</em> and counts 250+ institutional customers. Newest product <em>Felix</em> is described by the company as managing long-term workflows: deal screening, CIM (Confidential Information Memorandum) generation, buyer outreach, data-room diligence (<a href="https://rogo.ai/news/series-d">Rogo — $160M Series D blog</a> · local: <code>…/snapshots/2026-05-19-rogo-series-d-blog.html</code> · <a href="https://www.prnewswire.com/news-releases/rogo-raises-160m-series-d-to-scale-the-agentic-platform-for-finance-302756546.html">PR Newswire release</a> · local: <code>…/snapshots/2026-05-19-prnewswire-rogo-series-d.html</code> · <a href="https://techfundingnews.com/rogo-160m-series-d-kleiner-perkins-investment-banking-ai/">TechFunding News coverage</a>).</li>
+<li><strong>Hebbia</strong> — document-analysis platform for finance and law. Per TechCrunch (July 2024), Hebbia raised a $130M Series B at a ~$700M valuation led by Andreessen Horowitz, on $13M of profitable revenue (<a href="https://techcrunch.com/2024/07/09/ai-startup-hebbia-rased-130m-at-a-700m-valuation-on-13-million-of-profitable-revenue/">TechCrunch — AI startup Hebbia raised $130M at a $700M valuation</a> · local: <code>…/snapshots/2026-05-19-techcrunch-hebbia-funding.html</code>).</li>
+<li><strong>AlphaSense</strong> — the most-established player at ~14 years old, <strong>6,000+ customers</strong>, has built AI agent capabilities on top of its existing market-intelligence corpus.</li>
+</ul>
+<p>Treat startup vendor self-disclosure with the same skepticism due any vendor pitch — the customer counts are real (Rogo's named-client list is verifiable through bank disclosures), but the workflow-completion claims are not yet independently audited.</p>
+<hr>
+<h2 id="3-latency-sensitive-vs-not-the-structural-constraint">3. Latency-sensitive vs not — the structural constraint</h2>
+<p>This is the single most important framing for the question on "are they building agents for trading." The agentic-primer §3 covered the hardware physics in detail; here is the FS-application version.</p>
+<table>
+<thead>
+<tr>
+<th>Workflow</th>
+<th>Latency budget</th>
+<th>LLM agent viable today?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HFT execution (Citadel Securities, Jane Street market-making, Virtu)</td>
+<td>Microseconds (1µs–10µs)</td>
+<td><strong>No.</strong> A single LLM forward pass takes 50ms+. Agents add tool calls on top. Three to five orders of magnitude too slow.</td>
+</tr>
+<tr>
+<td>Mid-frequency quant (Bridgewater AIA Macro, Renaissance, Two Sigma signal generation)</td>
+<td>Minutes to hours per trade decision</td>
+<td><strong>Partial.</strong> ML models (not LLM agents) drive trade decisions; LLMs feed signal extraction and alt-data parsing.</td>
+</tr>
+<tr>
+<td>Discretionary research / fundamental (Citadel L/S, hedge funds, asset managers)</td>
+<td>Hours to days</td>
+<td><strong>Yes.</strong> Research agents are the most-shipped front-office use case.</td>
+</tr>
+<tr>
+<td>M&amp;A advisory, ECM/DCM, structured products</td>
+<td>Days to weeks</td>
+<td><strong>Yes.</strong> Banker copilots (GS AI Assistant, Rogo) compress junior-banker work substantially.</td>
+</tr>
+<tr>
+<td>Back office — KYC, AML, claims, customer service</td>
+<td>Minutes to days</td>
+<td><strong>Yes — and this is where agents are most fully deployed.</strong></td>
+</tr>
+<tr>
+<td>Compliance and surveillance</td>
+<td>Real-time monitoring with human review on flag</td>
+<td><strong>Yes</strong> for the alert-triage layer; not for trade-blocking.</td>
+</tr>
+</tbody>
+</table>
+<p>The latency story has a second wrinkle: even where LLM-agent execution would be too slow, <strong>the model training and feature engineering</strong> on the back end runs in agent-like loops over historical data. Arc Compute's HFT-focused write-up describes the resulting split: <em>"FPGAs handle the critical nanosecond loop. GPUs handle signal generation, simulation, research workloads, and real time risk."</em> The same piece names a concrete HFT example: <em>"Lynx, a proprietary trading firm, migrated from the public cloud to Arc Compute's on premise NVIDIA HGX B200 systems"</em> — eliminating cloud jitter and enabling larger model training without sacrificing the FPGA-anchored execution path (<a href="https://www.arccompute.io/arc-blog/becoming-ai-native-in-high-frequency-trading-why-gpus-are-now-essential">Arc Compute — Becoming AI Native in High Frequency Trading: Why GPUs Are Now Essential</a> · local: <code>…/snapshots/2026-05-19-arccompute-hft-lynx.html</code>). The training infra is agentic-shaped; the production hot path is not.</p>
+<hr>
+<h2 id="4-compliance-regulatory-friction-whats-actually-constraining-deployment">4. Compliance + regulatory friction — what's actually constraining deployment</h2>
+<p>The latency physics is one constraint. The regulatory regime is the other — and it is loosening at exactly the moment large banks are rolling out generative AI broadly.</p>
+<p><strong>SR 11-7 and its April 2026 successor.</strong> SR 11-7 is the Fed/OCC/FDIC framework for <em>model risk management</em> — the rules banks above $30B in assets must follow when validating, documenting, and governing any model used in business decisions. Until April 17, 2026, SR 11-7 (issued 2011) was the binding standard, and regulators applied it to AI/ML models with the same rigor as traditional statistical models. On April 17, 2026 the three agencies issued <strong>revised guidance</strong> that supersedes SR 11-7 — and notably, the revised guidance <em>explicitly does not cover generative or agentic AI</em>. The agencies have said they will issue a separate request-for-information on generative and agentic AI in the near future (<a href="https://www.sullcrom.com/insights/memo/2026/April/OCC-Fed-FDIC-Issue-Revised-Guidance-Model-Risk-Management">Sullivan &amp; Cromwell — Federal Banking Agencies Issue Revised Guidance on Model Risk Management</a> · <a href="https://www.occ.treas.gov/news-issuances/bulletins/2026/bulletin-2026-13.html">OCC Bulletin 2026-13</a>).</p>
+<p>The carve-out is the load-bearing fact. It signals that US bank regulators do not currently have a settled framework for governing generative AI in regulated decisions — which is why deployment has clustered in <em>augmentation</em> roles where a human is on the decision and the AI's output is reviewable, rather than in <em>decision-substitution</em> roles where the model is making the call.</p>
+<p><strong>FINRA Regulatory Notice 24-09 (June 2024).</strong> Confirms that FINRA Rule 2210 (broker-dealer communications) governs <strong>all public-facing communications</strong>, regardless of whether they were produced by a human, a third-party vendor, or an AI model. Concretely: AI-generated marketing copy, AI-drafted advisor communications, and AI-generated research summaries are all in scope, must meet accuracy and fair-dealing standards, and must carry the right disclosures (<a href="https://www.finra.org/rules-guidance/key-topics/artificial-intelligence">FINRA — Artificial Intelligence key topic page</a> · <a href="https://a-teaminsight.com/blog/finras-2024-new-and-updated-guidelines-on-ai-and-genai-llm-integration/">A-Team Insight summary</a>). FINRA has also begun enforcement on algorithm-related supervisory failures — Interactive Brokers was fined <strong>$475,000</strong> and censured on <strong>24 October 2024</strong> for securities-lending segregation deficits stemming from a faulty algorithm and inadequate supervision (including allowing an unregistered person to oversee changes to the securities-lending algorithm) (<a href="https://www.securitiesfinancetimes.com/securitieslendingnews/industryarticle.php?article_id=227412">Securities Finance Times — FINRA issues US$475,000 fine to Interactive Brokers</a> · local: <code>…/snapshots/2026-05-19-finra-interactive-brokers-fine.html</code>).</p>
+<p><strong>EU AI Act.</strong> Entered into force 2024 with phased application. Per Hogan Lovells, Annex III classifies as <em>high-risk</em> AI systems used for <strong>evaluating the creditworthiness of natural persons or establishing their credit score (with an explicit exception for financial fraud detection)</strong>, as well as systems used for <strong>risk assessment and pricing in relation to natural persons in the case of life and health insurance</strong> — these trigger the full conformity-assessment, risk-management, data-governance, and human-oversight regime. Fraud-detection AI is carved out of the high-risk regime and treated separately; AML risk-profiling is governed by parallel financial-services rules (DORA, CRR/CRD) rather than being explicitly enumerated in Annex III. Full enforceability for high-risk systems is <strong>August 2026</strong>, though proposed Digital Omnibus amendments would push that to <strong>late 2027</strong> (<a href="https://www.hoganlovells.com/en/publications/ai-regulation-in-financial-services-navigating-the-eu-ai-act-in-a-layered-regulatory-landscape">Hogan Lovells — AI regulation in financial services</a> · local: <code>…/snapshots/2026-05-19-hogan-lovells-eu-ai-act-wayback.html</code> · <a href="https://www.eba.europa.eu/sites/default/files/2025-11/d8b999ce-a1d9-4964-9606-971bbc2aaf89/AI%20Act%20implications%20for%20the%20EU%20banking%20sector.pdf">EBA — AI Act implications for the EU banking sector</a>).</p>
+<p>Net pattern across regulators: the binding constraint right now is <strong>process — documentation, validation, human oversight</strong> — not <strong>output prohibition</strong>. That means generative AI deployments are economically feasible if banks are willing to absorb the governance overhead, which the largest banks are.</p>
+<hr>
+<h2 id="5-where-the-buy-side-and-sell-side-are-actually-moving-dollars">5. Where the buy-side and sell-side are actually moving dollars</h2>
+<p>This is the most directly load-bearing question. Three observable data points from public disclosures:</p>
+<ol>
+<li><strong>JPMorgan — $2B/year on AI specifically, inside $19.8B 2026 technology budget.</strong> AI moved out of discretionary innovation and placed alongside data centers, payment systems, and core risk controls per October 2025 disclosures (<a href="https://www.emarketer.com/content/ai-arms-race-jpmorgan-2-billion">eMarketer — JPMorgan unstoppable, Oct 9 2025</a> · local: <code>…/snapshots/2026-05-19-emarketer-jpmorgan-ai.html</code> · <a href="https://crypto.news/jpmorgan-makes-ai-core-infrastructure-spending/">crypto.news — JPMorgan makes AI core infrastructure spending</a> · local: <code>…/snapshots/2026-05-19-crypto-news-jpmorgan-ai.html</code>).</li>
+<li><strong>Bank of America — $13B 2025 total technology spend, of which &gt;$4B on new technology initiatives.</strong> Per Moynihan's letter to shareholders (BofA 2025 Annual Report, p. 7): <em>"in 2025 we spent over $4 billion on new technology initiatives alone — representing just a part of our total $13 billion technology expenditure for the year."</em> Erica (BofA's customer-facing AI agent, in market since 2018) hit ~200 million interactions in Q4 2025 across 20 million users (BofA 2025 Annual Report, p. 7): <em>"We deployed an AI agent (Erica®) in 2018; 20 million people used it in the fourth quarter of 2025 nearly 200 million times"</em> (<a href="https://www.sec.gov/Archives/edgar/data/70858/000007085826000209/bofaannualreport2025.pdf">Bank of America 2025 Annual Report, SEC EDGAR PDF</a> · local: <code>…/snapshots/2026-05-19-bofa-annual-report-2025.pdf</code> · web letter version: <a href="https://newsroom.bankofamerica.com/content/newsroom/stories/2026/03/a-letter-to-shareholders-from-chair-and-ceo--brian-moynihan.html">BofA Newsroom — Moynihan 2026 shareholder letter</a> · local: <code>…/snapshots/2026-05-19-bofa-moynihan-letter-2026.html</code>).</li>
+<li><strong>Goldman Sachs — scaling Devin from "hundreds of instances, potentially growing to thousands"</strong> with human supervision on every instance, alongside ~12,000 human developers (<a href="https://techcrunch.com/2025/07/11/goldman-sachs-is-testing-viral-ai-agent-devin-as-a-new-employee/">TechCrunch — Goldman Sachs is testing viral AI agent Devin</a> · local: <code>…/snapshots/2026-05-19-goldman-devin-techcrunch.html</code>).</li>
+</ol>
+<p>A useful frame: the named systems above tell you <strong>who</strong> is spending; the regulatory carve-out from §4 tells you <strong>why</strong> the spending is currently aimed at augmentation rather than decision-substitution; and the latency table in §3 tells you <strong>where</strong> in the workflow the dollars are landing. The largest banks are spending tens of billions of dollars per year on technology, of which AI is a growing but still single-digit-billions slice — and almost none of it goes to on-trade-path agents.</p>
+<p>McKinsey's own framing on agentic AI in KYC/AML is more granular than a single cost-reduction number: traditional analytical AI offers <em>"15 to 20 percent productivity uplifts"</em> on investigation handling, while agentic AI — where one human supervises ~20 AI workers — yields <em>"productivity gain[s that] can be significant—anywhere from 200 to 2,000 percent, our experience shows"</em> (<a href="https://www.mckinsey.com/capabilities/risk-and-resilience/our-insights/how-agentic-ai-can-change-the-way-banks-fight-financial-crime">McKinsey — How agentic AI in banking drives KYC/AML transformation</a> · local: <code>…/snapshots/2026-05-19-mckinsey-kyc-wayback2.html</code>). Those are forward-looking experience-based ranges from a consultancy, not realized run-rate savings disclosed by a named bank.</p>
+<hr>
+<h2 id="6-investment-angle">6. Investment angle</h2>
+<p>Four buckets. None are clean public pure-plays except in the infrastructure layer.</p>
+<p><strong>Pure-play AI-for-FS vendors (mostly private).</strong> Hebbia, Rogo, AlphaSense, Paradigm. Rogo's $300M+ total raised across a four-round arc culminating in the April 2026 Series D tells you the venture market is pricing this as a winner-take-most category. The competitive question: does a Rogo-shaped horizontal-banker-copilot survive when (a) FactSet Mercury and S&amp;P Capital IQ both ship the same workflow inside their data subscriptions, and (b) JPMorgan, Goldman, and Morgan Stanley each build internal versions on the foundation models directly? The honest answer is that this is an unsettled market and the equilibrium is not in. <strong>Public-market exposure to this layer is near-zero today</strong> — Hebbia/Rogo/Paradigm are all private.</p>
+<p><strong>Incumbent FS-data vendors.</strong> Bloomberg (private), <strong>FactSet</strong> (FDS), <strong>S&amp;P Global</strong> (SPGI), <strong>Moody's</strong> (MCO), <strong>MSCI</strong> (MSCI), <strong>London Stock Exchange Group</strong> (LSE.L). The thesis here is defensive — the existing data moats let the incumbents ship LLM-driven interfaces <em>over</em> their corpora before the startup layer can dislodge them. FactSet Mercury, Moody's Research Assistant, and S&amp;P's ChatIQ are the public examples. The risk: agentic interfaces commoditize the data-vendor relationship, because what the customer pays for becomes the workflow rather than the raw data feed. Open question whether MSCI, MCO, SPGI are net winners or net at-risk from this transition.</p>
+<p><strong>Infrastructure plays — the cross-thesis bridge.</strong> This is the bucket that connects this FS-vertical primer to the broader AI-infra thesis. Every named FS deployment above runs on <strong>NVIDIA</strong> GPUs for both training and inference (HFT shops are the exception that proves the rule: even Lynx, an HFT shop, is on B200s for training; production inference moves to FPGAs/ASICs). The cluster-level economics — fiber, power, CPU pull-through, switching, KV-cache offload — all map back to the BOM-archetype lens carried in the broader thesis. <strong>Net: AI-in-FS adds incremental token volume to the demand side of the bottom-up token-economics model;</strong> it does not require a separate sub-thesis. The investable names are the same NVIDIA / network / fiber / CPU / cooling names already on the screen.</p>
+<p><strong>At-risk incumbents.</strong> Three categories carry the most credible disruption risk:</p>
+<ul>
+<li><strong>Legacy CCAR / AML / KYC software vendors</strong> (Actimize, Verafin, Oracle Financial Services Analytical Applications). McKinsey's projected order-of-magnitude productivity gains for agentic KYC/AML (200-2,000% in their framing) imply meaningful pricing pressure on the legacy rules-engine vendors, though the regulated-compliance moat slows displacement.</li>
+<li><strong>Junior-banker labor at second- and third-tier investment banks</strong> — not a directly investable thesis, but a real claim. Rogo, FactSet Pitch Creator, and Cognition Devin each compress a category of junior-banker work; the bulge-bracket banks are absorbing those productivity gains internally rather than passing them through to fewer headcount yet, but the EM-bank and middle-market layer may not have that option.</li>
+<li><strong>Pure-play research vendors below AlphaSense scale.</strong> When FactSet Mercury and S&amp;P ChatIQ can answer the same question their data feeds the user, the standalone-vendor thesis weakens.</li>
+</ul>
+<hr>
+<h2 id="7-whats-still-science-fiction-vs-near-term-reality">7. What's still science fiction vs near-term reality</h2>
+<p>A clear list, mapped to time horizons. Anchor each bucket to a primary-source signal where available.</p>
+<p><strong>Happening now (in production, 2025-26):</strong>
+- Knowledge-worker copilots at every major bank (JPM LLM Suite, GS AI Assistant, Morgan Stanley Debrief)
+- AI coding agents in software-engineering org charts (Goldman + Devin; JPM + Copilot)
+- Banker copilots / pitch creators (FactSet Mercury, Rogo)
+- Retail customer-service chatbots (BofA Erica, Klarna's case)
+- Insurance claims triage and FNOL intake (Lemonade end-to-end; Progressive / Allstate assist-mode)
+- KYC and AML alert triage with machine-learning false-positive reduction (HSBC, Citi)
+- ML-driven trade signal generation at quant and macro funds (Bridgewater AIA Macro, Two Sigma, Renaissance — not LLM agents, but the pipeline that feeds them increasingly is)</p>
+<p><strong>12-24 months out (visible technical path, regulatory/operational work ongoing):</strong>
+- End-to-end agentic KYC and AML at scale (McKinsey's order-of-magnitude productivity-gain framing — 200-2,000% per supervised-agent unit; first production deployments at HSBC and Citi disclosed but not yet at full run-rate)
+- Wealth-management AI providing personalized investment guidance directly to clients (Vanguard 2026 chatbot; expect Schwab, Fidelity to follow)
+- M&amp;A advisory workflow agents (Rogo Felix, FactSet Pitch Creator) handling first-draft CIMs, deal screens, buyer lists end-to-end with banker review
+- Retail-brokerage AI handing off completed trade tickets to human-confirmation step (Robinhood Cortex, IBKR Ask IBKR; both already shipped in 2025-26 but adoption still early)
+- Generative-AI-specific regulator guidance in the US (Fed/OCC/FDIC RFI pending post April 2026); EU AI Act high-risk enforcement (Aug 2026 or late 2027 depending on the Omnibus)</p>
+<p><strong>Not happening anytime soon (5+ years, structurally constrained):</strong>
+- LLM agents on the HFT execution hot path. The latency budget is three to five orders of magnitude wrong. The only way this changes is a structural shift in model architecture that collapses an LLM forward pass into the microsecond regime — not visible on any roadmap.
+- AI-only investment decisions at large discretionary funds with fiduciary obligations. Even Bridgewater's AIA, which is the most aggressive disclosed deployment, is ML-driven rather than LLM-agent-driven on execution, and operates inside a clearly disclosed wrapper for LP consent. The fiduciary-duty surface area for an LLM-agent-only decision remains untested in court.
+- Fully autonomous credit decisions on consumer or commercial lending in regulated jurisdictions. EU AI Act explicitly classifies these as high-risk; SR 11-7's revised guidance carves out generative AI pending separate rulemaking. Augmentation yes; substitution no.
+- Sell-side trading-desk pricing run by LLM agents without human dealer approval. Same regulatory pattern — Rule 15c3-5 (SEC market-access rule) puts hard limits on automated trading without pre-trade risk checks, and FINRA Notice 24-09 confirms AI doesn't get to bypass that.</p>
+<hr>
+<h2 id="8-what-this-means-for-the-broader-thesis">8. What this means for the broader thesis</h2>
+<p>Three connections back to the AI-infrastructure capex thesis.</p>
+<p><strong>(a) FS is a real but small token-demand bucket — and structurally back-loaded.</strong> The bulk of FS AI workload is text-heavy back-office and research workflows that consume tokens but not at hyperscaler volumes. The latency-sensitive trade execution path stays off LLMs. So the demand-side contribution from FS to the bottom-up token model is meaningful, but the right-tail comes from agentic <em>knowledge work</em> (Rogo, GS AI Assistant, FactSet Mercury, Moody's Research Assistant) and <em>back-office automation</em> (KYC, claims), not from FS becoming a trading-side LLM consumer.</p>
+<p><strong>(b) The data-vendor disruption story is the most asymmetric public-equity bet in this vertical.</strong> Specifically: does Bloomberg's quiet productization of BloombergGPT (i.e., bundling AI into the Terminal at no price increase) defend the Terminal moat, or does Rogo/Hebbia/AlphaSense compress the data-vendor wallet share at the margin? The public names exposed are FDS, SPGI, MCO, MSCI, LSE.L. Worth a deeper dive in a separate brief — the variance in outcomes here is high.</p>
+<p><strong>(c) The HFT-shop GPU spend is real and rising — but it's training spend, not inference spend.</strong> Quant shops moving training workloads from cloud to on-prem B200 / GB200 systems is consistent with the cluster-buildout demand picture, but does not generate per-token inference volume the way hyperscaler API consumption does. Watch for the disclosed quant-fund GPU-cluster builds as a complementary signal alongside the hyperscaler capex line.</p>
+<p><strong>Bottom line.</strong> The anchor question — "are AI use cases piling up in hedge funds and Citadels of the world?" — has a clean answer: yes, and they're piling up in research-augmentation roles, not in trade execution. The intuition that this is mostly white-collar / back-office today, not mission-critical regulated workflows, holds as the structural diagnosis — supported by both the latency math and the regulatory carve-out. The investment thesis line is unchanged: own the picks-and-shovels for the AI-infra buildout that feeds <em>all</em> of this; the FS vertical is one of many demand buckets, and its uniquely large compliance friction means it'll be a steady, fat demand stream, not a step-function one.</p>
+<hr>
+<h2 id="sources">Sources</h2>
+<h3 id="21-jpmorgan">§2.1 — JPMorgan</h3>
+<ul>
+<li><a href="https://ctomagazine.com/jp-morgan-chase-accelerates-ai-adoption/">CTO Magazine — JP Morgan Chase Accelerates AI Adoption (COIN, IndexGPT, LLM Suite framing)</a></li>
+<li><a href="https://www.jpmorganchase.com/about/technology/blog/llmsuite-ab-award">JPMorgan Chase — LLM Suite named 2025 "Innovation of the Year" by American Banker (Jun 3 2025)</a> · local: <code>research/2026-05-19-financial-services-ai-primer/snapshots/2026-05-19-jpm-llm-suite-blog.html</code></li>
+<li><a href="https://www.emarketer.com/content/ai-arms-race-jpmorgan-2-billion">eMarketer — In the AI arms race, JPMorgan is unstoppable (Oct 9 2025)</a> · local: <code>…/snapshots/2026-05-19-emarketer-jpmorgan-ai.html</code></li>
+<li><a href="https://crypto.news/jpmorgan-makes-ai-core-infrastructure-spending/">crypto.news — JPMorgan makes AI core infrastructure spending</a> · local: <code>…/snapshots/2026-05-19-crypto-news-jpmorgan-ai.html</code></li>
+</ul>
+<h3 id="22-goldman-sachs">§2.2 — Goldman Sachs</h3>
+<ul>
+<li><a href="https://belitsoft.com/news/goldman-sachs-ai-assistant-23072025">Belitsoft — Goldman Sachs AI Assistant</a></li>
+<li><a href="https://www.foxbusiness.com/technology/goldman-sachs-announces-firmwide-launch-ai-assistant">Fox Business — Goldman Sachs rolls out firmwide AI assistant</a></li>
+<li><a href="https://techcrunch.com/2025/07/11/goldman-sachs-is-testing-viral-ai-agent-devin-as-a-new-employee/">TechCrunch — Goldman Sachs is testing viral AI agent Devin (Jul 11, 2025)</a> · local: <code>…/snapshots/2026-05-19-goldman-devin-techcrunch.html</code></li>
+<li><a href="https://www.cnbc.com/2025/07/11/goldman-sachs-autonomous-coder-pilot-marks-major-ai-milestone.html">CNBC — Goldman Sachs is piloting its first autonomous coder</a> · local: <code>…/snapshots/2026-05-19-cnbc-goldman-devin-wayback.html</code></li>
+<li><a href="https://cognition.ai/blog/devin-annual-performance-review-2025">Cognition — Devin's 2025 Performance Review</a></li>
+</ul>
+<h3 id="23-morgan-stanley">§2.3 — Morgan Stanley</h3>
+<ul>
+<li><a href="https://openai.com/index/morgan-stanley/">OpenAI — Morgan Stanley uses AI evals to shape the future of financial services</a> · local: <code>…/snapshots/2026-05-19-openai-morgan-stanley-wayback.html</code></li>
+<li><a href="https://www.cdomagazine.tech/aiml/98-of-morgan-stanley-wealth-management-advisors-use-its-ai-chatbot-with-improved-productivity-cao-explains-how">CDO Magazine — 98% of Morgan Stanley advisors use its AI chatbot</a> · local: <code>…/snapshots/2026-05-19-cdo-magazine-morgan-stanley.html</code></li>
+<li><a href="https://www.morganstanley.com/press-releases/morgan-stanley-research-announces-askresearchgpt">Morgan Stanley press release — AskResearchGPT</a> · local: <code>…/snapshots/2026-05-19-morgan-stanley-askresearchgpt.html</code></li>
+</ul>
+<h3 id="24-blackrock">§2.4 — BlackRock</h3>
+<ul>
+<li><a href="https://www.microsoft.com/en-us/industry/blog/financial-services/2024/09/30/elevating-investment-management-tech-ai-powered-leadership-from-blackrock-and-microsoft/">Microsoft — Elevating investment management tech: AI-powered leadership from BlackRock and Microsoft (Sep 30 2024)</a> · local: <code>…/snapshots/2026-05-19-microsoft-blackrock-aladdin.html</code></li>
+<li><a href="https://www.blackrock.com/aladdin/solutions/aladdin-copilot">BlackRock — Aladdin Copilot product page</a> · local: <code>…/snapshots/2026-05-19-blackrock-aladdin-copilot.html</code></li>
+<li><a href="https://www.efront.com/en/alternative-investment-software/efront-copilot">eFront Copilot product page</a> · local: <code>…/snapshots/2026-05-19-efront-copilot-wayback.html</code></li>
+<li><a href="https://www.blackrock.com/aladdin/discover/aladdin-wealth-launches-ai-enabled-commentary-tool-at-morgan-stanley">BlackRock — Aladdin Wealth launches AI commentary tool at Morgan Stanley (Oct 2025)</a> · local: <code>…/snapshots/2026-05-19-blackrock-wealth-wayback2.html</code></li>
+<li><a href="https://businesstats.com/blackrock-aladdin-platform/">BusinessStats — $25T Assets: BlackRock Aladdin Platform Statistics 2026 (updated March 2026)</a> · local: <code>…/snapshots/2026-05-19-businesstats-aladdin.html</code></li>
+</ul>
+<h3 id="25-bridgewater">§2.5 — Bridgewater</h3>
+<ul>
+<li><a href="https://www.bridgewater.com/aia-labs">Bridgewater — AIA Labs</a> · local: <code>…/snapshots/2026-05-19-bridgewater-aia-labs.html</code></li>
+<li><a href="https://fortune.com/2024/07/01/bridgewater-2-billion-fund-machine-learning-decision-making-openai-anthropic-perplexity/">Fortune — Bridgewater starts $2B fund that uses machine learning</a></li>
+<li><a href="https://www.bloomberg.com/professional/insights/trading/bridwater-now-has-2bn-fund-run-by-machine-learning/">Bloomberg Professional Services — Bridgewater now has $2bn fund run by machine learning</a> (punted: 403 to crawler + Wayback; cited as supporting trade-press)</li>
+<li><a href="https://www.institutionalinvestor.com/article/behind-bridgewaters-surge">Institutional Investor — Behind Bridgewater's Surge</a></li>
+</ul>
+<h3 id="26-citadel">§2.6 — Citadel</h3>
+<ul>
+<li><a href="https://www.hedgeweek.com/citadel-rolls-out-ai-research-assistant/">Hedgeweek — Citadel rolls out AI research assistant (Dec 2025)</a> · local: <code>…/snapshots/2026-05-19-citadel-hedgeweek.html</code></li>
+<li><a href="https://www.investing.com/news/stock-market-news/citadel-debuts-new-ai-tool-for-equities-investors-cto-subramanian-says-4396760">Investing.com (Reuters wire) — Citadel debuts new AI tool for equities investors</a></li>
+<li><a href="https://www.hedgeweek.com/generative-ai-fails-to-deliver-alpha-for-hedge-funds-says-griffin/">Hedgeweek — Generative AI fails to deliver alpha for hedge funds, says Griffin (Oct 16 2025)</a> · local: <code>…/snapshots/2026-05-19-hedgeweek-griffin-genai.html</code></li>
+<li><a href="https://www.bloomberg.com/news/articles/2025-10-15/ken-griffin-says-genai-fails-to-help-hedge-funds-produce-alpha">Bloomberg — Ken Griffin Says GenAI Fails to Help Hedge Funds Produce Alpha (Oct 15 2025)</a> (punted: 403 to crawler + Wayback; primary source citation, secondary corroboration via Hedgeweek)</li>
+</ul>
+<h3 id="27-vanguard-fidelity">§2.7 — Vanguard / Fidelity</h3>
+<ul>
+<li><a href="https://corporate.vanguard.com/content/corporatesite/us/en/corp/who-we-are/pressroom/press-release-vanguard-unveils-generative-ai-client-summaries-for-financial-advisors-050525.html">Vanguard — Vanguard unveils generative AI client summaries for financial advisors (May 5, 2025)</a> · local: <code>…/snapshots/2026-05-19-vanguard-client-summaries.html</code></li>
+<li><a href="https://sloanreview.mit.edu/article/investing-in-ai-payoffs-at-vanguard/">MIT Sloan Management Review — Investing in AI Payoffs at Vanguard</a></li>
+<li><a href="https://clearingcustody.fidelity.com/insights/topics/running-your-business/the-current-state-of-ai-in-wealth-management">Fidelity Clearing &amp; Custody — Current state of AI in wealth management</a></li>
+</ul>
+<h3 id="28-data-vendors">§2.8 — Data vendors</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/2303.17564">Wu et al., 2023 — BloombergGPT: A Large Language Model for Finance (arXiv 2303.17564)</a></li>
+<li><a href="https://www.itbrew.com/stories/2025/11/06/inside-the-bloomberg-terminal-ai">itbrew — Inside the Bloomberg Terminal's AI (Nov 6 2025)</a> · local: <code>…/snapshots/2026-05-19-itbrew-bloomberg-terminal-ai.html</code></li>
+<li><a href="https://investor.factset.com/news-releases/news-release-details/factset-launches-factset-mercury-supercharge-junior-banker">FactSet — FactSet Launches FactSet Mercury</a></li>
+<li><a href="https://investor.factset.com/news-releases/news-release-details/factset-launches-ai-powered-pitch-creator">FactSet — Launches AI-Powered Pitch Creator</a></li>
+<li><a href="https://www.waterstechnology.com/emerging-technologies/7952116/factset-launches-conversational-ai-for-increased-productivity">WatersTechnology — FactSet launches conversational AI</a></li>
+<li><a href="https://www.moodys.com/web/en/us/creditview/blog/from-research-assistant-to-agentic-solution-with-cristina-pieretti.html">Moody's — From Research Assistant to Agentic Solution</a> · local: <code>…/snapshots/2026-05-19-moodys-research-assistant.html</code></li>
+<li><a href="https://www.moodys.com/web/en/us/creditview/blog/agentic-ai-in-financial-services.html">Moody's — Agentic AI in financial services</a></li>
+<li><a href="https://www.moodys.com/web/en/us/site-assets/genai-research-assistant-financial-services.pdf">Moody's PDF — GenAI-powered Research Assistant drives financial services productivity</a> · local: <code>…/snapshots/2026-05-19-moodys-research-assistant-pdf.pdf</code></li>
+<li><a href="https://press.spglobal.com/2025-10-22-S-P-Global-Redefines-Financial-Insights-with-New-AI-Powered-Multi-Document-Research-and-Analysis-Tool-in-Capital-IQ-Pro-ChatIQ">S&amp;P Global press release — S&amp;P Global Redefines Financial Insights with New AI-Powered Multi-Document Research and Analysis Tool in Capital IQ Pro ChatIQ (Oct 22 2025)</a> · local: <code>…/snapshots/2026-05-19-spglobal-chatiq.html</code></li>
+<li><a href="https://www.businesswire.com/news/home/20230829773754/en/MSCI-Expands-Partnership-with-Google-Cloud-to-Accelerate-Generative-AI-Solutions-for-the-Investment-Industry">MSCI — MSCI Expands Partnership with Google Cloud to Accelerate Generative AI Solutions for the Investment Industry (Aug 2023)</a> (punted: businesswire 403 to crawler; corroborated via WebSearch)</li>
+</ul>
+<h3 id="29-startups">§2.9 — Startups</h3>
+<ul>
+<li><a href="https://rogo.ai/news/series-d">Rogo — Our $160M Series D and the Road Ahead</a> · local: <code>…/snapshots/2026-05-19-rogo-series-d-blog.html</code></li>
+<li><a href="https://www.prnewswire.com/news-releases/rogo-raises-160m-series-d-to-scale-the-agentic-platform-for-finance-302756546.html">PR Newswire — Rogo Raises $160M Series D</a> · local: <code>…/snapshots/2026-05-19-prnewswire-rogo-series-d.html</code></li>
+<li><a href="https://techfundingnews.com/rogo-160m-series-d-kleiner-perkins-investment-banking-ai/">TechFunding News — Kleiner Perkins leads Rogo's $160M raise</a></li>
+<li><a href="https://techcrunch.com/2024/07/09/ai-startup-hebbia-rased-130m-at-a-700m-valuation-on-13-million-of-profitable-revenue/">TechCrunch — AI startup Hebbia raised $130M at a $700M valuation (Jul 9 2024)</a> · local: <code>…/snapshots/2026-05-19-techcrunch-hebbia-funding.html</code></li>
+</ul>
+<h3 id="3-latency-hft">§3 — Latency / HFT</h3>
+<ul>
+<li><a href="https://www.arccompute.io/arc-blog/becoming-ai-native-in-high-frequency-trading-why-gpus-are-now-essential">Arc Compute — Becoming AI Native in High Frequency Trading: Why GPUs Are Now Essential</a> · local: <code>…/snapshots/2026-05-19-arccompute-hft-lynx.html</code></li>
+<li><a href="https://introl.com/blog/real-time-ai-trading-ultra-low-latency-gpu-infrastructure-2025">Introl — Real-Time AI for Trading: Ultra-Low-Latency GPU Infrastructure 2025</a> (general background; Lynx-specific claim re-sourced to Arc Compute)</li>
+<li><a href="https://www.xelera.io/post/low-latency-machine-learning-inference-for-high-frequency-trading">Xelera — Low-latency Machine Learning Inference for High-Frequency Trading</a></li>
+</ul>
+<h3 id="4-regulation">§4 — Regulation</h3>
+<ul>
+<li><a href="https://www.sullcrom.com/insights/memo/2026/April/OCC-Fed-FDIC-Issue-Revised-Guidance-Model-Risk-Management">Sullivan &amp; Cromwell — Federal Banking Agencies Issue Revised Guidance on Model Risk Management (Apr 17, 2026)</a></li>
+<li><a href="https://www.occ.treas.gov/news-issuances/bulletins/2026/bulletin-2026-13.html">OCC Bulletin 2026-13 — Model Risk Management: Revised Guidance</a></li>
+<li><a href="https://www.finra.org/rules-guidance/key-topics/artificial-intelligence">FINRA — Artificial Intelligence key topic page</a></li>
+<li><a href="https://a-teaminsight.com/blog/finras-2024-new-and-updated-guidelines-on-ai-and-genai-llm-integration/">A-Team Insight — FINRA's 2024 New and Updated Guidelines on AI and GenAI/LLM Integration</a></li>
+<li><a href="https://www.securitiesfinancetimes.com/securitieslendingnews/industryarticle.php?article_id=227412">Securities Finance Times — FINRA issues US$475,000 fine to Interactive Brokers (24 Oct 2024)</a> · local: <code>…/snapshots/2026-05-19-finra-interactive-brokers-fine.html</code></li>
+<li><a href="https://www.hoganlovells.com/en/publications/ai-regulation-in-financial-services-navigating-the-eu-ai-act-in-a-layered-regulatory-landscape">Hogan Lovells — AI regulation in financial services: navigating the EU AI Act</a> · local: <code>…/snapshots/2026-05-19-hogan-lovells-eu-ai-act-wayback.html</code></li>
+<li><a href="https://www.eba.europa.eu/sites/default/files/2025-11/d8b999ce-a1d9-4964-9606-971bbc2aaf89/AI%20Act%20implications%20for%20the%20EU%20banking%20sector.pdf">European Banking Authority — AI Act implications for the EU banking and payments sector (PDF, Nov 2025)</a></li>
+</ul>
+<h3 id="5-fs-spending">§5 — FS spending</h3>
+<ul>
+<li><a href="https://www.sec.gov/Archives/edgar/data/70858/000007085826000209/bofaannualreport2025.pdf">SEC EDGAR — Bank of America 2025 Annual Report (PDF)</a> · local: <code>…/snapshots/2026-05-19-bofa-annual-report-2025.pdf</code></li>
+<li><a href="https://newsroom.bankofamerica.com/content/newsroom/stories/2026/03/a-letter-to-shareholders-from-chair-and-ceo--brian-moynihan.html">BofA Newsroom — A letter to shareholders from Chair and CEO Brian Moynihan</a> · local: <code>…/snapshots/2026-05-19-bofa-moynihan-letter-2026.html</code></li>
+<li><a href="https://www.mckinsey.com/capabilities/risk-and-resilience/our-insights/how-agentic-ai-can-change-the-way-banks-fight-financial-crime">McKinsey — How agentic AI in banking drives KYC/AML transformation</a> · local: <code>…/snapshots/2026-05-19-mckinsey-kyc-wayback2.html</code></li>
+<li><a href="https://www.silenteight.com/blog/jpmorgan-citi-and-wells-fargo-are-transforming-aml-thanks-to-ai-tools">Silent Eight — JPMorgan, Citi, and Wells Fargo Are Transforming AML</a></li>
+</ul>
+<h3 id="6-insurance">§6 — Insurance</h3>
+<ul>
+<li><a href="https://www.klover.ai/progressive-ai-strategy-analysis-of-dominance-in-insurance-ai/">Klover.ai — Progressive's AI Strategy</a></li>
+<li><a href="https://spd.tech/artificial-intelligence/the-power-of-ai-in-insurance-existing-opportunities-and-upcoming-trends/">SPD Technology — How AI Transforms the Insurance Industry in 2025</a></li>
+<li><a href="https://digitalcommons.unl.edu/cgi/viewcontent.cgi?article=1005&amp;context=raikescases">UNL Digital Commons — Lemonade Mini-Case Study Report</a></li>
+</ul>
+<h3 id="sister-deliverable">Sister deliverable</h3>
+<ul>
+<li><code>docs/briefs/2026-05-15-agentic-ai-primer.md</code> — mechanics (ReAct, tool use, MCP, KV-cache, CMX, east-west traffic, BOM-archetype tie-back)</li>
+</ul>
+</div>
+</body>
+</html>
