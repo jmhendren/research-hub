@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Compute: Demand vs. Planned Supply — The Gap Thesis</title>
+<style>
+  :root {
+    --navy:       #1a2942;
+    --navy-soft:  #2c3e5c;
+    --ivory:      #fbf9f3;
+    --paper:      #ffffff;
+    --rule:       #cfc8b2;
+    --rule-soft:  #e8e2cf;
+    --ink:        #1f2330;
+    --ink-soft:   #4d5363;
+    --muted:      #7a7f8e;
+    --accent:     #8a3e1d;
+    --accent-soft:#c8a07c;
+    --good:       #2d5a3c;
+    --warn:       #8c6b1f;
+    --gap-fill:   #f3ead1;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--ivory); color: var(--ink); }
+  body {
+    font-family: Charter, "Iowan Old Style", "Apple Garamond", Georgia, "Times New Roman", serif;
+    font-size: 16.5px;
+    line-height: 1.55;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+  .num, .mono {
+    font-family: "SF Mono", "Menlo", "DejaVu Sans Mono", Consolas, monospace;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+  }
+  .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+
+  /* layout */
+  .page { max-width: 920px; margin: 0 auto; padding: 56px 40px 64px; }
+  @media (max-width: 640px) {
+    .page { padding: 32px 20px 48px; }
+    body { font-size: 16px; }
+  }
+
+  /* top banner */
+  .banner {
+    border-top: 4px solid var(--navy);
+    border-bottom: 1px solid var(--rule);
+    padding: 18px 0 14px;
+    margin-bottom: 36px;
+  }
+  .banner .eyebrow {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .banner .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .banner h1 {
+    font-family: Charter, "Iowan Old Style", Georgia, "Times New Roman", serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .banner .byline {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* section */
+  section { margin-bottom: 52px; }
+  section h2 {
+    font-family: Charter, "Iowan Old Style", Georgia, "Times New Roman", serif;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0 0 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule);
+  }
+  section .lede {
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--ink);
+    margin: 14px 0 22px;
+    max-width: 720px;
+  }
+  section p { margin: 0 0 14px; max-width: 720px; }
+  .footnote { font-size: 13.5px; color: var(--ink-soft); }
+  .caveat {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    padding: 12px 16px;
+    background: var(--paper);
+    border-left: 3px solid var(--accent);
+    margin: 14px 0 0;
+  }
+  .caveat strong { color: var(--accent); }
+
+  /* HERO — three-stat gap thesis */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    margin: 22px 0 24px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--navy);
+  }
+  @media (max-width: 700px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero .pane { border-right: none !important; border-bottom: 1px solid var(--rule); }
+    .hero .pane:last-child { border-bottom: none; }
+  }
+  .hero .pane {
+    padding: 22px 24px;
+    border-right: 1px solid var(--rule-soft);
+  }
+  .hero .pane:last-child { border-right: none; }
+  .hero .pane.gap-pane { background: var(--gap-fill); }
+  .hero .stat-label {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .hero .big-range {
+    font-family: "SF Mono", Menlo, "DejaVu Sans Mono", Consolas, monospace;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  .hero .pane.gap-pane .big-range { color: var(--accent); }
+  .hero .arrow {
+    color: var(--muted);
+    margin: 0 4px;
+    font-weight: 400;
+  }
+  .hero .units {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+  }
+  .hero .detail {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin-top: 12px;
+    line-height: 1.45;
+  }
+
+  /* TRAJECTORY STRIP — 5 year cells */
+  .strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 18px 0 0;
+  }
+  .strip .cell {
+    background: var(--paper);
+    padding: 14px 10px;
+    text-align: center;
+  }
+  .strip .yr {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .strip .val {
+    font-family: "SF Mono", Menlo, "DejaVu Sans Mono", Consolas, monospace;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-top: 4px;
+  }
+  .strip .val.gap-val { color: var(--accent); }
+  .strip .vs {
+    font-family: "SF Mono", Menlo, "DejaVu Sans Mono", Consolas, monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+  }
+
+  /* table */
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14.5px;
+  }
+  table.data th, table.data td {
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--rule-soft);
+    text-align: left;
+    vertical-align: baseline;
+  }
+  table.data th {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    border-bottom: 1.5px solid var(--rule);
+    background: transparent;
+  }
+  table.data td.num, table.data th.num { text-align: right; font-family: "SF Mono", Menlo, "DejaVu Sans Mono", Consolas, monospace; }
+  table.data tr:hover td { background: rgba(26, 41, 66, 0.03); }
+  table.data tr.total td { border-top: 1.5px solid var(--rule); border-bottom: none; font-weight: 600; }
+  table.data tr.gap-row td { background: var(--gap-fill); font-weight: 600; }
+  table.data tr.gap-row:hover td { background: var(--gap-fill); }
+  table.data tr.gap-row td.num { color: var(--accent); }
+
+  /* knob cards */
+  .knobs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .knob {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 13px 14px 11px;
+  }
+  .knob .kn {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .knob .name {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 12.5px;
+    color: var(--navy);
+    margin: 3px 0 2px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  .knob .opts { font-size: 11.5px; color: var(--ink-soft); margin-top: 3px; line-height: 1.35; }
+  .knob .current {
+    margin-top: 8px;
+    padding-top: 7px;
+    border-top: 1px solid var(--rule-soft);
+    font-family: "SF Mono", Menlo, "DejaVu Sans Mono", Consolas, monospace;
+    font-size: 12px;
+    color: var(--ink);
+  }
+  .knob .current .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 2px;
+    background: var(--navy);
+    color: var(--ivory);
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* audit footer grid */
+  .audit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin: 18px 0 0;
+  }
+  .audit-grid .item {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .audit-grid .item .n {
+    font-family: "SF Mono", Menlo, "DejaVu Sans Mono", Consolas, monospace;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .audit-grid .item .l {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 10.5px;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: 0.06em;
+  }
+
+  /* footer */
+  footer {
+    margin-top: 56px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  footer .meta-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* print */
+  @media print {
+    body { background: white; }
+    .page { padding: 24px; }
+    section { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <div class="eyebrow">Bottom-Up Demand Build · Gap Thesis · Internal Research</div>
+    <div class="meta">
+      <h1>AI Compute: Demand vs. Planned Supply</h1>
+      <div class="byline">May 2026</div>
+    </div>
+  </div>
+
+  <!-- 1. HERO + THESIS -->
+  <section>
+    <h2>The Gap Thesis</h2>
+
+    <div class="hero">
+      <div class="pane">
+        <div class="stat-label">Bottom-Up Demand-Implied Capex</div>
+        <div class="big-range">
+          $1.1T
+          <span class="arrow">→</span>
+          $2.6T
+        </div>
+        <div class="units">$/year · 2026 → 2030</div>
+        <div class="detail">
+          Total over 5 years: <strong>$7.8T cumulative</strong>.
+          Implied capex if 100% of demand is satisfied.
+        </div>
+      </div>
+      <div class="pane">
+        <div class="stat-label">Top-Down Consensus (8 sources)</div>
+        <div class="big-range">
+          $573B
+          <span class="arrow">→</span>
+          $1.2T
+        </div>
+        <div class="units">$/year · 2026 → 2030</div>
+        <div class="detail">
+          Mean of Goldman, Dell'Oro, BCG, Bain, Moody's, Futurum, McKinsey, Deloitte.
+          What banks and consulting consensus expect will be <em>built</em>.
+        </div>
+      </div>
+      <div class="pane gap-pane">
+        <div class="stat-label">Unfunded Supply Gap</div>
+        <div class="big-range">
+          $530B
+          <span class="arrow">→</span>
+          $1.4T
+        </div>
+        <div class="units">$/year · 2026 → 2030</div>
+        <div class="detail">
+          BU demand minus TD planned supply. The physical-execution constraint —
+          power, permits, chips, labor — sizing the AI economy's binding bottleneck.
+        </div>
+      </div>
+    </div>
+
+    <p class="lede" style="margin-top: 24px;">
+      This model is <strong>not a capex forecast</strong>. It is a demand model expressed in
+      MW-equivalent. The dollar output is the implied capex if 100% of demand were satisfied.
+      Compared to top-down consensus, the difference is the <strong>SUPPLY GAP</strong> — the
+      size of the physical execution constraint (power, permits, chips, labor) that the AI
+      economy is now hitting. Hyperscalers themselves describe markets as supply-constrained,
+      not demand-constrained (Moody's Apr 2026, Futurum Feb 2026).
+    </p>
+  </section>
+
+  <!-- 2. SCENARIO KNOBS -->
+  <section>
+    <h2>Scenario Knobs — Current Settings</h2>
+    <p class="lede">
+      Five knobs drive the demand build. All headline numbers in this page reflect the
+      knob settings shown below. Default settings are bolded.
+    </p>
+
+    <div class="knobs">
+      <div class="knob">
+        <div class="kn">Knob 1</div>
+        <div class="name">Agent workforce penetration</div>
+        <div class="opts">Slow / <strong>Base</strong> / Aggressive</div>
+        <div class="current">Current: <span class="badge">Base</span></div>
+      </div>
+      <div class="knob">
+        <div class="kn">Knob 2</div>
+        <div class="name">Agentic intensity (chat-equivalent ratio)</div>
+        <div class="opts">10× / <strong>50×</strong> / 100× / 1000×</div>
+        <div class="current">Current: <span class="badge">50×</span></div>
+      </div>
+      <div class="knob">
+        <div class="kn">Knob 3</div>
+        <div class="name">Induced demand (Jevons)</div>
+        <div class="opts"><strong>1.0×</strong> / 1.5× / 3.0×</div>
+        <div class="current">Current: <span class="badge">1.0×</span></div>
+      </div>
+      <div class="knob">
+        <div class="kn">Knob 4</div>
+        <div class="name">AI user growth</div>
+        <div class="opts">Slow / <strong>Base</strong> / Fast</div>
+        <div class="current">Current: <span class="badge">Base</span></div>
+      </div>
+      <div class="knob">
+        <div class="kn">Knob 5</div>
+        <div class="name">Workload realization</div>
+        <div class="opts">Bear 75% / <strong>Base 59%</strong> / Bull 45%</div>
+        <div class="current">Current: <span class="badge">Base</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. DEMAND + CAPEX BY YEAR -->
+  <section>
+    <h2>Demand and Capex by Year</h2>
+    <p class="lede">
+      Bottom-up token demand and the demand-implied capex it would require at current
+      chip-mix throughput, workload realization, and $/MW. Cumulative capex through 2030
+      lands at <strong>$7.8T</strong>.
+    </p>
+
+    <table class="data">
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th class="num">Demand (T tokens)</th>
+          <th class="num">BU capex ($B)</th>
+          <th class="num">Cumulative ($B)</th>
+          <th class="num">YoY Δ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>2026</strong></td>
+          <td class="num">271,799</td>
+          <td class="num">$1,103</td>
+          <td class="num">$1,103</td>
+          <td class="num">—</td>
+        </tr>
+        <tr>
+          <td><strong>2027</strong></td>
+          <td class="num">541,862</td>
+          <td class="num">$1,254</td>
+          <td class="num">$2,357</td>
+          <td class="num">+14%</td>
+        </tr>
+        <tr>
+          <td><strong>2028</strong></td>
+          <td class="num">1,036,972</td>
+          <td class="num">$1,411</td>
+          <td class="num">$3,768</td>
+          <td class="num">+12%</td>
+        </tr>
+        <tr>
+          <td><strong>2029</strong></td>
+          <td class="num">1,986,408</td>
+          <td class="num">$1,409</td>
+          <td class="num">$5,177</td>
+          <td class="num">-0%</td>
+        </tr>
+        <tr>
+          <td><strong>2030</strong></td>
+          <td class="num">3,986,990</td>
+          <td class="num">$2,649</td>
+          <td class="num">$7,826</td>
+          <td class="num">+88%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="caveat">
+      <strong>Note the 2029 → 2030 inflection.</strong> Capex jumps $1.4T → $2.6T (+88%) as agentic-chain
+      tokens roughly double (~1.1Q → ~2.8Q) in the terminal year. This reflects workforce
+      penetration crossing maturity thresholds across the 11 functions combined with per-worker
+      token intensity compounding — structural to the bottom-up build, not a refresh-treadmill
+      artifact in $/MW.
+    </div>
+  </section>
+
+  <!-- 4. GAP ANALYSIS -->
+  <section>
+    <h2>Gap Analysis — BU Demand vs Top-Down Planned Supply</h2>
+    <p class="lede">
+      Bottom-up demand-implied capex compared to the mean of eight authoritative top-down
+      forecasts (Goldman, Dell'Oro, BCG, Bain, Moody's, Futurum, McKinsey, Deloitte). A positive
+      gap means BU demand exceeds what consensus expects will actually be <em>built</em>.
+    </p>
+
+    <table class="data">
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th class="num">BU capex ($B)</th>
+          <th class="num">TD consensus mean ($B)</th>
+          <th class="num">Supply gap ($B)</th>
+          <th class="num">Gap as % of supply</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr >
+          <td><strong>2026</strong></td>
+          <td class="num">$1,103</td>
+          <td class="num">$573</td>
+          <td class="num">$530</td>
+          <td class="num">92%</td>
+        </tr>
+        <tr >
+          <td><strong>2027</strong></td>
+          <td class="num">$1,254</td>
+          <td class="num">$692</td>
+          <td class="num">$562</td>
+          <td class="num">81%</td>
+        </tr>
+        <tr >
+          <td><strong>2028</strong></td>
+          <td class="num">$1,411</td>
+          <td class="num">$837</td>
+          <td class="num">$574</td>
+          <td class="num">69%</td>
+        </tr>
+        <tr >
+          <td><strong>2029</strong></td>
+          <td class="num">$1,409</td>
+          <td class="num">$1,005</td>
+          <td class="num">$404</td>
+          <td class="num">40%</td>
+        </tr>
+        <tr class="gap-row">
+          <td><strong>2030</strong></td>
+          <td class="num">$2,649</td>
+          <td class="num">$1,208</td>
+          <td class="num">$1,442</td>
+          <td class="num">119%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="footnote">
+      The gap widens dramatically in 2030 (119% of planned supply)
+      as the BU demand-implied capex steps up while TD consensus follows a smoother trajectory.
+    </p>
+  </section>
+
+  <!-- 5. WORKFORCE STACK -->
+  <section>
+    <h2>Workforce Stack — 11 Functions at 2030</h2>
+    <p class="lede">
+      The agentic chain is the model's load-bearing demand source. It decomposes
+      across 11 occupational buckets, each with its own workforce size, penetration
+      curve, and per-worker annual token volume. Sorted by 2030 agentic contribution.
+    </p>
+
+    <table class="data">
+      <thead>
+        <tr>
+          <th>Function</th>
+          <th class="num">Workforce 2030 (M)</th>
+          <th class="num">Penetration 2030</th>
+          <th class="num">Tokens / worker / yr</th>
+          <th class="num">2030 demand (T)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>F1 Software engineering</td>
+          <td class="num">26.9</td>
+          <td class="num">72%</td>
+          <td class="num">44.8B</td>
+          <td class="num">867,364</td>
+        </tr>
+        <tr>
+          <td>F5 Healthcare</td>
+          <td class="num">35.9</td>
+          <td class="num">58%</td>
+          <td class="num">26.4B</td>
+          <td class="num">548,935</td>
+        </tr>
+        <tr>
+          <td>F4 Knowledge ops</td>
+          <td class="num">43.6</td>
+          <td class="num">42%</td>
+          <td class="num">18.6B</td>
+          <td class="num">340,759</td>
+        </tr>
+        <tr>
+          <td>F8 Arts &amp; media</td>
+          <td class="num">7.5</td>
+          <td class="num">78%</td>
+          <td class="num">52.5B</td>
+          <td class="num">308,763</td>
+        </tr>
+        <tr>
+          <td>F11 Pharma R&amp;D</td>
+          <td class="num">1.0</td>
+          <td class="num">82%</td>
+          <td class="num">284.4B</td>
+          <td class="num">237,851</td>
+        </tr>
+        <tr>
+          <td>F9 Sciences</td>
+          <td class="num">5.7</td>
+          <td class="num">60%</td>
+          <td class="num">45.0B</td>
+          <td class="num">152,550</td>
+        </tr>
+        <tr>
+          <td>F3 Sales &amp; marketing</td>
+          <td class="num">16.9</td>
+          <td class="num">55%</td>
+          <td class="num">16.2B</td>
+          <td class="num">150,597</td>
+        </tr>
+        <tr>
+          <td>F7 Engineering (non-SWE)</td>
+          <td class="num">12.1</td>
+          <td class="num">50%</td>
+          <td class="num">21.0B</td>
+          <td class="num">126,591</td>
+        </tr>
+        <tr>
+          <td>F6 Education</td>
+          <td class="num">28.4</td>
+          <td class="num">40%</td>
+          <td class="num">4.2B</td>
+          <td class="num">47,536</td>
+        </tr>
+        <tr>
+          <td>F2 Customer support</td>
+          <td class="num">9.9</td>
+          <td class="num">62%</td>
+          <td class="num">7.5B</td>
+          <td class="num">46,221</td>
+        </tr>
+        <tr>
+          <td>F10 Government</td>
+          <td class="num">11.1</td>
+          <td class="num">30%</td>
+          <td class="num">4.3B</td>
+          <td class="num">14,424</td>
+        </tr>
+        <tr class="total">
+          <td>Total agentic 2030</td>
+          <td class="num"></td>
+          <td class="num"></td>
+          <td class="num"></td>
+          <td class="num">2,841,592</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="footnote">
+      Tokens-per-worker varies ~65× across functions, from F10 Government (~4.3B/yr) to F11 Pharma R&D
+      (~284B/yr — reflecting literature-search and trial-design workloads that scale very differently
+      from chat). SWE, Healthcare, Knowledge Ops, and Arts/Media together contribute over 70% of 2030
+      agentic demand.
+    </p>
+  </section>
+
+  <!-- 6. METHOD -->
+  <section>
+    <h2>Method</h2>
+    <p>
+      <strong>Demand:</strong> 4 workload chains — consumer chat (user-based), embedded chat
+      (seat-based), agentic (labor-based across 11 function buckets via a 6-factor formula),
+      ambient (top-down) — summed and × induced-demand multiplier (Knob 3).
+    </p>
+    <p>
+      <strong>CapEx:</strong> token demand → MW_Bridge (chip-mix throughput × workload realization
+      × derating) → required inference MW → refresh treadmill on installed base × $/MW = inference
+      capex. Training capex layered via Deloitte inference-share trajectory × same $/MW. Total =
+      inference + training.
+    </p>
+    <p class="footnote">
+      Knob 5 (workload realization) drives the chip-throughput derate factor: Bear 75% (chat-like
+      workloads), Base 59% (research-derived 60% reasoning + 25% summarization + 15% chat mix),
+      Bull 45% (heavy agentic). Top-down consensus inputs sourced from Z_Sources S190-S200.
+    </p>
+  </section>
+
+  <!-- 7. AUDIT FOOTER -->
+  <section>
+    <h2>Audit Trail</h2>
+
+    <div class="audit-grid">
+      <div class="item">
+        <div class="n">196</div>
+        <div class="l">Sources cited</div>
+      </div>
+      <div class="item">
+        <div class="n">18 / 19</div>
+        <div class="l">Integrity checks pass</div>
+      </div>
+      <div class="item">
+        <div class="n">11</div>
+        <div class="l">Workforce functions</div>
+      </div>
+      <div class="item">
+        <div class="n">4</div>
+        <div class="l">Demand chains</div>
+      </div>
+      <div class="item">
+        <div class="n">8</div>
+        <div class="l">TD consensus sources</div>
+      </div>
+    </div>
+
+    <p class="footnote" style="margin-top: 14px;">
+      The one remaining check failure (Pharma R&D × High intensity stress-corner exceeds the 5T/yr
+      per-worker ceiling at 5.69T) is a documented calibration finding, not a model bug — the
+      check's rationale anticipates the breach. All other 18 integrity rules pass at default knobs.
+    </p>
+  </section>
+
+  <footer>
+    <div class="meta-row">
+      <div>Model: <span class="mono">models/bom-token-model-2026-05-21.xlsx</span> · Extracted 2026-05-21T15:44:18Z</div>
+      <div>Every number on this page comes from the model. No hand-entered values.</div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
