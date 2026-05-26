@@ -147,6 +147,7 @@
 <div class="meta">
   <p><strong>Date:</strong> 2026-05-18 &nbsp;·&nbsp; <strong>Status:</strong> Validation findings; pre–model-rebuild</p>
   <p><strong>Source synthesis:</strong> <code>research/2026-05-18-token-pricing-validation/00-synthesis.md</code> (full per-thread findings, citations, and 40+ saved PDFs/HTMLs)</p>
+  <p><strong>Style:</strong> Every technical term defined the first time it appears.</p>
 </div>
 
 <div class="toc">
@@ -230,8 +231,8 @@
   <td>Commodity iso-capability deflation</td>
   <td><code>Inputs!C11</code></td>
   <td class="num">80%/yr</td>
-  <td>S007, S008 (DeepLearning.AI, Fradkin)</td>
-  <td>Two-year-old blog; Fradkin paper supports ~85% compounded, not specifically 80%</td>
+  <td>S007, S008 (DeepLearning.AI, Demirer)</td>
+  <td>Two-year-old blog; Demirer et al. paper supports ~85% compounded, not specifically 80%</td>
 </tr>
 <tr>
   <td>Frontier share 2026/28/30</td>
@@ -257,9 +258,9 @@
 
 <p><strong>(a) Top-SKU launch price is sticky generation-to-generation.</strong> PARTIALLY TRUE. Anthropic held Claude Opus at $15 input / $75 output from Claude 3 Opus (March 2024) through Claude Opus 4 (May 2025) — 14 months at identical pricing (<a href="https://www.anthropic.com/news/claude-3-family">Anthropic news, March 2024</a>; the Opus 4.5 launch page cited in §8 corroborates the prior pricing via the explicit switch from $15/$75 to $5/$25). a16z's Guido Appenzeller observed in November 2024: <em>"OpenAI's leading model today, o1, has the same cost per output token as GPT-3 had at launch ($60 per million)"</em> (<a href="https://a16z.com/llmflation-llm-inference-cost/">a16z, "Welcome to LLMflation"</a>).</p>
 
-<p><strong>(b) Within a model's own life, price stays flat.</strong> FALSE. Documented intra-life cuts include GPT-4o $5/$15 → $2.50/$10 in ~3 months (<a href="https://the-decoder.com/openai-cuts-gpt-4o-prices-and-quadruples-output-tokens/">the-decoder, Aug 7 2024</a>); Gemini 1.5 Pro 64% input / 52% output cut in October 2024 — <em>"64% price reduction on input tokens, a 52% price reduction on output tokens... for our strongest 1.5 series model"</em> (<a href="https://developers.googleblog.com/en/updated-gemini-models-reduced-15-pro-pricing-increased-rate-limits-and-more/">Google Developers Blog</a>); and most importantly, Anthropic broke its own Opus pattern in November 2025 — Opus 4.5 launched at $5/$25, <strong>two-thirds cheaper than Opus 4</strong>, explicitly to <em>"make Opus-level capabilities accessible to even more users, teams, and enterprises"</em> (<a href="https://www.anthropic.com/news/claude-opus-4-5">Anthropic news, Nov 24 2025</a>).</p>
+<p><strong>(b) Within a model's own life, price stays flat.</strong> FALSE. Documented intra-life cuts include GPT-4o $5/$15 → $2.50/$10 in ~3 months (<a href="https://the-decoder.com/openai-cuts-gpt-4o-prices-and-quadruples-output-tokens/">the-decoder, Aug 7 2024</a>); Gemini 1.5 Pro 64% input / 52% output cut in October 2024 — <em>"64% price reduction on input tokens, a 52% price reduction on output tokens... for our strongest 1.5 series model"</em> (<a href="https://developers.googleblog.com/en/updated-gemini-models-reduced-15-pro-pricing-increased-rate-limits-and-more/">Google Developers Blog</a>); and most importantly, Anthropic broke its own Opus pattern in November 2025 — Opus 4.5 launched at $5/$25, <strong>two-thirds cheaper than Opus 4</strong>, explicitly to <em>"making Opus-level capabilities accessible to even more users, teams, and enterprises"</em> (<a href="https://www.anthropic.com/news/claude-opus-4-5">Anthropic news, Nov 24 2025</a>).</p>
 
-<p>Critically, <strong>independent measurement of frontier-equivalent capability shows price decline, not flatness.</strong> Epoch AI's frontier-tier measurement (<a href="https://epoch.ai/data-insights/llm-inference-price-trends">Epoch AI, March 2025</a>) found: <em>"The price to achieve GPT-4's performance on a set of PhD-level science questions fell by 40× per year"</em> — that is ~97.5%/yr at the frontier-equivalent capability bar. MIT FutureTech / Gundlach et al. (March 2026) measured the broader Pareto frontier of price-vs-capability: <em>"the price for a given level of benchmark performance has decreased remarkably fast, around 5× to 10× per year"</em> (<a href="https://arxiv.org/abs/2511.23455">arxiv 2511.23455, "The Price of Progress"</a>).</p>
+<p>Critically, <strong>independent measurement of frontier-equivalent capability shows price decline, not flatness.</strong> Epoch AI's frontier-tier measurement (<a href="https://epoch.ai/data-insights/llm-inference-price-trends">Epoch AI, March 2025</a>) found: <em>"the price to achieve GPT-4's performance on a set of PhD-level science questions fell by 40x per year"</em> — that is ~97.5%/yr at the frontier-equivalent capability bar. MIT FutureTech / Gundlach et al. (March 2026) measured the broader Pareto frontier of price-vs-capability: <em>"the price for a given level of benchmark performance has decreased remarkably fast, around 5× to 10× per year"</em> (<a href="https://arxiv.org/abs/2511.23455">arxiv 2511.23455, "The Price of Progress"</a>).</p>
 
 <h3>4.2 — Commodity deflation 80%/yr</h3>
 
@@ -278,13 +279,13 @@
 <tr><td><a href="https://epoch.ai/data-insights/llm-inference-price-trends">Epoch AI</a> median</td><td>$/MTok at fixed benchmarks</td><td class="num">~98% (50× median)</td><td>2022–2025</td></tr>
 <tr><td><a href="https://a16z.com/llmflation-llm-inference-cost/">a16z LLMflation</a></td><td>$/MTok at MMLU 42 & 83</td><td class="num">90% (10×/yr)</td><td>2021–2024</td></tr>
 <tr><td><a href="https://blog.samaltman.com/three-observations">Altman, "Three Observations"</a></td><td>Public claim — "cost to use a given level of AI"</td><td class="num">90% (10×/yr)</td><td>n/a (claim)</td></tr>
-<tr><td><a href="https://www.nber.org/papers/w34608">Fradkin et al., NBER w34608</a></td><td>"2023 SOTA models" price decline</td><td class="num">~85% (compounded)</td><td>2023 – late 2025</td></tr>
+<tr><td><a href="https://www.nber.org/papers/w34608">Demirer et al., NBER w34608</a></td><td>"2023 SOTA models" price decline</td><td class="num">~85% (compounded)</td><td>2023 – late 2025</td></tr>
 <tr><td><a href="https://arxiv.org/abs/2511.23455">MIT FutureTech / Gundlach et al.</a></td><td>Pareto-frontier benchmark-anchored</td><td class="num">80–90% (5–10×/yr)</td><td>Multi-year</td></tr>
 <tr><td><a href="https://newsletter.semianalysis.com/p/deepseek-debates">SemiAnalysis ("DeepSeek Debates")</a></td><td>Algorithmic progress (compute-per-capability) — 4×/yr per SemiAnalysis</td><td class="num">~75% (cmpd, 1−1/4)</td><td>Jan 2025 estimate</td></tr>
 </tbody>
 </table>
 
-<p>Five of seven credible sources cluster at 85% or higher. Only SemiAnalysis's algorithmic-progress estimate (~75%, from "4× less compute per year for the same capability") lands below the model's 80%. The Fradkin paper's anchor quote: <em>"Models that were state-of-the-art in 2023 have experienced a price decline of approximately 1000 times, with similarly pronounced deflationary trends at other intelligence levels"</em> (<a href="https://www.nber.org/papers/w34608">NBER w34608, p.1</a>).</p>
+<p>Five of seven credible sources cluster at 85% or higher. Only SemiAnalysis's algorithmic-progress estimate (~75%, from "4× less compute per year for the same capability") lands below the model's 80%. The Demirer et al. paper's anchor quote: <em>"Models that were state-of-the-art in 2023 have experienced a price decline of approximately 1000 times, with similarly pronounced deflationary trends at other intelligence levels"</em> (<a href="https://www.nber.org/papers/w34608">NBER w34608, p.1</a>).</p>
 
 <p>Epoch AI explicitly flags that <em>"the fastest trends (e.g. 900× per year) start after January 2024"</em> — i.e., 2024–2025 was a deflation peak driven by competitive pressure (DeepSeek, Gemini Flash). Both MIT and a16z warn the rate may slow. <strong>But §4.7 below is the more substantive critique:</strong> the headline rates may be overstated even within their measurement window.</p>
 
@@ -536,7 +537,7 @@
 <tr><td>S040</td><td>Analyst</td><td>a16z</td><td><a href="https://a16z.com/llmflation-llm-inference-cost/">Welcome to LLMflation</a></td><td>2024-11-12</td></tr>
 <tr><td>S041</td><td>Research</td><td>Epoch AI</td><td><a href="https://epoch.ai/data-insights/llm-inference-price-trends">LLM inference price trends</a></td><td>2025-03-12</td></tr>
 <tr><td>S042</td><td>Research</td><td>Stanford HAI</td><td><a href="https://hai.stanford.edu/assets/files/hai_ai-index-report-2025_chapter1_final.pdf">AI Index 2025 Ch.1</a></td><td>2025-04</td></tr>
-<tr><td>S043</td><td>Academic</td><td>NBER (Fradkin et al.)</td><td><a href="https://www.nber.org/papers/w34608">Emerging Market for Intelligence (w34608)</a></td><td>2025-12</td></tr>
+<tr><td>S043</td><td>Academic</td><td>NBER (Demirer et al.)</td><td><a href="https://www.nber.org/papers/w34608">Emerging Market for Intelligence (w34608)</a></td><td>2025-12</td></tr>
 <tr><td>S044</td><td>Academic</td><td>MIT FutureTech (Gundlach et al.)</td><td><a href="https://arxiv.org/abs/2511.23455">Price of Progress (arxiv 2511.23455)</a></td><td>2026-03</td></tr>
 <tr><td>S045</td><td>Industry Data</td><td>OpenRouter / a16z</td><td><a href="https://openrouter.ai/state-of-ai">State of AI 2025 — 100T-token study</a></td><td>2025-12-04</td></tr>
 <tr><td>S046</td><td>Industry Data</td><td>DigitalApplied</td><td><a href="https://www.digitalapplied.com/blog/openrouter-rankings-april-2026-top-ai-models-data">OpenRouter Rankings April 2026</a></td><td>2026-04</td></tr>
@@ -560,7 +561,7 @@
   <li>Sam Altman, "Three Observations" (2025-02). <a href="https://blog.samaltman.com/three-observations">https://blog.samaltman.com/three-observations</a></li>
   <li>DigitalApplied, "OpenRouter Rankings April 2026" (2026-04). <a href="https://www.digitalapplied.com/blog/openrouter-rankings-april-2026-top-ai-models-data">https://www.digitalapplied.com/blog/openrouter-rankings-april-2026-top-ai-models-data</a></li>
   <li>Epoch AI, "LLM inference price trends" (2025-03-12). <a href="https://epoch.ai/data-insights/llm-inference-price-trends">https://epoch.ai/data-insights/llm-inference-price-trends</a></li>
-  <li>Fradkin, Demirer, Tadelis, Peng, "The Emerging Market for Intelligence" — NBER w34608 (2025-12). <a href="https://www.nber.org/papers/w34608">https://www.nber.org/papers/w34608</a></li>
+  <li>Demirer, Fradkin, Tadelis, Peng, "The Emerging Market for Intelligence" — NBER w34608 (2025-12). <a href="https://www.nber.org/papers/w34608">https://www.nber.org/papers/w34608</a></li>
   <li>Google Developers Blog, "Updated Gemini Models — Gemini 1.5 Pro price cut" (2024-09-24). <a href="https://developers.googleblog.com/en/updated-gemini-models-reduced-15-pro-pricing-increased-rate-limits-and-more/">https://developers.googleblog.com/en/updated-gemini-models-reduced-15-pro-pricing-increased-rate-limits-and-more/</a></li>
   <li>Gundlach, Lynch, Mertens, Thompson, "The Price of Progress" — arXiv 2511.23455 (2026-03). <a href="https://arxiv.org/abs/2511.23455">https://arxiv.org/abs/2511.23455</a></li>
   <li>OpenRouter / a16z, "State of AI 2025 — 100T Token Study" (2025-12-04). <a href="https://openrouter.ai/state-of-ai">https://openrouter.ai/state-of-ai</a></li>
@@ -570,7 +571,7 @@
   <li>Full synthesis with all 40+ source files: <code>research/2026-05-18-token-pricing-validation/00-synthesis.md</code></li>
 </ol>
 
-<p class="footer-note">Saved underlying PDFs and HTML snapshots: <code>research/2026-05-18-token-pricing-validation/</code> (subdirectories <code>01-</code> through <code>07-</code>). ~40 files, ~50 MB total. Every URL above was visited and content verified during the 2026-05-18 research run.</p>
+<p class="footer-note">Saved underlying PDFs and HTML snapshots archived locally (subdirectories <code>01-</code> through <code>07-</code>). ~40 files, ~50 MB total. Every URL above was visited and content verified during the 2026-05-18 research run.</p>
 
 </body>
 </html>
