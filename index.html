@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hendren Research Hub</title>
+<meta name="description" content="AI infrastructure research — models, primers, memos, briefs.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-alt: #F7F7F4;
+    --bg-card: #FFFFFF;
+    --ink: #1A1A1A;
+    --ink-soft: #3D3D3D;
+    --muted: #6B6B6B;
+    --muted-soft: #9A9A9A;
+    --rule: #D9D9D6;
+    --rule-soft: #E8E8E5;
+
+    --navy: #0E2A47;
+    --navy-deep: #08182B;
+    --burgundy: #8B2332;
+    --burgundy-soft: #A04652;
+    --ochre: #9C7626;
+    --moss: #4F5C3A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Source Serif 4', 'Times New Roman', Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 56px;
+  }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    border-bottom: 1px solid var(--ink);
+    padding: 56px 0 32px;
+    margin-bottom: 48px;
+  }
+
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 36px;
+  }
+
+  .masthead-top .doctype {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .masthead h1 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--navy);
+    margin-bottom: 18px;
+  }
+
+  .masthead .lede {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 720px;
+  }
+
+  /* ============ INTRO ============ */
+  .intro {
+    margin-bottom: 56px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .intro p {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 760px;
+    margin-bottom: 14px;
+  }
+
+  .intro p + p { margin-top: 6px; }
+
+  /* ============ STATUS LEGEND ============ */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 24px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ============ SECTION NAV ============ */
+  .section-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 56px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .section-nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    transition: all 0.15s ease;
+  }
+
+  .section-nav a:hover {
+    background: var(--navy);
+    color: var(--bg);
+    border-color: var(--navy);
+  }
+
+  /* ============ SECTIONS ============ */
+  section.hub-section {
+    margin-bottom: 64px;
+    scroll-margin-top: 24px;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .section-header h2 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 28px;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+
+  .section-header .section-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ============ CARDS ============ */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 24px 26px;
+    transition: all 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+  }
+
+  .card.linked { cursor: pointer; }
+
+  .card.linked:hover {
+    border-color: var(--navy);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px -10px rgba(14, 42, 71, 0.25);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .badge {
+    padding: 3px 9px;
+    border-radius: 3px;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+  }
+
+  .badge.live      { background: rgba(79, 92, 58, 0.12); color: var(--moss); }
+  .badge.new       { background: rgba(156, 118, 38, 0.14); color: var(--ochre); }
+  .badge.reaudit   { background: rgba(139, 35, 50, 0.10); color: var(--burgundy); }
+  .badge.soon      { background: rgba(107, 107, 107, 0.10); color: var(--muted); }
+
+  .card-date {
+    color: var(--muted-soft);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .card h3 {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 1.25;
+    color: var(--navy);
+    letter-spacing: -0.005em;
+  }
+
+  .card .dek {
+    font-family: 'Source Serif 4', serif;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    flex-grow: 1;
+  }
+
+  .card .card-cta {
+    margin-top: 6px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--navy);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card.linked .card-cta::after {
+    content: "→";
+    transition: transform 0.15s ease;
+  }
+
+  .card.linked:hover .card-cta::after {
+    transform: translateX(3px);
+  }
+
+  .card:not(.linked) .card-cta {
+    color: var(--muted);
+    cursor: default;
+  }
+
+  /* Stretched-link pattern so the whole card is clickable */
+  .card.linked a.card-link-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .card .card-cta, .card h3, .card .dek, .card-top {
+    position: relative;
+    z-index: 0;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    margin-top: 80px;
+    padding: 36px 0 56px;
+    border-top: 1px solid var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 11.5px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  footer .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  footer h4 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  footer p {
+    line-height: 1.55;
+    color: var(--ink-soft);
+    font-size: 12.5px;
+  }
+
+  footer a {
+    color: var(--navy);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 760px) {
+    .container { padding: 0 24px; }
+    .masthead h1 { font-size: 40px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+    footer .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header class="masthead">
+    <div class="masthead-top">
+      <span class="doctype">Research Hub</span>
+      <span>Hendren — AI Infrastructure</span>
+    </div>
+    <h1>AI Infrastructure Research</h1>
+    <p class="lede">Bottom-up models, technology primers, and investment memos covering the buildout of compute, networking, power, and the application layer that consumes them.</p>
+  </header>
+
+  <div class="intro">
+    <p>This is the working index of research outputs from the Hendren research process. Each card links to a self-contained piece. Models open as live-data summary pages; primers and memos open as the full reading text with inline citations.</p>
+    <p>Numbers throughout chain back to source models (the BOM token model and the DC-capex archetype model). Citations chain back to verbatim primary sources. Items marked <em>Re-audit in progress</em> predate the current audit gauntlet and are being re-verified line-by-line before going live here.</p>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background: var(--moss);"></span>Live — post-audit, click to read</div>
+      <div class="legend-item"><span class="legend-dot" style="background: var(--ochre);"></span>New — recently published</div>
+      <div class="legend-item"><span class="legend-dot" style="background: var(--burgundy);"></span>Re-audit in progress</div>
+      <div class="legend-item"><span class="legend-dot" style="background: var(--muted);"></span>Coming soon</div>
+    </div>
+  </div>
+
+  <nav class="section-nav">
+    <a href="#models">Models</a>
+    <a href="#primers">Primers</a>
+    <a href="#memos">Memos &amp; Briefs</a>
+    <a href="#methodology">Methodology</a>
+  </nav>
+
+  <!-- ============ MODELS ============ -->
+  <section id="models" class="hub-section">
+    <div class="section-header">
+      <h2>Models</h2>
+      <span class="section-count">03 deliverables</span>
+    </div>
+    <div class="card-grid">
+
+      <div class="card linked">
+        <a class="card-link-overlay" href="https://www.send.co/a/qIIAaDov" target="_blank" rel="noopener"></a>
+        <div class="card-top">
+          <span class="badge live">Live</span>
+          <span class="card-date">2026-05-21</span>
+        </div>
+        <h3>AI-Infra Capex 2026–2030 — Bottom-Up Model</h3>
+        <p class="dek">Bottom-up token-demand decomposition for the agentic-AI buildout, four demand chains, eleven workforce functions. Headline: $1.2T (2026) → $1.8T (2030). Anchors the gap thesis against consensus top-down forecasts.</p>
+        <span class="card-cta">Open model summary</span>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge soon">Coming soon</span>
+          <span class="card-date">2026-05-25</span>
+        </div>
+        <h3>DC Capex by Archetype</h3>
+        <p class="dek">Five datacenter archetypes (training-core, inference, agentic, edge, legacy) × five years of capex breakdown. Built bottom-up from public hyperscaler models. Summary extract page in build.</p>
+        <span class="card-cta">Extract page in build</span>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge soon">Coming soon</span>
+          <span class="card-date">2026-05-12</span>
+        </div>
+        <h3>AI-Infra Market Map (L-shape Marimekko)</h3>
+        <p class="dek">The unified AI-infrastructure market map. Vertical Compute column on the left, six horizontal supply-chain bands on the right. The base layer the archetype BOMs sit on top of.</p>
+        <span class="card-cta">Extract page in build</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ PRIMERS ============ -->
+  <section id="primers" class="hub-section">
+    <div class="section-header">
+      <h2>Primers</h2>
+      <span class="section-count">06 deliverables</span>
+    </div>
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge new">New</span>
+          <span class="card-date">2026-05-25</span>
+        </div>
+        <h3>Networking &amp; Interconnect</h3>
+        <p class="dek">Optical and electrical interconnect economics through 2030. Goldman's $154B optical TAM unpacked, with services unbundled — network test, hyperscale fit-out, fiber MSPs all surface as exposed names.</p>
+        <span class="card-cta">HTML conversion pending</span>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge new">New</span>
+          <span class="card-date">2026-05-26</span>
+        </div>
+        <h3>AI-DC Debt &amp; Credit Markets</h3>
+        <p class="dek">How the AI datacenter buildout is being financed. Neocloud debt, hyperscaler bond issuance, ABS structures, Stargate financing — and where the credit cycle gets uncomfortable.</p>
+        <span class="card-cta">HTML conversion pending</span>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge reaudit">Re-audit</span>
+          <span class="card-date">2026-05-15</span>
+        </div>
+        <h3>Agentic AI</h3>
+        <p class="dek">What "agentic AI" actually means in practice, and the workforce-replacement framing that underpins the token-demand model. Foundational primer for the BOM model.</p>
+        <span class="card-cta">In re-audit</span>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge reaudit">Re-audit</span>
+          <span class="card-date">2026-05-19</span>
+        </div>
+        <h3>Agent-to-Agent</h3>
+        <p class="dek">The agent-to-agent communication layer — MCP, A2A protocols, orchestration patterns, and what changes when agents talk to other agents rather than to humans.</p>
+        <span class="card-cta">In re-audit</span>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge reaudit">Re-audit</span>
+          <span class="card-date">2026-05-19</span>
+        </div>
+        <h3>Financial Services AI</h3>
+        <p class="dek">AI vertical applications inside financial services — research, advisory, ops, distribution. The buy/build map and what's actually shipped.</p>
+        <span class="card-cta">In re-audit</span>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge reaudit">Re-audit</span>
+          <span class="card-date">2026-05-19</span>
+        </div>
+        <h3>Customer-Care AaaS</h3>
+        <p class="dek">Customer-care as the first profitable agentic-AI vertical. Why this one ships and what the unit economics look like at scale.</p>
+        <span class="card-cta">In re-audit</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ MEMOS & BRIEFS ============ -->
+  <section id="memos" class="hub-section">
+    <div class="section-header">
+      <h2>Memos &amp; Briefs</h2>
+      <span class="section-count">06 deliverables</span>
+    </div>
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge new">New</span>
+          <span class="card-date">2026-05-22</span>
+        </div>
+        <h3>DC Archetype Bill of Materials</h3>
+        <p class="dek">What's actually inside each datacenter archetype, line by line. Cumulative spend by category, 2026–2030. The investable-theme view sits on top of this: networking surfaces as the asymmetric exposure.</p>
+        <span class="card-cta">HTML conversion pending</span>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge reaudit">Re-audit</span>
+          <span class="card-date">2026-05-19</span>
+        </div>
+        <h3>PE AI Strategy — Buy / Build / Compose</h3>
+        <p class="dek">Strategy memo on how a mid-market PE firm ($1–10B AUM) should approach AI tooling. The hybrid path wins on durability, not cost — recommends a four-tier stack.</p>
+        <span class="card-cta">In re-audit</span>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge reaudit">Re-audit</span>
+          <span class="card-date">2026-05-18</span>
+        </div>
+        <h3>SemiAnalysis Value-Capture Counter-Thesis</h3>
+        <p class="dek">Where SemiAnalysis's value-capture framing in the AI infrastructure stack misses. The counter-read on who actually captures economics across the buildout.</p>
+        <span class="card-cta">In re-audit</span>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge reaudit">Re-audit</span>
+          <span class="card-date">2026-05-18</span>
+        </div>
+        <h3>Token Pricing Validation</h3>
+        <p class="dek">What tokens actually cost in 2026, by vendor and model class. Validates the per-token price assumptions inside the BOM token model.</p>
+        <span class="card-cta">In re-audit</span>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge reaudit">Re-audit</span>
+          <span class="card-date">2026-05-19</span>
+        </div>
+        <h3>Renewables Outside US</h3>
+        <p class="dek">Where AI-DC renewable power capacity is actually being built outside the United States. The gap between US deliverability headlines and the global picture.</p>
+        <span class="card-cta">In re-audit</span>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge soon">Coming soon</span>
+          <span class="card-date">2026-05-19</span>
+        </div>
+        <h3>TSS Inc — Company Research</h3>
+        <p class="dek">Single-name company research on TSS Inc. Datacenter services exposure analysis. HTML conversion pending before going live.</p>
+        <span class="card-cta">HTML conversion pending</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ METHODOLOGY ============ -->
+  <section id="methodology" class="hub-section">
+    <div class="section-header">
+      <h2>Methodology</h2>
+      <span class="section-count">02 deliverables</span>
+    </div>
+    <div class="card-grid">
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge reaudit">Re-audit</span>
+          <span class="card-date">2026-05-18</span>
+        </div>
+        <h3>Cross-Document Coherence Brief</h3>
+        <p class="dek">How the model, memos, and primers tie together. Reading order, reconciliation rules, and where the numbers in any given deliverable bottom out.</p>
+        <span class="card-cta">In re-audit</span>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <span class="badge reaudit">Re-audit</span>
+          <span class="card-date">2026-05-19</span>
+        </div>
+        <h3>Three-Doc Walkthrough</h3>
+        <p class="dek">Walkthrough of the BOM model, the BOM memo, and the agentic primer as a single coherent argument. Designed for a 20-minute first read.</p>
+        <span class="card-cta">In re-audit</span>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h4>About</h4>
+        <p>Working research index by John Hendren. Audience: small and shared by name. Not public; not indexed. If you arrived here from a forwarded link, that's intentional.</p>
+      </div>
+      <div>
+        <h4>Method</h4>
+        <p>Every numerical claim chains to a named cell in a source model. Every cited quote chains to a verbatim primary source. Items in re-audit are being verified line by line before going live.</p>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
