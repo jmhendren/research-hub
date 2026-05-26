@@ -1,6 +1,6 @@
 # research-hub
 
-Index of John Hendren's AI infrastructure research. Models, primers, memos, briefs.
+AI infrastructure research index. Models, primers, memos, briefs.
 
 Served as a static site via GitHub Pages at `hub.noldor.app` (custom domain) and `jmhendren.github.io/research-hub` (default).
 
@@ -23,4 +23,4 @@ Edit `index.html` directly. New artifact pages drop into the relevant subfolder 
 
 ## Build provenance
 
-Source repo for the underlying research lives in the (private) assistant workshop and vault. This repo is the published surface only.
+Source materials live in a private workshop and vault. This repo is the published surface only — redacted copies of underlying deliverables.
