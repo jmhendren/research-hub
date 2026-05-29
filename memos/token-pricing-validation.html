@@ -144,6 +144,14 @@
 <h1>BOM Token Model — Pricing Assumptions Validation</h1>
 <p class="subtitle">Stress-test of the four load-bearing pricing inputs in <code>bom-token-model-2026-05-18.xlsx</code></p>
 
+<!-- SUPERSEDED-MODEL banner added 2026-05-29 during the warehouse-backfill coherence pass -->
+<div style="border:2px solid #b45309; background:#fffbeb; color:#3f2d00; padding:14px 18px; border-radius:8px; margin:12px 0 20px; font-size:0.95em; line-height:1.5;">
+  <strong>⚠️ Model-validation premise superseded (note added 2026-05-29).</strong>
+  This brief stress-tests pricing assumptions in <code>bom-token-model-2026-05-18.xlsx</code>, which was a token-<em>revenue</em> forecast. On 2026-05-29 that model was re-architected into the AI-infra <em>capex</em> bill-of-materials (canonical: <code>kb/outputs/models/ai-infra-capex/bom-token-model-2026-05-29.xlsx</code>; 5-chain training-core / inference / agentic / legacy / edge). The specific objects this brief validates — the <code>Inputs!C9–C27</code> pricing cells, the <code>Token_Pricing_Matrix</code> tab, and the ~$5,675B 2030 token-revenue headline — <strong>no longer exist</strong> in the canonical model (whose headline is AI-infra capex of $2,605.5B in 2030 / $7,545B cumulative). <strong>Its model-validation conclusions (§3, §5, §6) should not be read against the current model.</strong>
+  <br><br>
+  What remains valid: the <strong>external pricing research</strong> (§4's empirical vendor-price / deflation findings) stands on its own as a point-in-time market study — those claims are now individually verified in the Research Warehouse (topic <code>token-pricing-validation</code>). <em>Open decision for John: retire, re-scope to a standalone token-pricing market note, or rewrite §3/§5/§6 against the current model.</em>
+</div>
+
 <div class="meta">
   <p><strong>Date:</strong> 2026-05-18 &nbsp;·&nbsp; <strong>Status:</strong> Validation findings; pre–model-rebuild</p>
   <p><strong>Source synthesis:</strong> <code>research/2026-05-18-token-pricing-validation/00-synthesis.md</code> (full per-thread findings, citations, and 40+ saved PDFs/HTMLs)</p>
