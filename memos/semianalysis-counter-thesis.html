@@ -57,16 +57,16 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 28px 0; }
 </blockquote>
 <p><strong>(2) Agentic AI is the mechanism.</strong> Two technical terms first: <strong>cache hit rate</strong> is the share of input tokens served from a previously-cached prompt rather than re-processed fresh — Anthropic prices cached input at 10% of standard rate, so high cache-hit workloads pay a fraction of sticker. <strong>Input-to-output ratio</strong> is the ratio of prompt tokens to generated tokens — multi-turn agentic loops re-feed every prior step's tool calls and observations back into the next prompt, producing input-heavy traces.</p>
 <blockquote>
-<p>"We estimate that the true blended price per million tokens for running Opus 4.7 on agentic tasks at $0.99 despite the sticker price being $5/$25 per MTok. Agentic workloads have extremely high input-to-output ratios (our Claude Code usage has a ratio of about 300:1) and high cache hit rates (90%+). Because cached input tokens only cost $0.50/MTok, most of the tokens end up in the cheapest tier."</p>
+<p>"We estimate that the true blended price per million tokens for running Opus 4.7 on agentic tasks at $0.99 despite the sticker price being $5/$25 per MTok. Agentic workloads have extremely high input-to-output ratios (our Claude Code usage has a ratio of about 300:1) and high cache hit rates (90%+). Because cached input tokens only cost $0.50/MTok, most of the tokens end up in the cheapest tier."<sup class="fn-ref"><a id="fnref-1" href="#fn-1">1</a></sup></p>
 </blockquote>
 <p>The arithmetic: at 300:1 input-to-output and 90% cache hits, a workload nominally priced at $5 input / $25 output blends down to roughly $0.99/MTok. The realized rate sits about <strong>5× below sticker</strong>, but it is the realized rate that drives revenue and gross margin in production.</p>
 <p><strong>(3) Cost-per-token has fallen even faster than realized price.</strong> New silicon — Blackwell (NVIDIA's current-gen GPU), and ASIC alternatives like Google TPUv7 and AWS Trainium 3 — generates 30× more tokens per second per chip than the prior generation at frontier workloads. Software optimization layered on top (NVIDIA's wide-EP, disaggregated-prefill, multi-token-prediction) yields up to <strong>14× higher throughput on identical hardware</strong>. The margin gap widens.</p>
 <p><strong>(4) The "market-clearing token price" has permanently moved up.</strong> SemiAnalysis's thesis statement:</p>
 <blockquote>
-<p>"The age of low gross margins for frontier model providers is over. Real agentic AI has permanently increased the market-clearing price per token, and there's no going back."</p>
+<p>"The age of low gross margins for frontier model providers is over. Real agentic AI has permanently increased the market-clearing price per token, and there's no going back."<sup class="fn-ref"><a href="#fn-1">1</a></sup></p>
 </blockquote>
-<p>The argument: the productivity gain per token from agentic workloads is large enough — SemiAnalysis cites its own internal usage of "$10.95 million dollar annual spend rate" on Anthropic tokens, with productivity gains that "allows us to outcompete all our competitors" — that buyers will pay materially higher prices for frontier-quality tokens. Anthropic has already tested this with <strong>Opus Fast</strong> (6× regular Opus pricing) and <strong>Mythos</strong> ($25/$125, 5× regular Opus). Both are higher-margin SKUs and "the most AI-pilled businesses are still more than happy to pay."</p>
-<p><strong>(5) Competition will not compete margins away.</strong> Two reasons: (i) open-source models — Kimi K2.6 at $0.95/$4 — are still measurably worse on real knowledge work and "exert very little downward pressure on Opus pricing"; (ii) compute supply remains structurally constrained, so no single frontier lab can serve the entire market — "any lab capable of providing true frontier quality will be able to charge based on the economic value delivered by the token rather than competing away each other's margins."</p>
+<p>The argument: the productivity gain per token from agentic workloads is large enough — SemiAnalysis cites its own internal usage of "$10.95 million dollar annual spend rate" on Anthropic tokens, with productivity gains that "allows us to outcompete all our competitors" — that buyers will pay materially higher prices for frontier-quality tokens. Anthropic has already tested this with <strong>Opus Fast</strong> (6× regular Opus pricing) and <strong>Mythos</strong> ($25/$125, 5× regular Opus). Both are higher-margin SKUs and "the most AI-pilled businesses are still more than happy to pay."<sup class="fn-ref"><a href="#fn-1">1</a></sup></p>
+<p><strong>(5) Competition will not compete margins away.</strong> Two reasons: (i) open-source models — Kimi K2.6 at $0.95/$4 — are still measurably worse on real knowledge work and "exert very little downward pressure on Opus pricing"<sup class="fn-ref"><a href="#fn-1">1</a></sup>; (ii) compute supply remains structurally constrained, so no single frontier lab can serve the entire market — "any lab capable of providing true frontier quality will be able to charge based on the economic value delivered by the token rather than competing away each other's margins."</p>
 <h2 id="how-this-disagrees-with-the-information">How this disagrees with The Information</h2>
 <p>The BOM validation brief §4.7 cites "OpenAI 2025 gross margin 33% vs 46% target; Anthropic gross margin 40% vs 50% target (was −94% in 2024)" to support the claim that <strong>published prices are running below cost</strong>. The audit capture (<code>docs/audits/2026-05-18-row-72-semianalysis-margin-capture.md</code>) confirms those figures do not appear in the SemiAnalysis post and most likely originate from The Information's reporting on OpenAI's mid-2025 financial disclosures and Anthropic's 2024–2025 trajectory.</p>
 <p>The two sources can both be partially right, in three ways:</p>
@@ -97,7 +97,7 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 28px 0; }
 <h2 id="sources">Sources</h2>
 <ul>
 <li><strong>Primary:</strong> SemiAnalysis, <em>"AI Value Capture - The Shift To Model Labs"</em> (Daniel Nishball et al., 2026-05-01; paid tier). URL: <code>https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model</code>. Local snapshot: <code>vault/raw/research-2026-05-18-token-pricing-validation/07-methodology-pressure-test/2026-05-01-semianalysis-ai-value-capture-shift-to-model-labs.html</code>.</li>
-<li><strong>Related:</strong> SemiAnalysis, <em>"The Coding Assistant Breakdown: More Tokens Please"</em> (Max Kan, 2026-04-24; paid tier). URL: <code>https://newsletter.semianalysis.com/p/the-coding-assistant-breakdown-more</code>. Local snapshot: <code>vault/raw/research-2026-05-18-token-pricing-validation/07-methodology-pressure-test/2026-04-24-semianalysis-coding-assistant-breakdown.html</code>. Useful for the wrapper-economics framing — coding wrappers (Cursor, Cognition, Windsurf, Replit, Vercel V0, Lovable) running negative gross margins while the model labs widen theirs.</li>
+<li><strong>Related:</strong> SemiAnalysis, <em>"The Coding Assistant Breakdown: More Tokens Please"</em> (Max Kan, 2026-04-24; paid tier). URL: <code>https://newsletter.semianalysis.com/p/the-coding-assistant-breakdown-more</code>. Local snapshot: <code>vault/raw/research-2026-05-18-token-pricing-validation/07-methodology-pressure-test/2026-04-24-semianalysis-coding-assistant-breakdown.html</code>. Useful for the wrapper-economics framing — coding wrappers (Cursor, Cognition, Windsurf, Replit, Vercel V0, Lovable) running negative gross margins while the model labs widen theirs.<sup class="fn-ref"><a id="fnref-2" href="#fn-2">2</a></sup></li>
 <li><strong>Counter-source (paywall pending):</strong> The Information, OpenAI/Anthropic 2025 margin reporting (33%/46%, 40%/50%, -94%/2024). [VERIFY — capture pending; figures sourced via secondary citation in the BOM validation brief, not yet anchored to the primary article.]</li>
 <li><strong>Audit capture:</strong> <code>docs/audits/2026-05-18-row-72-semianalysis-margin-capture.md</code> — quote-level verification that the 33%/46%/40%/-94% figures are not in the SemiAnalysis post and that SemiAnalysis is on the <em>opposite</em> directional side of the brief's framing.</li>
 </ul>
@@ -109,4 +109,27 @@ hr { border: none; border-top: 1px solid var(--rule); margin: 28px 0; }
 <li>Agentic primer §6 (thesis tie-back, token-volume drivers): <code>docs/briefs/2026-05-15-agentic-ai-primer.md</code></li>
 <li>Validation brief §4.7 (methodology pressure-test): <code>docs/briefs/2026-05-18-token-pricing-validation-brief.html</code></li>
 </ul>
+
+<style id="fn-style">
+  sup.fn-ref { font-size:0.72em; line-height:0; vertical-align:super; }
+  sup.fn-ref a { text-decoration:none; padding:0 1px; }
+  section.footnotes { margin-top:32px; padding-top:14px; border-top:1px solid #D9D5CB;
+    font-size:12.5px; color:#3a3a3a; }
+  section.footnotes h2 { font-size:14px; text-transform:uppercase; letter-spacing:0.05em;
+    color:#5B6B7E; margin:0 0 10px; }
+  section.footnotes ol { margin:0; padding-left:22px; }
+  section.footnotes li { margin-bottom:7px; }
+  section.footnotes .fn-badge { display:inline-block; font-size:10.5px; text-transform:uppercase;
+    letter-spacing:0.03em; color:#5B6B7E; border:1px solid #D9D5CB; border-radius:3px;
+    padding:0 5px; margin-left:4px; }
+  section.footnotes .fn-quote { color:#5B6B7E; font-style:italic; }
+  section.footnotes a { color:#1F3A5F; }
+</style>
+<section class="footnotes">
+<h2>Sources</h2>
+<ol>
+<li id="fn-1">SemiAnalysis "AI Value Capture - The Shift To Model Labs", 2026-05-01 · <a href="https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model">https://newsletter.semianalysis.com/p/ai-value-capture-the-shift-to-model</a> · local: <code>2026-05-29-semianalysis-ai-value-capture-shift-to-model-labs.html</code> <span class="fn-badge">News</span><span class="fn-badge">auto-blessed</span> — <span class="fn-quote">"te that the true blended price per million tokens for running Opus 4.7 on agentic tasks at $0.99 despite the sticker price being $5/$25 per MTok. Agentic workloads have extremely high input-to-output ratios (our Claude Code usage has a ratio of about 300:1) and high cache hit rates (90%+). Because cached input tokens only cost $0.50/MTok, most of the tokens end up in the cheapest tier."</span> <a href="#fnref-1" aria-label="back to text">↩</a></li>
+<li id="fn-2">SemiAnalysis "The Coding Assistant Breakdown: More Tokens Please", 2026-04-24 · <a href="https://newsletter.semianalysis.com/p/the-coding-assistant-breakdown-more">https://newsletter.semianalysis.com/p/the-coding-assistant-breakdown-more</a> · local: <code>2026-05-29-semianalysis-coding-assistant-breakdown.html</code> <span class="fn-badge">News</span><span class="fn-badge">auto-blessed</span> — <span class="fn-quote">"These companies often have negative gross margins, and their status as wrappers seems clearer than ever after the rise of Claude Code and Codex."</span> <a href="#fnref-2" aria-label="back to text">↩</a></li>
+</ol>
+</section>
 </body></html>
