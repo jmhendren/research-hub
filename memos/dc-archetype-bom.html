@@ -469,8 +469,8 @@
         <div class="row"><dt>Type</dt><dd>IC Memo</dd></div>
         <div class="row"><dt>Horizon</dt><dd>2026&ndash;2030</dd></div>
         <div class="row"><dt>Model</dt><dd>bom-token-model-2026-05-29</dd></div>
-        <div class="row"><dt>Tabs</dt><dd>15 / 949 named ranges</dd></div>
-        <div class="row"><dt>Sources</dt><dd>265</dd></div>
+        <div class="row"><dt>Tabs</dt><dd>33 / 2,257 named ranges</dd></div>
+        <div class="row"><dt>Sources</dt><dd>918 (468 demand + 450 archetype)</dd></div>
       </dl>
     </div>
 
@@ -489,7 +489,7 @@
   </nav>
 
   <div class="prose" style="margin-bottom: 56px;">
-    <p><strong>Source attachments:</strong> <a href="https://drive.google.com/drive/folders/1yWRKZaiIiz3jIRQxq4e0I55iUb5lArh3" target="_blank">bom-token-model-2026-05-29.xlsx</a> (15 tabs, 949 named ranges, 265 sources); <a href="https://www.send.co/a/qIIAaDov" target="_blank">AI Compute: Demand vs. Planned Supply &mdash; The Gap Thesis (Send doc)</a>. This memo is the analytical synthesis; the sources carry the full receipts.</p>
+    <p><strong>Source attachments:</strong> <a href="https://drive.google.com/drive/folders/1yWRKZaiIiz3jIRQxq4e0I55iUb5lArh3" target="_blank">bom-token-model-2026-05-29.xlsx</a> (33 tabs, 2,257 named ranges, 918 sources across two citation tabs); <a href="https://www.send.co/a/qIIAaDov" target="_blank">AI Compute: Demand vs. Planned Supply &mdash; The Gap Thesis (Send doc)</a>. This memo is the analytical synthesis; the sources carry the full receipts.</p>
   </div>
 
   <section id="sec-1">
@@ -517,7 +517,7 @@
 
     <div class="prose">
       <h4 class="minor-head">The gap in megawatts, not dollars</h4>
-      <p>The variant view is most cleanly stated in physical units. Janus Henderson's March 2026 infrastructure analysis finds 84.7 GW of deliverable AI data center capacity against 157 GW of announced capacity &mdash; a 72-GW deliverability gap driven by power-grid interconnect queues, permitting timelines, and transformer lead times (Janus Henderson, "Data center power: why the key risk is under-delivery, not overbuild," 2026-03-05)<sup class="fn-ref"><a id="fnref-3" href="#fn-3">3</a></sup>. That 72-GW gap &mdash; roughly 54% of announced capacity that will not reach powered IT load on its original timeline<sup class="fn-ref"><a href="#fn-3">3</a></sup> &mdash; means the consensus capex projections are delivery projections, not demand projections. BCG independently estimates a 50&ndash;80 GW US capacity shortfall by 2030 (BCG, "Solving the US Data Center Power Crunch," 2026-03-30). Neither estimate requires accepting any heroic assumption about AI adoption; they are physical-execution constraints visible today. The investable question is not whether demand exists &mdash; Goldman's 2,400% token-demand projection and the Brynjolfsson multiplier establish that &mdash; but where the capital that does reach completion will concentrate. The BOM cartography in this memo answers that question per facility archetype.</p>
+      <p>The variant view is most cleanly stated in physical units. Janus Henderson's March 2026 infrastructure analysis finds 84.7 GW of deliverable AI data center capacity against 157 GW of announced capacity &mdash; a 72-GW deliverability gap driven by power-grid interconnect queues, permitting timelines, and transformer lead times (Janus Henderson, "Data center power: why the key risk is under-delivery, not overbuild," 2026-03-05)<sup class="fn-ref"><a id="fnref-3" href="#fn-3">3</a></sup>. That gap means just 54% of announced capacity (84.7 of 157 GW) reaches powered IT load on its original timeline &mdash; a 72-GW shortfall, or roughly 46% of announced capacity<sup class="fn-ref"><a href="#fn-3">3</a></sup> &mdash; so the consensus capex projections are delivery projections, not demand projections. BCG independently estimates a 50&ndash;80 GW US capacity shortfall by 2030 (BCG, "Solving the US Data Center Power Crunch," 2026-03-30). Neither estimate requires accepting any heroic assumption about AI adoption; they are physical-execution constraints visible today. The investable question is not whether demand exists &mdash; Goldman's 2,400% token-demand projection and the Brynjolfsson multiplier establish that &mdash; but where the capital that does reach completion will concentrate. The BOM cartography in this memo answers that question per facility archetype.</p>
 
       <h4 class="minor-head">Recipe by archetype</h4>
       <p>The memo analyzes five facility archetypes (a five-way taxonomy synthesizing McKinsey's Training/Inference workload axis, Synergy Research's operator-mix axis, Dell'Oro's customer-segment axis, and Futurum's emerging agentic-category framing &mdash; see &sect;3 for methodology). Each archetype carries a distinct all-in cost per megawatt and a distinct BOM signature reflecting the physical capital required to run that workload at scale:</p>
@@ -603,7 +603,7 @@
 
     <div class="prose">
       <h4 class="minor-head">Why this matters for the allocation thesis</h4>
-      <p>If the deliverability gap persists &mdash; and the infrastructure evidence suggests it will, given grid interconnection queues running three to five years in major US markets &mdash; then the binding constraint is not capital commitment, it is powered throughput per unit of time. Operators controlling permitted sites with live grid interconnection agreements, cooling infrastructure, and committed long-lead power equipment are holding assets whose scarcity is masked by headline capex totals. The per-archetype BOM walk in &sect;4 maps this constraint into specific component categories; the scenario analysis in &sect;5 quantifies how incremental dollars above consensus concentrate into those categories under the Gap Allocation Thesis. Compute Silicon, at 48.4% of the five-year cumulative incremental pool at Base knobs (<code class="inline">Incremental_Allocation!D82</code>), benefits most directly because token demand growth &mdash; not megawatt growth &mdash; is where the shortage manifests most acutely: the MW gap limits how many tokens can be served, and the BOM that serves each marginal token is heavily weighted toward compute silicon.</p>
+      <p>If the deliverability gap persists &mdash; and the infrastructure evidence suggests it will, given grid interconnection queues running three to five years in major US markets &mdash; then the binding constraint is not capital commitment, it is powered throughput per unit of time. Operators controlling permitted sites with live grid interconnection agreements, cooling infrastructure, and committed long-lead power equipment are holding assets whose scarcity is masked by headline capex totals. The per-archetype BOM walk in &sect;4 maps this constraint into specific component categories; the scenario analysis in &sect;5 quantifies how incremental dollars above consensus concentrate into those categories under the Gap Allocation Thesis. Compute Silicon, at 48.4% of the five-year cumulative incremental pool at Base knobs (<code class="inline">Incremental_Allocation!C82</code>), benefits most directly because token demand growth &mdash; not megawatt growth &mdash; is where the shortage manifests most acutely: the MW gap limits how many tokens can be served, and the BOM that serves each marginal token is heavily weighted toward compute silicon.</p>
     </div>
   </section>
 
@@ -1305,7 +1305,7 @@
     <div class="col-grid">
       <div>
         <h5>Document</h5>
-        Investment memorandum &mdash; AI Data Center CapEx by Archetype: The Gap Allocation Thesis. Synthesis of bom-token-model-2026-05-29 (15 tabs, 949 named ranges, 265 sources). Set in Source Serif 4 and IBM Plex.
+        Investment memorandum &mdash; AI Data Center CapEx by Archetype: The Gap Allocation Thesis. Synthesis of bom-token-model-2026-05-29 (33 tabs, 2,257 named ranges, 918 sources across two citation tabs). Set in Source Serif 4 and IBM Plex.
       </div>
       <div>
         <h5>Primary Source Anchors</h5>
