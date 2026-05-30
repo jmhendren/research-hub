@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tokens — A Working Primer</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --paper: #fafaf7;
+    --rule: #d8d4cc;
+    --accent: #8b3a3a;
+    --highlight: #fff5e6;
+    --code-bg: #f0ede5;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "SF Pro Text", "Charter", Georgia, serif;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 48px 64px 80px;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    line-height: 1.2;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 0;
+  }
+  .meta {
+    font-size: 13px;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+  .meta strong { color: var(--ink); }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    margin: 36px 0 12px;
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 6px;
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 24px 0 8px;
+    color: var(--ink);
+  }
+  p { margin: 12px 0; }
+  em { font-style: italic; }
+  strong { font-weight: 700; }
+  ul, ol { margin: 12px 0; padding-left: 22px; }
+  li { margin: 6px 0; }
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent);
+  }
+  a:hover { background: var(--highlight); }
+  code {
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 13px;
+  }
+  hr { border: none; border-top: 1px solid var(--rule); margin: 32px 0; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 18px 0;
+    font-size: 14px;
+  }
+  th, td {
+    border: 1px solid var(--rule);
+    padding: 8px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--code-bg);
+    font-weight: 700;
+  }
+  td.num, th.num { text-align: right; }
+  .footer-note {
+    border-top: 1px solid var(--rule);
+    margin-top: 40px;
+    padding-top: 16px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+</style>
+<link rel="stylesheet" href="../assets/hub-masthead.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-top">
+    <span class="doctype">Primer</span>
+    <span class="draft">15 May 2026</span>
+  </div>
+
+  <div class="title-block">
+    <h1 class="title">
+      Tokens
+      <span class="subtitle">A working primer &mdash; what a token is, how it's priced, and where the margin lives.</span>
+    </h1>
+
+    <dl class="dossier">
+      <div class="row"><dt>Date</dt><dd>15 May 2026</dd></div>
+      <div class="row"><dt>Type</dt><dd>Primer</dd></div>
+      <div class="row"><dt>Topic</dt><dd>Token Economics</dd></div>
+      <div class="row"><dt>Sources</dt><dd>21</dd></div>
+    </dl>
+  </div>
+
+  <p class="deck">A token is the sub-word unit a language model reads and writes; this primer covers how it's priced, what's commoditizing versus defensible, and where margin lives on the deflation curve.</p>
+</header>
+
+<h2>0. Audience + anchor question</h2>
+<p><em>For a smart-finance reader orienting to AI inference token economics as pre-call material. The anchor question: what is a token, how is it priced, what's commoditizing vs. defensible, and where does margin live? After reading, you should be able to read a vendor pricing page, an inference earnings disclosure, or an agentic-workload cost analysis and place each number against the resource it stresses and the deflation curve it sits on.</em></p>
+
+<hr/>
+
+<h2>1. What a token is</h2>
+<p>A <strong>token</strong> is a sub-word fragment of text — the actual unit that a language model reads in and writes out. Words, punctuation, and spaces are not the model's natural unit; tokens are. In English, one token averages <strong>about 0.75 words, or roughly 4 characters</strong><sup class="fn-ref"><a id="fnref-1" href="#fn-1">1</a></sup>. Short common words like "the" or "and" usually map to a single token. Longer or rarer words split into multiple pieces — the word "encoding" might be split into "encod" + "ing"<sup class="fn-ref"><a id="fnref-2" href="#fn-2">2</a></sup>.</p>
+<p>The splitter is called a <strong>tokenizer</strong>, and each model family ships its own. That matters: token counts are <strong>not directly comparable across providers</strong>. Anthropic explicitly flags that "Opus 4.7 uses a new tokenizer compared to previous models … this new tokenizer may use up to 35% more tokens for the same fixed text"<sup class="fn-ref"><a href="#fn-1">1</a></sup>. So a per-million-token price quote means slightly different amounts of text from one model family to the next.</p>
+
+<h2>2. How tokens are counted</h2>
+<p>"Counting tokens" means: hand a string of text to the tokenizer, get back the list of pieces it produces, and count them. Anthropic, OpenAI, and Google all publish token-counting tools and API endpoints that do exactly this. For example, sending the message <strong>"Hello, Claude"</strong> with a one-line system prompt to Claude Opus 4.7 is billed as <strong>14 input tokens</strong><sup class="fn-ref"><a id="fnref-3" href="#fn-3">3</a></sup> — more than the two visible words, because the system prompt and chat-format scaffolding are tokenized too.</p>
+<p>Two separate things get called "counting":</p>
+<ul>
+<li><strong>Counting tokens in a text</strong> — what the tokenizer does, above.</li>
+<li><strong>Counting the bill</strong> — adding up <code>input tokens × $/input-MTok</code> plus <code>output tokens × $/output-MTok</code> for the period.</li>
+</ul>
+
+<h2>3. Input vs. output tokens</h2>
+<p>Every API call has two sides:</p>
+<ul>
+<li><strong>Input tokens</strong> — everything sent <em>to</em> the model: system prompt, user message, prior conversation history, retrieved documents, tool results.</li>
+<li><strong>Output tokens</strong> — everything the model generates <em>back</em>.</li>
+</ul>
+<p>They are priced separately because they cost different amounts to produce on the underlying hardware. The input pass is called <strong>"prefill"</strong> and processes the whole prompt in parallel on the GPU — compute-bound. The output is <strong>"decode"</strong> and generates one token at a time, each step waiting on memory bandwidth to stream the model's weights — memory-bound and serial<sup class="fn-ref"><a id="fnref-4" href="#fn-4">4</a></sup>. The practical consequence: <strong>output tokens are roughly 3–10× more expensive than input tokens at every major provider</strong> — visible in the rate cards below.</p>
+
+<h2>4. Are tokens "data" or "compute"?</h2>
+<p>Both. A token is a piece of data — a tiny string fragment — but every token, in or out, costs one forward pass through the model. <strong>Token throughput is the unit that links data flow to compute consumption</strong>: more tokens means more matrix-multiplies on a GPU, which means more electricity, more chip-hours, more revenue for the provider.</p>
+<p>What "compute" actually is, for any individual LLM call, lives almost entirely inside the <strong>GPU</strong> — not the CPU. NVIDIA's own inference-engineering write-up puts it bluntly: during prefill the workload "effectively saturates GPU utilization," and during decode "the speed at which the data … is transferred to the GPU from memory dominates the latency, not how fast the computation actually happens"<sup class="fn-ref"><a id="fnref-5" href="#fn-5">5</a></sup>. The CPU is a side player for inference (it runs the request scheduler, the tokenizer, and — in an agent loop — the bits between LLM calls). The inter-GPU network matters most for <em>training</em>, and for inference only when a model is too big to fit on a single GPU and has to be sharded across several. So when we talk about the price of a token, we are really talking about how it stresses one of four resources <strong>inside the GPU</strong>, anchored here on an H100 SXM:</p>
+<ul>
+<li><strong>Compute (math units, measured in TFLOPS).</strong> H100 SXM peaks at <strong>1,979 TFLOPS at FP16 Tensor Core</strong> and <strong>3,958 TFLOPS at FP8 Tensor Core</strong>, both with sparsity<sup class="fn-ref"><a id="fnref-6" href="#fn-6">6</a></sup>. This is the matrix-multiply throughput — used heavily during prefill, when the model is processing all the input tokens in parallel.</li>
+<li><strong>Memory bandwidth (HBM throughput, measured in TB/s).</strong> H100 SXM = <strong>3.35 TB/s</strong> of HBM3 bandwidth<sup class="fn-ref"><a href="#fn-6">6</a></sup>. This is how fast model weights stream from on-package high-bandwidth memory to the math units. Used heavily during decode: every output token requires streaming the full weights again, one token at a time.</li>
+<li><strong>Memory capacity (HBM size, GB).</strong> H100 SXM = <strong>80 GB</strong>; H200 SXM = <strong>141 GB</strong><sup class="fn-ref"><a id="fnref-7" href="#fn-7">7</a></sup>; Blackwell B200 in the DGX B200 system = <strong>1,440 GB total across 8 GPUs</strong>, i.e. 180 GB per GPU<sup class="fn-ref"><a id="fnref-8" href="#fn-8">8</a></sup>. Bigger models need more capacity; so do longer conversations, because the running record of what's been computed so far — the <strong>KV-cache</strong> — also lives in HBM.</li>
+<li><strong>Inter-GPU network (NVLink, measured in GB/s per GPU).</strong> <strong>900 GB/s</strong> on the Hopper-generation NVLink in H100; <strong>1,800 GB/s</strong> on the Blackwell-generation NVLink in B200<sup class="fn-ref"><a id="fnref-9" href="#fn-9">9</a></sup>. Only relevant when a model is split across multiple GPUs and they have to exchange activations on every layer.</li>
+</ul>
+<p>Not every accelerator uses HBM. Cerebras's wafer-scale WSE-3 puts <strong>44 GB of on-die SRAM</strong> — on-die <em>static RAM</em>, memory built into the same silicon as the compute units, much faster than HBM but much smaller — directly on the wafer<sup class="fn-ref"><a id="fnref-10" href="#fn-10">10</a></sup>, delivering <strong>~21 PB/s of on-die bandwidth (roughly 6,300× the H100's 3.35 TB/s HBM3) but only ~150 GB/s of off-wafer I/O</strong><sup class="fn-ref"><a id="fnref-11" href="#fn-11">11</a></sup>. The architecture trades model size and inter-chip bandwidth for raw streaming speed — a different point on the same throughput-vs-interactivity tradeoff covered in §5.</p>
+<p>Same GPU, different bottleneck depending on which side of the request you're on. <strong>Prefill (input) is compute-bound</strong> — the math units do most of the work; the H100's 1,979 FP16 TFLOPS (sparse; dense ≈ 989) is the relevant ceiling. <strong>Decode (output) is memory-bandwidth-bound</strong> — for every output token, the entire model's weights have to be streamed from HBM through the math units, and the 3.35 TB/s bandwidth ceiling sets the speed. This is the underlying reason output tokens cost ~3–10× more than input tokens at the rate cards in §5 below: the decoder is the bottleneck.</p>
+<p>Now agentic workloads. <strong>An agent step is a normal LLM call running on the same GPU</strong> — agents don't shift work <em>off</em> the GPU, they multiply both the <em>volume</em> of calls and the <em>memory footprint</em> per call. Two effects on per-token economics: (i) every additional turn in the conversation grows the <strong>KV-cache</strong> — the model's running scratchpad of "what I've already looked at" — which NVIDIA's inference guide notes grows <strong>"linearly with batch size and sequence length"</strong> and "can have a large memory footprint"<sup class="fn-ref"><a href="#fn-5">5</a></sup>, so longer contexts and multi-step loops consume more of the GPU's 80 / 141 / 180 GB of HBM; (ii) an agent task is many sequential LLM calls, so total <strong>GPU-hours per task</strong> runs hundreds to thousands of times higher than a single chatbot reply (Stanford's measurement is in §8). At the <em>cluster</em> level the picture also shifts — Microsoft's Fairwater AI campus pairs the dense GPU building with a separate CPU-and-storage building including <strong>"millions of CPU cores for operational compute tasks"</strong><sup class="fn-ref"><a id="fnref-12" href="#fn-12">12</a></sup> (independently corroborated by Glenn Lockwood<sup class="fn-ref"><a id="fnref-13" href="#fn-13">13</a></sup>), and AMD/Intel/Meta IR disclosures all flag agentic-driven CPU pull-through for orchestration, retrieval, KV-cache management, and tool-execution. <strong>Per-token economics are GPU-led; per-cluster capex pulls CPU back in as a meaningful slice</strong> — covered in depth in the <a href="../primers/agentic-ai.html">agentic AI primer</a> §4.</p>
+<p>The pricing model in §5 doesn't try to reflect any of this directly. Providers quote a flat $/MTok within a SKU; the only built-in asymmetry is the input/output split, which is what captures the prefill-vs-decode cost gap. The closest thing to "pricing the resource mix" is Google's long-context surcharge on Gemini 2.5 Pro: prompts above 200K tokens are billed at <strong>2× on input and 1.5× on output</strong> (input $1.25→$2.50, output $10.00→$15.00)<sup class="fn-ref"><a id="fnref-14" href="#fn-14">14</a></sup>. That surcharge is essentially a tax on KV-cache pressure — long contexts consume disproportionately more HBM per call, and the provider passes that back through the rate card.</p>
+
+<h2>5. How tokens are priced</h2>
+<p>Pricing is quoted in <strong>dollars per million tokens</strong> ($/MTok), separately for input and output. Below is a snapshot of frontier and commodity tiers from the three largest API providers, May 2026 (all figures verified on each vendor's pricing page on 2026-05-18):</p>
+<table>
+<thead>
+<tr><th>Provider</th><th>Model</th><th class="num">Input ($/MTok)</th><th class="num">Output ($/MTok)</th><th>Source</th></tr>
+</thead>
+<tbody>
+<tr><td>Anthropic</td><td>Claude Opus 4.7 (frontier)</td><td class="num">$5.00</td><td class="num">$25.00</td><td>Anthropic pricing<sup class="fn-ref"><a href="#fn-1">1</a></sup></td></tr>
+<tr><td>Anthropic</td><td>Claude Sonnet 4.6</td><td class="num">$3.00</td><td class="num">$15.00</td><td>Anthropic pricing<sup class="fn-ref"><a href="#fn-1">1</a></sup></td></tr>
+<tr><td>Anthropic</td><td>Claude Haiku 4.5</td><td class="num">$1.00</td><td class="num">$5.00</td><td>Anthropic pricing<sup class="fn-ref"><a href="#fn-1">1</a></sup></td></tr>
+<tr><td>OpenAI</td><td>GPT-5.5 (flagship)</td><td class="num">$5.00</td><td class="num">$30.00</td><td>OpenAI pricing<sup class="fn-ref"><a id="fnref-15" href="#fn-15">15</a></sup></td></tr>
+<tr><td>OpenAI</td><td>GPT-5.4</td><td class="num">$2.50</td><td class="num">$15.00</td><td>OpenAI pricing<sup class="fn-ref"><a href="#fn-15">15</a></sup></td></tr>
+<tr><td>OpenAI</td><td>GPT-5.4-nano</td><td class="num">$0.20</td><td class="num">$1.25</td><td>OpenAI pricing<sup class="fn-ref"><a href="#fn-15">15</a></sup></td></tr>
+<tr><td>Google</td><td>Gemini 2.5 Pro (≤200K ctx)</td><td class="num">$1.25</td><td class="num">$10.00</td><td>Gemini pricing<sup class="fn-ref"><a href="#fn-14">14</a></sup></td></tr>
+<tr><td>Google</td><td>Gemini 2.5 Flash</td><td class="num">$0.30</td><td class="num">$2.50</td><td>Gemini pricing<sup class="fn-ref"><a href="#fn-14">14</a></sup></td></tr>
+</tbody>
+</table>
+<p>Two structural levers cut these rates substantially:</p>
+<ul>
+<li><strong>Batch processing</strong> — submit a queue of requests with a 24-hour service-level guarantee instead of real-time. Anthropic, OpenAI, and Google all offer a flat <strong>50% discount on both input and output</strong> for batch<sup class="fn-ref"><a href="#fn-1">1</a></sup>.</li>
+<li><strong>Prompt caching</strong> — when the same prefix (a long system prompt, a document, a conversation history) is reused, the provider serves it from cache. Anthropic charges cache reads at <strong>10% of the standard input rate</strong> — a <strong>90% discount</strong> on the cached portion<sup class="fn-ref"><a href="#fn-1">1</a></sup>.</li>
+</ul>
+<p>There's also a third pricing axis beyond input/output and frontier-vs-commodity: <strong>speed tier within a single model</strong>. Anthropic sells a <strong>Fast Mode</strong> on Opus 4.6 and 4.7 at <strong>$30 input / $150 output per MTok — 6× the standard $5/$25 rate</strong><sup class="fn-ref"><a href="#fn-1">1</a></sup> — for roughly 2× the measured interactivity. SemiAnalysis, an AI-infrastructure research firm, disclosed that <strong>"80% of our AI spend (which peaked at $10M annualized) was on Opus 4.6 fast"</strong> in April 2026<sup class="fn-ref"><a href="#fn-11">11</a></sup> — that's a single-firm data point, not a market-wide claim, but it shows real willingness to pay a steep premium for speed at a given intelligence level. Mechanically, faster service means the provider dedicates more GPU resources to fewer concurrent requests — less batching, more KV-cache headroom per user, lower decode-bandwidth contention — so the same $5/MTok Opus weights, served at higher tokens-per-second-per-user, costs 6× more. For workloads where latency matters (live chat, agentic loops), the effective $/MTok can sit well above the rate-card headline.</p>
+
+<h2>6. Why tokens are the unit at all</h2>
+<p>Tokens are the natural unit because they are what the model literally consumes and produces, and compute scales <strong>linearly per token</strong> — one forward pass per output token. Alternative units (characters, words, API calls) don't track cost cleanly: a 10-word answer and a 10-paragraph answer cost wildly different amounts; the token count tracks the difference exactly.</p>
+
+<h2>7. The deflation curve — bimodal</h2>
+<p>Token economics has <strong>two simultaneous price patterns</strong> that look contradictory but aren't:</p>
+<ul>
+<li><strong>Iso-capability deflation (the commodity tier collapses).</strong> At a fixed level of model capability, the price falls fast. Andreessen Horowitz's "LLMflation" analysis documents a clean trend: <strong>"For an LLM of equivalent performance, the cost is decreasing by 10× every year"</strong><sup class="fn-ref"><a id="fnref-16" href="#fn-16">16</a></sup>. The cleanest anchor: GPT-3 was $60/MTok at launch in November 2021; by 2024, a Llama 3.2 3B model matched its MMLU score at $0.06/MTok — a <strong>1,000× drop in three years</strong><sup class="fn-ref"><a href="#fn-16">16</a></sup>. A March 2023 → August 2024 window for GPT-4-class models works out to about <strong>79% per year</strong><sup class="fn-ref"><a id="fnref-17" href="#fn-17">17</a></sup>. The NBER paper "The Emerging Market for Intelligence" (Demirer, Fradkin, Tadelis, Peng, Dec 2025) finds that <strong>open-source models are roughly 90% cheaper than closed-source models at the same intelligence level</strong>, and documents the same trend across tiers<sup class="fn-ref"><a id="fnref-18" href="#fn-18">18</a></sup>.</li>
+<li><strong>Frontier flat.</strong> Top-of-stack pricing has barely moved. Anthropic held Opus at <strong>$5 input / $25 output from Opus 4.5 → 4.6 → 4.7</strong> — same rates across three consecutive frontier releases<sup class="fn-ref"><a href="#fn-1">1</a></sup>. OpenAI's flagship has actually crept up (GPT-5.5 output is $30/MTok). The frontier doesn't deflate; the commodity tier underneath it does, because last year's frontier becomes this year's commodity.</li>
+</ul>
+<p><em>SemiAnalysis goes further on the frontier side: in agentic workloads, sticker pricing understates a different dynamic — the </em><em>realized</em><em> blended rate on Opus 4.7 agentic tasks lands around $0.99/MTok (90%+ cache hits at $0.50/MTok, 300:1 input-to-output) while Anthropic's introduced </em><strong>premium SKUs</strong><em> (Opus Fast at 6×, Mythos at 5× regular Opus pricing) that buyers pay willingly because productivity gains exceed the cost — implying the market-clearing token price for frontier-quality work has moved up, not down. See the <a href="../memos/semianalysis-counter-thesis.html">SemiAnalysis counter-thesis</a>.</em></p>
+
+<h2>8. The agentic multiplier</h2>
+<p>"Agentic" AI systems — autonomous multi-step workflows where the model uses tools, browses, writes and runs code, and chains its own reasoning — consume <strong>orders of magnitude more tokens per task</strong> than a single chatbot reply. Each step in the agent's loop is itself an LLM call, and each step's output becomes the next step's input, so token counts compound. The Stanford Digital Economy Lab's May 2026 study of agentic coding workloads (Brynjolfsson, Pentland, Pei) found agentic tasks <strong>"consuming 1000x more tokens than code reasoning and code chat"</strong> — and input tokens dominate the spend, because the agent re-reads the full conversation history on every step<sup class="fn-ref"><a id="fnref-19" href="#fn-19">19</a></sup>.</p>
+<p>That per-task multiplier shows up in the aggregate. NVIDIA CEO Jensen Huang, at Morgan Stanley TMT (March 2026) and Milken (May 2026), framed the <em>industry-level</em> consequence: <strong>"computing scale, which is proportional to token usage, has grown 1,000-fold in just the past two years"</strong><sup class="fn-ref"><a id="fnref-20" href="#fn-20">20</a></sup> (reporting on the Morgan Stanley fireside chat). <em>(Morgan Stanley's own write-up of the same fireside chat<sup class="fn-ref"><a id="fnref-21" href="#fn-21">21</a></sup> frames the same dynamic with a different anchor — "Agentic AI can consume 1 million times more tokens than a standard generative prompt" — but does not carry the specific verbatim "1,000-fold in two years" wording; SE Daily remains the workable citation for that exact quote.)</em></p>
+<p>The two trends in section 7 plus the multiplier here are why total token spending grows even when per-token prices fall: volume is growing faster than price is declining. That is the entire story of token economics in one sentence.</p>
+
+<style id="fn-style">
+  sup.fn-ref { font-size:0.72em; line-height:0; vertical-align:super; }
+  sup.fn-ref a { text-decoration:none; padding:0 1px; }
+  section.footnotes { margin-top:32px; padding-top:14px; border-top:1px solid #D9D5CB;
+    font-size:12.5px; color:#3a3a3a; }
+  section.footnotes h2 { font-size:14px; text-transform:uppercase; letter-spacing:0.05em;
+    color:#5B6B7E; margin:0 0 10px; }
+  section.footnotes ol { margin:0; padding-left:22px; }
+  section.footnotes li { margin-bottom:7px; }
+  section.footnotes a { color:#1F3A5F; }
+</style>
+<section class="footnotes">
+<h2>Footnotes</h2>
+<ol>
+<li id="fn-1">Anthropic — Pricing · <a href="https://platform.claude.com/docs/en/about-claude/pricing">https://platform.claude.com/docs/en/about-claude/pricing</a> <a href="#fnref-1" aria-label="back to text">↩</a></li>
+<li id="fn-2">OpenAI — tiktoken (BPE tokenizer reference) · <a href="https://github.com/openai/tiktoken">https://github.com/openai/tiktoken</a> <a href="#fnref-2" aria-label="back to text">↩</a></li>
+<li id="fn-3">Anthropic — Token counting documentation · <a href="https://platform.claude.com/docs/en/build-with-claude/token-counting">https://platform.claude.com/docs/en/build-with-claude/token-counting</a> <a href="#fnref-3" aria-label="back to text">↩</a></li>
+<li id="fn-4">Hugging Face engineering blog — Prefill and decode for concurrent requests · <a href="https://huggingface.co/blog/tngtech/llm-performance-prefill-decode-concurrent-requests">https://huggingface.co/blog/tngtech/llm-performance-prefill-decode-concurrent-requests</a> <a href="#fnref-4" aria-label="back to text">↩</a></li>
+<li id="fn-5">NVIDIA Developer Blog — Mastering LLM Techniques: Inference Optimization · <a href="https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/">https://developer.nvidia.com/blog/mastering-llm-techniques-inference-optimization/</a> <a href="#fnref-5" aria-label="back to text">↩</a></li>
+<li id="fn-6">NVIDIA H100 Tensor Core GPU — product page · <a href="https://www.nvidia.com/en-us/data-center/h100/">https://www.nvidia.com/en-us/data-center/h100/</a> <a href="#fnref-6" aria-label="back to text">↩</a></li>
+<li id="fn-7">NVIDIA H200 Tensor Core GPU — product page · <a href="https://www.nvidia.com/en-us/data-center/h200/">https://www.nvidia.com/en-us/data-center/h200/</a> <a href="#fnref-7" aria-label="back to text">↩</a></li>
+<li id="fn-8">NVIDIA DGX B200 — product page · <a href="https://www.nvidia.com/en-us/data-center/dgx-b200/">https://www.nvidia.com/en-us/data-center/dgx-b200/</a> <a href="#fnref-8" aria-label="back to text">↩</a></li>
+<li id="fn-9">NVIDIA NVLink and NVLink Switch — product page · <a href="https://www.nvidia.com/en-us/data-center/nvlink/">https://www.nvidia.com/en-us/data-center/nvlink/</a> <a href="#fnref-9" aria-label="back to text">↩</a></li>
+<li id="fn-10">Cerebras Systems — "Cerebras Announces Third Generation Wafer Scale Engine" (press release, March 2024) · <a href="https://www.cerebras.ai/press-release/cerebras-announces-third-generation-wafer-scale-engine">https://www.cerebras.ai/press-release/cerebras-announces-third-generation-wafer-scale-engine</a> <a href="#fnref-10" aria-label="back to text">↩</a></li>
+<li id="fn-11">SemiAnalysis — "Cerebras — Faster Tokens Please" · <a href="https://newsletter.semianalysis.com/p/cerebras-faster-tokens-please">https://newsletter.semianalysis.com/p/cerebras-faster-tokens-please</a> <a href="#fnref-11" aria-label="back to text">↩</a></li>
+<li id="fn-12">Microsoft Source — "From Wisconsin to Atlanta, Microsoft connects datacenters to build its first AI superfactory" (Nov 12, 2025) · <a href="https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/">https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/</a> <a href="#fnref-12" aria-label="back to text">↩</a></li>
+<li id="fn-13">Glenn Lockwood — "Microsoft Fairwater: A behind-the-curtain peek at the design of an AI datacenter" (hpc.social) · <a href="https://hpc.social/glennklockwood/digital-garden/fairwater.html">https://hpc.social/glennklockwood/digital-garden/fairwater.html</a> <a href="#fnref-13" aria-label="back to text">↩</a></li>
+<li id="fn-14">Google — Gemini API pricing · <a href="https://ai.google.dev/gemini-api/docs/pricing">https://ai.google.dev/gemini-api/docs/pricing</a> <a href="#fnref-14" aria-label="back to text">↩</a></li>
+<li id="fn-15">OpenAI — API pricing · <a href="https://developers.openai.com/api/docs/pricing">https://developers.openai.com/api/docs/pricing</a> <a href="#fnref-15" aria-label="back to text">↩</a></li>
+<li id="fn-16">Andreessen Horowitz — Welcome to LLMflation · <a href="https://a16z.com/llmflation-llm-inference-cost/">https://a16z.com/llmflation-llm-inference-cost/</a> <a href="#fnref-16" aria-label="back to text">↩</a></li>
+<li id="fn-17">deeplearning.ai (The Batch) — Falling LLM Token Prices · <a href="https://www.deeplearning.ai/the-batch/falling-llm-token-prices-and-what-they-mean-for-ai-companies/">https://www.deeplearning.ai/the-batch/falling-llm-token-prices-and-what-they-mean-for-ai-companies/</a> <a href="#fnref-17" aria-label="back to text">↩</a></li>
+<li id="fn-18">NBER WP 34608 — Demirer, Fradkin, Tadelis, Peng, "The Emerging Market for Intelligence" (Dec 2025) · <a href="https://www.nber.org/papers/w34608">https://www.nber.org/papers/w34608</a> <a href="#fnref-18" aria-label="back to text">↩</a></li>
+<li id="fn-19">Stanford Digital Economy Lab — "How are AI agents spending your tokens?" (Brynjolfsson, Pentland, Pei, May 2026) · <a href="https://digitaleconomy.stanford.edu/news/how-are-ai-agents-spending-your-tokens/">https://digitaleconomy.stanford.edu/news/how-are-ai-agents-spending-your-tokens/</a> <a href="#fnref-19" aria-label="back to text">↩</a></li>
+<li id="fn-20">Seoul Economic Daily — "US-China 'Token Factory' War Intensifies in AI Race" (May 2026, reporting on Huang at Morgan Stanley TMT and Milken) · <a href="https://en.sedaily.com/finance/2026/05/08/us-china-token-factory-war-intensifies-in-ai-race">https://en.sedaily.com/finance/2026/05/08/us-china-token-factory-war-intensifies-in-ai-race</a> <a href="#fnref-20" aria-label="back to text">↩</a></li>
+<li id="fn-21">Morgan Stanley — "NVIDIA's Jensen Huang on Compute as a New Economic Engine" (TMT Conference write-up, Mar 17, 2026) · <a href="https://www.morganstanley.com/insights/articles/nvidia-jensen-huang-compute-new-economic-engine-tmt-2026">https://www.morganstanley.com/insights/articles/nvidia-jensen-huang-compute-new-economic-engine-tmt-2026</a> <a href="#fnref-21" aria-label="back to text">↩</a></li>
+</ol>
+</section>
+</body>
+</html>

@@ -288,12 +288,29 @@ tr.total td { font-weight: 600; background: var(--bg-alt); color: var(--navy); b
   .chart-frame, table, .sidebar { page-break-inside: avoid; }
 }
 </style>
+<link rel="stylesheet" href="../assets/hub-masthead.css">
 </head>
 <body>
 <div class="container">
 
-<div class="meta">Model Extract · 2026-05-26 · AI-Infra CapEx</div>
-<h1>AI-Infrastructure Market Map</h1>
+<header class="masthead">
+  <div class="masthead-top">
+    <span class="doctype">Market Map</span>
+    <span class="draft">26 May 2026</span>
+  </div>
+  <div class="title-block">
+    <h1 class="title">
+      AI-Infrastructure Market Map
+      <span class="subtitle">Where AI-data-center capex flows across the supply chain &mdash; a driver-based, share-encoded view.</span>
+    </h1>
+    <dl class="dossier">
+      <div class="row"><dt>Date</dt><dd>26 May 2026</dd></div>
+      <div class="row"><dt>Type</dt><dd>Market Map</dd></div>
+      <div class="row"><dt>Model</dt><dd>ai-infra-market-map-2026-05-12</dd></div>
+      <div class="row"><dt>Anchor</dt><dd>Goldman <em>Tracking Trillions</em></dd></div>
+    </dl>
+  </div>
+</header>
 
 <p>This page is the static snapshot of the <strong>AI-Infrastructure Market Map model</strong> — a driver-based projection of where AI-data-center capex actually flows across the supply chain, anchored to Goldman Sachs' <em>Tracking Trillions</em> (April 2026) capex pool and decomposed into seven categories: Compute Silicon, Memory, Networking + IC, Fiber + Optics, Power Infrastructure, Cooling, and Land + Shell + EPC. The visual encoding is an <strong>L-shape Marimekko</strong> — a vertical Compute column on the left whose width encodes Compute's share of the cluster, plus six horizontal bands stacked on the right whose heights encode each non-compute category's share. Within each band, sub-cells carry the named players. Width and area always equal share; nothing is decorative.</p>
 
@@ -351,7 +368,7 @@ The bottom-up sum of category spend equals the Goldman pool to the dollar by des
     <rect x="454" y="554.4" width="446" height="28" fill="rgba(0,0,0,0.28)"/>
     <text x="468" y="572.4" font-family="IBM Plex Sans, sans-serif" font-size="11.5" font-weight="600" letter-spacing="0.05em" fill="#ffffff">FIBER + OPTICS · 3.8% of cluster · Δ +2.6pp · Coherent · Lumentum · Corning</text>
   </svg>
-  <div class="chart-footer">Source: <code>data/marimekko-specs/dc-archetype-agentic.json</code> · Deltas vs unified baseline (Agentic AI): Power +1.1pp · Compute +8.0pp · Memory +0.1pp · Networking +3.5pp · Fiber +2.6pp · Cooling +0.0pp · Land −15.3pp</div>
+  <div class="chart-footer">Deltas vs unified baseline (Agentic AI): Power +1.1pp · Compute +8.0pp · Memory +0.1pp · Networking +3.5pp · Fiber +2.6pp · Cooling +0.0pp · Land −15.3pp</div>
 </div>
 
 <div class="chart-caption">The widened Compute column (50.5% vs. unified baseline 42.5%) and the widened Networking band (+3.5pp) are the two material deltas — both push toward AI-native silicon and optical-interconnect exposure rather than shell+EPC contractors.</div>
@@ -363,7 +380,7 @@ The bottom-up sum of category spend equals the Goldman pool to the dollar by des
 
 <h2 id="category-rollup">Table 1 — Category roll-up, Base case</h2>
 
-<p>Roll-up by category, 2026 and 2029, expressed in dollars and as share of the Goldman pool. Numbers reproduced from <code>data/marimekko-specs/2026-base-case.json</code> and <code>2029-base-case.json</code> — the canonical companion JSONs to the parent Marimekko chart.</p>
+<p>Roll-up by category, 2026 and 2029, expressed in dollars and as share of the Goldman pool.</p>
 
 <table>
 <thead>
@@ -527,14 +544,6 @@ The bottom-up sum of category spend equals the Goldman pool to the dollar by des
   <li><strong>Min-height floors apply.</strong> Cooling at ~2.5% and Fiber at ~3.8% would render as illegible slivers without a floor; they are widened deliberately so the named players stay readable. This is in the data spec — see <code>min_height_px</code> and <code>css_class</code> fields.</li>
   <li><strong>Players are not decoration.</strong> Each cell lists 2–3 named public companies (with tickers where applicable) — these are the suppliers we believe capture the dollars in that category. Replace them as the BOM evolves.</li>
 </ul>
-
-<div class="provenance">
-  <strong>Provenance.</strong><br>
-  Excel model: <code>vault/kb/outputs/models/ai-infra-capex/ai-infra-market-map-2026-05-12.xlsx</code> · 14 sheets · scenario toggle at <code>00_Cover!B5</code> · Bear / Base / Bull · 2026-05-13 net-pool rework calibrated to Goldman Tracking Trillions (Apr 2026).<br><br>
-  Marimekko specs: <code>assistant/data/marimekko-specs/</code> · 10 JSON spec files · 2 base-case anchors (2026, 2029) · 5 DC archetypes (training-core, inference, agentic, edge, legacy) · 3 agentic scenarios (bear-10pct, base-25pct, bull-40pct) · 2 density scenarios (status-quo, 1MW-rack).<br><br>
-  Renderer: <code>scripts/build_l_shape_marimekko.py</code> · JSON spec → HTML + PNG headless Chrome capture at 1548×1300.<br><br>
-  Companion brief: <code>vault/kb/outputs/briefs/2026-05-12-ai-infra-market-map-brief.md</code>.
-</div>
 
 </div>
 </body>
