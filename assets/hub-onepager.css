@@ -1,7 +1,7 @@
 /* research-hub/assets/hub-onepager.css
    Shared BODY styling for every /report one-pager. The masthead is styled by
    hub-masthead.css (linked first); this file owns the stats band, "so what",
-   chart frame, go-deeper list, footer, and the print rule that keeps it <=2 pages.
+   chart frame, go-deeper list, footer, and the density rules that keep it <=2 pages.
    Palette/type tokens deliberately mirror hub-masthead.css for family resemblance. */
 :root {
   --op-navy: #0E2A47;
@@ -14,54 +14,60 @@
 html, body { margin: 0; background: var(--op-paper); color: var(--op-ink); }
 body {
   font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
-  line-height: 1.5;
+  line-height: 1.45;
 }
-.op-page { max-width: 880px; margin: 0 auto; padding: 40px 36px 48px; }
+.op-page { max-width: 880px; margin: 0 auto; padding: 28px 36px 32px; }
 .num { font-variant-numeric: tabular-nums lining-nums; }
 
-/* stats band */
+/* compress the shared masthead for the one-pager (full reports keep hub-masthead.css defaults) */
+.op-page .masthead { padding: 26px 0 14px; margin-bottom: 20px; }
+.op-page .masthead .deck { margin: 10px 0 0; }
+
+/* stats band — flex so it lays out multi-column in both browser and print (weasyprint) */
 .op-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 16px;
-  margin: 8px 0 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 6px 0 18px;
 }
 .op-stat {
+  flex: 1 1 28%;
+  min-width: 150px;
   border-top: 3px solid var(--op-burgundy);
-  padding: 12px 14px;
+  padding: 9px 12px 11px;
   background: #faf9f7;
-  display: flex; flex-direction: column; gap: 4px;
   break-inside: avoid;
 }
-.op-stat .value { font-size: 30px; font-weight: 600; color: var(--op-navy); line-height: 1.05; }
+.op-stat .value { display: block; font-size: 25px; font-weight: 600; color: var(--op-navy); line-height: 1.1; }
 .op-stat .label {
+  display: block; margin-top: 4px; line-height: 1.3;
   font-family: "IBM Plex Sans", -apple-system, system-ui, sans-serif;
-  font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--op-muted);
+  font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--op-muted);
 }
-.op-stat .sid { font-size: 11px; color: var(--op-muted); }
+.op-stat .sid { display: block; margin-top: 3px; font-size: 10px; color: var(--op-muted); }
 
 /* section headings + "so what" */
 .op-sowhat h2, .op-godeeper h2 {
   font-family: "IBM Plex Sans", -apple-system, system-ui, sans-serif;
   font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--op-burgundy);
-  border-bottom: 1px solid var(--op-rule); padding-bottom: 6px; margin: 28px 0 12px;
+  border-bottom: 1px solid var(--op-rule); padding-bottom: 5px; margin: 16px 0 9px;
 }
-.op-bullets { margin: 0; padding-left: 20px; }
-.op-bullets li { margin: 6px 0; }
+.op-bullets { margin: 0; padding-left: 18px; }
+.op-bullets li { margin: 4px 0; }
 
 /* chart */
-.op-chart { margin: 24px 0; }
+.op-chart { margin: 16px 0; }
 .op-chart img { width: 100%; height: auto; border: 1px solid var(--op-rule); }
 .op-chart figcaption { font-size: 12px; color: var(--op-muted); margin-top: 6px; }
 
 /* go deeper */
 .op-godeeper ul { list-style: none; margin: 0; padding: 0; }
-.op-godeeper li { padding: 6px 0; border-bottom: 1px solid var(--op-rule); break-inside: avoid; }
+.op-godeeper li { padding: 5px 0; border-bottom: 1px solid var(--op-rule); break-inside: avoid; }
 .op-godeeper a { color: var(--op-navy); text-decoration: none; }
 
 /* footer */
 .op-footer {
-  margin-top: 32px; padding-top: 14px; border-top: 2px solid var(--op-navy);
+  margin-top: 20px; padding-top: 12px; border-top: 2px solid var(--op-navy);
   display: flex; flex-direction: column; gap: 4px;
   font-family: "IBM Plex Sans", -apple-system, system-ui, sans-serif;
   font-size: 11px; color: var(--op-muted);
@@ -69,5 +75,5 @@ body {
 .op-footer a { color: var(--op-burgundy); font-weight: 600; text-decoration: none; }
 
 /* keep it to <=2 printed pages */
-@page { size: Letter; margin: 0.6in; }
+@page { size: Letter; margin: 0.55in; }
 @media print { .op-page { padding: 0; max-width: none; } }
