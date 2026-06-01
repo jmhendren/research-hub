@@ -31,6 +31,7 @@ body {
   padding: 12px 14px;
   background: #faf9f7;
   display: flex; flex-direction: column; gap: 4px;
+  break-inside: avoid;
 }
 .op-stat .value { font-size: 30px; font-weight: 600; color: var(--op-navy); line-height: 1.05; }
 .op-stat .label {
@@ -55,7 +56,7 @@ body {
 
 /* go deeper */
 .op-godeeper ul { list-style: none; margin: 0; padding: 0; }
-.op-godeeper li { padding: 6px 0; border-bottom: 1px solid var(--op-rule); }
+.op-godeeper li { padding: 6px 0; border-bottom: 1px solid var(--op-rule); break-inside: avoid; }
 .op-godeeper a { color: var(--op-navy); text-decoration: none; }
 
 /* footer */
