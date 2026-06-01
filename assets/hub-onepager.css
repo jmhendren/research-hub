@@ -1,0 +1,72 @@
+/* research-hub/assets/hub-onepager.css
+   Shared BODY styling for every /report one-pager. The masthead is styled by
+   hub-masthead.css (linked first); this file owns the stats band, "so what",
+   chart frame, go-deeper list, footer, and the print rule that keeps it <=2 pages.
+   Palette/type tokens deliberately mirror hub-masthead.css for family resemblance. */
+:root {
+  --op-navy: #0E2A47;
+  --op-burgundy: #8B2332;
+  --op-ink: #1A1A1A;
+  --op-muted: #6B6B6B;
+  --op-rule: #D9D9D6;
+  --op-paper: #ffffff;
+}
+html, body { margin: 0; background: var(--op-paper); color: var(--op-ink); }
+body {
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  line-height: 1.5;
+}
+.op-page { max-width: 880px; margin: 0 auto; padding: 40px 36px 48px; }
+.num { font-variant-numeric: tabular-nums lining-nums; }
+
+/* stats band */
+.op-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin: 8px 0 32px;
+}
+.op-stat {
+  border-top: 3px solid var(--op-burgundy);
+  padding: 12px 14px;
+  background: #faf9f7;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.op-stat .value { font-size: 30px; font-weight: 600; color: var(--op-navy); line-height: 1.05; }
+.op-stat .label {
+  font-family: "IBM Plex Sans", -apple-system, system-ui, sans-serif;
+  font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--op-muted);
+}
+.op-stat .sid { font-size: 11px; color: var(--op-muted); }
+
+/* section headings + "so what" */
+.op-sowhat h2, .op-godeeper h2 {
+  font-family: "IBM Plex Sans", -apple-system, system-ui, sans-serif;
+  font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--op-burgundy);
+  border-bottom: 1px solid var(--op-rule); padding-bottom: 6px; margin: 28px 0 12px;
+}
+.op-bullets { margin: 0; padding-left: 20px; }
+.op-bullets li { margin: 6px 0; }
+
+/* chart */
+.op-chart { margin: 24px 0; }
+.op-chart img { width: 100%; height: auto; border: 1px solid var(--op-rule); }
+.op-chart figcaption { font-size: 12px; color: var(--op-muted); margin-top: 6px; }
+
+/* go deeper */
+.op-godeeper ul { list-style: none; margin: 0; padding: 0; }
+.op-godeeper li { padding: 6px 0; border-bottom: 1px solid var(--op-rule); }
+.op-godeeper a { color: var(--op-navy); text-decoration: none; }
+
+/* footer */
+.op-footer {
+  margin-top: 32px; padding-top: 14px; border-top: 2px solid var(--op-navy);
+  display: flex; flex-direction: column; gap: 4px;
+  font-family: "IBM Plex Sans", -apple-system, system-ui, sans-serif;
+  font-size: 11px; color: var(--op-muted);
+}
+.op-footer a { color: var(--op-burgundy); font-weight: 600; text-decoration: none; }
+
+/* keep it to <=2 printed pages */
+@page { size: Letter; margin: 0.6in; }
+@media print { .op-page { padding: 0; max-width: none; } }
