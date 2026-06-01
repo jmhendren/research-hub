@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Circle Internet Group (NYSE: CRCL) — Company Research</title>
+<style>
+  :root{
+    --ink:#11161d; --muted:#5b6671; --line:#e4e8ee; --bg:#fbfcfd; --card:#fff;
+    --accent:#1565d8; --accent2:#0b8a6b; --warn:#c2410c; --bear:#b3261e; --bull:#0b8a6b;
+    --usdt:#26a17b; --usdc:#2775ca; --other:#c9d2dc;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}
+  .wrap{max-width:860px;margin:0 auto;padding:48px 28px 80px;}
+  header.mast{border-bottom:3px solid var(--ink);padding-bottom:18px;margin-bottom:8px;}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+  h1{font-size:30px;line-height:1.15;margin:8px 0 6px;letter-spacing:-.02em;}
+  .dek{color:var(--muted);font-style:italic;font-size:16.5px;margin:0;}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;font-size:12.5px;color:var(--muted);}
+  .meta b{color:var(--ink);font-weight:700;}
+  h2{font-size:20px;margin:38px 0 6px;letter-spacing:-.01em;padding-top:10px;border-top:1px solid var(--line);}
+  h2 .n{color:var(--accent);font-variant-numeric:tabular-nums;}
+  .sum{background:#f1f6fe;border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 6px 6px 0;
+    font-style:italic;color:#23405f;margin:10px 0 14px;font-size:14.5px;}
+  p{margin:12px 0;} ul{margin:10px 0;padding-left:22px;} li{margin:5px 0;}
+  strong{font-weight:680;}
+  .ref{font-size:10.5px;color:#9aa6b2;vertical-align:super;font-variant-numeric:tabular-nums;}
+  .statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 6px;}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 12px 10px;}
+  .stat .v{font-size:21px;font-weight:760;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+  .stat .l{font-size:11px;color:var(--muted);line-height:1.25;margin-top:2px;}
+  .fig{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:18px 0;}
+  .fig h4{margin:0 0 12px;font-size:13px;letter-spacing:.02em;color:var(--ink);}
+  .fig .cap{font-size:11.5px;color:var(--muted);margin-top:10px;}
+  .bar-row{display:grid;grid-template-columns:74px 1fr 70px;align-items:center;gap:10px;margin:7px 0;font-size:12.5px;}
+  .bar-track{background:#eef2f7;border-radius:5px;height:20px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:5px;}
+  .bar-val{text-align:right;font-variant-numeric:tabular-nums;font-weight:650;}
+  .share{display:flex;height:30px;border-radius:6px;overflow:hidden;font-size:11px;color:#fff;font-weight:700;}
+  .share div{display:flex;align-items:center;justify-content:center;}
+  .legend{display:flex;gap:16px;margin-top:10px;font-size:12px;color:var(--muted);flex-wrap:wrap;}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px;}
+  .ff{position:relative;height:74px;margin:10px 0 2px;}
+  .ff .axis{position:absolute;left:0;right:0;bottom:18px;height:1px;background:var(--line);}
+  .ff .range{position:absolute;bottom:30px;height:14px;background:linear-gradient(90deg,#fde0db,#d9efe7);border-radius:7px;}
+  .ff .tick{position:absolute;bottom:0;font-size:10.5px;color:var(--muted);transform:translateX(-50%);white-space:nowrap;}
+  .ff .pt{position:absolute;bottom:24px;width:2px;height:26px;}
+  .ff .lbl{position:absolute;bottom:52px;font-size:11px;font-weight:700;transform:translateX(-50%);white-space:nowrap;}
+  .wf{display:grid;grid-template-columns:170px 1fr 78px;align-items:center;gap:10px;margin:6px 0;font-size:12.5px;}
+  footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:11.5px;}
+  .counter{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px 16px;font-style:italic;color:#7c2d12;margin:14px 0;}
+  details.sources{margin-top:24px;} details.sources summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--accent);}
+  .srcitem{padding:7px 0;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--muted);}
+  .srcitem b{color:var(--ink);} .srcitem a{color:var(--accent);text-decoration:none;word-break:break-all;}
+  @media(max-width:680px){.statgrid{grid-template-columns:repeat(2,1fr)}.wf{grid-template-columns:130px 1fr 64px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">Company Research · Stablecoin Infrastructure</div>
+  <h1>Circle Internet Group <span style="color:var(--muted);font-weight:500">(NYSE: CRCL)</span></h1>
+  <p class="dek">What Circle actually is, how a stablecoin issuer makes money, and why that model is a leveraged bet on interest rates and on one distribution partner.</p>
+  <div class="meta">
+    <span><b>Price</b> $113.00</span><span><b>Mkt cap</b> $30.2B</span>
+    <span><b>EV/Sales</b> 10.0×</span><span><b>52-wk</b> $49.90–$298.99</span>
+    <span><b>Date</b> 2026-05-31</span>
+  </div>
+</header>
+
+<div class="statgrid">
+  <div class="stat"><div class="v">$77.0B</div><div class="l">USDC in circulation, Q1'26 (+28% YoY)<span class="ref">S001</span></div></div>
+  <div class="stat"><div class="v">96%</div><div class="l">of FY25 revenue is reserve income<span class="ref">S021</span></div></div>
+  <div class="stat"><div class="v">~53%</div><div class="l">of gross reserve income paid to Coinbase<span class="ref">S050</span></div></div>
+  <div class="stat"><div class="v">±$756M</div><div class="l">reserve-income swing per ±100bps<span class="ref">S030</span></div></div>
+</div>
+
+<h2><span class="n">1.</span> Audience &amp; anchor question</h2>
+<p>This primer is for a smart-finance reader who has heard "Circle is the USDC company" but does not yet have the vocabulary to underwrite the equity. By the end you can: explain how a stablecoin issuer earns revenue; quantify Circle's dependence on rates and on Coinbase; place USDC against Tether; read the GENIUS Act's effect on the moat; and judge whether ~10× revenue is fair.</p>
+<p><em>The anchor question: if stablecoins are becoming real dollar infrastructure, is Circle the way to own that — or a rate-and-distribution sandwich priced like a software company?</em></p>
+
+<h2><span class="n">2.</span> What Circle is — a regulated float business</h2>
+<div class="sum">Circle issues USDC, a token redeemable 1:1 for dollars; it invests the dollars users hand over and keeps the interest — a money-market-fund-like float business, not a software or payments company.</div>
+<p>A <strong>stablecoin</strong> is a blockchain token designed to hold a constant value — for USDC, exactly one U.S. dollar. A user gives Circle $1, Circle mints 1 USDC, and holds the $1 in reserve. The token pays the holder nothing. What Circle does with the pooled dollars — invest them in short-term Treasuries and earn interest — <em>is the business.</em></p>
+<p>The scale is now meaningful: <strong>USDC circulation reached $77.0B at end-Q1'26</strong> (+28% YoY)<span class="ref">S001</span>, a new all-time high after collapsing from ~$55B in late 2022 to ~$24B in mid-2023 during the SVB scare<span class="ref">S004</span>. USDC settled <strong>$21.5T of on-chain volume in Q1'26</strong> (+263% YoY)<span class="ref">S002</span> across <strong>34 chains</strong><span class="ref">S014</span>. The mental model: <strong>Revenue ≈ (USDC circulation) × (reserve yield).</strong></p>
+
+<h2><span class="n">3.</span> The reserve-income engine</h2>
+<div class="sum">96% of revenue is "reserve income" — interest on the assets backing USDC — which makes the income statement a direct function of the Fed funds rate.</div>
+<p>Revenue comes from the <em>interest on other people's money</em>. Reserve income was <strong>96% of FY25 revenue</strong><span class="ref">S021</span> (~94% in Q1'26<span class="ref">S049</span>); the largest non-reserve line, subscription &amp; services, was just <strong>$34.9M in Q1'26</strong><span class="ref">S035</span>. Reserves sit in the BlackRock-managed <strong>Circle Reserve Fund ($66.3B at YE25)</strong><span class="ref">S032</span>, ~83% in Treasuries/repo<span class="ref">S013</span>. The reserve yield was <strong>3.5% in Q1'26, down 66bps YoY</strong><span class="ref">S029</span>.</p>
+
+<div class="fig">
+  <h4>Revenue &amp; reserve income — annual ($B)</h4>
+  <div class="bar-row"><span>FY2023</span><div class="bar-track"><div class="bar-fill" style="width:52.8%;background:var(--accent)"></div></div><span class="bar-val">$1.45</span></div>
+  <div class="bar-row"><span>FY2024</span><div class="bar-track"><div class="bar-fill" style="width:61.0%;background:var(--accent)"></div></div><span class="bar-val">$1.68</span></div>
+  <div class="bar-row"><span>FY2025</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">$2.75</span></div>
+  <div class="cap">FY25 +64% YoY <span class="ref">S022</span>. Topline tracks circulation × yield — a rate instrument. A ±100bps move shifts reserve income ±$756M <span class="ref">S030</span>.</div>
+</div>
+
+<h2><span class="n">4.</span> The Coinbase economics — Circle's defining cost</h2>
+<div class="sum">The biggest cost-of-revenue line is a revenue-share to Coinbase, which takes roughly half of gross reserve income — a contractual ceiling on margin, not an inefficiency.</div>
+<p>Under the 2023 Collaboration Agreement, <strong>Coinbase gets 100% of reserve income on USDC held on Coinbase, plus 50% of the residual off-platform</strong><span class="ref">S023</span>. Circle paid Coinbase <strong>~$1.4B in FY25</strong><span class="ref">S024</span> (from $924.5M restated FY24<span class="ref">S065</span>) — about <strong>53% of gross reserve income</strong> ($1.4B ÷ $2.64B)<span class="ref">S050</span>. Total distribution/transaction costs were <strong>$1.66B in FY25</strong><span class="ref">S026</span>, 58.6% of Q1'26 revenue<span class="ref">S027</span>. The offsetting lever: <strong>on-platform USDC of $13.7B (~18% of circulation)</strong><span class="ref">S034</span>.</p>
+
+<div class="fig">
+  <h4>Where a Q1'26 revenue dollar goes ($694M)</h4>
+  <div class="wf"><span>Revenue</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">$694M</span></div>
+  <div class="wf"><span>– Distribution &amp; txn (58.6%)</span><div class="bar-track"><div class="bar-fill" style="width:58.6%;background:var(--bear)"></div></div><span class="bar-val">$407M</span></div>
+  <div class="wf"><span>= Revenue less dist. (RLDC)</span><div class="bar-track"><div class="bar-fill" style="width:41.4%;background:var(--accent2)"></div></div><span class="bar-val">$287M</span></div>
+  <div class="wf"><span>= Net income (cont. ops)</span><div class="bar-track"><div class="bar-fill" style="width:7.96%;background:#0b8a6b"></div></div><span class="bar-val">$55M</span></div>
+  <div class="cap">Distribution is ~58.6% of revenue <span class="ref">S027</span>; net income $55.2M, down 15% YoY even as revenue grew 20% <span class="ref">S038</span><span class="ref">S063</span>.</div>
+</div>
+
+<h2><span class="n">5.</span> The market — a duopoly Circle does not lead</h2>
+<div class="sum">A ~$321B duopoly; Tether is ~2.5× USDC's size and vastly more profitable — that profitability gap is the central competitive fact.</div>
+<p>The <strong>stablecoin market is ~$321B</strong> (near an all-time high)<span class="ref">S005</span>. Tether (USDT) is <strong>~$189B, ~59% share</strong><span class="ref">S006</span><span class="ref">S007</span>; USDC second at <strong>~24%</strong><span class="ref">S008</span>. Tether earned <strong>&gt;$10B net profit in 2025</strong><span class="ref">S015</span> — vs Circle's GAAP loss — keeping all its float income and running a riskier reserve mix. Circle's edge is regulation: the <strong>first MiCA-compliant global issuer</strong> (EU, July 2024)<span class="ref">S019</span>.</p>
+
+<div class="fig">
+  <h4>Stablecoin market share (~$321B)</h4>
+  <div class="share">
+    <div style="width:59%;background:var(--usdt)">USDT 59%</div>
+    <div style="width:24%;background:var(--usdc)">USDC 24%</div>
+    <div style="width:17%;background:var(--other);color:#46505b">Others 17%</div>
+  </div>
+  <div class="legend">
+    <span><i style="background:var(--usdt)"></i>Tether ~$189B <span class="ref">S006</span></span>
+    <span><i style="background:var(--usdc)"></i>Circle USDC ~$77B <span class="ref">S008</span></span>
+    <span><i style="background:var(--other)"></i>USDe, PYUSD, RLUSD &amp; long tail <span class="ref">S016</span><span class="ref">S017</span><span class="ref">S018</span></span>
+  </div>
+</div>
+
+<h2><span class="n">6.</span> Financial profile — GAAP loss, cash profit</h2>
+<div class="sum">FY25 was a GAAP loss driven by one-time IPO stock comp; the business generates cash, but quarterly earnings are already decelerating as the yield falls.</div>
+<p>FY25 was a <strong>~$70M GAAP loss on $2.75B revenue</strong> — driven by a ~<strong>$424M one-time IPO-vesting stock-based comp charge</strong><span class="ref">S037</span>. Underlying it is cash-generative: <strong>Q1'26 net income $55.2M</strong><span class="ref">S038</span>, but <strong>down 15% YoY</strong> even as revenue grew 20%<span class="ref">S063</span>. Headcount ~1,100<span class="ref">S036</span>; zero corporate debt. Non-rate optionality is real but small: USYC $1.5B<span class="ref">S039</span>, CPN $8.3B annualized<span class="ref">S040</span>, Arc presale $222M<span class="ref">S064</span>.</p>
+
+<h2><span class="n">7.</span> Regulation — the double-edged moat</h2>
+<div class="sum">The GENIUS Act gave Circle a federal seal of approval — and simultaneously invited every bank and fintech to compete, while banning the one thing (paying holders yield) that could widen the moat.</div>
+<p>The <strong>GENIUS Act — the first U.S. federal stablecoin framework — was signed July 18, 2025</strong> (PL 119-27)<span class="ref">S046</span>. It mandates <strong>≥1:1 reserve backing</strong><span class="ref">S047</span>, monthly disclosure and certification, and <strong>prohibits issuers from paying holders any yield</strong><span class="ref">S048</span>. Double-edged: it legitimizes compliant issuers (a moat vs offshore Tether) but invites bank/fintech entrants and caps "pay holders yield" as a growth lever. The competitive entry is already visible — the stock fell ~30% into late May 2026 on bank-stablecoin news<span class="ref">S071</span>.</p>
+
+<h2><span class="n">8.</span> Investment lens &amp; valuation</h2>
+<p>This sits in the <strong>tokenization thesis</strong> — real dollars moving onto blockchain rails — and Circle is the cleanest public, regulated way to own that migration. The question is not "are stablecoins growing" but "how much accrues to Circle's equity, net of the rate cycle and the Coinbase split." CRCL trades at <strong>~10.0× EV/Sales</strong><span class="ref">S052</span> — richer than Coinbase (~9.1× P/S)<span class="ref">S053</span>, far above PayPal (~1.2× P/S)<span class="ref">S055</span>; only Robinhood is richer (~24.2×)<span class="ref">S054</span>.</p>
+
+<div class="fig">
+  <h4>Valuation football field — implied share price (FMP analyst panel, 5/31/26)</h4>
+  <div class="ff">
+    <div class="range" style="left:0%;right:0%;"></div>
+    <div class="axis"></div>
+    <div class="pt" style="left:0%;background:var(--bear)"></div>
+    <div class="lbl" style="left:0%;color:var(--bear)">Bear $77</div>
+    <div class="tick" style="left:0%">$77</div>
+    <div class="pt" style="left:31.9%;background:#11161d"></div>
+    <div class="lbl" style="left:31.9%">Spot $113</div>
+    <div class="tick" style="left:31.9%">$113</div>
+    <div class="pt" style="left:42.1%;background:var(--accent)"></div>
+    <div class="lbl" style="left:54%;color:var(--accent)">Consensus $124.63</div>
+    <div class="tick" style="left:42.1%">$125</div>
+    <div class="pt" style="left:100%;background:var(--bull)"></div>
+    <div class="lbl" style="left:100%;color:var(--bull)">Bull $190</div>
+    <div class="tick" style="left:100%">$190</div>
+  </div>
+  <div class="cap">Analyst 12-mo targets (single coherent FMP panel): consensus ~$125<span class="ref">S066</span>, bull $190<span class="ref">S067</span>, bear $77<span class="ref">S068</span>, vs ~$113 spot. The spread <em>is</em> the thesis: bulls underwrite circulation growth + rate stability; bears underwrite Fed cuts, the Coinbase drag, and competition. (This is the FMP panel; the broader Street is wider — ~$50 bear to ~$280 bull.) Full driver/sensitivity/scenario work in the linked model.</div>
+</div>
+
+<h2><span class="n">9.</span> Counter-thesis</h2>
+<div class="counter">The strongest opposing read is not "rates will fall" — it is that Circle is structurally a low-margin utility wearing a growth-stock valuation. Tether earns &gt;$10B keeping all its float income<span class="ref">S015</span>; Circle nets a fraction because it pays ~53% of gross reserve income to Coinbase<span class="ref">S050</span> and is barred by the GENIUS Act from paying holders yield<span class="ref">S048</span>. In this read, ~10× EV/Sales<span class="ref">S052</span> on a single-product business whose revenue is ~94% a leveraged bet on the Fed<span class="ref">S049</span> — with Q1 net income already down 15% YoY<span class="ref">S063</span> — prices the optionality (CPN, USYC, Arc) as if it were the business, when it is still rounding error. The bear doesn't need rates to crash; just the rate cycle to turn while Coinbase keeps its cut.</div>
+
+<details class="sources">
+  <summary>Sources — 71 findings (S001–S071)</summary>
+  <div class="srcitem"><b>S001</b> USDC circulation $77.0B, Q1'26 (+28% YoY) — SEC filing, 2026-05-11 — <a href="https://www.sec.gov/Archives/edgar/data/1876042/000187604226000148/final_05x11q1epr30.htm">sec.gov</a></div>
+  <div class="srcitem"><b>S021/S022</b> Reserve income 96% of revenue; FY25 revenue $2.747B — SEC 10-K, 2026-03-09</div>
+  <div class="srcitem"><b>S023/S024/S050/S065</b> Coinbase 100%/50% split; ~$1.4B paid FY25 (~53% of gross reserve income); FY24 restated $924.5M — SEC S-1/10-K</div>
+  <div class="srcitem"><b>S029/S030</b> Reserve yield 3.5% Q1'26; ±$756M per ±100bps — SEC 10-K</div>
+  <div class="srcitem"><b>S005/S006/S007/S008</b> Stablecoin market ~$321B; USDT ~$189B/59%; USDC ~24% — DefiLlama, 2026-05-31</div>
+  <div class="srcitem"><b>S015</b> Tether &gt;$10B net profit 2025 — CoinDesk, 2026-01-30</div>
+  <div class="srcitem"><b>S046/S047/S048</b> GENIUS Act signed 2025-07-18; ≥1:1 backing; yield prohibition (§4(a)(11)) — Public Law 119-27 (govinfo)</div>
+  <div class="srcitem"><b>S052–S071</b> EV/Sales 10.0×; peer multiples (COIN/HOOD/PYPL/GLXY); FMP analyst PT panel ($124.63 / $190 / $77); net rate sensitivity ±$387M (S069/S070); −30% bank-competition drop (S071) — FMP, SEC 10-K + trade press</div>
+</details>
+
+<footer>
+  Company research · 2026-05-31. Financial backbone cross-checked against company SEC filings (CIK 0001876042) and FMP market data.
+  Every figure traces to a primary source. <b>Indicative, not investment advice.</b>
+</footer>
+
+</div>
+</body>
+</html>
