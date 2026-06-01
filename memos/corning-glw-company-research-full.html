@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corning Incorporated (NYSE: GLW) — Company Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===== Body / type system (hub long-form) ===== */
+
+:root {
+    --bg: #FFFFFF;
+    --ink: #1a1a1a;
+    --ink-soft: #3D3D3D;
+    --muted: #6b6b6b;
+    --rule: #d1d5db;
+    --rule-soft: #e2e8f0;
+    --navy: #0E2A47;
+    --burgundy: #991b1b;
+    --bg-alt: #f7f5f2;
+}
+
+* { box-sizing: border-box; }
+html { font-size: 17px; scroll-behavior: smooth; }
+
+body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 1rem;
+    line-height: 1.62;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+.container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 48px 96px;
+}
+
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 { page-break-after: avoid; }
+
+h2 {
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--burgundy);
+    margin: 2.2em 0 0.6em;
+    border-bottom: 1px solid var(--rule-soft);
+    padding-bottom: 10px;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+}
+
+h3 {
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 1.4em 0 0.4em;
+}
+
+h4 {
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin: 1.2em 0 0.4em;
+    letter-spacing: 0.02em;
+}
+
+/* Paragraphs */
+
+p { margin: 0 0 1.05em; orphans: 2; widows: 2; }
+
+/* Links */
+
+a {
+    color: var(--burgundy);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(153, 27, 27, 0.25);
+    transition: border-bottom-color 0.15s ease;
+    word-break: break-word;
+}
+a:hover { border-bottom-color: var(--burgundy); }
+
+/* Lists */
+
+ul, ol { margin: 0 0 1.05em; padding-left: 1.4em; }
+li { margin-bottom: 0.45em; }
+li > p { margin: 0 0 0.4em; }
+
+/* Blockquotes — section BLUF, italic serif with left rule */
+
+blockquote {
+    margin: 0 0 1.2em;
+    padding: 0.5em 1.1em;
+    border-left: 3px solid var(--burgundy);
+    background: var(--bg-alt);
+    color: var(--ink-soft);
+    font-style: italic;
+}
+blockquote p { margin: 0; }
+
+/* Emphasis */
+
+strong { font-weight: 600; color: var(--ink); }
+em { font-style: italic; color: var(--ink-soft); }
+
+/* Tables — minimal lines, no fills */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0 1.4em;
+    font-size: 0.92em;
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+}
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+th, td {
+    border-bottom: 1px solid var(--rule-soft);
+    padding: 8px 12px 8px 0;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    font-weight: 700;
+    color: var(--navy);
+    border-bottom: 2px solid var(--ink);
+    letter-spacing: 0.02em;
+    font-size: 0.95em;
+}
+tr:last-child td { border-bottom: 1px solid var(--rule); }
+
+/* Horizontal rule — section separator */
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: 2.4em 0;
+}
+
+/* Images / charts */
+
+img { max-width: 100%; height: auto; display: block; margin: 1.4em auto; }
+
+/* Code */
+
+code {
+    font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+    font-size: 0.88em;
+    background: var(--bg-alt);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--navy);
+}
+
+/* Superscript footnote refs */
+
+sup { font-size: 0.72em; line-height: 0; }
+sup a.footnote-ref {
+    border-bottom: none;
+    font-variant-numeric: tabular-nums;
+    color: var(--burgundy);
+    font-weight: 600;
+}
+
+/* Footnotes block */
+
+.footnote {
+    margin-top: 2.8em;
+    padding-top: 0.4em;
+    font-size: 0.85em;
+    color: var(--muted);
+}
+.footnote ol { padding-left: 1.6em; }
+.footnote li { margin-bottom: 0.6em; line-height: 1.5; }
+.footnote li p { margin: 0; }
+.footnote a.footnote-backref { border-bottom: none; }
+
+/* Footer */
+
+footer {
+    margin-top: 3em;
+    border-top: 1px solid var(--rule);
+    padding-top: 16px;
+    color: var(--muted);
+    font-size: 12px;
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+}
+
+@media (max-width: 720px) {
+    .container { padding: 0 22px 64px; }
+    html { font-size: 16px; }
+    h2 { font-size: 20px; }
+    table { font-size: 0.88em; }
+    th, td { padding: 7px 8px 7px 0; }
+}
+@media print {
+    body { font-size: 11pt; line-height: 1.45; }
+    .container { max-width: none; padding: 24pt 36pt; }
+    a { color: var(--ink); border-bottom: 0; }
+    h2, h3 { page-break-after: avoid; }
+    table, blockquote { page-break-inside: avoid; }
+}
+</style>
+<link rel="stylesheet" href="../assets/hub-masthead.css">
+</head>
+<body>
+<div class="container">
+<header class="masthead">
+  <div class="masthead-top">
+    <span class="doctype">Company Research</span>
+    <span class="draft">1 June 2026</span>
+  </div>
+  <div class="title-block">
+    <h1 class="title">
+      Corning Incorporated (NYSE: GLW)
+      <span class="subtitle">Buy-side orientation: how a 175-year-old specialty-glass company became one of the largest passive-optical suppliers to the AI data-center buildout, and why the stock now trades as a referendum on the Springboard ramp.</span>
+    </h1>
+    <dl class="dossier">
+      <div class="row"><dt>Date</dt><dd>1 June 2026</dd></div>
+      <div class="row"><dt>Type</dt><dd>Company Research</dd></div>
+      <div class="row"><dt>Topic</dt><dd>AI Optical Infrastructure</dd></div>
+      <div class="row"><dt>Sources</dt><dd>94</dd></div>
+    </dl>
+  </div>
+  <p class="deck">The long-form companion to the GLW one-pager: segment mix, the optical-fiber franchise, the hyperscaler agreements and NVIDIA partnership driving the re-rating, and the bull/bear debate around a stock that has roughly doubled in a year.</p>
+</header>
+
+<h2 id="who-this-is-for-and-the-question-it-answers">Who this is for, and the question it answers</h2>
+<p>This primer orients a smart finance reader — fluent in numbers, new to the name — to <strong>Corning Incorporated (NYSE: GLW)</strong>, a 175-year-old specialty-glass and optical-physics company that has quietly become one of the largest <em>passive-optical</em> suppliers to the AI data-center buildout. The question it answers: <strong>what is Corning, how does it actually make money, and why does a materials company belong in an AI-infrastructure thesis?</strong> After reading, you should be able to hold your own on Corning&rsquo;s segment mix, its optical-fiber franchise, the hyperscaler agreements driving its re-rating, and the bull/bear debate around a stock that has roughly doubled in a year.</p>
+<hr>
+<h2 id="1-what-corning-is-and-where-it-sits-in-the-value-chain">§1 — What Corning is, and where it sits in the value chain</h2>
+<blockquote>
+<p><em>Corning is a components-and-materials supplier, not a finished-goods maker: it sells the glass, ceramic, and optical-fiber building blocks that go inside other companies&rsquo; products.</em></p>
+</blockquote>
+<p>Corning was incorporated in New York in 1936, tracing its glass business to 1851, and renamed from Corning Glass Works in 1989 <sup id="fnref:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. It runs three core technical competencies — specialty glass, ceramics, and optical physics — and sells the <em>components</em> that go inside someone else&rsquo;s system: optical fiber and cable into telecom carriers and hyperscale data centers; glass substrates into LCD panel makers; tough cover glass into smartphone OEMs and, increasingly, the semiconductor industry; ceramic substrates and filters into automakers; glass vials into pharma; and polysilicon into the solar supply chain. It is roughly <strong>67,200 employees across 44 countries</strong>, headquartered in Corning, New York, with a December fiscal year-end <sup id="fnref2:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>.</p>
+<p>Because Corning sits one layer <em>below</em> the brand-name product, its fortunes track the capital cycles of its customers — telecom and data-center capex, TV and IT-panel demand, smartphone units, auto production, and (newly) US solar policy. That is the lens for everything that follows: Corning is a <strong>picks-and-shovels</strong> play, and the pick that matters most right now is optical fiber for AI.</p>
+<hr>
+<h2 id="2-the-business-segments-and-the-revenue-mix">§2 — The business segments and the revenue mix</h2>
+<blockquote>
+<p><em>Five reportable segments (solar/polysilicon and other ventures sit in an &ldquo;all-other&rdquo; Hemlock &amp; Emerging Growth group), but two — Optical Communications and Display — produce the bulk of profit; Optical is now both the largest and the fastest-growing.</em></p>
+</blockquote>
+<p>For fiscal 2025 (the audited full-year basis in the 10-K), Corning reported on a <strong>core-sales</strong> basis — its non-GAAP measure that translates non-dollar revenue at hedged constant-currency rates to neutralize the large swings from its yen and won hedging program (defined fully in §5). Core sales totaled <strong>$16,408M</strong> <sup id="fnref3:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref4:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, which reconciles to GAAP net sales of <strong>$15,629M</strong> <sup id="fnref5:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> through a ~$779M constant-currency adjustment. The segment split (FY2025 core sales):</p>
+<table>
+<thead>
+<tr>
+<th>Segment</th>
+<th>FY2025 core sales</th>
+<th>% of total</th>
+<th>What it makes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Optical Communications</strong></td>
+<td>$6,274M <sup id="fnref72:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup></td>
+<td>38%</td>
+<td>Optical fiber, cable, and connectivity for carriers + data centers</td>
+</tr>
+<tr>
+<td><strong>Display</strong></td>
+<td>$3,697M <sup id="fnref73:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup></td>
+<td>23%</td>
+<td>Glass substrates for LCD/OLED panels</td>
+</tr>
+<tr>
+<td><strong>Specialty Materials</strong></td>
+<td>$2,211M <sup id="fnref74:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup></td>
+<td>13%</td>
+<td>Gorilla Glass (mobile) + advanced optics/glass for semiconductors</td>
+</tr>
+<tr>
+<td><strong>Automotive</strong></td>
+<td>$1,794M <sup id="fnref75:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup></td>
+<td>11%</td>
+<td>Ceramic emissions substrates/filters + automotive glass</td>
+</tr>
+<tr>
+<td><strong>Life Sciences</strong></td>
+<td>$972M <sup id="fnref76:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup></td>
+<td>6%</td>
+<td>Lab glassware, drug-packaging glass</td>
+</tr>
+<tr>
+<td><strong>Hemlock &amp; Emerging Growth</strong></td>
+<td>$1,460M <sup id="fnref77:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup></td>
+<td>9%</td>
+<td>Polysilicon/solar, pharma-glass tubing, new ventures</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Corning FY2025 core segment sales — Optical Communications is the largest at 38%." src="../assets/corning/fig1-segment-mix.png"></p>
+<p>A reporting note that matters for anyone reading the most recent quarter: <strong>effective Q1 2026 Corning recast its segments</strong> — combining Display and Specialty Materials into a new &ldquo;<strong>Glass Innovations</strong>&rdquo; segment and breaking <strong>Solar</strong> out as its own standalone segment. On that new basis, Q1 2026 ran Optical Communications $1,846M <sup id="fnref:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, Glass Innovations $1,420M <sup id="fnref2:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, Automotive $437M <sup id="fnref3:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, Solar $370M <sup id="fnref4:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, and Life Sciences &amp; Emerging Growth $272M <sup id="fnref6:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The economics are unchanged; only the buckets moved. This primer uses the FY2025 reportable-segment basis for the full-year mix and flags the new structure where the quarterly data requires it.</p>
+<hr>
+<h2 id="3-the-aidata-center-optical-thesis-the-reason-this-name-is-in-the-book">§3 — The AI/data-center optical thesis (the reason this name is in the book)</h2>
+<blockquote>
+<p><em>Old flow: Corning&rsquo;s optical business was a slow-growth telecom-carrier supplier. New flow: hyperscaler AI data centers are now the dominant driver, and Enterprise revenue has overtaken Carrier for the first time. What changed: Enterprise optical revenue went from $1,979M in 2024 to $3,195M in 2025 — up 61% in a year.</em></p>
+</blockquote>
+<p>Optical Communications splits into two product lines. <strong>Carrier</strong> is the legacy telecom business — fiber and cable sold to network operators for last-mile and long-haul. <strong>Enterprise</strong> is the data-center business — the dense fiber, cable, and connectivity that wire servers, switches, and buildings together inside and between hyperscale campuses. For FY2025, Carrier was <strong>$3,079M (+15%)</strong> <sup id="fnref7:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> and Enterprise was <strong>$3,195M (+61%)</strong> <sup id="fnref8:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, so <strong>Enterprise surpassed Carrier for the first time</strong> <sup id="fnref9:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. Corning&rsquo;s 10-K is explicit that Enterprise growth is driven by <strong>generative-AI</strong> data-center demand, while Carrier growth comes from fiber-to-the-home and data-center-interconnect buildout — not primarily AI <sup id="fnref10:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. Total Optical was <strong>$6,274M, up 35%</strong> <sup id="fnref11:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, and the segment threw off <strong>$1,048M of net income</strong> <sup id="fnref12:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> — Corning&rsquo;s single largest profit pool.</p>
+<p><img alt="Enterprise vs Carrier optical revenue, 2024 vs 2025 — Enterprise overtook Carrier in 2025." src="../assets/corning/fig2-enterprise-vs-carrier.png"></p>
+<p><strong>Why AI consumes so much fiber.</strong> A generative-AI training cluster connects tens of thousands of accelerators (GPUs) that must exchange data continuously; that fan-out requires vastly more optical interconnect per unit of compute than a traditional server hall. Citi estimates <strong>$500–1,000 of optical content per AI accelerator</strong> <sup id="fnref13:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> and, citing the Fiber Broadband Association, sees US hyperscale fiber-mile demand more than doubling — <strong>159M fiber-miles (2024) to 373M by 2029</strong>, ~2.3× <sup id="fnref14:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. Corning&rsquo;s GenAI product line is purpose-built for this: a new high-density fiber-and-cable system that fits <strong>2–4× more fiber into existing conduit</strong> <sup id="fnref15:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>.</p>
+<p><strong>The hyperscaler agreements — what is actually contracted vs. what is inferred.</strong> This is where discipline matters. Corning has disclosed <strong>three concluded multiyear Enterprise agreements with hyperscalers</strong> <sup id="fnref16:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref17:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The anchor is <strong>Meta</strong>, which committed to pay Corning <strong>up to $6 billion</strong> through 2030 for fiber, cable, and connectivity <sup id="fnref:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>. Two <em>additional</em> hyperscalers signed agreements that management describes as &ldquo;similar in size and duration&rdquo; to Meta&rsquo;s <sup id="fnref:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup> — but <strong>the customers are unnamed and no aggregate backlog figure has been disclosed.</strong> A widely-cited ~$18B implied total (3 × ~$6B) is an <em>analyst inference, not a company number</em>, and the $6B itself is a ceiling, not a contracted minimum <sup id="fnref18:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The honest statement is: one disclosed up-to-$6B anchor plus two comparable undisclosed deals — enough, with the NVIDIA partnership below, to drive a multi-plant US capacity expansion.</p>
+<p><strong>The NVIDIA partnership is separate — and strategically distinct.</strong> In May 2026 Corning announced a multiyear partnership with <strong>NVIDIA</strong> to expand US optical-connectivity manufacturing <strong>~10×</strong>, lift US fiber capacity <strong>&gt;50%</strong>, and build <strong>three new advanced facilities</strong> in North Carolina and Texas <sup id="fnref:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref2:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref19:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. This anchors a brand-new growth vector Corning calls the <strong>Photonics Market-Access Platform (MAP)</strong> — co-packaged-optics fiber connectivity sold directly to GenAI OEMs — targeted at a <strong>$10B revenue stream by 2030</strong> <sup id="fnref:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup><sup id="fnref20:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. Corning describes NVIDIA&rsquo;s commitment as directly fueling this expansion <sup id="fnref21:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; no specific funding amount, cost-share, or government grant has been disclosed.</p>
+<p><strong>Where Corning sits in the stack — and why co-packaged optics is a tailwind, not a threat.</strong> Corning is a <strong>passive-optical</strong> supplier: fiber, cable, connectors, MPO/MTP connector systems, and fiber-attach hardware — the parts with no electronics in them. The <strong>active</strong> layer — the transceivers, lasers, and photonic chips that turn electrons into light — belongs to Coherent, Lumentum, and Ciena, not Corning <sup id="fnref22:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. <strong>Co-packaged optics (CPO)</strong> — the next-generation design that moves the optical engine onto the switch package itself — is widely framed as disruptive to <em>active</em> component makers, but for Corning it is a <strong>tailwind</strong>: CPO still needs downstream fiber attach and connectorization, and moving &ldquo;scale-up&rdquo; GPU-to-GPU links (today nearly all copper) onto optics would be net-new fiber demand <sup id="fnref23:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. Corning is inside NVIDIA&rsquo;s CPO ecosystem alongside TSMC, Coherent, and Lumentum. Notably, Corning <strong>does not include meaningful scale-up optical revenue in its Springboard plan through 2028</strong> <sup id="fnref24:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> — it is an explicit upside option, and management flagged in Q1 2026 that the probability of a near-term scale-up contribution has risen <sup id="fnref25:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>.</p>
+<hr>
+<h2 id="4-market-and-competitive-position">§4 — Market and competitive position</h2>
+<blockquote>
+<p><em>Corning is the share leader in both optical fiber and display glass — oligopoly markets — and competes only at the edges of the high-multiple &ldquo;active optics&rdquo; names.</em></p>
+</blockquote>
+<p>In <strong>display glass substrate</strong>, Corning is #1 at roughly <strong>24%</strong> share, ahead of AGC (~18%) and Nippon Electric Glass (~12%); the top five hold ~95% — a clean oligopoly <sup id="fnref:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>. In <strong>optical fiber</strong>, the top five manufacturers hold <strong>&gt;40%</strong> of the global premium market and Corning is a top-two global player and the North American leader <sup id="fnref:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>. (One figure to handle carefully: a &ldquo;4.26% global fiber-<em>cable</em> market share&rdquo; appears in vendor data <sup id="fnref:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup> — that is a denominator artifact of a fragmented market with hundreds of small regional cablers, not a sign of weakness; Corning is named #1 in that same dataset.)</p>
+<p>The peer set falls into three buckets, and only some genuinely compete with Corning:</p>
+<ul>
+<li><strong>Copper/connector interconnect (passive, adjacent):</strong> <strong>Amphenol (APH)</strong> and <strong>TE Connectivity (TEL)</strong>. Citi&rsquo;s connector coverage ranks preference <strong>GLW &gt; APH &gt; TEL</strong>, arguing copper interconnect faces multiple compression as optical gains share; Amphenol&rsquo;s connectivity acquisitions push it into Corning&rsquo;s data-center optical lane.</li>
+<li><strong>Active optical systems/components (mostly non-overlapping):</strong> <strong>Ciena (CIEN)</strong> in packet-optical transport, <strong>Lumentum (LITE)</strong> and <strong>Coherent (COHR)</strong> in lasers/transceivers. Corning sells the passive layer <em>beneath</em> their active gear — these are comps for valuation framing more than head-to-head competitors.</li>
+<li><strong>Fiber/cable direct competitors:</strong> Prysmian, Sumitomo Electric, Fujikura, CommScope; <strong>display-glass:</strong> AGC and NEG.</li>
+</ul>
+<p>That positioning — share-leading in two oligopolies, with the fastest-growing slice (data-center optical) — is the spine of the bull case.</p>
+<hr>
+<h2 id="5-financial-profile">§5 — Financial profile</h2>
+<blockquote>
+<p><em>Double-digit revenue growth, expanding ~20% core operating margins, solid free cash flow, an investment-grade balance sheet, and a capital-return policy tilted to buybacks and a ~0.6%-yield dividend.</em></p>
+</blockquote>
+<p><strong>Growth and margins.</strong> FY2025 GAAP net sales were <strong>$15,629M</strong>, up ~19% <sup id="fnref26:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref27:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; core sales grew ~13% to <strong>$16,408M</strong> <sup id="fnref28:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref29:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. GAAP operating income was <strong>$2,279M (14.6% margin)</strong> <sup id="fnref30:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref31:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; on Corning&rsquo;s core basis, operating margin was <strong>19.3%</strong> <sup id="fnref32:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, up toward its 20% target. GAAP diluted EPS was <strong>$1.83</strong> <sup id="fnref33:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; <strong>core EPS was $2.52</strong>, up ~29% <sup id="fnref34:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref35:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. Momentum carried into Q1 2026: GAAP sales <strong>$4,144M</strong> <sup id="fnref36:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, core sales <strong>$4,345M (+18%)</strong> <sup id="fnref:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>, <strong>core operating margin 20.2%</strong> <sup id="fnref2:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>, and <strong>core EPS $0.70 (+30%)</strong> <sup id="fnref3:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>.</p>
+<p><strong>A word on &ldquo;core.&rdquo;</strong> Corning runs a large currency-hedging program (mainly Japanese yen and Korean won) and reports <strong>core performance measures</strong> that translate hedged revenue at constant rates and strip certain items. Core sales run above GAAP (the ~$779M FY2025 gap) precisely because the hedges smooth out dollar strength. Management guides and frames Springboard on the core basis, so the core numbers are the ones that drive the narrative — but a careful reader keeps both in view.</p>
+<p><strong>Cash and balance sheet.</strong> FY2025 operating cash flow was <strong>$2,695M</strong> against <strong>$1,282M of capex</strong>, for ~$1,413M of free cash flow <sup id="fnref37:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref38:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref39:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> (or <strong>$1,720M on Corning&rsquo;s adjusted-FCF basis</strong> <sup id="fnref40:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>). At March 31 2026, Corning held <strong>$1,755M cash</strong> against <strong>$8,973M total debt</strong>, for <strong>net debt of $7,218M</strong> <sup id="fnref41:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref42:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref43:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> — comfortably investment-grade against ~$3.9B of LTM EBITDA, with a long ~20-year average debt maturity. The dividend is <strong>$1.12/share annualized</strong> <sup id="fnref:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup> (~0.6% yield); buybacks are the primary cash-return lever, though Q1 2026 had none as cash funded the capacity ramp.</p>
+<p><strong>Capacity is the near-term cash story.</strong> Corning guides FY2026 capex to <strong>~$1.7B and notes it may be exceeded</strong> <sup id="fnref44:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref45:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> as it builds the NVIDIA/Meta-anchored US fiber and connectivity plants. Elevated capex is the price of the optical growth option.</p>
+<hr>
+<h2 id="6-valuation-snapshot-indicative">§6 — Valuation snapshot (indicative)</h2>
+<blockquote>
+<p><em>On the connectivity peer set, Corning trades at a premium to the copper names and roughly in line with the optical pure-plays on forward earnings. Even a bull-case DCF on management&rsquo;s Springboard trajectory lands below the current price; it is the comps and the sell-side targets that bracket it. The stock is priced for the ramp to deliver.</em></p>
+</blockquote>
+<p>All figures here tie to the linked model, <strong><code>corning-glw-comps-dcf_v1_2026-06-01.xlsx</code></strong> (comps + light DCF), as of a <strong>2026-05-28</strong> market snapshot; treat the output as indicative, not a price target.</p>
+<p>At ~<strong>$183/share</strong> and a <strong>~$157B market cap</strong> <sup id="fnref:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup><sup id="fnref2:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>, Corning trades at <strong>≈54× next-twelve-months consensus earnings</strong> <sup id="fnref2:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup> — or ~67× on a narrower FY2026 calendar-earnings basis <sup id="fnref:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup> — and ~88× trailing <sup id="fnref3:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>. The stock has roughly doubled over twelve months and pulled back from a ~$208–212 mid-May high. Two valuation lenses point in different directions.</p>
+<p><strong>Relative (comps) — brackets the price.</strong> Against the connectivity peer set (APH, TEL, CIEN, LITE, COHR), GLW&rsquo;s ~10.2× EV/Revenue sits just under the peer <strong>median of 10.9×</strong>; applying that median to GLW&rsquo;s revenue implies <strong>~$195/share</strong> (≈ +6%). On <strong>forward P/E</strong>, the peer <strong>median is 48.6×</strong> versus GLW&rsquo;s 54×, implying <strong>~$164/share</strong> (≈ −10%) — i.e., GLW carries a modest premium on earnings. (Trailing EV/EBITDA is unusable for the optical pure-plays — CIEN ~144×, LITE ~131× — because their LTM EBITDA is still recovering against sharp share-price runs; the forward lens is the honest one.) On market multiples, then, fair value <strong>brackets</strong> the current price at roughly <strong>$164–195</strong> (model Outputs tab).</p>
+<p><strong>Intrinsic (DCF) — sits well below.</strong> A disciplined five-year unlevered-free-cash-flow DCF on Corning&rsquo;s core fundamentals produces a <strong>base case of only ~$64/share</strong> (WACC 9.0%, terminal growth 3.0%), a <strong>bear of ~$28</strong> (WACC 10.0%, 2.0%), and a <strong>bull of ~$111</strong> (WACC 8.5%, 4.0%) — the bull approximating management&rsquo;s Springboard trajectory (model Scenarios tab; each case moves the discount and terminal-growth assumptions together with the operating drivers). Every DCF scenario lands <strong>below</strong> the $183 price. That is not a claim Corning is &ldquo;worth $64&rdquo; — it is the model quantifying how much of the price rests on the <em>GenAI-optical ramp and a momentum multiple</em> rather than on cash already in hand: to reproduce $183 a DCF needs sustained mid-teens growth for a decade plus a terminal multiple well above what even the bull case&rsquo;s assumptions permit.</p>
+<p><strong>The tension, stated plainly.</strong> Market-based methods cluster <em>around</em> the price — comps at $164–195, and a sell-side consensus of <strong>Buy, average target $197.67</strong> (range $149–$230) <sup id="fnref2:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>, with post-investor-day raises to <strong>$225 (Citi)</strong> <sup id="fnref:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup> and <strong>$210 (Oppenheimer)</strong> <sup id="fnref46:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> anchored to a CY2028 EPS bridge near <strong>$5.10</strong> <sup id="fnref47:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. Intrinsic cash-flow methods sit <em>well below</em> it. Corning&rsquo;s valuation is, in effect, a referendum on whether the GenAI optical super-cycle is durable enough to justify a multiple that discounted cash flows do not support.</p>
+<p><img alt="Valuation football field — DCF ($28–111) sits below the ~$183 price; comps ($164–195) and sell-side ($149–230) bracket it." src="../assets/corning/fig3-football-field.png"></p>
+<hr>
+<h2 id="7-risks-and-what-to-watch">§7 — Risks and what to watch</h2>
+<blockquote>
+<p><em>The debate is not &ldquo;is the AI optical story real&rdquo; — it is &ldquo;is it already in the price,&rdquo; plus three structural risks that predate AI.</em></p>
+</blockquote>
+<p><strong>Risks.</strong><br>
+- <strong>Valuation / expectations.</strong> At ~54× forward earnings <sup id="fnref4:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>, much of the Springboard ramp is already discounted; JPMorgan <strong>downgraded</strong> the stock on valuation, arguing investors must &ldquo;dial forward to calendar 2028 earnings&rdquo; and that the near-term Meta benefit is &ldquo;muted by most of the existing capacity being spoken for&rdquo; <sup id="fnref48:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref49:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The stock was +65% YTD into the downgrade <sup id="fnref50:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>.<br>
+- <strong>Display / China.</strong> Display is a secularly declining-volume, China-exposed business; Q1 2026 display glass volume fell and Citi models PC units −15% and smartphone units −17% for 2026 <sup id="fnref51:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref52:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. TFT-LCD glass demand is modeled down ~2% in 2026 <sup id="fnref53:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. Profit has held flat on price/mix and the yen hedge <sup id="fnref54:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref55:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, but the volume direction is down.<br>
+- <strong>Customer concentration.</strong> A handful of customers drive each segment — top three are ~59% of Display and ~61% of Automotive, and the top two ~28% of Optical <sup id="fnref56:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The hyperscaler deals concentrate Optical further.<br>
+- <strong>Solar policy dependence.</strong> Corning built the largest US solar-wafer/polysilicon capacity specifically to capture domestic-content and manufacturing tax incentives; a subsidy or tariff reversal is the key downside, and the wafer ramp is already running behind plan (a ~$30M / ~$0.07-EPS Q2 drag) <sup id="fnref57:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref58:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref59:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>.<br>
+- <strong>Cyclicality + capital intensity + FX.</strong> Optical/telecom carrier capex is cyclical <sup id="fnref60:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; Corning is capital-intensive with capex that &ldquo;may be exceeded&rdquo; <sup id="fnref61:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; and a large share of sales, costs, and cash flow is non-dollar <sup id="fnref62:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>.</p>
+<p><strong>Catalysts to watch.</strong> The next <strong>Q2 2026 print (late July)</strong> — watch the solar-wafer recovery and the Optical run-rate <sup id="fnref63:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; <strong>incremental hyperscaler/OEM deal announcements</strong> <sup id="fnref64:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; execution of the <strong>10× US optical-connectivity capacity ramp</strong> (and the &gt;50% fiber-capacity expansion) under the NVIDIA partnership <sup id="fnref65:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; <strong>display pricing renewals</strong> <sup id="fnref66:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; and <strong>US solar policy</strong> <sup id="fnref67:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>.</p>
+<hr>
+<h2 id="investment-lens-how-corning-maps-to-the-ai-infrastructure-thesis">Investment lens — how Corning maps to the AI-infrastructure thesis</h2>
+<p>Corning is the cleanest <strong>public, passive-optical</strong> way to own the AI data-center fiber buildout. Where the active-optics names (Coherent, Lumentum, Ciena) carry transceiver-cycle risk and triple-digit trailing multiples, Corning pairs a share-leading fiber-and-connectivity franchise with a diversified, cash-generative base (display, specialty, auto, life sciences) that funds the optical capacity ramp. The thesis is concentrated in one line of the model: <strong>Enterprise optical revenue, $3,195M in 2025 and growing 61%</strong> <sup id="fnref68:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref69:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, plus the option value of three hyperscaler agreements (anchored by Meta&rsquo;s up-to-$6B <sup id="fnref2:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>) and the NVIDIA-anchored Photonics MAP ($10B targeted by 2030 <sup id="fnref2:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>). The comps + DCF model (<code>corning-glw-comps-dcf_v1_2026-06-01.xlsx</code>) is the source of truth for the valuation; this primer&rsquo;s job is to make the optical story legible. Within the AI-infrastructure thesis, Corning sits beside the broader <strong>networking-interconnect primer</strong> (2026-05-25) as the connectivity-layer beneficiary of the same hyperscaler capex the BOM and data-center-capex models size.</p>
+<p><em>Counter-thesis (JPMorgan, April 2026): the AI optical ramp is real but already in the price. At ~67× forward earnings (FY2026 calendar-earnings basis), the stock discounts most of the Springboard plan; the near-term Meta benefit is &ldquo;muted by most of the existing capacity being spoken for,&rdquo; and investors are forced to &ldquo;dial forward to calendar 2028 earnings&rdquo; to justify the multiple <sup id="fnref70:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref71:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref3:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>. Layer on a secularly shrinking, China-exposed Display business and a solar bet dependent on US policy that is already running behind plan, and the risk/reward at a doubled share price is far less obvious than the headline AI narrative suggests.</em></p>
+<hr>
+<h2 id="sources">Sources</h2>
+<p>Primary financials are SEC EDGAR (Corning CIK 0000024741: FY2025 10-K filed 2026-02-12; Q1 2026 10-Q filed 2026-05-01); the Q1 2026 results and Springboard/Meta/NVIDIA disclosures are Corning press releases and the Q1 2026 earnings call; peer comps are stockanalysis.com market data as of 2026-05-28/29; sell-side framing is Citi, JPMorgan, and Oppenheimer.</p>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:fn-1">
+<p>Corning FY2025 10-K (SEC EDGAR), Item 1 Business — &ldquo;Corning&#x27;s glass business was established in 1851; the present corporation was incorporated in the State of New York in December 1936; the name was changed from Corning Glass Works to Corning Incorporated on April 28, 1989.&rdquo; Filed 2026-02-12.&#160;<a class="footnote-backref" href="#fnref:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref15:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref16:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref17:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref18:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref19:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref20:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref21:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref22:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref23:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref24:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref25:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref26:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref27:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref28:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref29:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref30:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref31:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref32:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref33:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref34:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref35:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref36:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref37:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref38:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref39:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref40:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref41:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref42:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref43:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref44:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref45:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref46:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref47:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref48:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref49:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref50:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref51:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref52:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref53:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref54:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref55:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref56:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref57:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref58:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref59:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref60:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref61:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref62:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref63:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref64:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref65:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref66:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref67:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref68:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref69:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref70:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref71:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref72:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref73:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref74:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref75:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref76:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref77:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-2">
+<p>Corning &ldquo;Optical Communications segment net sales (new segment structure, GAAP-consistent), Q1 2026.&rdquo; Corning Q1 2026 results and segment-recast announcement, 2026-04-28.&#160;<a class="footnote-backref" href="#fnref:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-3">
+<p>Corning &ldquo;Meta multiyear fiber/cable/connectivity agreement size (up to $6B).&rdquo; Corning–Meta press release, 2026-01-27 · <a href="https://www.corning.com/worldwide/en/about-us/news-events/news-releases/2026/01/corning-and-meta-announce-multiyear-up-to-6-billion-agreement-to-accelerate-us-data-center-buildout.html">corning.com</a>; up-to-$6B figure restated verbatim on the Corning Q1 2026 earnings call (2026-04-28).&#160;<a class="footnote-backref" href="#fnref:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-4">
+<p>Corning &ldquo;Two additional hyperscale customers signed large long-term agreements similar in size and duration to Meta.&rdquo; Corning Q1 2026 results release / earnings call, 2026-04-28 · <a href="https://investor.corning.com/news-and-events/news/news-details/2026/Corning-Announces-Strong-First-Quarter-2026-Financial-Results-1/default.aspx">investor.corning.com</a>.&#160;<a class="footnote-backref" href="#fnref:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-5">
+<p>NVIDIA–Corning press release &ldquo;Corning to expand US optical-connectivity capacity ~10x.&rdquo; 2026-05-06 · <a href="https://nvidianews.nvidia.com/news/nvidia-and-corning-announce-long-term-partnership-to-strengthen-us-manufacturing-for-ai-infrastructure">nvidianews.nvidia.com</a> (mirror: <a href="https://www.businesswire.com/news/home/20260505477353/en/">businesswire.com</a>).&#160;<a class="footnote-backref" href="#fnref:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-6">
+<p>NVIDIA–Corning press release &ldquo;US fiber production capacity expansion (&gt;50%).&rdquo; 2026-05-06 · <a href="https://nvidianews.nvidia.com/news/nvidia-and-corning-announce-long-term-partnership-to-strengthen-us-manufacturing-for-ai-infrastructure">nvidianews.nvidia.com</a>.&#160;<a class="footnote-backref" href="#fnref:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-7">
+<p>Corning &ldquo;Photonics Market-Access Platform — targeted revenue stream by 2030 (new GenAI OEM platform).&rdquo; Corning Springboard upgrade press release, 2026-05-06 · <a href="https://www.corning.com/worldwide/en/about-us/news-events/news-releases/2026/05/corning-upgrades-and-extends-springboard-plan-outlines-new-phase-of-accelerating-growth.html">corning.com</a>.&#160;<a class="footnote-backref" href="#fnref:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-8">
+<p>&ldquo;Display glass substrate global market share.&rdquo; Dataintelo, TFT-LCD glass substrate market report, 2023-07-20 · <a href="https://dataintelo.com/report/global-tft-lcd-glass-substrate-market">dataintelo.com</a>.&#160;<a class="footnote-backref" href="#fnref:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-9">
+<p>&ldquo;Top-5 manufacturers&rsquo; combined share of global display glass substrate.&rdquo; Infinity Market Research, glass substrates for displays market, 2025-12-23 · <a href="https://infinitymarketresearch.com/report/glass-substrates-for-displays-market/44894">infinitymarketresearch.com</a>.&#160;<a class="footnote-backref" href="#fnref:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-10">
+<p>&ldquo;Top-5 manufacturers&rsquo; combined share of global pure optical fiber.&rdquo; Valuates Reports, global optical fiber market, 2026-06-01 · <a href="https://reports.valuates.com/market-reports/QYRE-Auto-23J10091/global-optical-fiber">reports.valuates.com</a>.&#160;<a class="footnote-backref" href="#fnref:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-11">
+<p>&ldquo;Global fiber optical cable market share (2023, total fragmented market).&rdquo; Research and Markets via Business Wire, 2025-02-13 · <a href="https://www.businesswire.com/news/home/20250213025563/en/">businesswire.com</a>.&#160;<a class="footnote-backref" href="#fnref:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-12">
+<p>Corning &ldquo;Core sales (non-GAAP, consolidated), Q1 2026.&rdquo; Corning Q1 2026 earnings call and results release, 2026-04-28 · <a href="https://investor.corning.com/news-and-events/news/news-details/2026/Corning-Announces-Strong-First-Quarter-2026-Financial-Results-1/default.aspx">investor.corning.com</a>.&#160;<a class="footnote-backref" href="#fnref:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-13">
+<p>&ldquo;Dividend per share (annual, declared), 2025.&rdquo; Yahoo Finance, GLW quote, 2026-05-29 · <a href="https://finance.yahoo.com/quote/GLW/">finance.yahoo.com</a>.&#160;<a class="footnote-backref" href="#fnref:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-14">
+<p>&ldquo;Market cap and valuation multiples.&rdquo; stockanalysis.com, GLW statistics, 2026-06-01 · <a href="https://stockanalysis.com/stocks/glw/statistics/">stockanalysis.com</a>.&#160;<a class="footnote-backref" href="#fnref:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-15">
+<p>&ldquo;GLW forward P/E ~67x (FY2026 basis) and TTM P/E ~87x at the May 29 2026 close of $181.16 — rich multiple already discounting the AI optical ramp; sell-side consensus Buy, average target $197.67 (range $149–$230).&rdquo; stockanalysis.com, GLW forecast, 2026-05-29 · <a href="https://stockanalysis.com/stocks/glw/forecast/">stockanalysis.com</a>.&#160;<a class="footnote-backref" href="#fnref:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-16">
+<p>Citi (via TipRanks/TheFly): post-investor-day, Citi raised its price target to $225 (from $175) and maintained Buy (2026-05-07), citing the 10x optical-connectivity / &gt;50% US-fiber capacity expansion · <a href="https://www.tipranks.com/news/the-fly/corning-price-target-raised-to-225-from-175-at-citi-thefly-news">tipranks.com</a>.&#160;<a class="footnote-backref" href="#fnref:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<footer>
+Company research · 2026-06-01. Financial backbone cross-checked against Corning SEC filings (CIK 0000024741) and market data; comps + light DCF in the linked model. Every figure traces to a primary source. <strong>Indicative, not investment advice.</strong>
+</footer>
+</div>
+</body>
+</html>
