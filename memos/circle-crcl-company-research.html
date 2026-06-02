@@ -2,186 +2,653 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Circle Internet Group (NYSE: CRCL) — Company Research</title>
+<title>Circle Internet Group (NYSE: CRCL) — Deeper Report</title>
 <style>
-  :root{
-    --ink:#11161d; --muted:#5b6671; --line:#e4e8ee; --bg:#fbfcfd; --card:#fff;
-    --accent:#1565d8; --accent2:#0b8a6b; --warn:#c2410c; --bear:#b3261e; --bull:#0b8a6b;
-    --usdt:#26a17b; --usdc:#2775ca; --other:#c9d2dc;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);
-    font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;}
-  .wrap{max-width:860px;margin:0 auto;padding:48px 28px 80px;}
-  header.mast{border-bottom:3px solid var(--ink);padding-bottom:18px;margin-bottom:8px;}
-  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;}
-  h1{font-size:30px;line-height:1.15;margin:8px 0 6px;letter-spacing:-.02em;}
-  .dek{color:var(--muted);font-style:italic;font-size:16.5px;margin:0;}
-  .meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;font-size:12.5px;color:var(--muted);}
-  .meta b{color:var(--ink);font-weight:700;}
-  h2{font-size:20px;margin:38px 0 6px;letter-spacing:-.01em;padding-top:10px;border-top:1px solid var(--line);}
-  h2 .n{color:var(--accent);font-variant-numeric:tabular-nums;}
-  .sum{background:#f1f6fe;border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 6px 6px 0;
-    font-style:italic;color:#23405f;margin:10px 0 14px;font-size:14.5px;}
-  p{margin:12px 0;} ul{margin:10px 0;padding-left:22px;} li{margin:5px 0;}
-  strong{font-weight:680;}
-  .ref{font-size:10.5px;color:#9aa6b2;vertical-align:super;font-variant-numeric:tabular-nums;}
-  .statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 6px;}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 12px 10px;}
-  .stat .v{font-size:21px;font-weight:760;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
-  .stat .l{font-size:11px;color:var(--muted);line-height:1.25;margin-top:2px;}
-  .fig{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:18px 0;}
-  .fig h4{margin:0 0 12px;font-size:13px;letter-spacing:.02em;color:var(--ink);}
-  .fig .cap{font-size:11.5px;color:var(--muted);margin-top:10px;}
-  .bar-row{display:grid;grid-template-columns:74px 1fr 70px;align-items:center;gap:10px;margin:7px 0;font-size:12.5px;}
-  .bar-track{background:#eef2f7;border-radius:5px;height:20px;overflow:hidden;}
-  .bar-fill{height:100%;border-radius:5px;}
-  .bar-val{text-align:right;font-variant-numeric:tabular-nums;font-weight:650;}
-  .share{display:flex;height:30px;border-radius:6px;overflow:hidden;font-size:11px;color:#fff;font-weight:700;}
-  .share div{display:flex;align-items:center;justify-content:center;}
-  .legend{display:flex;gap:16px;margin-top:10px;font-size:12px;color:var(--muted);flex-wrap:wrap;}
-  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px;}
-  .ff{position:relative;height:74px;margin:10px 0 2px;}
-  .ff .axis{position:absolute;left:0;right:0;bottom:18px;height:1px;background:var(--line);}
-  .ff .range{position:absolute;bottom:30px;height:14px;background:linear-gradient(90deg,#fde0db,#d9efe7);border-radius:7px;}
-  .ff .tick{position:absolute;bottom:0;font-size:10.5px;color:var(--muted);transform:translateX(-50%);white-space:nowrap;}
-  .ff .pt{position:absolute;bottom:24px;width:2px;height:26px;}
-  .ff .lbl{position:absolute;bottom:52px;font-size:11px;font-weight:700;transform:translateX(-50%);white-space:nowrap;}
-  .wf{display:grid;grid-template-columns:170px 1fr 78px;align-items:center;gap:10px;margin:6px 0;font-size:12.5px;}
-  footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:11.5px;}
-  .counter{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px 16px;font-style:italic;color:#7c2d12;margin:14px 0;}
-  details.sources{margin-top:24px;} details.sources summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--accent);}
-  .srcitem{padding:7px 0;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--muted);}
-  .srcitem b{color:var(--ink);} .srcitem a{color:var(--accent);text-decoration:none;word-break:break-all;}
-  @media(max-width:680px){.statgrid{grid-template-columns:repeat(2,1fr)}.wf{grid-template-columns:130px 1fr 64px}}
+/* ===== Page templates ===== */
+
+@page {
+    size: Letter;
+    margin: 0.7in 0.75in 0.8in 0.75in;
+    @top-left {
+        content: "Hendren HQ Research";
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        font-weight: 600;
+        color: #1a1a1a;
+        letter-spacing: 0.04em;
+    }
+    @top-right {
+        content: string(running-title);
+        font-family: Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6b6b6b;
+    }
+    @bottom-center {
+        content: "Hendren HQ Research  ·  Page " counter(page) " of " counter(pages);
+        font-family: Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6b6b6b;
+    }
+}
+
+@page cover {
+    margin: 0;
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-center { content: none; }
+}
+
+/* ===== Cover page ===== */
+
+.cover-page {
+    page: cover;
+    page-break-after: always;
+    width: 100%;
+    min-height: 9.5in;
+    padding: 1.8in 1in 0.9in 1in;
+    text-align: center;
+    box-sizing: border-box;
+}
+.cover-wordmark {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    margin-bottom: 8pt;
+}
+.cover-wordmark-rule {
+    width: 36pt;
+    height: 1.5pt;
+    background: #991b1b;
+    margin: 0 auto 64pt auto;
+}
+.cover-title {
+    string-set: running-title content();
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.25;
+    margin: 0 0 12pt 0;
+    letter-spacing: -0.005em;
+}
+.cover-subtitle {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 14pt;
+    color: #4b5563;
+    font-style: italic;
+    font-weight: 400;
+    margin: 0 0 64pt 0;
+}
+.cover-meta {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    color: #4b5563;
+    letter-spacing: 0.04em;
+    margin: 4pt 0;
+}
+.cover-meta strong {
+    color: #1a1a1a;
+    font-weight: 600;
+}
+.cover-divider {
+    width: 80pt;
+    height: 0.5pt;
+    background: #d1d5db;
+    margin: 40pt auto;
+}
+.cover-stats {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-top: 24pt;
+    font-size: 10pt;
+    color: #4b5563;
+}
+.cover-stats .stat {
+    margin: 0 14pt;
+}
+.cover-stats strong {
+    color: #1a1a1a;
+    font-weight: 600;
+}
+.cover-footer {
+    margin-top: 80pt;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 9pt;
+    color: #6b6b6b;
+    font-style: italic;
+}
+
+/* ===== Body ===== */
+
+html { font-size: 11pt; }
+
+body {
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 100%;
+}
+
+/* Title block for body-only docs (no cover page) */
+.doc-title {
+    string-set: running-title content();
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 24pt;
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.25;
+    margin: 0 0 6pt 0;
+    letter-spacing: -0.005em;
+}
+.doc-meta {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6b6b6b;
+    letter-spacing: 0.04em;
+    margin: 0 0 22pt 0;
+    padding-bottom: 12pt;
+    border-bottom: 0.5pt solid #e2e8f0;
+}
+
+/* Page break marker for section transitions (briefs in a packet) */
+.page-break {
+    page-break-before: always;
+    height: 0;
+}
+
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22pt;
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.3;
+    margin: 0 0 6pt 0;
+    letter-spacing: -0.005em;
+    string-set: running-title content();
+}
+
+h2 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 24pt 0 8pt 0;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+}
+
+h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 14pt 0 4pt 0;
+}
+
+h4 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 12pt 0 4pt 0;
+    letter-spacing: 0.04em;
+}
+
+h5, h6 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    margin: 10pt 0 4pt 0;
+    color: #1a1a1a;
+}
+
+/* Paragraphs */
+
+p {
+    margin: 0 0 10pt 0;
+    orphans: 2;
+    widows: 2;
+}
+
+/* Links */
+
+a {
+    color: #991b1b;
+    text-decoration: none;
+    border-bottom: 0.5pt solid #991b1b;
+    word-break: break-word;
+}
+
+/* Lists */
+
+ul, ol {
+    margin: 8pt 0;
+    padding-left: 22pt;
+}
+li {
+    margin: 5pt 0;
+}
+li > ul, li > ol {
+    margin: 4pt 0;
+}
+
+/* Blockquotes — large opening quotation mark, italic serif */
+
+blockquote {
+    margin: 14pt 0 4pt 14pt;
+    padding: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    color: #1a1a1a;
+    font-size: 11pt;
+    line-height: 1.55;
+    text-indent: 0;
+}
+blockquote::before {
+    content: "\201C";
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    color: #991b1b;
+    line-height: 0;
+    vertical-align: -0.35em;
+    margin-right: 4pt;
+    font-style: normal;
+}
+blockquote p { margin: 0 0 8pt 0; display: inline; }
+blockquote p:last-child { margin-bottom: 0; }
+
+/* Citation line that follows a blockquote (italic em-dashed source) */
+
+.citation {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6b6b6b;
+    margin: 4pt 0 14pt 18pt;
+    font-style: normal;
+}
+
+/* BLUF callout — italic serif with red left rule, no fill */
+
+.bluf {
+    border-left: 2pt solid #991b1b;
+    padding: 4pt 0 4pt 18pt;
+    margin: 4pt 0 18pt 0;
+    font-style: italic;
+    font-size: 11pt;
+    color: #1a1a1a;
+    page-break-inside: avoid;
+}
+.bluf h2, .bluf h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #991b1b;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 4pt 0;
+    font-style: normal;
+}
+.bluf p { margin: 0 0 8pt 0; font-style: italic; }
+.bluf p:last-child { margin-bottom: 0; }
+.bluf strong { font-style: italic; }
+
+/* "What to ask Jeff" — distinguished section (optional class wrap) */
+
+.ask {
+    border-top: 0.5pt solid #d1d5db;
+    border-bottom: 0.5pt solid #d1d5db;
+    padding: 12pt 0 4pt 0;
+    margin: 22pt 0;
+}
+
+/* Code (rare in briefs but supported) */
+
+code {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9.5pt;
+    background: #f3f3f0;
+    padding: 1pt 4pt;
+    border-radius: 2pt;
+}
+pre {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9pt;
+    background: #f7f5f2;
+    padding: 10pt 12pt;
+    border-radius: 3pt;
+    line-height: 1.4;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code { background: transparent; padding: 0; }
+
+/* Tables — minimal lines, no fills (editorial restraint) */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 14pt 0;
+    font-size: 10pt;
+    page-break-inside: auto;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+th, td {
+    border-bottom: 0.5pt solid #d1d5db;
+    padding: 6pt 8pt 6pt 0;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    font-weight: 700;
+    color: #1a1a1a;
+    border-bottom: 1pt solid #1a1a1a;
+    letter-spacing: 0.02em;
+    font-size: 9.5pt;
+}
+
+/* Horizontal rule — visible separator inside a section (NOT a page break) */
+
+hr {
+    border: 0;
+    border-top: 0.5pt solid #d1d5db;
+    margin: 18pt 0;
+}
+
+/* Images */
+
+img { max-width: 100%; height: auto; }
+
+/* Emphasis */
+
+strong { font-weight: 700; color: #1a1a1a; }
+em { font-style: italic; }
+
+/* Topic tag / meta line at top of each brief */
+
+.brief-meta-line {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6b6b6b;
+    letter-spacing: 0.04em;
+    margin: 0 0 22pt 0;
+    padding-bottom: 12pt;
+    border-bottom: 0.5pt solid #e2e8f0;
+}
+.brief-meta-line .tag {
+    color: #991b1b;
+    font-style: italic;
+}
+
+/* Source list at the bottom of each brief */
+
+.sources-block {
+    margin-top: 28pt;
+    padding-top: 14pt;
+    border-top: 0.5pt solid #d1d5db;
+    font-size: 9.5pt;
+    color: #4b5563;
+}
+.sources-block h2,
+.sources-block h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #1a1a1a;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 8pt 0;
+    font-weight: 700;
+}
+.sources-block ul { padding-left: 18pt; margin: 0; }
+.sources-block li { margin: 3pt 0; }
 </style>
 </head>
 <body>
-<div class="wrap">
-
-<header class="mast">
-  <div class="eyebrow">Company Research · Stablecoin Infrastructure</div>
-  <h1>Circle Internet Group <span style="color:var(--muted);font-weight:500">(NYSE: CRCL)</span></h1>
-  <p class="dek">What Circle actually is, how a stablecoin issuer makes money, and why that model is a leveraged bet on interest rates and on one distribution partner.</p>
-  <div class="meta">
-    <span><b>Price</b> $113.00</span><span><b>Mkt cap</b> $30.2B</span>
-    <span><b>EV/Sales</b> 10.0×</span><span><b>52-wk</b> $49.90–$298.99</span>
-    <span><b>Date</b> 2026-05-31</span>
-  </div>
-</header>
-
-<div class="statgrid">
-  <div class="stat"><div class="v">$77.0B</div><div class="l">USDC in circulation, Q1'26 (+28% YoY)<span class="ref">S001</span></div></div>
-  <div class="stat"><div class="v">96%</div><div class="l">of FY25 revenue is reserve income<span class="ref">S021</span></div></div>
-  <div class="stat"><div class="v">~53%</div><div class="l">of gross reserve income paid to Coinbase<span class="ref">S050</span></div></div>
-  <div class="stat"><div class="v">±$756M</div><div class="l">reserve-income swing per ±100bps<span class="ref">S030</span></div></div>
-</div>
-
-<h2 id="1-audience-anchor-question"><span class="n">1.</span> Audience &amp; anchor question</h2>
-<p>This primer is for a smart-finance reader who has heard "Circle is the USDC company" but does not yet have the vocabulary to underwrite the equity. By the end you can: explain how a stablecoin issuer earns revenue; quantify Circle's dependence on rates and on Coinbase; place USDC against Tether; read the GENIUS Act's effect on the moat; and judge whether ~10× revenue is fair.</p>
-<p><em>The anchor question: if stablecoins are becoming real dollar infrastructure, is Circle the way to own that — or a rate-and-distribution sandwich priced like a software company?</em></p>
-
-<h2 id="2-what-circle-is-a-regulated-float-business"><span class="n">2.</span> What Circle is — a regulated float business</h2>
-<div class="sum">Circle issues USDC, a token redeemable 1:1 for dollars; it invests the dollars users hand over and keeps the interest — a money-market-fund-like float business, not a software or payments company.</div>
-<p>A <strong>stablecoin</strong> is a blockchain token designed to hold a constant value — for USDC, exactly one U.S. dollar. A user gives Circle $1, Circle mints 1 USDC, and holds the $1 in reserve. The token pays the holder nothing. What Circle does with the pooled dollars — invest them in short-term Treasuries and earn interest — <em>is the business.</em></p>
-<p>The scale is now meaningful: <strong>USDC circulation reached $77.0B at end-Q1'26</strong> (+28% YoY)<span class="ref">S001</span>, a new all-time high after collapsing from ~$55B in late 2022 to ~$24B in mid-2023 during the SVB scare<span class="ref">S004</span>. USDC settled <strong>$21.5T of on-chain volume in Q1'26</strong> (+263% YoY)<span class="ref">S002</span> across <strong>34 chains</strong><span class="ref">S014</span>. The mental model: <strong>Revenue ≈ (USDC circulation) × (reserve yield).</strong></p>
-
-<h2 id="3-the-reserve-income-engine"><span class="n">3.</span> The reserve-income engine</h2>
-<div class="sum">96% of revenue is "reserve income" — interest on the assets backing USDC — which makes the income statement a direct function of the Fed funds rate.</div>
-<p>Revenue comes from the <em>interest on other people's money</em>. Reserve income was <strong>96% of FY25 revenue</strong><span class="ref">S021</span> (~94% in Q1'26<span class="ref">S049</span>); the largest non-reserve line, subscription &amp; services, was just <strong>$34.9M in Q1'26</strong><span class="ref">S035</span>. Reserves sit in the BlackRock-managed <strong>Circle Reserve Fund ($66.3B at YE25)</strong><span class="ref">S032</span>, ~83% in Treasuries/repo<span class="ref">S013</span>. The reserve yield was <strong>3.5% in Q1'26, down 66bps YoY</strong><span class="ref">S029</span>.</p>
-
-<div class="fig">
-  <h4>Revenue &amp; reserve income — annual ($B)</h4>
-  <div class="bar-row"><span>FY2023</span><div class="bar-track"><div class="bar-fill" style="width:52.8%;background:var(--accent)"></div></div><span class="bar-val">$1.45</span></div>
-  <div class="bar-row"><span>FY2024</span><div class="bar-track"><div class="bar-fill" style="width:61.0%;background:var(--accent)"></div></div><span class="bar-val">$1.68</span></div>
-  <div class="bar-row"><span>FY2025</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">$2.75</span></div>
-  <div class="cap">FY25 +64% YoY <span class="ref">S022</span>. Topline tracks circulation × yield — a rate instrument. A ±100bps move shifts reserve income ±$756M <span class="ref">S030</span>.</div>
-</div>
-
-<h2 id="4-the-coinbase-economics-circle-s-defining-cost"><span class="n">4.</span> The Coinbase economics — Circle's defining cost</h2>
-<div class="sum">The biggest cost-of-revenue line is a revenue-share to Coinbase, which takes roughly half of gross reserve income — a contractual ceiling on margin, not an inefficiency.</div>
-<p>Under the 2023 Collaboration Agreement, <strong>Coinbase gets 100% of reserve income on USDC held on Coinbase, plus 50% of the residual off-platform</strong><span class="ref">S023</span>. Circle paid Coinbase <strong>~$1.4B in FY25</strong><span class="ref">S024</span> (from $924.5M restated FY24<span class="ref">S065</span>) — about <strong>53% of gross reserve income</strong> ($1.4B ÷ $2.64B)<span class="ref">S050</span>. Total distribution/transaction costs were <strong>$1.66B in FY25</strong><span class="ref">S026</span>, 58.6% of Q1'26 revenue<span class="ref">S027</span>. The offsetting lever: <strong>on-platform USDC of $13.7B (~18% of circulation)</strong><span class="ref">S034</span>.</p>
-
-<div class="fig">
-  <h4>Where a Q1'26 revenue dollar goes ($694M)</h4>
-  <div class="wf"><span>Revenue</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span class="bar-val">$694M</span></div>
-  <div class="wf"><span>– Distribution &amp; txn (58.6%)</span><div class="bar-track"><div class="bar-fill" style="width:58.6%;background:var(--bear)"></div></div><span class="bar-val">$407M</span></div>
-  <div class="wf"><span>= Revenue less dist. (RLDC)</span><div class="bar-track"><div class="bar-fill" style="width:41.4%;background:var(--accent2)"></div></div><span class="bar-val">$287M</span></div>
-  <div class="wf"><span>= Net income (cont. ops)</span><div class="bar-track"><div class="bar-fill" style="width:7.96%;background:#0b8a6b"></div></div><span class="bar-val">$55M</span></div>
-  <div class="cap">Distribution is ~58.6% of revenue <span class="ref">S027</span>; net income $55.2M, down 15% YoY even as revenue grew 20% <span class="ref">S038</span><span class="ref">S063</span>.</div>
-</div>
-
-<h2 id="5-the-market-a-duopoly-circle-does-not-lead"><span class="n">5.</span> The market — a duopoly Circle does not lead</h2>
-<div class="sum">A ~$321B duopoly; Tether is ~2.5× USDC's size and vastly more profitable — that profitability gap is the central competitive fact.</div>
-<p>The <strong>stablecoin market is ~$321B</strong> (near an all-time high)<span class="ref">S005</span>. Tether (USDT) is <strong>~$189B, ~59% share</strong><span class="ref">S006</span><span class="ref">S007</span>; USDC second at <strong>~24%</strong><span class="ref">S008</span>. Tether earned <strong>&gt;$10B net profit in 2025</strong><span class="ref">S015</span> — vs Circle's GAAP loss — keeping all its float income and running a riskier reserve mix. Circle's edge is regulation: the <strong>first MiCA-compliant global issuer</strong> (EU, July 2024)<span class="ref">S019</span>.</p>
-
-<div class="fig">
-  <h4>Stablecoin market share (~$321B)</h4>
-  <div class="share">
-    <div style="width:59%;background:var(--usdt)">USDT 59%</div>
-    <div style="width:24%;background:var(--usdc)">USDC 24%</div>
-    <div style="width:17%;background:var(--other);color:#46505b">Others 17%</div>
-  </div>
-  <div class="legend">
-    <span><i style="background:var(--usdt)"></i>Tether ~$189B <span class="ref">S006</span></span>
-    <span><i style="background:var(--usdc)"></i>Circle USDC ~$77B <span class="ref">S008</span></span>
-    <span><i style="background:var(--other)"></i>USDe, PYUSD, RLUSD &amp; long tail <span class="ref">S016</span><span class="ref">S017</span><span class="ref">S018</span></span>
-  </div>
-</div>
-
-<h2 id="6-financial-profile-gaap-loss-cash-profit"><span class="n">6.</span> Financial profile — GAAP loss, cash profit</h2>
-<div class="sum">FY25 was a GAAP loss driven by one-time IPO stock comp; the business generates cash, but quarterly earnings are already decelerating as the yield falls.</div>
-<p>FY25 was a <strong>~$70M GAAP loss on $2.75B revenue</strong> — driven by a ~<strong>$424M one-time IPO-vesting stock-based comp charge</strong><span class="ref">S037</span>. Underlying it is cash-generative: <strong>Q1'26 net income $55.2M</strong><span class="ref">S038</span>, but <strong>down 15% YoY</strong> even as revenue grew 20%<span class="ref">S063</span>. Headcount ~1,100<span class="ref">S036</span>; zero corporate debt. Non-rate optionality is real but small: USYC $1.5B<span class="ref">S039</span>, CPN $8.3B annualized<span class="ref">S040</span>, Arc presale $222M<span class="ref">S064</span>.</p>
-
-<h2 id="7-regulation-the-double-edged-moat"><span class="n">7.</span> Regulation — the double-edged moat</h2>
-<div class="sum">The GENIUS Act gave Circle a federal seal of approval — and simultaneously invited every bank and fintech to compete, while banning the one thing (paying holders yield) that could widen the moat.</div>
-<p>The <strong>GENIUS Act — the first U.S. federal stablecoin framework — was signed July 18, 2025</strong> (PL 119-27)<span class="ref">S046</span>. It mandates <strong>≥1:1 reserve backing</strong><span class="ref">S047</span>, monthly disclosure and certification, and <strong>prohibits issuers from paying holders any yield</strong><span class="ref">S048</span>. Double-edged: it legitimizes compliant issuers (a moat vs offshore Tether) but invites bank/fintech entrants and caps "pay holders yield" as a growth lever. The competitive entry is already visible — the stock fell ~30% into late May 2026 on bank-stablecoin news<span class="ref">S071</span>.</p>
-
-<h2 id="8-investment-lens-valuation"><span class="n">8.</span> Investment lens &amp; valuation</h2>
-<p>This sits in the <strong>tokenization thesis</strong> — real dollars moving onto blockchain rails — and Circle is the cleanest public, regulated way to own that migration. The question is not "are stablecoins growing" but "how much accrues to Circle's equity, net of the rate cycle and the Coinbase split." CRCL trades at <strong>~10.0× EV/Sales</strong><span class="ref">S052</span> — richer than Coinbase (~9.1× P/S)<span class="ref">S053</span>, far above PayPal (~1.2× P/S)<span class="ref">S055</span>; only Robinhood is richer (~24.2×)<span class="ref">S054</span>.</p>
-
-<div class="fig">
-  <h4>Valuation football field — implied share price (FMP analyst panel, 5/31/26)</h4>
-  <div class="ff">
-    <div class="range" style="left:0%;right:0%;"></div>
-    <div class="axis"></div>
-    <div class="pt" style="left:0%;background:var(--bear)"></div>
-    <div class="lbl" style="left:0%;color:var(--bear)">Bear $77</div>
-    <div class="tick" style="left:0%">$77</div>
-    <div class="pt" style="left:31.9%;background:#11161d"></div>
-    <div class="lbl" style="left:31.9%">Spot $113</div>
-    <div class="tick" style="left:31.9%">$113</div>
-    <div class="pt" style="left:42.1%;background:var(--accent)"></div>
-    <div class="lbl" style="left:54%;color:var(--accent)">Consensus $124.63</div>
-    <div class="tick" style="left:42.1%">$125</div>
-    <div class="pt" style="left:100%;background:var(--bull)"></div>
-    <div class="lbl" style="left:100%;color:var(--bull)">Bull $190</div>
-    <div class="tick" style="left:100%">$190</div>
-  </div>
-  <div class="cap">Analyst 12-mo targets (single coherent FMP panel): consensus ~$125<span class="ref">S066</span>, bull $190<span class="ref">S067</span>, bear $77<span class="ref">S068</span>, vs ~$113 spot. The spread <em>is</em> the thesis: bulls underwrite circulation growth + rate stability; bears underwrite Fed cuts, the Coinbase drag, and competition. (This is the FMP panel; the broader Street is wider — ~$50 bear to ~$280 bull.) Full driver/sensitivity/scenario work in the linked model.</div>
-</div>
-
-<h2 id="9-counter-thesis"><span class="n">9.</span> Counter-thesis</h2>
-<div class="counter">The strongest opposing read is not "rates will fall" — it is that Circle is structurally a low-margin utility wearing a growth-stock valuation. Tether earns &gt;$10B keeping all its float income<span class="ref">S015</span>; Circle nets a fraction because it pays ~53% of gross reserve income to Coinbase<span class="ref">S050</span> and is barred by the GENIUS Act from paying holders yield<span class="ref">S048</span>. In this read, ~10× EV/Sales<span class="ref">S052</span> on a single-product business whose revenue is ~94% a leveraged bet on the Fed<span class="ref">S049</span> — with Q1 net income already down 15% YoY<span class="ref">S063</span> — prices the optionality (CPN, USYC, Arc) as if it were the business, when it is still rounding error. The bear doesn't need rates to crash; just the rate cycle to turn while Coinbase keeps its cut.</div>
-
-<details class="sources">
-  <summary>Sources — 71 findings (S001–S071)</summary>
-  <div class="srcitem"><b>S001</b> USDC circulation $77.0B, Q1'26 (+28% YoY) — SEC filing, 2026-05-11 — <a href="https://www.sec.gov/Archives/edgar/data/1876042/000187604226000148/final_05x11q1epr30.htm">sec.gov</a></div>
-  <div class="srcitem"><b>S021/S022</b> Reserve income 96% of revenue; FY25 revenue $2.747B — SEC 10-K, 2026-03-09</div>
-  <div class="srcitem"><b>S023/S024/S050/S065</b> Coinbase 100%/50% split; ~$1.4B paid FY25 (~53% of gross reserve income); FY24 restated $924.5M — SEC S-1/10-K</div>
-  <div class="srcitem"><b>S029/S030</b> Reserve yield 3.5% Q1'26; ±$756M per ±100bps — SEC 10-K</div>
-  <div class="srcitem"><b>S005/S006/S007/S008</b> Stablecoin market ~$321B; USDT ~$189B/59%; USDC ~24% — DefiLlama, 2026-05-31</div>
-  <div class="srcitem"><b>S015</b> Tether &gt;$10B net profit 2025 — CoinDesk, 2026-01-30</div>
-  <div class="srcitem"><b>S046/S047/S048</b> GENIUS Act signed 2025-07-18; ≥1:1 backing; yield prohibition (§4(a)(11)) — Public Law 119-27 (govinfo)</div>
-  <div class="srcitem"><b>S052–S071</b> EV/Sales 10.0×; peer multiples (COIN/HOOD/PYPL/GLXY); FMP analyst PT panel ($124.63 / $190 / $77); net rate sensitivity ±$387M (S069/S070); −30% bank-competition drop (S071) — FMP, SEC 10-K + trade press</div>
-</details>
-
-<footer>
-  Company research · 2026-05-31. Financial backbone cross-checked against company SEC filings (CIK 0001876042) and FMP market data.
-  Every figure traces to a primary source. <b>Indicative, not investment advice.</b>
-</footer>
-
+<h1 id="circle-internet-group-nyse-crcl-deeper-report">Circle Internet Group (NYSE: CRCL) — Deeper Report</h1>
+<p><em>A single-name analyst report on the USDC issuer: what the business actually is, why its earnings power is a leveraged bet on the front end of the Treasury curve and on one distribution partner, and whether ~8.6x sales is the right price after a 66% drawdown. Numbers tie to the linked model; the four exhibits are model-derived and auditable; full provenance in the findings sidecar.</em></p>
+<hr>
+<h2 id="1-investment-summary">1. Investment summary</h2>
+<p><strong>Stance: cautious / below-consensus at ~$102.</strong> Circle is a high-quality, fast-growing, regulation-advantaged franchise sitting on top of a structurally rate-levered, distribution-taxed income statement — and at ~8.6x EV/Sales <sup id="fnref:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> it is still priced closer to a software platform than to the money-market-fund-like float business it actually is. The stock has already corrected hard — <strong>~$101.85 on June 2, 2026, down ~66% from a $298.99 post-IPO high</strong> <sup id="fnref2:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> — but the de-rate from ~10.0x to ~8.6x sales <sup id="fnref3:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> has not made it cheap against the honest comparable, Coinbase at ~7.3x <sup id="fnref4:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. Our base case sits <strong>below the Street&rsquo;s consensus</strong> <sup id="fnref5:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>: the two forces that drive the model are turning the wrong way at the same time, and the multiple does not yet reflect it.</p>
+<p><img alt="Exhibit 1 — Spot trades below the Street's consensus" src="crcl-price-vs-targets.png"></p>
+<p><em>Exhibit 1 — Spot trades below the Street&rsquo;s consensus, and our base case sits below spot. At ~$101.85 <sup id="fnref6:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, CRCL trades below the $124.63 consensus 12-month target and inside a wide $77–$190 Street band <sup id="fnref7:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; the model&rsquo;s peer-median comps cross-check implies ~$85 (Triangulation tab), below spot, and our base case is ~$90–100 — so the asymmetry skews down. Bars resolve to the model&rsquo;s <code>pt_low</code> / <code>price_now</code> / <code>pt_consensus</code> / <code>pt_high</code>.</em></p>
+<p>The business in one equation: <strong>revenue ≈ (USDC in circulation) × (yield on the reserves backing it)</strong>. Roughly <strong>96% of FY2025 revenue was &ldquo;reserve income&rdquo;</strong> — interest Circle earns on the dollars users hand over to mint USDC <sup id="fnref:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> — so the income statement is, to a first approximation, a position in short-term Treasuries financed by an interest-free, redeemable-on-demand deposit base. That is a genuinely good business when rates are high and circulation is growing. It is a worse business when the Fed is cutting <em>and</em> a single distributor already takes ~half the spread — which is the configuration we are now in.</p>
+<p><strong>The three load-bearing facts of the thesis:</strong></p>
+<ol>
+<li><strong>Revenue is a rate instrument.</strong> A ±100 basis-point move in rates changes reserve income by <strong>≈ ±$756 million</strong>, holding circulation flat <sup id="fnref32:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> — against FY2025 revenue of <strong>$2.747 billion</strong> <sup id="fnref33:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, that is roughly a quarter of the top line per 100bps. The effective reserve yield was <strong>3.5% in Q1 2026, already down 66bps year-over-year</strong> <sup id="fnref8:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>. (A <em>basis point</em> is one hundredth of a percentage point.)</li>
+<li><strong>A single partner taxes the spread.</strong> Coinbase took <strong>~53% of FY2025 gross reserve income</strong> <sup id="fnref34:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> under a contract that pays it <em>100% of the reserve income on USDC held on Coinbase&rsquo;s platform plus 50% of the rest</em> <sup id="fnref4:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup> — so the faster USDC grows on Coinbase, the more of the incremental dollar Circle gives away.</li>
+<li><strong>The valuation still embeds the bull.</strong> At ~8.6x EV/Sales <sup id="fnref43:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, CRCL trades above Coinbase (~7.3x) <sup id="fnref44:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> despite Coinbase&rsquo;s more diversified, partly fee-based model; the model&rsquo;s peer-median comps cross-check implies <strong>~$85 per share</strong> (Triangulation tab), ~17% <em>below</em> spot.</li>
+</ol>
+<p><strong>The variant view.</strong> Consensus underwrites continued ~40% circulation growth <sup id="fnref:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> <em>and</em> a benign rate path. We think those two assumptions are in tension: circulation growth this strong is real, but a large, sticky share of the spread is given away to Coinbase (~53% of gross reserve income <sup id="fnref2:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>) while the yield on the float rolls down — so net economics compound far more slowly than gross circulation. Mark the reserve yield toward ~3% and circulation growth toward a still-healthy ~25%, and the model supports roughly <strong>$90–100</strong>, not the Street&rsquo;s ~$125–145 <sup id="fnref8:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The bull case ($190 on the cited panel <sup id="fnref9:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, a re-acceleration of circulation against a flat-rate backdrop) and the bear case (~$77 <sup id="fnref10:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, a faster Fed-cut cycle into the margin squeeze) bracket an asymmetry we read as balanced-to-unfavorable here, because the catalyst path over the next 12 months — Fed easing, decelerating Q1 net income <sup id="fnref2:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, and a distribution tax that stays high (~53% <sup id="fnref3:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>) even though it has stopped rising — points down before it points up.</p>
+<p><strong>What would change our mind</strong> (developed in §9): two consecutive quarters of reserve yield holding ≥3.4% with circulation still compounding &gt;30%; or the Circle Payments Network and USYC crossing from &lt;1% of revenue <sup id="fnref:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref4:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> into a visible second earnings leg. Either would re-rate the franchise on its growth, not its rate exposure.</p>
+<hr>
+<h2 id="2-variant-view-what-the-street-is-under-pricing">2. Variant view — what the Street is under-pricing</h2>
+<p>The sell-side frames Circle as the regulated, transparent winner of stablecoin adoption — a reasonable frame, and the reason the analyst panel we cite shows a median 12-month target of <strong>~$120.50 and a consensus of ~$124.63</strong> <sup id="fnref11:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. (That is the narrower FMP panel; the broader Street is higher and wider still — roughly <strong>$137–146 average, with bulls to ~$243–250 and bears near $60–77</strong> <sup id="fnref12:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> — so our ~$90–100 base case sits below <em>every</em> consensus read, not merely the low panel, which only widens the downside-to-consensus gap below.) Our disagreement is not with the <em>adoption</em> story; USDC circulation of <strong>$77.0 billion, up 28% year-over-year</strong> <sup id="fnref3:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, and on-chain settlement of <strong>$21.5 trillion in Q1 2026 alone, up 263%</strong> <sup id="fnref4:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, are not in dispute. Our disagreement is with the assumption that adoption converts cleanly into <em>Circle&rsquo;s</em> earnings.</p>
+<p>It does not, for two structural reasons that compound.</p>
+<p><strong>First, the yield roll-down is mechanical, not cyclical noise.</strong> Because ~94–96% of revenue is reserve income <sup id="fnref5:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref5:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, the topline tracks the front end of the curve with a short lag. The reserve return rate fell to <strong>3.5% in Q1 2026 (−66bps YoY)</strong> <sup id="fnref2:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> even as average circulation grew, and the FY2025 10-K quantifies the leverage precisely: <strong>±$756 million of reserve income per 100bps</strong> <sup id="fnref6:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>. The reason Q1 revenue still grew 20% <sup id="fnref6:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> is that ~39% average-circulation growth out-ran the yield decline — but that race narrows every quarter the Fed eases, and it is the <em>net</em> of the two that the equity owns.</p>
+<p><strong>Second, the distribution tax is high and structurally sticky.</strong> Circle keeps only the reserve income that does <em>not</em> flow to a distributor, and the contract pays the dominant distributor an outsized cut. Coinbase received <strong>~$1.4 billion in FY2025</strong> <sup id="fnref7:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> — <strong>~53% of gross reserve income</strong> <sup id="fnref8:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>. That dollar cost rose from a restated <strong>$924.5 million in FY2024</strong> <sup id="fnref9:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> (the S-1 originally reported $907.9M <sup id="fnref:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>), but it grew <em>slower</em> than revenue (+51% vs +64% <sup id="fnref10:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref11:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>), so Coinbase&rsquo;s share of gross reserve income actually <strong>edged down year-over-year — from ~56% in FY2024 to ~53% in FY2025</strong> <sup id="fnref12:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>. So the tax is high and sticky, not currently rising — and that distinction matters: the <em>forward</em> danger is structural, not yet realized, because the contract pays Coinbase <strong>100% of the reserve income on USDC held on its platform</strong> <sup id="fnref2:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>, so the share would climb again if USDC re-concentrated there. Strip the per-share math down: the net pre-opex profit swing per 100bps is only <strong>~$387 million</strong> <sup id="fnref13:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, <em>smaller</em> than the gross $756M <sup id="fnref14:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, precisely because <strong>~$369 million of each 100bps swing is absorbed by the distribution offset</strong> <sup id="fnref15:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>. The distributor sits between Circle and roughly half of its own rate sensitivity.</p>
+<p><img alt="Exhibit 2 — The distributor absorbs about half the rate swing" src="crcl-rate-sensitivity.png"></p>
+<p><em>Exhibit 2 — A ±100bp rate move swings gross reserve income ≈ ±$756M, but the distributor absorbs about half. Roughly $369M of each 100bps swing is given away through the distribution offset <sup id="fnref16:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, so net pre-opex profit moves only ≈ ±$387M <sup id="fnref17:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> against the ±$756M gross <sup id="fnref18:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> — the Street capitalizes the gross story, but the equity owns the net.</em></p>
+<p>Put together, the Street capitalizes the gross growth story; the equity owns the net. On our marks — yield to ~3%, circulation growth decelerating to ~25%, Coinbase share holding above 50% — through-cycle net margins are lower than an 8.6x sales multiple implies, and fair value sits in the low-$90s to ~$100, between the comps-implied ~$85 (Triangulation) and the Street consensus <sup id="fnref13:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. That double-digit-dollar gap to consensus, against ~$25 of upside if consensus is right and ~$90+ to the panel bull, is the asymmetry — and it skews the wrong way.</p>
+<hr>
+<h2 id="3-business-economics-a-reserve-income-float-engine">3. Business &amp; economics — a reserve-income (float) engine</h2>
+<p><strong>Circle is, to a first approximation, a money-market fund whose &ldquo;shares&rdquo; circulate on 34 blockchains <sup id="fnref:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup> and whose &ldquo;management fee&rdquo; is the entire spread</strong> — which is why ~96% of FY2025 revenue is reserve income <sup id="fnref19:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, not anything a software company would recognize. The mechanics: a <em>stablecoin</em> is a blockchain token engineered to hold a constant value (for USDC, exactly one U.S. dollar). A user gives Circle $1, Circle mints 1 USDC and holds the $1 in reserve; the user can redeem 1 USDC for $1 at any time, and the token itself pays the holder nothing. What Circle does with the pooled dollars in the interim — invest them in short-dated Treasuries and keep the interest — <em>is the business</em>.</p>
+<p>The reserves are conservatively held and transparently disclosed, which is the franchise&rsquo;s core differentiator. They sit in the <strong>Circle Reserve Fund — a BlackRock-managed Rule 2a-7 government money-market fund custodied at BNY, holding $66.3 billion at year-end 2025</strong> <sup id="fnref:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>, with <strong>~83% of total reserves in Treasuries and overnight Treasury repo</strong> <sup id="fnref:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. That structure is what lets Circle market USDC as the compliant, audited alternative to offshore issuers — a real moat, but one that also caps the yield Circle can earn (it cannot reach for risk), which matters when the risk-free rate falls.</p>
+<p>The driver math reconciles cleanly in the model. <strong>FY2025 revenue was $2.747 billion, up 64% year-over-year</strong> <sup id="fnref20:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, and <strong>Q1 2026 revenue was $694 million, up 20%</strong> <sup id="fnref7:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, of which <strong>~$653 million (94%) was reserve income</strong> <sup id="fnref8:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. The largest non-reserve line — subscription and services — was just <strong>$34.9 million in Q1</strong> <sup id="fnref2:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>, which tells you how little of today&rsquo;s P&amp;L is anything other than the float. The Calculations tab rebuilds revenue from average circulation × yield and ties to within rounding of the reported figures, confirming the engine is understood rather than asserted — and confirming that any forecast of Circle is really a forecast of two numbers: the float and the yield.</p>
+<p><img alt="Exhibit 3 — Revenue compounded ~64% to $2.75B in FY2025" src="crcl-revenue-trajectory.png"></p>
+<p><em>Exhibit 3 — Revenue compounded ~64% to $2.75B in FY2025, and ~96% of it is reserve income. FY2025 revenue of $2.747B was up 64% year-over-year <sup id="fnref21:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>; roughly 96% was interest earned on the Treasuries backing USDC <sup id="fnref22:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> — so the top line is, to a first approximation, a leveraged position in the front end of the curve, not a software revenue stream.</em></p>
+<hr>
+<h2 id="4-competitive-position-clear-2-in-a-profitable-duopoly">4. Competitive position — clear #2 in a profitable duopoly</h2>
+<p>The stablecoin market is <strong>~$320 billion as of June 2, 2026</strong> (an all-time high of ~$323B was set in mid-May) <sup id="fnref14:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, and it is a duopoly: <strong>Tether (USDT) at ~$187.8 billion, ~59% share, and USDC second at ~24%</strong> <sup id="fnref15:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> — together more than four-fifths of the entire market. Everything below the top two is a long tail: Ethena USDe ~$4.5B <sup id="fnref:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>, DAI ~$4.6B <sup id="fnref16:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, PayPal PYUSD ~$3.0B <sup id="fnref17:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, Ripple RLUSD ~$1.8B <sup id="fnref18:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. So Circle&rsquo;s competitive question is not &ldquo;will stablecoins win&rdquo; but &ldquo;can the clear #2 earn an acceptable return given who sits above and beside it.&rdquo;</p>
+<p>The uncomfortable comparison is Tether. <strong>Tether reported more than $10 billion in net profit in 2025</strong> <sup id="fnref:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup> — on a larger float, yes, but with a fraction of Circle&rsquo;s distribution leakage and a higher-yielding (riskier) reserve mix. Circle, by contrast, posted a FY2025 GAAP <em>loss</em> (§5). The gap is not operational sloppiness; it is the price of Circle&rsquo;s two strategic choices — share the spread with distributors to win compliant Western distribution, and hold only the safest reserves to keep the regulatory halo. Those choices are defensible, but they are why the #2 in a duopoly out-earns Circle by a wide margin, and why &ldquo;USDC is gaining share&rdquo; does not translate into &ldquo;Circle is gaining Tether-like profit.&rdquo;</p>
+<p>Circle&rsquo;s genuine edge is regulatory. It is <strong>the first global issuer compliant with the EU&rsquo;s MiCA framework</strong> (via a French Electronic Money Institution license, effective July 2024) <sup id="fnref:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref2:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>, with weekly reserve disclosure and monthly Big-Four attestation. That is a durable moat against offshore Tether in regulated Western channels — but it is a moat around <em>distribution access</em>, not around <em>margin</em>, which is the distinction the bull case tends to blur. Distribution, in fact, costs money even beyond Coinbase: Circle paid a <strong>$60.25 million one-time upfront fee</strong> plus ongoing incentives to seed USDC on Binance <sup id="fnref3:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup> — a reminder that the #2 must <em>buy</em> the distribution the #1 gets through entrenched exchange and emerging-market demand. (One nuance: Circle reports a higher <strong>~28% share of <em>attested USD fiat-backed</em> stablecoins</strong> <sup id="fnref9:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> than its ~24% share of the all-in market <sup id="fnref19:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, because the attested denominator excludes algorithmic and crypto-backed coins — a more favorable framing the reader should normalize against the all-in number.)</p>
+<hr>
+<h2 id="5-financials-earnings-quality">5. Financials &amp; earnings quality</h2>
+<p>FY2025 produced a <strong>GAAP net loss of roughly $70 million on $2.747 billion of revenue</strong> <sup id="fnref23:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> — but the loss is an artifact, not a signal. It was driven by a <strong>$424 million one-time IPO-vesting stock-based-compensation charge</strong> booked around the June 2025 listing <sup id="fnref24:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>; strip it and the underlying business is cash-generative. The cleaner read of run-rate profitability is <strong>Q1 2026 net income from continuing operations of $55.2 million</strong> <sup id="fnref3:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>. Earnings-quality scrub: the SBC charge is non-recurring and correctly excluded from run-rate, but it is also a reminder that share count and dilution matter for a recently-IPO&rsquo;d name (248.58M shares outstanding <sup id="fnref20:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>) — the per-share denominator the network-investment story will ultimately be judged against.</p>
+<p>The direction, however, is the concern. <strong>Q1 2026 net income fell 15% year-over-year even as revenue grew 20%</strong> <sup id="fnref10:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> — the first clear evidence of the margin squeeze the thesis predicts. The dominant driver is the <strong>falling reserve yield</strong> <sup id="fnref4:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, not the distributor: distribution, transaction and other costs actually eased to <strong>58.6% of Q1 revenue</strong> <sup id="fnref3:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> (from ~60% a year earlier), so the squeeze is the rate cycle working through a ~94% reserve-income mix <sup id="fnref11:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, with a still-high distribution tax <sup id="fnref25:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> capping the level rather than driving the decline. Distribution, transaction, and other costs were <strong>$1.66 billion in FY2025</strong> <sup id="fnref26:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> and ran at <strong>58.6% of revenue in Q1 2026</strong> <sup id="fnref4:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>, so well over half of every revenue dollar is already committed before corporate opex. Headcount was <strong>~1,100 at year-end 2025</strong> <sup id="fnref27:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> and Circle carries <strong>zero corporate debt</strong> — a clean balance sheet (~$1.5B net cash <sup id="fnref21:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>) that gives it room to invest in the network products, but not a balance sheet that changes the earnings trajectory.</p>
+<p>The growth vectors meant to diversify Circle away from pure rate exposure are real but immaterial today: the <strong>USYC tokenized money-market fund held $1.5 billion at year-end 2025</strong> <sup id="fnref28:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>; the <strong>Circle Payments Network ran $8.3 billion of annualized volume</strong> <sup id="fnref5:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>; and the <strong>Arc Layer-1 network token presale raised $222 million</strong> at a ~$3B fully-diluted network valuation <sup id="fnref12:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. These are options on a non-rate revenue stream — worth watching, but rounding error in the P&amp;L, which is exactly why they cannot yet justify a software multiple.</p>
+<hr>
+<h2 id="6-valuation">6. Valuation</h2>
+<p>On the model&rsquo;s marks, <strong>CRCL trades at ~8.6x EV/Sales and ~9.1x P/S on a trailing-twelve-month basis</strong> <sup id="fnref22:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> — a ~$25.3 billion market cap and an enterprise value of <strong>~$23.8 billion</strong> (net of ~$1.5B corporate cash) <sup id="fnref23:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, against FY2025 revenue of $2.747 billion <sup id="fnref29:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> (the ~8.6x is the reported TTM multiple; on the model&rsquo;s FY2025-revenue base the same EV lands at ~8.7x — the same story either way). The headline change since the prior (late-May) read is the de-rate from ~10.0x to ~8.6x EV/Sales <sup id="fnref24:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, driven almost entirely by the ~11% price decline rather than by estimate revisions — the multiple has compressed, but off a starting point that priced Circle like a hyperscaler-adjacent grower.</p>
+<p>The cross-sectional comparison is where the &ldquo;still not cheap&rdquo; conclusion comes from:</p>
+<table>
+<thead>
+<tr>
+<th>Company</th>
+<th>EV/Sales (TTM)</th>
+<th>Read-through</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Circle (CRCL)</strong></td>
+<td><strong>~8.6x</strong> <sup id="fnref56:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup></td>
+<td>rate-levered single product</td>
+</tr>
+<tr>
+<td>Coinbase (COIN)</td>
+<td>~7.3x <sup id="fnref57:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup></td>
+<td>diversified crypto rails; partly fee-based</td>
+</tr>
+<tr>
+<td>Robinhood (HOOD)</td>
+<td>~16.1x <sup id="fnref58:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup></td>
+<td>high-growth brokerage; richest of the set</td>
+</tr>
+<tr>
+<td>PayPal (PYPL)</td>
+<td>~1.25x <sup id="fnref59:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup></td>
+<td>legacy payments; the floor</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Exhibit 4 — After the de-rate, CRCL still trades above its cleanest comp" src="crcl-evsales-comps.png"></p>
+<p><em>Exhibit 4 — After the de-rate to ~8.6x sales, CRCL still trades above its cleanest comp. CRCL at ~8.6x EV/Sales <sup id="fnref25:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> sits above Coinbase (~7.3x <sup id="fnref26:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>) — a more diversified, partly fee-based business — and far below Robinhood (~16.1x <sup id="fnref27:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>); PayPal (~1.25x <sup id="fnref28:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>) marks the mature-payments floor. The premium to COIN is the burden of proof on the bull.</em></p>
+<p>Coinbase is the honest comparable — a crypto-rails business that also earns on idle balances and transaction fees — and <strong>CRCL&rsquo;s premium to it (~8.6x vs ~7.3x) is hard to defend</strong> on a business whose revenue is ~94% a single rate-sensitive line <sup id="fnref13:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, unless one believes circulation growth will durably out-run the yield decline. Robinhood at ~16x is a different animal (a high-growth brokerage), and PayPal at ~1.25x marks the floor for a mature payments name; CRCL sits in the upper-middle, closer to the growth names than to the utilities, which is the crux of the disagreement.</p>
+<p>The model&rsquo;s Triangulation tab frames a football field rather than a point estimate: applying the peer-median sales multiple to Circle&rsquo;s revenue implies <strong>~$85 per share</strong> — <em>below</em> the ~$102 spot — while the cited analyst range runs <strong>$77 (bear) / $124.63 (consensus) / $190 (bull)</strong> <sup id="fnref29:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, i.e., roughly <strong>−24% / +22% / +87%</strong> versus spot (the broader Street consensus, ~$137–146 <sup id="fnref30:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, implies more upside on the panel but a <em>larger</em> gap below our fair value). We weight toward the lower half of that band. A stablecoin issuer&rsquo;s rate-levered model differs structurally from an exchange or broker, so the comps are directional, not dispositive — but when the cleanest comp (COIN) and the peer-median cross-check both sit <em>below</em> the stock, the burden of proof is on the bull, and that burden is &ldquo;circulation growth re-accelerates faster than the yield falls.&rdquo;</p>
+<hr>
+<h2 id="7-scenarios-bull-base-bear">7. Scenarios — bull / base / bear</h2>
+<p><strong>Base and bear cluster at or below today&rsquo;s ~$102; the bull (~$190 <sup id="fnref31:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>) requires a rate cycle Circle does not control</strong> — a balanced-to-unfavorable asymmetry. The model&rsquo;s Scenarios tab isolates the rate path — flexing reserve income through the ±$756M-per-100bps sensitivity <sup id="fnref30:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> with circulation held flat — and the equity cases below layer a circulation and multiple view on top of that rate spine.</p>
+<ul>
+<li><strong>Bull (~$190, +87% <sup id="fnref45:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>).</strong> The Fed holds, the reserve yield stabilizes near 3.5% <sup id="fnref9:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, circulation re-accelerates toward management&rsquo;s ~40% CAGR guide <sup id="fnref16:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, and CPN/USYC/Arc begin to contribute visible non-rate revenue <sup id="fnref10:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref35:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref17:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. In this world Circle is a fast-growing, rate-stable compounder and the ~8.6x multiple re-rates upward on durable growth. <em>Probability: roughly even-to-unlikely on a 12-month horizon, because it requires the rate cycle to cooperate.</em></li>
+<li><strong>Base (~$90–100, roughly flat-to-down).</strong> The Fed eases gradually; the reserve yield rolls toward ~3%; circulation grows a still-healthy ~25%, the distribution share stays high near ~53% <sup id="fnref36:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, and net margins drift lower as the yield falls <sup id="fnref18:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. The multiple compresses toward the honest comp (~7–8x sales <sup id="fnref46:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>). This is our central case and it sits <em>below</em> consensus <sup id="fnref47:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. <em>Probability: likely.</em></li>
+<li><strong>Bear (~$77, −24% <sup id="fnref48:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>).</strong> A faster Fed-cut cycle compresses reserve income hard <sup id="fnref37:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, competitive entry (banks/fintechs under the GENIUS Act, §9) pressures both share and the distribution economics, and the network products stay sub-scale. The multiple de-rates to a utility&rsquo;s. <em>Probability: unlikely-to-roughly-even, and it is the fatter of the two tails.</em></li>
+</ul>
+<p>The asymmetry is the point: the base and bear cluster near or below spot, the bull requires a macro tailwind Circle does not control, and the single swing variable across all three is <strong>the reserve yield × circulation product, net of the Coinbase share.</strong> That is the number to model, not the gross circulation headline.</p>
+<hr>
+<h2 id="8-catalysts-next-612-months">8. Catalysts — next 6–12 months</h2>
+<ul>
+<li><strong>Fed rate path (hard, continuous).</strong> The single biggest earnings swing factor: each 100bps ≈ $756M of gross reserve income <sup id="fnref38:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>. Every FOMC meeting is a Circle earnings event by proxy.</li>
+<li><strong>Quarterly reserve-yield and platform-mix prints (hard, quarterly).</strong> Watch the reserve return rate <sup id="fnref11:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> and the split of USDC between Circle&rsquo;s <em>own</em> platform and Coinbase&rsquo;s. Circle&rsquo;s <strong>own-platform balance was $13.7 billion, ~18% of circulation, at end-Q1</strong> <sup id="fnref:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup> — the <em>margin-accretive</em> lever, since Circle keeps far more of the spread on it; a rising own-platform share helps margins and a re-concentration onto Coinbase hurts them, so that mix is the cleanest near-term margin tell.</li>
+<li><strong>GENIUS Act implementation / competitive entry (soft, developing).</strong> Federal rulemaking that lets banks and fintechs issue stablecoins is the structural competitive risk (§9) <sup id="fnref3:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup><sup id="fnref2:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup><sup id="fnref2:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>; watch for named bank/fintech issuers, the tell that already knocked the stock ~30% in late May <sup id="fnref3:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup> — the market is primed to trade this as the binary it is.</li>
+<li><strong>Network-monetization proof points (soft).</strong> CPN crossing ~$10B annualized, USYC scaling past ~$1.5B <sup id="fnref39:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, and Arc mainnet <sup id="fnref19:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> — any of which would begin to validate the &ldquo;more than a float business&rdquo; narrative the bull case needs.</li>
+</ul>
+<hr>
+<h2 id="9-risks-what-would-change-my-mind">9. Risks &amp; what-would-change-my-mind</h2>
+<p>The risk register ties each item to the model assumption it threatens.</p>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Category</th>
+<th>Tied model input</th>
+<th>Severity</th>
+<th>Re-underwrite trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fed cuts faster than base case</td>
+<td>Macro</td>
+<td><code>reserve_yield_q126</code> / <code>rate_sens_resv_100bp</code></td>
+<td>H</td>
+<td>Reserve yield prints &lt;3.2% for two quarters</td>
+</tr>
+<tr>
+<td>Coinbase share re-climbs (USDC re-concentrates on Coinbase)</td>
+<td>Financial</td>
+<td><code>coinbase_share_fy2025</code> / <code>dist_pct_q126</code></td>
+<td>M-H</td>
+<td>Distribution costs back above 60% of revenue</td>
+</tr>
+<tr>
+<td>Bank/fintech competitive entry</td>
+<td>Regulatory/Market</td>
+<td><code>usdc_mkt_share</code> / <code>stablecoin_total</code></td>
+<td>M-H</td>
+<td>A top-5 bank or fintech launches a scaled stablecoin</td>
+</tr>
+<tr>
+<td>GENIUS Act bars holder yield</td>
+<td>Regulatory</td>
+<td>n/a (growth-lever cap)</td>
+<td>M</td>
+<td>— (structural, already binding <sup id="fnref3:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>)</td>
+</tr>
+<tr>
+<td>Circulation growth stalls</td>
+<td>Operational</td>
+<td><code>usdc_avg_q126</code> / circulation driver</td>
+<td>M</td>
+<td>Average circulation flat QoQ</td>
+</tr>
+<tr>
+<td>Multiple de-rates to utility</td>
+<td>Market</td>
+<td><code>ev_sales_ttm_rep</code></td>
+<td>M</td>
+<td>EV/Sales compresses below COIN&rsquo;s ~7.3x <sup id="fnref60:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup></td>
+</tr>
+</tbody>
+</table>
+<p><strong>The counter-thesis, stated at its strongest.</strong> The bull is not &ldquo;rates will stay high forever.&rdquo; The bull is that <strong>USDC is becoming default dollar infrastructure</strong> — 34 chains <sup id="fnref2:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>, $21.5T of settlement <sup id="fnref14:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, a MiCA-compliant moat <sup id="fnref3:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup> — and that at scale the network effects (CPN, developer adoption, tokenized-asset rails via Arc and USYC) make Circle a payments-and-settlement platform whose rate exposure is just the <em>starting</em> revenue line, not the whole story. If CPN and USYC scale, the rate sensitivity becomes a shrinking share of a growing pie — Standard Chartered models the total stablecoin market reaching ~$2 trillion by end-2028 <sup id="fnref:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup> and Citi&rsquo;s base case ~$1.9 trillion by 2030 <sup id="fnref:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>, roughly 6x today&rsquo;s ~$320B <sup id="fnref32:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, so even a <em>flat</em> ~24% share would put USDC near ~$460–480 billion of circulation — and on that arithmetic 8.6x sales will look cheap in hindsight. We take this seriously; it is why the stance is &ldquo;cautious,&rdquo; not &ldquo;short.&rdquo; <strong>The decision criterion</strong> that would flip our base case: two consecutive quarters in which (a) the reserve yield holds ≥3.4% <sup id="fnref6:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> while circulation compounds &gt;30% <sup id="fnref15:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, <em>or</em> (b) non-reserve revenue (CPN + USYC + subscription <sup id="fnref7:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref31:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref5:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>) crosses ~10% of total — either of which severs the &ldquo;just a leveraged rate bet&rdquo; framing the bear case rests on.</p>
+<p>Crucially, the <strong>GENIUS Act cuts both ways.</strong> Signed into law July 18, 2025 <sup id="fnref:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>, it mandates ≥1:1 reserve backing <sup id="fnref2:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup> — legitimizing compliant issuers like Circle against offshore Tether — but it also <strong>prohibits issuers from paying any yield to holders</strong> <sup id="fnref:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>, which removes the one lever (share the spread with users) that could lock in USDC balances against bank and fintech entrants. So the same law that builds Circle&rsquo;s moat against Tether lowers the moat against the regulated competitors it now invites.</p>
+<hr>
+<h2 id="10-buy-side-specifics-ownership-liquidity-capital-allocation-sizing">10. Buy-side specifics — ownership, liquidity, capital allocation, sizing</h2>
+<ul>
+<li><strong>Share structure &amp; float.</strong> 248.58 million total shares — <strong>Class A 229.86M (public) + Class B 18.72M (founder, super-voting); Class C is zero</strong> <sup id="fnref49:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The dual-class structure concentrates control with insiders; the Class A float is what trades. Circle IPO&rsquo;d on the NYSE on June 4, 2025 at a <strong>$31 offer price</strong> <sup id="fnref:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup>, selling 34M shares <sup id="fnref2:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup> for <strong>~$1.05 billion</strong> of gross proceeds <sup id="fnref:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>, then <strong>popped ~168% on day one</strong> <sup id="fnref2:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup> and peaked near <strong>$299</strong> <sup id="fnref:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup> before round-tripping to ~$102 — so the entire public history is one round trip, and recent affiliate/insider-sale filings added a supply overhang into the June slide <sup id="fnref50:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The practical read: the float is thin relative to the headline volatility, so size accordingly.</li>
+<li><strong>Liquidity &amp; volatility.</strong> This is a high-beta, headline-driven name: a <strong>52-week range of $49.90 to $298.99</strong> <sup id="fnref51:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> around a ~$25B cap <sup id="fnref52:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. Position sizing should assume crypto-proxy correlation — Coinbase&rsquo;s own 200-day average sits well above its spot <sup id="fnref53:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, i.e., the whole complex de-rated together — and event risk around every FOMC and every competitive-entry headline <sup id="fnref4:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup><sup id="fnref54:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> — this is a macro/headline book, not a buy-and-forget compounder.</li>
+<li><strong>Balance sheet &amp; capital allocation.</strong> ~$1.5B net cash, zero corporate debt <sup id="fnref55:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> — optionality to fund CPN/USYC/Arc <sup id="fnref12:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref40:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref20:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> without dilution beyond the IPO-vesting SBC already booked <sup id="fnref41:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>. No dividend or buyback is the right policy for a company that should be reinvesting in the network leg of the story.</li>
+<li><strong>Implementation read.</strong> For an AI-infra / tokenization-thesis book, CRCL is the liquid public expression of the &ldquo;regulated dollar rails&rdquo; leg of tokenization — but it is a <em>rate-and-distribution</em> expression of it, not a clean platform bet. We would underwrite it on a pullback toward the comps-implied ~$85 (Triangulation) or on confirmation the network products are scaling, and we would size it as a volatile, macro-sensitive position, not a core compounder, until the second earnings leg is visible.</li>
+</ul>
+<hr>
+<h2 id="11-sources">11. Sources</h2>
+<p>Compact reference; full three-component provenance (URL + local snapshot + page/section) lives in the findings sidecar (<code>2026-06-02-circle-crcl-deeper-report.md.findings.jsonl</code>, S001–S082) and is emitted by the renderer. Primary filings (S-1, FY2025 10-K, Q1 2026 10-Q/8-K, earnings release) ground the economics; SEC EDGAR grounds the share count <sup id="fnref33:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; live market data (stockanalysis.com, DefiLlama, FMP) as of 2026-06-02 grounds valuation, peer multiples, analyst targets, and stablecoin sizing <sup id="fnref34:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref35:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref36:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref37:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref38:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref39:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref40:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref41:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; trade press grounds the sentiment/price-action narrative <sup id="fnref:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup><sup id="fnref42:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The financial backbone is cross-checked against the linked model (CIK 0001876042). This report supersedes the 2026-05-31 CRCL primer; numbers refreshed to June 2, 2026 and the share count corrected to the authoritative 10-Q basis. This is the <strong>charted re-run</strong> of the 2026-06-02 deeper report: the four exhibits are model-derived (each series resolves to a named range in the linked model; the chart-integrity audit re-verifies them at ship), and the prose carries forward unchanged. The chartless 2026-06-02 deeper report is retained as the comparison baseline.</p>
+<h2 id="sources">Sources</h2>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:fn-1">
+<p>other &ldquo;CRCL traded at ~8.6x EV/Sales and ~9.1x P/S (TTM revenue ~$2.86B) on 2026-06-02, down from ~10.0x EV/Sales at the late-May 2026 level&rdquo;, 2026-06-02 · local: 2026-06-02-market-data-refresh-crcl-peers-stablecoins.md · other&#160;<a class="footnote-backref" href="#fnref:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref15:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref16:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref17:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref18:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref19:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref20:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref21:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref22:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref23:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref24:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref25:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref26:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref27:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref28:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref29:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref30:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref31:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref32:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref33:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref34:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref35:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref36:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref37:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref38:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref39:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref40:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref41:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref42:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref43:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref44:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref45:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref46:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref47:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref48:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref49:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref50:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref51:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref52:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref53:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref54:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref55:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref56:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref57:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref58:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref59:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref60:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-2">
+<p>primary-filing &ldquo;Reserve income (interest on USDC/EURC reserves) as a share of total revenue, FY2025&rdquo;, 2026-03-09 · local: 2026-03-09-sec.gov-circle-10k-fy2025-coinbase-rate-sensitivity.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref15:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref16:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref17:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref18:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref19:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref20:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref21:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref22:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref23:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref24:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref25:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref26:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref27:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref28:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref29:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref30:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref31:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref32:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref33:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref34:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref35:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref36:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref37:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref38:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref39:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref40:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref41:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-3">
+<p>earnings-transcript &ldquo;Reserve return rate (effective yield on USDC reserves), Q1 2026&rdquo;, 2026-05-11 · local: 2026-05-11-sec.gov-circle-q1-2026-earnings-press-release.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-4">
+<p>primary-filing &ldquo;Coinbase revenue-share mechanic: 100% of reserve income on USDC held on Coinbase&#x27;s platform; 50% of the remaining (off-platform) payment base&rdquo;, 2025-05-27 · local: 2025-05-27-sec.gov-circle-s1a-coinbase-binance-economics.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-5">
+<p>primary-filing &ldquo;Circle guides USDC in circulation to grow at a 40% CAGR over a multi-year through-cycle horizon&rdquo;, 2026-05-11 · local: 2026-05-11-sec-gov-circle-q1-2026-results.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref15:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref16:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref17:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref18:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref19:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref20:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-6">
+<p>investor-presentation &ldquo;USDC is natively issued on 34 blockchain networks as of May 2026&rdquo;, 2026-05-28 · local: 2026-05-28-circle-com-usdc-page.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-7">
+<p>primary-filing &ldquo;Circle Reserve Fund (BlackRock-managed, BNY-custodied) balance, Dec 31 2025&rdquo;, 2026-05-11 · local: 2026-05-11-sec.gov-circle-q1-2026-10q-revenue-note.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-8">
+<p>news-aggregator &ldquo;USDC reserves total approximately $77.1 billion, with roughly 83% in U.S. Treasuries and overnight Treasury repo (Circle Reserve Fund / BlackRock-managed) and roughly 17% in cash at banks (week ending May 21, 2026)&rdquo;, 2026-05-23 · local: 2026-05-23-weex-com-usdc-reserve-composition.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-9">
+<p>news-aggregator &ldquo;Ethena USDe is the third-largest stablecoin with circulation of approximately $4.5 billion (late May 2026), down from a 2025 peak above $14 billion&rdquo;, 2026-03-16 · local: 2026-03-16-stablecoininsider-org-ethena-usde.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-10">
+<p>trade-press &ldquo;Tether reported more than $10 billion in net profit for full-year 2025&rdquo;, 2026-01-30 · local: 2026-01-30-coindesk-com-tether-2025-profit.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-11">
+<p>primary-filing &ldquo;Circle is the first global stablecoin issuer to comply with the EU&#x27;s MiCA framework, via a French Electronic Money Institution (EMI) license from the ACPR (effective July 1, 2024)&rdquo;, 2024-07-01 · local: 2024-07-01-circle-com-first-mica-compliant.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-12">
+<p>earnings-transcript &ldquo;USDC held on Circle&#x27;s own platform (margin-accretive share), end of Q1 2026&rdquo;, 2026-05-11 · local: 2026-05-11-fool.com-circle-q1-2026-earnings-transcript.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-13">
+<p>primary-filing &ldquo;Date signed into law by President Trump&rdquo;, 2025-07-18 · local: 2025-07-18-whitehouse-genius-act-signed.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-14">
+<p>www.govinfo.gov &ldquo;Prohibition on issuers paying yield/interest to stablecoin holders&rdquo;, 2025-07-18 · https://www.govinfo.gov/content/pkg/PLAW-119publ27/html/PLAW-119publ27.htm · local: 2025-07-18-govinfo-gov-genius-act-publaw-119-27.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-15">
+<p>trade-press &ldquo;CRCL fell ~30% into late May 2026 on bank/fintech stablecoin competitive-entry news&rdquo;, 2026-05-29 · local: 2026-05-29-investing-com-crcl-fell-30pct-bank-competition.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-16">
+<p>sell-side-coverage &ldquo;Standard Chartered forecasts the total stablecoin market to reach $2 trillion by the end of 2028&rdquo;, 2026-03-31 · local: 2026-03-31-decrypt-co-standard-chartered-2t-2028.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-17">
+<p>sell-side-coverage &ldquo;Citi GPS base-case forecast for total stablecoin issuance by 2030 is $1.9 trillion (bull case $4.0T, bear case $0.9T)&rdquo;, 2025-09-25 · local: 2025-09-25-citigroup-com-stablecoins-2030.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-18">
+<p>primary-filing &ldquo;IPO offer price per share&rdquo;, 2025-06-04 · local: 2025-08-21-equilend-crcl-lockup-structure.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-19">
+<p>primary-filing &ldquo;Total gross proceeds raised in IPO&rdquo;, 2025-06-04 · local: 2025-06-05-renaissancecapital-circle-largest-pop.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-20">
+<p>trade-press &ldquo;All-time high stock price (post-IPO peak)&rdquo;, 2026-05-29 · local: 2026-05-29-plisio-crcl-interest-rate-trap.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a></p>
+</li>
+</ol>
 </div>
 </body>
 </html>
