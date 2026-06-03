@@ -1,0 +1,166 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json",
+  "config": {
+    "axis": {
+      "domainColor": "#D9D9D6",
+      "grid": false,
+      "labelAngle": 0,
+      "labelColor": "#3D3D3D",
+      "labelFont": "Helvetica Neue",
+      "labelFontSize": 12,
+      "tickColor": "#D9D9D6",
+      "titleColor": "#6B6B6B",
+      "titleFont": "Helvetica Neue",
+      "titleFontSize": 12
+    },
+    "background": "#faf9f7",
+    "font": "Helvetica Neue",
+    "range": {
+      "category": [
+        "#0E2A47",
+        "#8B2332",
+        "#0D7680",
+        "#C3C7CD",
+        "#3D3D3D"
+      ]
+    },
+    "title": {
+      "anchor": "start",
+      "color": "#1A1A1A",
+      "dy": -4,
+      "font": "Georgia",
+      "fontSize": 18,
+      "fontWeight": "bold",
+      "subtitleColor": "#6B6B6B",
+      "subtitleFont": "Helvetica Neue",
+      "subtitleFontSize": 12.5,
+      "subtitlePadding": 8
+    },
+    "view": {
+      "stroke": null
+    }
+  },
+  "datasets": {
+    "data-34d56df25de3c5064bfa10cf62493e87": [
+      {
+        "category": "FY2023",
+        "order": 0,
+        "series": "Revenue ($M)",
+        "value": 1450.466
+      },
+      {
+        "category": "FY2024",
+        "order": 1,
+        "series": "Revenue ($M)",
+        "value": 1676.253
+      },
+      {
+        "category": "FY2025",
+        "order": 2,
+        "series": "Revenue ($M)",
+        "value": 2746.642
+      }
+    ],
+    "data-6fad5c34291b82fc9632cbce143d677a": [
+      {
+        "_": 0
+      }
+    ]
+  },
+  "spacing": 6,
+  "vconcat": [
+    {
+      "data": {
+        "name": "data-34d56df25de3c5064bfa10cf62493e87"
+      },
+      "height": 340,
+      "layer": [
+        {
+          "encoding": {
+            "color": {
+              "value": "#0E2A47"
+            },
+            "x": {
+              "field": "category",
+              "sort": [
+                "FY2023",
+                "FY2024",
+                "FY2025"
+              ],
+              "title": null,
+              "type": "nominal"
+            },
+            "y": {
+              "field": "value",
+              "title": "Revenue ($M)",
+              "type": "quantitative"
+            }
+          },
+          "mark": {
+            "point": true,
+            "strokeWidth": 2.5,
+            "type": "line"
+          }
+        },
+        {
+          "encoding": {
+            "text": {
+              "field": "lbl",
+              "type": "nominal"
+            },
+            "x": {
+              "field": "category",
+              "sort": [
+                "FY2023",
+                "FY2024",
+                "FY2025"
+              ],
+              "title": null,
+              "type": "nominal"
+            },
+            "y": {
+              "field": "value",
+              "title": "Revenue ($M)",
+              "type": "quantitative"
+            }
+          },
+          "mark": {
+            "color": "#1A1A1A",
+            "dy": -13,
+            "fontSize": 11,
+            "fontWeight": "bold",
+            "type": "text"
+          },
+          "transform": [
+            {
+              "as": "lbl",
+              "calculate": "'' + format(datum.value * 1.0, '$,.0f') + ''"
+            }
+          ]
+        }
+      ],
+      "title": {
+        "subtitle": "Total revenue ($M), FY2023-FY2025",
+        "text": "Revenue compounded ~64% to $2.75B in FY2025"
+      },
+      "width": 560
+    },
+    {
+      "data": {
+        "name": "data-6fad5c34291b82fc9632cbce143d677a"
+      },
+      "encoding": {
+        "text": {
+          "value": "Source: Circle coverage model · as of Jun 2026"
+        }
+      },
+      "mark": {
+        "align": "left",
+        "color": "#6B6B6B",
+        "dx": 2,
+        "fontSize": 10,
+        "type": "text"
+      }
+    }
+  ]
+}

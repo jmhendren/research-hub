@@ -1,0 +1,411 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json",
+  "config": {
+    "axis": {
+      "domainColor": "#D9D9D6",
+      "grid": false,
+      "labelAngle": 0,
+      "labelColor": "#3D3D3D",
+      "labelFont": "Helvetica Neue",
+      "labelFontSize": 12,
+      "tickColor": "#D9D9D6",
+      "titleColor": "#6B6B6B",
+      "titleFont": "Helvetica Neue",
+      "titleFontSize": 12
+    },
+    "background": "#faf9f7",
+    "font": "Helvetica Neue",
+    "range": {
+      "category": [
+        "#0E2A47",
+        "#8B2332",
+        "#0D7680",
+        "#C3C7CD",
+        "#3D3D3D"
+      ]
+    },
+    "title": {
+      "anchor": "start",
+      "color": "#1A1A1A",
+      "dy": -4,
+      "font": "Georgia",
+      "fontSize": 18,
+      "fontWeight": "bold",
+      "subtitleColor": "#6B6B6B",
+      "subtitleFont": "Helvetica Neue",
+      "subtitleFontSize": 12.5,
+      "subtitlePadding": 8
+    },
+    "view": {
+      "stroke": null
+    }
+  },
+  "datasets": {
+    "data-266f2700cee40a6856bd2ad16a05bb01": [
+      {
+        "v": 101.85
+      }
+    ],
+    "data-6fad5c34291b82fc9632cbce143d677a": [
+      {
+        "_": 0
+      }
+    ],
+    "data-8755a2db4a7fc497b0f784cdeeb77545": [
+      {
+        "category": "Analyst targets",
+        "high": 190.0,
+        "low": 77.0,
+        "marker": false,
+        "mid": 124.63,
+        "order": 0
+      },
+      {
+        "category": "Comps (peer P/S)",
+        "high": 84.53,
+        "low": 84.53,
+        "marker": true,
+        "mid": 84.53,
+        "order": 1
+      }
+    ]
+  },
+  "spacing": 6,
+  "vconcat": [
+    {
+      "height": 182,
+      "layer": [
+        {
+          "data": {
+            "name": "data-8755a2db4a7fc497b0f784cdeeb77545"
+          },
+          "encoding": {
+            "x": {
+              "field": "low",
+              "title": "$ / share",
+              "type": "quantitative"
+            },
+            "x2": {
+              "field": "high"
+            },
+            "y": {
+              "field": "category",
+              "sort": [
+                "Analyst targets",
+                "Comps (peer P/S)"
+              ],
+              "title": null,
+              "type": "nominal"
+            }
+          },
+          "mark": {
+            "color": "#0E2A47",
+            "height": 16,
+            "opacity": 0.85,
+            "type": "bar"
+          },
+          "transform": [
+            {
+              "filter": "datum.marker == false"
+            }
+          ]
+        },
+        {
+          "data": {
+            "name": "data-8755a2db4a7fc497b0f784cdeeb77545"
+          },
+          "encoding": {
+            "text": {
+              "field": "lbl",
+              "type": "nominal"
+            },
+            "x": {
+              "field": "low",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "category",
+              "sort": [
+                "Analyst targets",
+                "Comps (peer P/S)"
+              ],
+              "title": null,
+              "type": "nominal"
+            }
+          },
+          "mark": {
+            "align": "right",
+            "color": "#1A1A1A",
+            "dx": -4,
+            "fontSize": 10,
+            "type": "text"
+          },
+          "transform": [
+            {
+              "filter": "datum.marker == false"
+            },
+            {
+              "as": "lbl",
+              "calculate": "'' + format(datum.low * 1.0, '$.0f') + ''"
+            }
+          ]
+        },
+        {
+          "data": {
+            "name": "data-8755a2db4a7fc497b0f784cdeeb77545"
+          },
+          "encoding": {
+            "text": {
+              "field": "lbl",
+              "type": "nominal"
+            },
+            "x": {
+              "field": "high",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "category",
+              "sort": [
+                "Analyst targets",
+                "Comps (peer P/S)"
+              ],
+              "title": null,
+              "type": "nominal"
+            }
+          },
+          "mark": {
+            "align": "left",
+            "color": "#1A1A1A",
+            "dx": 4,
+            "fontSize": 10,
+            "type": "text"
+          },
+          "transform": [
+            {
+              "filter": "datum.marker == false"
+            },
+            {
+              "as": "lbl",
+              "calculate": "'' + format(datum.high * 1.0, '$.0f') + ''"
+            }
+          ]
+        },
+        {
+          "data": {
+            "name": "data-8755a2db4a7fc497b0f784cdeeb77545"
+          },
+          "encoding": {
+            "x": {
+              "field": "mid",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "category",
+              "sort": [
+                "Analyst targets",
+                "Comps (peer P/S)"
+              ],
+              "title": null,
+              "type": "nominal"
+            }
+          },
+          "mark": {
+            "color": "#102a43",
+            "filled": true,
+            "size": 90,
+            "type": "point"
+          },
+          "transform": [
+            {
+              "filter": "datum.marker == false && datum.mid != null"
+            }
+          ]
+        },
+        {
+          "data": {
+            "name": "data-8755a2db4a7fc497b0f784cdeeb77545"
+          },
+          "encoding": {
+            "text": {
+              "field": "lbl",
+              "type": "nominal"
+            },
+            "x": {
+              "field": "mid",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "category",
+              "sort": [
+                "Analyst targets",
+                "Comps (peer P/S)"
+              ],
+              "title": null,
+              "type": "nominal"
+            }
+          },
+          "mark": {
+            "color": "#1A1A1A",
+            "dy": -13,
+            "fontSize": 10,
+            "fontWeight": "bold",
+            "type": "text"
+          },
+          "transform": [
+            {
+              "filter": "datum.marker == false && datum.mid != null"
+            },
+            {
+              "as": "lbl",
+              "calculate": "'' + format(datum.mid * 1.0, '$.0f') + ''"
+            }
+          ]
+        },
+        {
+          "data": {
+            "name": "data-8755a2db4a7fc497b0f784cdeeb77545"
+          },
+          "encoding": {
+            "x": {
+              "field": "low",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "category",
+              "sort": [
+                "Analyst targets",
+                "Comps (peer P/S)"
+              ],
+              "title": null,
+              "type": "nominal"
+            }
+          },
+          "mark": {
+            "color": "#0E2A47",
+            "filled": true,
+            "size": 110,
+            "type": "point"
+          },
+          "transform": [
+            {
+              "filter": "datum.marker == true"
+            }
+          ]
+        },
+        {
+          "data": {
+            "name": "data-8755a2db4a7fc497b0f784cdeeb77545"
+          },
+          "encoding": {
+            "text": {
+              "field": "lbl",
+              "type": "nominal"
+            },
+            "x": {
+              "field": "low",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "category",
+              "sort": [
+                "Analyst targets",
+                "Comps (peer P/S)"
+              ],
+              "title": null,
+              "type": "nominal"
+            }
+          },
+          "mark": {
+            "align": "left",
+            "color": "#1A1A1A",
+            "dx": 8,
+            "fontSize": 10,
+            "type": "text"
+          },
+          "transform": [
+            {
+              "filter": "datum.marker == true"
+            },
+            {
+              "as": "lbl",
+              "calculate": "'' + format(datum.low * 1.0, '$.0f') + ''"
+            }
+          ]
+        },
+        {
+          "data": {
+            "name": "data-266f2700cee40a6856bd2ad16a05bb01"
+          },
+          "encoding": {
+            "x": {
+              "field": "v",
+              "type": "quantitative"
+            }
+          },
+          "mark": {
+            "color": "#3D3D3D",
+            "size": 1.5,
+            "strokeDash": [
+              5,
+              4
+            ],
+            "type": "rule"
+          }
+        },
+        {
+          "data": {
+            "name": "data-266f2700cee40a6856bd2ad16a05bb01"
+          },
+          "encoding": {
+            "text": {
+              "field": "t",
+              "type": "nominal"
+            },
+            "x": {
+              "field": "v",
+              "type": "quantitative"
+            }
+          },
+          "mark": {
+            "align": "left",
+            "baseline": "top",
+            "color": "#3D3D3D",
+            "dx": 6,
+            "dy": 0,
+            "fontSize": 11,
+            "fontStyle": "italic",
+            "type": "text"
+          },
+          "transform": [
+            {
+              "as": "t",
+              "calculate": "'Spot ' + format(datum.v * 1.0, '$.0f') + ''"
+            }
+          ]
+        }
+      ],
+      "title": {
+        "subtitle": "CRCL valuation triangulation ($/share)",
+        "text": "Spot trades below the Street's consensus"
+      },
+      "width": 560
+    },
+    {
+      "data": {
+        "name": "data-6fad5c34291b82fc9632cbce143d677a"
+      },
+      "encoding": {
+        "text": {
+          "value": "Source: Circle coverage model · as of Jun 2026"
+        }
+      },
+      "mark": {
+        "align": "left",
+        "color": "#6B6B6B",
+        "dx": 2,
+        "fontSize": 10,
+        "type": "text"
+      }
+    }
+  ]
+}
