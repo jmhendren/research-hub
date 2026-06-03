@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>2026-06-03-keysight-keys-deeper-report</title>
+<style>
+/* ===== Page templates ===== */
+
+@page {
+    size: Letter;
+    margin: 0.7in 0.75in 0.8in 0.75in;
+    @top-left {
+        content: "Hendren HQ Research";
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        font-weight: 600;
+        color: #1a1a1a;
+        letter-spacing: 0.04em;
+    }
+    @top-right {
+        content: string(running-title);
+        font-family: Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6b6b6b;
+    }
+    @bottom-center {
+        content: "Hendren HQ Research  ·  Page " counter(page) " of " counter(pages);
+        font-family: Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6b6b6b;
+    }
+}
+
+@page cover {
+    margin: 0;
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-center { content: none; }
+}
+
+/* ===== Cover page ===== */
+
+.cover-page {
+    page: cover;
+    page-break-after: always;
+    width: 100%;
+    min-height: 9.5in;
+    padding: 1.8in 1in 0.9in 1in;
+    text-align: center;
+    box-sizing: border-box;
+}
+.cover-wordmark {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    margin-bottom: 8pt;
+}
+.cover-wordmark-rule {
+    width: 36pt;
+    height: 1.5pt;
+    background: #991b1b;
+    margin: 0 auto 64pt auto;
+}
+.cover-title {
+    string-set: running-title content();
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.25;
+    margin: 0 0 12pt 0;
+    letter-spacing: -0.005em;
+}
+.cover-subtitle {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 14pt;
+    color: #4b5563;
+    font-style: italic;
+    font-weight: 400;
+    margin: 0 0 64pt 0;
+}
+.cover-meta {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    color: #4b5563;
+    letter-spacing: 0.04em;
+    margin: 4pt 0;
+}
+.cover-meta strong {
+    color: #1a1a1a;
+    font-weight: 600;
+}
+.cover-divider {
+    width: 80pt;
+    height: 0.5pt;
+    background: #d1d5db;
+    margin: 40pt auto;
+}
+.cover-stats {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-top: 24pt;
+    font-size: 10pt;
+    color: #4b5563;
+}
+.cover-stats .stat {
+    margin: 0 14pt;
+}
+.cover-stats strong {
+    color: #1a1a1a;
+    font-weight: 600;
+}
+.cover-footer {
+    margin-top: 80pt;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 9pt;
+    color: #6b6b6b;
+    font-style: italic;
+}
+
+/* ===== Body ===== */
+
+html { font-size: 11pt; }
+
+body {
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 100%;
+}
+
+/* Title block for body-only docs (no cover page) */
+.doc-title {
+    string-set: running-title content();
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 24pt;
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.25;
+    margin: 0 0 6pt 0;
+    letter-spacing: -0.005em;
+}
+.doc-meta {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6b6b6b;
+    letter-spacing: 0.04em;
+    margin: 0 0 22pt 0;
+    padding-bottom: 12pt;
+    border-bottom: 0.5pt solid #e2e8f0;
+}
+
+/* Page break marker for section transitions (briefs in a packet) */
+.page-break {
+    page-break-before: always;
+    height: 0;
+}
+
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22pt;
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.3;
+    margin: 0 0 6pt 0;
+    letter-spacing: -0.005em;
+    string-set: running-title content();
+}
+
+h2 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 24pt 0 8pt 0;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+}
+
+h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 14pt 0 4pt 0;
+}
+
+h4 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 12pt 0 4pt 0;
+    letter-spacing: 0.04em;
+}
+
+h5, h6 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    margin: 10pt 0 4pt 0;
+    color: #1a1a1a;
+}
+
+/* Paragraphs */
+
+p {
+    margin: 0 0 10pt 0;
+    orphans: 2;
+    widows: 2;
+}
+
+/* Links */
+
+a {
+    color: #991b1b;
+    text-decoration: none;
+    border-bottom: 0.5pt solid #991b1b;
+    word-break: break-word;
+}
+
+/* Lists */
+
+ul, ol {
+    margin: 8pt 0;
+    padding-left: 22pt;
+}
+li {
+    margin: 5pt 0;
+}
+li > ul, li > ol {
+    margin: 4pt 0;
+}
+
+/* Blockquotes — large opening quotation mark, italic serif */
+
+blockquote {
+    margin: 14pt 0 4pt 14pt;
+    padding: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    color: #1a1a1a;
+    font-size: 11pt;
+    line-height: 1.55;
+    text-indent: 0;
+}
+blockquote::before {
+    content: "\201C";
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    color: #991b1b;
+    line-height: 0;
+    vertical-align: -0.35em;
+    margin-right: 4pt;
+    font-style: normal;
+}
+blockquote p { margin: 0 0 8pt 0; display: inline; }
+blockquote p:last-child { margin-bottom: 0; }
+
+/* Citation line that follows a blockquote (italic em-dashed source) */
+
+.citation {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6b6b6b;
+    margin: 4pt 0 14pt 18pt;
+    font-style: normal;
+}
+
+/* BLUF callout — italic serif with red left rule, no fill */
+
+.bluf {
+    border-left: 2pt solid #991b1b;
+    padding: 4pt 0 4pt 18pt;
+    margin: 4pt 0 18pt 0;
+    font-style: italic;
+    font-size: 11pt;
+    color: #1a1a1a;
+    page-break-inside: avoid;
+}
+.bluf h2, .bluf h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #991b1b;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 4pt 0;
+    font-style: normal;
+}
+.bluf p { margin: 0 0 8pt 0; font-style: italic; }
+.bluf p:last-child { margin-bottom: 0; }
+.bluf strong { font-style: italic; }
+
+/* "What to ask Jeff" — distinguished section (optional class wrap) */
+
+.ask {
+    border-top: 0.5pt solid #d1d5db;
+    border-bottom: 0.5pt solid #d1d5db;
+    padding: 12pt 0 4pt 0;
+    margin: 22pt 0;
+}
+
+/* Code (rare in briefs but supported) */
+
+code {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9.5pt;
+    background: #f3f3f0;
+    padding: 1pt 4pt;
+    border-radius: 2pt;
+}
+pre {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9pt;
+    background: #f7f5f2;
+    padding: 10pt 12pt;
+    border-radius: 3pt;
+    line-height: 1.4;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code { background: transparent; padding: 0; }
+
+/* Tables — minimal lines, no fills (editorial restraint) */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 14pt 0;
+    font-size: 10pt;
+    page-break-inside: auto;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+th, td {
+    border-bottom: 0.5pt solid #d1d5db;
+    padding: 6pt 8pt 6pt 0;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    font-weight: 700;
+    color: #1a1a1a;
+    border-bottom: 1pt solid #1a1a1a;
+    letter-spacing: 0.02em;
+    font-size: 9.5pt;
+}
+
+/* Horizontal rule — visible separator inside a section (NOT a page break) */
+
+hr {
+    border: 0;
+    border-top: 0.5pt solid #d1d5db;
+    margin: 18pt 0;
+}
+
+/* Images */
+
+img { max-width: 100%; height: auto; }
+
+/* Emphasis */
+
+strong { font-weight: 700; color: #1a1a1a; }
+em { font-style: italic; }
+
+/* Topic tag / meta line at top of each brief */
+
+.brief-meta-line {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6b6b6b;
+    letter-spacing: 0.04em;
+    margin: 0 0 22pt 0;
+    padding-bottom: 12pt;
+    border-bottom: 0.5pt solid #e2e8f0;
+}
+.brief-meta-line .tag {
+    color: #991b1b;
+    font-style: italic;
+}
+
+/* Source list at the bottom of each brief */
+
+.sources-block {
+    margin-top: 28pt;
+    padding-top: 14pt;
+    border-top: 0.5pt solid #d1d5db;
+    font-size: 9.5pt;
+    color: #4b5563;
+}
+.sources-block h2,
+.sources-block h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #1a1a1a;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 8pt 0;
+    font-weight: 700;
+}
+.sources-block ul { padding-left: 18pt; margin: 0; }
+.sources-block li { margin: 3pt 0; }
+</style>
+</head>
+<body>
+<div class="doc-title">2026-06-03-keysight-keys-deeper-report</div><div class="doc-meta">Drafted 2026-06-03</div>
+<h1 id="keysight-technologies-nyse-keys-deeper-report">Keysight Technologies (NYSE: KEYS) — Deeper Report</h1>
+<h3 id="does-a-test-and-measurement-business-capture-the-ai-networking-buildout-yes-through-a-channel-the-services-business-framing-misses-and-at-a-price-that-already-pays-for-most-of-it">Does a test-and-measurement business capture the AI-networking buildout? Yes — through a channel the &ldquo;services business&rdquo; framing misses, and at a price that already pays for most of it.</h3>
+<p><em>Analyst note · 2026-06-03 · AI-infrastructure / networking-interconnect lens. Indicative; not a recommendation to transact. Valuation figures tie to the linked model <code>keysight-keys-comps-dcf_v1_2026-06-03.xlsx</code>.</em></p>
+<hr>
+<h2 id="1-investment-summary-thesis">1. Investment summary &amp; thesis</h2>
+<p><strong>Stance: high-quality, genuine AI-networking beneficiary — but fully valued at ~$350.</strong> Keysight is the closest thing the public market offers to a toll on the <em>complexity</em> of AI networking. It does not sell switches, optics, or accelerators; it sells the instruments and emulation software that validate every new interconnect standard and speed grade <em>before</em> it ships into a production AI cluster. That is a real, compounding exposure to the AI buildout — and the most recent quarter proves it is converting: Q2 FY2026 (the quarter ended 2026-04-30) was the strongest in company history, with revenue of $1,717M, up 31% year-over-year <sup id="fnref:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, and a record $2,051M of orders, up 56% <sup id="fnref2:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. Management sized the AI-related business at roughly $500–600M in the first half of FY2026 alone <sup id="fnref:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> — already more than it booked in all of FY2025 <sup id="fnref2:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>. The thesis works.</p>
+<p>The catch is price. The stock has roughly doubled off its ~$183 level at the October-2025 fiscal-year close to ~$350 today <sup id="fnref:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, a re-rating that has already capitalized the AI story. On the cleanest comparable lens — forward EV/Sales — Keysight at ~8.8× <sup id="fnref2:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> sits essentially in line with its test-and-measurement (T&amp;M) peer median, not at a discount; the Street&rsquo;s consensus 12-month target of $371 <sup id="fnref3:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> implies only ~6% upside; and the model&rsquo;s bull-case discounted-cash-flow (DCF) value barely reaches today&rsquo;s price (model Outputs). The conservative 5-year DCF lands well below spot — which is itself the message: at $350 you are paying for the AI tailwind to be durable, not cyclical.</p>
+<p>(<em>Test &amp; measurement</em> — instruments, software, and services used to design and validate electronic systems. <em>Communications Solutions Group (CSG)</em> and <em>Electronic Industrial Solutions Group (EISG)</em> are Keysight&rsquo;s two reportable segments; defined in §3.)</p>
+<p>The three load-bearing reasons we hold rather than chase:</p>
+<ol>
+<li>
+<p><strong>The mechanism is standards <em>churn</em>, not buildout dollars.</strong> Keysight&rsquo;s AI revenue is leveraged to the <em>rate</em> at which networking standards and speeds turn over — 800-gigabit-per-second (800G) Ethernet to 1.6-terabit (1.6T) to 3.2T, 112G to 224G SerDes (the serializer/deserializer circuits that move bits on and off a chip), and the multi-vendor protocol wars (open Ethernet vs. proprietary InfiniBand, plus UALink, PCIe, and CXL). Each transition re-opens a validation cycle. This is a more durable lever than a one-time capex pop, and §4 shows why.</p>
+</li>
+<li>
+<p><strong>The agentic turn extends, not dilutes, the thesis.</strong> As agentic and inference workloads push more traffic east-west across the fabric and raise the bar on lossless, low-latency behavior (§5), the surface area of interfaces and protocols that must be conformance-tested grows — lengthening the runway for validation demand.</p>
+</li>
+<li>
+<p><strong>Quality is real and self-funded.</strong> ~40% of revenue is software and services <sup id="fnref7:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>, ~31% recurring <sup id="fnref8:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>, gross margin is in the low-60s on a GAAP basis <sup id="fnref24:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, and the balance sheet is lightly levered. Keysight bought back $377M of stock in FY2025 and authorized a fresh $1.5B <sup id="fnref25:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref26:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> — so the AI optionality is free-carried by a profitable core, not financed by dilution or leverage, which lowers the cost of being early to the wrong standard.</p>
+</li>
+</ol>
+<p><strong>What would change our mind</strong> (developed in §9): two more quarters of order growth sustained anywhere near the +56% pace <sup id="fnref3:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> with AI explicitly cited as the driver would argue the re-rating is a floor, not a ceiling, and push us to buy; conversely, a single quarter in which the order surge reverses and management reframes it as a pull-forward would confirm the bear and the downside the conservative DCF flags.</p>
+<p><img alt="Implied value per share by method; the point marks the central estimate, the bar the range, and the dashed rule is the $350 spot price." src="keys-football-field.png"></p>
+<hr>
+<h2 id="2-variant-view-three-things-the-framing-gets-wrong">2. Variant view — three things the framing gets wrong</h2>
+<p><strong>(a) Keysight is not a &ldquo;services business&rdquo; — and that matters for <em>how</em> it wins.</strong> The instinct to file Keysight under recurring-revenue software-and-services compounders is half right and half misleading. Products are ~76% of revenue ($4,063M of $5,375M in FY2025) and services ~24% ($1,312M) <sup id="fnref:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref2:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref3:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. Software-and-services together are ~40% of revenue and recurring revenue ~31% (per the Q1-FY2025 call) <sup id="fnref:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup><sup id="fnref2:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup> — a genuinely higher-quality slice, but not the AI lever. The AI lever is the <em>product-plus-software</em> test systems — the oscilloscopes, bit-error-rate testers, optical analyzers, and workload-emulation platforms that get bought when a new standard arrives. If you model Keysight as a services annuity, you will under-weight the very cyclicality (and upside) that AI-networking standards churn creates.</p>
+<p><strong>(b) Spirent did <em>not</em> buy Keysight into AI-Ethernet test — the data-center-Ethernet test line went to the rival.</strong> The market reads the £1.16B / ~$1.46B Spirent acquisition (closed 2025-10-15) <sup id="fnref:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref2:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref3:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup> as Keysight buying its way deeper into data-center networking test. The opposite is closer to true. As an antitrust remedy, Keysight was forced to <em>divest</em> Spirent&rsquo;s high-speed-Ethernet, network-security, and channel-emulation lines — to Viavi, the bidder it had outbid — for $399M <sup id="fnref4:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref4:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>. Keysight kept Spirent&rsquo;s positioning/GNSS, satellite-orbit emulation, and network-assurance assets <sup id="fnref:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup> — valuable, but adjacent to the AI-networking core, and a fraction of Spirent&rsquo;s ~$460M of FY2024 revenue <sup id="fnref2:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup> once the divested lines are stripped out. Two consequences the consensus underweights: first, <strong>Keysight&rsquo;s AI-networking test strength is organic</strong>, built on the former Ixia line and the new &ldquo;Keysight AI&rdquo; (KAI) platform (§6), not bought; second, <strong>the AI-Ethernet test moat is now genuinely contested</strong> — Viavi, which acquired those divested assets, is itself growing its network-and-service-enablement revenue more than 40% year-over-year post-deal, with the Spirent business a meaningful (if not sole) driver <sup id="fnref:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>.</p>
+<p><strong>(c) The leverage is to complexity, not to capex.</strong> The bull frame (&ldquo;AI data-center capex is enormous, Keysight sells into it&rdquo;) is directionally right but lazy. Keysight captures a thin, high-margin slice tied to how <em>often</em> the interconnect stack changes shape — not to the gross dollars spent on GPUs and switches. That distinction is the whole investment case, because it explains both the durability (standards keep churning) and the risk (if the cadence slows, or copper holds the line against optics, the re-validation cycle cools — §4, §9).</p>
+<hr>
+<h2 id="3-the-business-what-keysight-sells-and-where-the-ai-exposure-sits">3. The business: what Keysight sells, and where the AI exposure sits</h2>
+<p>The analytical key to Keysight is <em>where</em> its AI exposure sits — and it sits in one bucket. <strong>CSG Commercial Communications was ~46% of FY2025 revenue</strong> ($2,488M <sup id="fnref5:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>), and the FY2025 10-K labels that end-market&rsquo;s &ldquo;wireline&rdquo; component the &ldquo;data center ecosystem&rdquo; <sup id="fnref6:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> — i.e., data-center networking, the line carrying the 800G/1.6T Ethernet test demand. Everything else is ballast around that lever. Structurally, Keysight (the former electronic-measurement arm of Hewlett-Packard / Agilent, spun out in 2014) reports two segments: <strong>CSG (Communications Solutions Group)</strong> — $3,726M, ~69% of revenue <sup id="fnref7:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> — splits into <em>Commercial Communications</em> ($2,488M <sup id="fnref8:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, wireless + wireline) and <em>Aerospace, Defense &amp; Government</em> ($1,238M <sup id="fnref9:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>); <strong>EISG (Electronic Industrial Solutions Group)</strong> — $1,649M, ~31% <sup id="fnref10:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> — covers automotive/energy, semiconductor, and general electronics.</p>
+<p>Beyond that primary bucket, there is a secondary AI pull in EISG&rsquo;s semiconductor end-market, where Keysight&rsquo;s chip-design and parametric-test tools ride AI-chip development <sup id="fnref11:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> — but Commercial Communications is where the networking thesis lives.</p>
+<p><img alt="FY2025 revenue by end-market; Commercial Communications — the bucket that contains data-center networking test — is the AI-levered slice." src="keys-endmarket-mix.png"></p>
+<p>The driver, then, is not &ldquo;total revenue&rdquo; but <em>Commercial-Communications growth</em>, and it has inflected hard. That end-market grew +13% year-over-year in Q3 FY2025 as 400G/800G transceiver build-out accelerated <sup id="fnref:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>; +33% in Q1 FY2026, which management tied directly to customers &ldquo;expanding 400G/800G/1.6T transceiver manufacturing capacity to meet rising demand for AI&rdquo; <sup id="fnref:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>; and CSG overall grew +35% in Q2 FY2026 <sup id="fnref4:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. This is the operating signature of a standards-transition cycle running through the income statement.</p>
+<p>Two structural features make the franchise worth more than a cyclical equipment vendor. First, the software-and-services and recurring layers (~40% and ~31%, per the Q1-FY2025 call <sup id="fnref3:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup><sup id="fnref4:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>) smooth the instrument cycle and carry higher margins — services gross margin runs in the high-60s. Second, Keysight&rsquo;s R&amp;D intensity — $1,007M, ~19% of revenue in FY2025 <sup id="fnref12:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> — is what keeps it first-to-market on each new standard, which (as §4 argues) is the entire source of its pricing power in a churn-driven model.</p>
+<hr>
+<h2 id="4-the-ai-networking-mechanism-test-is-leveraged-to-standards-churn-not-capex">4. The AI-networking mechanism: test is leveraged to standards churn, not capex</h2>
+<p>Keysight&rsquo;s AI revenue is leveraged to the <em>rate</em> at which networking standards turn over, not to the dollars of capex — and that cadence is unusually fast right now. This is the part most reports get backwards, so it is worth building in two steps: the macro the networking layer is experiencing, then why a <em>test</em> business specifically benefits from it.</p>
+<p><strong>The networking layer is the most-leveraged tier of AI capex, and it is churning unusually fast.</strong> Goldman Sachs sizes the aggregate optical-networking total addressable market (TAM) growing roughly 9× — from ~$15B in 2026 to ~$154B in 2028 — across scale-up and scale-out <sup id="fnref:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref2:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>. (<em>Scale-up</em> = the high-bandwidth fabric inside a rack/computing unit; <em>scale-out</em> = the data-center-wide network connecting them.) The dollar content of networking per computing unit rises ~29× across that GPU-generation transition <sup id="fnref3:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>. But the magnitude is not what drives a test business — the <em>cadence of change</em> is. Optical lane speeds are migrating 800G → 1.6T → 3.2T inside a roughly three-year window (1.6T modules were ~11% of volume in Q4 2025 <sup id="fnref:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup> and move into the mainstream across 2027–2028, reaching ~35% of volume by 2028, with 3.2T at mass volume thereafter <sup id="fnref2:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup><sup id="fnref3:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>). SerDes is stepping 112G → 224G <sup id="fnref:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>. The physical medium is fracturing into copper (direct-attach and active cables), pluggable optics, and co-packaged optics (CPO — optics integrated beside the switch silicon to cut power) <sup id="fnref:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup><sup id="fnref4:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>. Each variant must be independently characterized.</p>
+<p><strong>The structural tailwind for <em>test</em> specifically is open-standards proliferation.</strong> NVIDIA&rsquo;s InfiniBand is a closed, single-vendor stack that largely self-validates; its open challengers are inherently multi-vendor and therefore cannot assume interoperability — it must be tested, at every interface, by an independent third party. Those challengers are arriving at once: the Ultra Ethernet Consortium (UEC) published its Specification 1.0 in 2025 — a multi-vendor, ~560-page stack spanning network-interface cards, switches, optics, and cables, explicitly aimed at making Ethernet competitive with InfiniBand for AI <sup id="fnref:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup>. The gap is narrowing fast — merchant Ethernet switch silicon now reaches 102.4-terabit-per-second capacity (Broadcom&rsquo;s Tomahawk 6) <sup id="fnref:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>, and the open stacks are closing the historical latency gap with InfiniBand <sup id="fnref:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup> — which is precisely why open Ethernet is credible enough to win share, and therefore why multi-vendor interoperability test becomes a structural need rather than a niche. UALink targets the scale-up domain (up to 256 accelerators in one coherent fabric) <sup id="fnref:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>. PCIe and CXL govern the chip-to-chip and memory-fabric layers. Keysight&rsquo;s management has been explicit that <em>this</em> — the speed roadmap and the standards stack — is what it sells into: the CEO framed &ldquo;all of those interconnects… going at a rapid pace from 112 to 224 to 448&rdquo; as requiring &ldquo;a lot of high-precision testing because of the cost of failure… in an AI cluster&rdquo; <sup id="fnref5:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>, and has repeatedly named CXL, the Ultra Ethernet Consortium, PCIe Gen-7, and 1.6T as the demand drivers <sup id="fnref:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup>.</p>
+<p><strong>Put plainly: churn is the test thesis, and churn is robust.</strong> Every new speed grade, form factor, and protocol re-opens a design-validation cycle (in R&amp;D) and then a manufacturing-test cycle (in production). The more vendors, the more interoperability that must be proven rather than assumed. Keysight&rsquo;s own product cadence maps directly onto this: the KAI architecture spans four suites — Data Center Builder (AI-workload emulation), Compute, Interconnect (electrical/optical paths up to 1.6T), and Network <sup id="fnref:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>; the AresONE 1600GE platform (March 2026) emulates 1.6T Ethernet AI workloads over 224G SerDes and integrates the Ixia IxNetwork engine <sup id="fnref:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup><sup id="fnref2:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>; 224G optical and electrical test supports the IEEE 802.3dj standard for 1.6T transceivers <sup id="fnref2:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>; and scale-up validation already covers UALink 200G, PCIe 7.0/6.0/5.0, and CXL 3 <sup id="fnref:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup>. The proof point that the open-Ethernet bet is converting: at the OFC 2026 conference Keysight ran an industry-first Ultra Ethernet interoperability demonstration at 800G with Broadcom&rsquo;s Tomahawk Ultra switch <sup id="fnref:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup>.</p>
+<p><strong>The bear inside the mechanism.</strong> The thesis depends on the optical/standards cadence staying fast. The most credible counter is copper&rsquo;s persistence: LightCounting estimates copper cabling still accounts for ~50% of the 1.6T interconnect market through 2029 <sup id="fnref:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup>. A more copper-weighted, slower-optical transition would mean fewer new high-speed optical interfaces to validate and value shifting toward cable/substrate vendors rather than the optical-test cycle. We weight this as a real but partial offset — copper and optics both churn, and both need test — but it caps the upside on the optical-acceleration framing.</p>
+<hr>
+<h2 id="5-the-agentic-turn-changing-networking-norms-extend-the-runway">5. The agentic turn: changing networking norms extend the runway</h2>
+<p>Agentic AI is where the thesis gets its <em>duration</em>. The claim: agentic and inference workloads change the <em>shape</em> of data-center traffic — pushing far more orchestration and east-west flow onto the fabric — in ways that add, not subtract, validation demand over time.</p>
+<p>The mechanism is a compute-mix shift. Agentic systems — models that call tools, retrieve documents, write and execute code, and chain steps — spend a surprising share of wall-clock time <em>not</em> on GPU inference. SemiAnalysis measured ~42% of an agentic coding session&rsquo;s runtime on CPU-bound tool work (file edits, shell commands, linters) rather than GPU compute <sup id="fnref:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup>. That CPU work is overwhelmingly network input/output — API calls, retrieval, storage access — so the effective CPU-to-GPU ratio rises and the orchestration layer becomes a &ldquo;CPU + NIC + DPU&rdquo; stack — a CPU plus a network-interface card (NIC) and a data-processing unit (DPU) that offloads the networking <sup id="fnref:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup>. Arm sizes the shift bluntly: from ~30 million to ~120 million CPU cores per gigawatt of data center, moving from the LLM era to the agentic era <sup id="fnref:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup> — a re-rating of the CPU:GPU ratio that Intel and industry trackers corroborate as rising materially in agentic deployments <sup id="fnref:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup><sup id="fnref:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup>. More orchestration means more east-west traffic (server-to-server, rather than north-south to the user) riding fabrics that already move enormous bandwidth — Microsoft&rsquo;s Fairwater design specifies ~1.8 terabytes per second of GPU-to-GPU bandwidth per rack <sup id="fnref:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup>.</p>
+<p>For a test business, two second-order effects follow. First, <strong>more east-west and collective-communication traffic raises the bar on lossless, low-latency conformance</strong> — the corner cases that must be validated (congestion control, in-order delivery, link-level retry) multiply, and they are exactly the behaviors UEC&rsquo;s specification formalizes for multi-vendor Ethernet <sup id="fnref2:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup>. Second, <strong>the workload itself becomes something to emulate</strong>: Keysight&rsquo;s KAI Data Center Builder exists to emulate high-scale AI workloads (training and inference traffic patterns, collective operations) so operators can validate a fabric before committing capital <sup id="fnref2:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref6:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. As agentic traffic patterns evolve and standardize, the emulation target keeps moving — which is recurring validation work, not a one-time sale.</p>
+<p>The honest caveat: this is the softer, longer-dated part of the thesis. The agentic-traffic literature is early, the CPU-mix numbers are directional rather than audited, and none of it yet appears as a named revenue line. We treat it as duration insurance on the §4 mechanism — a reason the standards-churn cycle should persist beyond the current 800G→1.6T wave — rather than as a near-term catalyst.</p>
+<hr>
+<h2 id="6-competitive-position-moat">6. Competitive position &amp; moat</h2>
+<p>Keysight&rsquo;s moat in AI-networking test is <em>first-mover breadth</em> across an exploding standard set, anchored by the Ixia network-emulation franchise it acquired in 2017 and has since folded into the wireline business <sup id="fnref2:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup>. The moat is real but, post-Spirent, no longer uncontested.</p>
+<p><strong>The peer map.</strong> In broad electronic test, the closest public comparables are Teradyne (TER), which skews to semiconductor test, Viavi (VIAV) in network and optical test, and Teledyne (TDY) in diversified instrumentation. The Japanese houses Advantest and Anritsu and the private Rohde &amp; Schwarz round out the global set. In AI-networking test specifically, the contest narrowed in 2025: the antitrust-mandated sale of Spirent&rsquo;s high-speed-Ethernet test line to <strong>Viavi</strong> <sup id="fnref2:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> hands a credible rival a directly competitive franchise — and Viavi&rsquo;s network-and-service-enablement revenue is growing more than 40% year-over-year post-deal, with the acquired Spirent assets a meaningful contributor <sup id="fnref2:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>. So the read is nuanced: Keysight retains the broadest organic portfolio (KAI across compute/interconnect/network, IxNetwork, 224G optical, scale-up protocol test), but it gave up an inorganic path to consolidate the Ethernet-test niche and now shares it.</p>
+<p><strong>Why the moat still holds.</strong> Three reasons it is durable even with Viavi in the ring. First, <em>breadth</em>: validating an AI cluster end-to-end requires test across electrical (SerDes/BERT), optical (transceiver/CPO), protocol (Ethernet/UEC/UALink/PCIe/CXL), and workload-emulation layers — Keysight is the rare vendor present in all of them <sup id="fnref2:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref2:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup><sup id="fnref3:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>. Second, <em>first-to-market on each standard</em>, funded by ~19% R&amp;D intensity <sup id="fnref13:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> — the OFC 2026 800G UEC interop demo with Broadcom is the current evidence <sup id="fnref2:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup>. Third, <em>switching costs and reference status</em>: once a chipmaker, switch vendor, or hyperscaler validates a generation on Keysight&rsquo;s tooling and test methodology, the next generation tends to stay, because the comparability of results matters. The competitive risk is therefore less &ldquo;loses the category&rdquo; than &ldquo;shares a faster-growing niche and defends share with R&amp;D dollars.&rdquo;</p>
+<hr>
+<h2 id="7-financials-forecast-capital-allocation">7. Financials, forecast &amp; capital allocation</h2>
+<p><strong>The trajectory inflected after a FY2024 trough.</strong> Revenue fell to $4,979M in FY2024 <sup id="fnref14:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> in the post-pandemic instrument down-cycle, recovered to $5,375M in FY2025 (+8%) <sup id="fnref15:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, and is now re-accelerating sharply: consensus models ~$6,893M for FY2026 (~+28%) <sup id="fnref4:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> and ~$7,647M for FY2027 <sup id="fnref5:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>. The order book leads revenue — total FY2025 orders were $5,452M <sup id="fnref16:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, Q1 FY2026 orders +30% <sup id="fnref2:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>, and Q2 FY2026 orders a record $2,051M, +56% reported and +48% on a core basis (excluding acquisitions and currency) <sup id="fnref5:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref3:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> — orders outrunning revenue by ~25 points, which means backlog is still building and the FY2026–27 consensus ramp has order coverage behind it, not just optimism.</p>
+<p><img alt="Net revenue, $M; after the FY2024 down-cycle trough, AI-networking demand re-accelerates the top line, with consensus near $7.6B by FY2027." src="keys-revenue-trajectory.png"></p>
+<p><strong>Q2 FY2026 — the cycle is converting.</strong> The quarter&rsquo;s signal is breadth and quality at once: revenue +31% (+24% core) <sup id="fnref6:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref4:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> with both segments contributing — CSG $1,231M, +35%, and EISG $486M, +24% <sup id="fnref7:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref8:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> — non-GAAP EPS up 69% to $2.87 <sup id="fnref9:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, and record free cash flow of $472M <sup id="fnref10:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. This is what an order-led standards cycle looks like once it reaches the income statement.</p>
+<p>Two details matter for the model. First, <em>margin quality</em>: GAAP EPS was $2.02 <sup id="fnref11:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, and the results included a one-time tariff refund that flattered the GAAP gross margin — so the cleaner read is the segment operating margins, with both CSG and EISG running at ~33% in the quarter <sup id="fnref12:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref13:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, i.e., the business now operates on a 30%-handle margin. Second, <em>forward visibility</em>: management raised guidance to a ~$1,740M Q3 revenue midpoint and ~$2.46 non-GAAP EPS <sup id="fnref14:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref15:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, with acquisitions (chiefly Spirent) expected to add ~$375M of FY2026 revenue and &gt;$100M of cost synergies <sup id="fnref5:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref6:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>.</p>
+<p><strong>Capital allocation is shareholder-friendly and self-funded.</strong> Keysight pays no dividend; it returns cash through buybacks ($377M repurchased in FY2025, a fresh $1.5B authorization in November 2025) <sup id="fnref17:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref18:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> and funds M&amp;A from cash flow. Beyond Spirent, it closed the $578M acquisition of Synopsys&rsquo; Optical Solutions Group — optical/photonic design software that pulls Keysight earlier into the optical design-and-validation workflow (where co-packaged optics and silicon photonics are headed), though not yet large enough to move the valuation <sup id="fnref19:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. The balance sheet carries $1,873M of cash against $2,550M of senior notes at FY2025 year-end (net debt ~$0.7B, comfortably under 1× EBITDA) <sup id="fnref20:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref21:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>; record Q2 free cash flow <sup id="fnref16:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> has since reduced net debt further, leaving enterprise value (~$60.5B <sup id="fnref6:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>) almost entirely equity.</p>
+<hr>
+<h2 id="8-valuation-the-ai-re-rating-is-in-the-price">8. Valuation — the AI re-rating is in the price</h2>
+<p>At ~8.8× forward EV/Sales <sup id="fnref7:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, Keysight trades at its own peer median — so the AI premium is <em>paid for, not available</em>: comps, the Street, and even the bull-case DCF all cluster around spot, and only the conservative base DCF sits materially below. (All figures tie to the linked model <code>keysight-keys-comps-dcf_v1_2026-06-03.xlsx</code>, which treats comps and the Street as the primary valuation anchor and the DCF as a deliberately conservative &ldquo;what&rsquo;s priced in&rdquo; lens.)</p>
+<p><strong>Comps: in line, not cheap, not richly premium.</strong> On forward (FY2026E) EV/Sales, Keysight at ~8.8× <sup id="fnref8:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> is essentially at the test-peer median — above slow-growing, diversified Teledyne (~4.8×) <sup id="fnref9:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, roughly in line with Viavi (~8.9×) <sup id="fnref10:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, and well below Teradyne (~14.2×) <sup id="fnref11:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, whose multiple is flattered by a cyclical-trough denominator. The forward P/E and EV/EBITDA peer medians are <em>not</em> usable as a valuation cross-check because Teradyne&rsquo;s and Viavi&rsquo;s near-year earnings sit at cyclical lows (depressed denominators inflate the multiples); on the cleaner EV/Sales lens, applying the peer median to Keysight&rsquo;s FY2026E revenue implies ~$352 per share — essentially in line with spot (model Calculations/Triangulation). The key read: <strong>Keysight does not carry an AI premium versus its own peer group.</strong> The premium lives in the chip-and-interconnect names that sell the silicon itself — Astera Labs (~62× EV/Sales), Marvell (~30×), Credo (~29×), Arista (~22×) <sup id="fnref12:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref13:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref14:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref15:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> — which we show only as demand proxies, not valuation comps.</p>
+<p><img alt="Forward EV/Sales across the test peer set; Keysight sits mid-pack, with the AI multiple premium residing in the chip names shown only as demand proxies." src="keys-comps-evsales.png"></p>
+<p><strong>DCF: conservative by construction, and it lands below spot.</strong> A light 5-year unlevered-FCF DCF (base year FY2025 revenue; non-GAAP operating margin; Gordon terminal) yields a base case near $180, a bear near $90, and a bull near $342 (model Outputs). That a sober 5-year DCF lands below a ~$350 stock is not a red flag so much as the definition of the situation: a 5-year Gordon model under-captures a long-duration grower, so the gap quantifies how much of the value sits beyond the explicit horizon — i.e., how much you are paying for the AI tailwind to persist well past 2030. To <em>justify</em> spot on this framework you must assume an ~8% discount rate and a ~4% terminal growth — i.e., the bull case.</p>
+<p><strong>The sensitivity confirms what the thesis hinges on.</strong> Revenue growth (the proxy for AI-order durability) and the discount rate swing the value most; margin and terminal growth matter less.</p>
+<p><img alt="BASE value-per-share swing, one driver at a time; revenue growth and WACC dominate, confirming the thesis hinges on AI-order durability and rate environment." src="keys-tornado.png"></p>
+<p><strong>Triangulation.</strong> The fundamental anchors span a wide range rather than converging tightly. At the low end sit the conservative 5-year DCF base (~$180) and the forward-P/E midpoint (~$305); at the high end, comps EV/Sales (~$352), the bull DCF (~$342), and the Street (consensus ~$371, last-month average ~$384 <sup id="fnref16:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref17:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>) cluster around ~$340–385. Spot at $350 <sup id="fnref18:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> sits inside that upper cluster — the market is already paying the comps-and-Street price, while the conservative cash-flow lens marks the downside. Net: <strong>fairly-to-fully valued; the asymmetry is balanced, skewing to the downside if the order surge proves cyclical.</strong></p>
+<hr>
+<h2 id="9-scenarios-catalysts-what-would-change-our-mind">9. Scenarios, catalysts &amp; what would change our mind</h2>
+<p><strong>Scenarios — model DCF value per scenario, triangulated with comps + the Street</strong> (the model&rsquo;s Scenarios tab holds the three DCF points; the fair-value ranges below layer comps and Street targets on top):</p>
+<ul>
+<li><strong>Bull — model DCF ~$342; triangulated ceiling ~$425.</strong> The AI-networking standards cadence stays fast through the 1.6T/3.2T transitions, open Ethernet (UEC) keeps taking multi-vendor share that must be tested, agentic traffic patterns sustain east-west validation demand, and operating margin pushes toward 33%. Keysight compounds high-teens revenue growth and re-rates on durability; the Street&rsquo;s high target of $425 <sup id="fnref20:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> sits here. <em>Probability: moderate — it requires the order pace to hold.</em></li>
+<li><strong>Base — model DCF ~$180 (deliberately conservative); triangulated fair value ~$305–355.</strong> AI demand is real but moderates from the current +56% order spike <sup id="fnref17:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> to a still-healthy high-single/low-double-digit trajectory; margins hold near 30%. The 5-year DCF base is conservative at ~$180; triangulated against in-line comps (~$352) and the Street consensus ($371 <sup id="fnref21:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>), base-case fair value clusters around today&rsquo;s price — a quality compounder fully valued. <em>Probability: most likely.</em></li>
+<li><strong>Bear — model DCF ~$92 (a full AI-thesis break); realistic de-rate ~$230–280.</strong> The order surge proves partly a pull-forward (customers front-loading 1.6T capacity), copper holds ~50% of the 1.6T market and slows the optical-test cycle <sup id="fnref2:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup>, Viavi presses the acquired Ethernet-test assets <sup id="fnref3:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup><sup id="fnref3:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>, and growth reverts toward GDP-plus. The multiple compresses from a growth multiple back toward a T&amp;M level. <em>Probability: lower than base, but the single largest risk to capital.</em></li>
+</ul>
+<p><strong>Catalysts (dated, next 6–12 months):</strong></p>
+<ul>
+<li><strong>Q3 FY2026 earnings (~August 2026):</strong> the first read on whether the +56% order pace <sup id="fnref18:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> holds or normalizes — the single most important data point for the thesis. Guidance midpoint is ~$1,740M revenue / ~$2.46 non-GAAP EPS <sup id="fnref19:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref20:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>.</li>
+<li><strong>Spirent integration milestones:</strong> the ~$375M FY2026 acquisition-revenue contribution and &gt;$100M synergy run-rate <sup id="fnref7:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref8:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> — and any further commentary on the divested Ethernet line&rsquo;s competitive impact.</li>
+<li><strong>Standards/product cadence:</strong> 1.6T transceiver volume moving into the mainstream across 2027–2028 <sup id="fnref4:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>, 3.2T mass-volume timing <sup id="fnref5:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>, and new UEC/UALink/CPO test design wins beyond the Broadcom 800G demo <sup id="fnref3:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup>.</li>
+<li><strong>AI-business disclosure:</strong> whether management begins to quantify the AI business beyond the H1 ~$500–600M sizing <sup id="fnref9:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> — a formal disclosure would likely be a re-rating catalyst.</li>
+</ul>
+<p><strong>What would change our mind.</strong> To the upside: two consecutive quarters of AI-cited order growth holding double digits <em>and</em> a step toward formal AI-revenue disclosure. To the downside: one quarter where orders decelerate sharply and management reframes the surge as pull-forward, or clear evidence that copper/LPO is slowing the optical re-validation cycle.</p>
+<hr>
+<h2 id="10-risks-position-sizing-sources">10. Risks, position sizing &amp; sources</h2>
+<p><strong>Principal risks.</strong></p>
+<ol>
+<li><strong>Order cyclicality / pull-forward.</strong> The +56% order spike <sup id="fnref21:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> could partly reflect customers pre-building 1.6T transceiver capacity; a digestion quarter would hit both growth and the multiple hardest, given how much of the §8 value sits beyond the explicit DCF horizon.</li>
+<li><strong>Contested AI-Ethernet test moat.</strong> The Spirent divestiture handed Viavi a directly competitive franchise whose network-and-service-enablement revenue is now growing more than 40% year-over-year, the acquired Spirent assets a meaningful contributor <sup id="fnref4:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup><sup id="fnref4:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>; share defense will cost R&amp;D.</li>
+<li><strong>Copper-vs-optics mix.</strong> If copper holds ~50% of 1.6T interconnect through 2029 <sup id="fnref3:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup>, the optical-acceleration framing that underpins the bull case softens.</li>
+<li><strong>Valuation.</strong> At ~34× forward earnings <sup id="fnref22:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> — that is, ~$350 against FY2026E non-GAAP EPS of ~$10.18 <sup id="fnref23:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, easing to ~$11.80 in FY2027 <sup id="fnref24:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> — the stock prices a growth multiple; a reversion toward a normal T&amp;M multiple is the dominant downside, independent of operations.</li>
+<li><strong>Macro / customer concentration.</strong> Hyperscaler and chipmaker capex is the demand source; an AI-capex pause would flow quickly into Keysight&rsquo;s orders.</li>
+</ol>
+<p><strong>Position sizing / implementation.</strong> This is a quality-compounder-at-a-full-price situation, not a dislocation. The disciplined posture is to <em>own the thesis on a pullback</em> — the entry point carries most of the forward return here, because the business quality is not in question but the price already reflects it. A pullback into roughly $300–320 — a ~10–15% de-rate that brings the forward multiple back toward the upper end of a normal T&amp;M range without the thesis having to break — would convert a &ldquo;hold the quality&rdquo; call into a &ldquo;buy the quality&rdquo; call. No dividend; total return is price plus buyback-driven share-count reduction <sup id="fnref22:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref23:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. Liquidity is ample (large-cap, ~$60B market cap <sup id="fnref19:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>).</p>
+<p><strong>Bottom line.</strong> Keysight is the highest-quality, lowest-beta way in the public market to own the <em>complexity</em> of AI networking — a genuine beneficiary through the validation channel, with real duration from the agentic traffic shift. The market has figured this out: at ~$350 the AI re-rating is paid for, comps are in line, and the Street sees single-digit upside. We rate it a high-quality hold and a buy on weakness, with the next earnings print (order durability) as the swing factor.</p>
+<hr>
+<h3 id="sources">Sources</h3>
+<p>Full three-component provenance (claim → <code>[S###]</code> → source document/URL + page + retrieval date) lives in the findings sidecar <code>2026-06-03-keysight-keys-deeper-report.md.findings.jsonl</code>. Primary sources: Keysight FY2025 10-K (filed 2025-12-17), Q1 FY2026 10-Q (2026-03-05) and Q2 FY2026 press release/call (2026-05-19); Keysight and Spirent transaction releases; Keysight KAI product releases; the networking-interconnect research packet (Goldman Sachs optical-TAM work, Ultra Ethernet Consortium, LightCounting, SemiAnalysis, Arm) carried forward from <code>research-2026-05-25-networking-interconnect-deep-dive</code>; and market data, consensus estimates, and peer comps from FMP (2026-06-03). Valuation figures tie to <code>keysight-keys-comps-dcf_v1_2026-06-03.xlsx</code>.</p>
+<h2 id="sources_1">Sources</h2>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:fn-1">
+<p>primary-filing &ldquo;Q2 FY2026 total revenue&rdquo;, 2026-05-19 · local: exhibit991-q226pressrelease.htm · Primary&#160;<a class="footnote-backref" href="#fnref:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref15:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref16:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref17:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref18:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref19:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref20:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref21:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-2">
+<p>earnings-transcript &ldquo;H1 FY2026 AI-related business size (CEO sizing)&rdquo;, 2026-05-19 · local:  · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-3">
+<p>other &ldquo;KEYS share price 2026-06-03&rdquo;, 2026-06-03 · local: price-target-consensus) · other&#160;<a class="footnote-backref" href="#fnref:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref15:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref16:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref17:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref18:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref19:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref20:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref21:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref22:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref23:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref24:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-4">
+<p>earnings-transcript &ldquo;Software and services ~40% of revenue (Q1 FY2025 call)&rdquo;, 2025-02-25 · local: keysight-technologies-inc-q1-2025-earnings-call-transcript-2025-02-25.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-5">
+<p>primary-filing &ldquo;GAAP gross margin FY2025&rdquo;, 2025-12-17 · local: keysight-technologies-inc-10-k-2025-12-17-2025-12-17.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref15:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref16:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref17:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref18:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref19:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref20:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref21:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref22:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref23:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref24:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref25:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref26:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-6">
+<p>primary-filing &ldquo;Keysight/Spirent total deal value (GBP, fully diluted)&rdquo;, 2025-10-15 · local: Keysight-Technologies-Completes-Acquisition-of-Spirent-Communications-PLC · Primary&#160;<a class="footnote-backref" href="#fnref:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-7">
+<p>primary-filing &ldquo;Divestiture buyer for antitrust remedy = VIAVI Solutions (high-speed Ethernet + network security lines)&rdquo;, 2025-03-03 · local: default.aspx · Primary&#160;<a class="footnote-backref" href="#fnref:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-8">
+<p>primary-filing &ldquo;Spirent test capabilities added: high-speed Ethernet, positioning (PNT/GNSS), network/security validation, channel emulation (qualitative)&rdquo;, 2025-03-04 · local: detail?dockey=1323-16923436-1IL0DLT1MHH9T2CITH02P3CDQO · Primary&#160;<a class="footnote-backref" href="#fnref:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-9">
+<p>www.fool.com &ldquo;Q3 FY26 revenue $406.8M (+42.8% YoY); NSE $321.5M (+54.4% YoY) driven by Spirent integration; Spirent contributed $54.2M in Q3; 3.2 Tbps test solutions nearing shipment&rdquo;, 2026-04-29 · https://www.fool.com/earnings/call-transcripts/2026/04/29/viavi-viav-q3-2026-earnings-transcript/ · local: 2026-05-25-www.fool.com-earnings-call-transcripts-2026-04-29-viavi-viav-q3-2026-earn.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-10">
+<p>primary-filing &ldquo;Commercial comms +13% YoY Q3 FY2025; 400G/800G transceiver capacity for AI&rdquo;, 2025-08-29 · local: keysight-technologies-inc-10-q-2025-08-29-2025-08-29.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-11">
+<p>primary-filing &ldquo;Commercial communications revenue growth Q1 FY2026 (+33% YoY; 800G/1.6T transceiver capacity for AI)&rdquo;, 2026-03-05 · local: keysight-technologies-inc-10-q-2026-03-05-2026-03-05.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-12">
+<p>sell-side-coverage &ldquo;Optical-networking TAM 2026 baseline (GB300 NVL72 cycle)&rdquo;, 2026-04-17 · local: 2026-04-17-gs-global-tech-networking-154b-tam.pdf p.3 · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-13">
+<p>sell-side-coverage &ldquo;1.6T optical module mass-volume share Q4 2025&rdquo;, 2026-04-17 · local: 2026-04-17-gs-global-tech-networking-154b-tam.pdf p.15 · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-14">
+<p>trade-press &ldquo;224G optical/electrical test (DCA) supports IEEE 802.3dj for 1.6T transceivers (qualitative)&rdquo;, 2026-03-13 · local: Keysight-Introduces-New-224G-Test-Solutions-to-Enable-1.6T-Optical-Network-Validation · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-15">
+<p>sell-side-coverage &ldquo;DAC copper effective distance (Direct Attach Copper, no retimers)&rdquo;, 2026-04-17 · local: 2026-04-17-gs-global-tech-networking-154b-tam.pdf p.14 · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-16">
+<p>trade-press &ldquo;UEC Specification 1.0 published — open-Ethernet AI/HPC networking stack spanning NICs, switches, optics, cables; ~560-page multi-vendor interoperability spec&rdquo;, 2025-06-11 · local:  · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-17">
+<p>sell-side-coverage &ldquo;Tomahawk 6 Davisson CPO switch capacity (3rd-gen CPO Ethernet)&rdquo;, 2026-04-17 · local: 2026-04-17-gs-global-tech-networking-154b-tam.pdf p.10 · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-18">
+<p>sell-side-coverage &ldquo;InfiniBand vs Ethernet latency&rdquo;, 2026-04-17 · local: 2026-04-17-gs-global-tech-networking-154b-tam.pdf p.28 · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-19">
+<p>newsletter.semianalysis.com &ldquo;UALink and UAL256 scale-up roadmap&rdquo;, 2025-06-12 · https://newsletter.semianalysis.com/p/amd-advancing-ai-mi350x-and-mi400-ualoe72-mi500-ual256 · local: 2026-05-25-newsletter.semianalysis.com-p-amd-advancing-ai-mi350x-and-mi400-ualoe72-mi500-ual256.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-20">
+<p>earnings-transcript &ldquo;Interconnect/standards demand stack: CXL, Ultra Ethernet, PCIe Gen-7, 1.6T (Q1 FY2024 call)&rdquo;, 2024-02-20 · local: keysight-technologies-inc-q1-2024-earnings-call-transcript-2024-02-20.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-21">
+<p>investor-presentation &ldquo;KAI (Keysight Artificial Intelligence) architecture — 4 portfolio suites for AI data center test (qualitative)&rdquo;, 2025-04-01 · local: 0401-pr25-052-keysight-unveils-architecture-for-scaling-ai-data-centers.html · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-22">
+<p>investor-presentation &ldquo;KAI Data Center Builder (KAI DC Builder) — AI workload emulation software suite (qualitative)&rdquo;, 2025-04-01 · local: Keysight-Introduces-AI-Data-Center-Builder-to-Validate-and-Optimize-Network-Architecture-and-Host-Design · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-23">
+<p>investor-presentation &ldquo;AresONE 1600GE — 1.6T Ethernet AI workload emulation platform over 224G SerDes (qualitative)&rdquo;, 2026-03-10 · local: 0310_pr26-044-keysight-debuts-purpose-built-1-6t-ethernet-ai-workload-emulation-platform-to-validate-next-generation-ai-fabrics.html · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-24">
+<p>investor-presentation &ldquo;Scale-up validation portfolio supports UALink 200G, PCIe 7.0/6.0/5.0, CXL 3 (qualitative)&rdquo;, 2026-02-18 · local: 0218-pr-026-keysight-introduces-scale-up-validation-solutions-for-ai-data-centers.html · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-25">
+<p>trade-press &ldquo;Industry-first Ultra Ethernet (UEC) LLR + CBFC interop demo at 800GE with Broadcom Tomahawk Ultra (named partner/design win)&rdquo;, 2026-03-16 · local: Keysight-Advances-AI-Networking-with-Ultra-Ethernet-LLR-and-CBFC-Interoperability-Demonstration-at-OFC-2026 · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-26">
+<p>trade-press &ldquo;Copper share of 1.6T interconnect market by 2029&rdquo;, 2026-05-19 · local: 2026-05-19-futunn-bernstein-97pp-interconnect-summary.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-27">
+<p>digg.com &ldquo;Percent of agentic coding session time spent on CPU tool use (file edits, Bash, lints)&rdquo;, 2026-05-23 · https://digg.com/ai/h7rp9igv?rank=8 (Digg summary of SemiAnalysis X post 2026-05-23) — drawn from 174,264-session dataset · local: 2026-05-23-semianalysis-42pct-cpu-agentic-coding-digg-summary.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-28">
+<p>research.fpx.world &ldquo;CPU + NIC + DPU as the orchestration layer (most explicit framing)&rdquo;, 2026-01-29 · https://research.fpx.world/p/beyond-the-gpu-the-2026-cpu-bottleneck (FPX Research 2026-01-29) · local: 2026-01-29-fpx-research-beyond-the-gpu-2026-cpu-bottleneck.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-29">
+<p>investor-presentation &ldquo;CPU core demand per GW shifts from LLM era to agentic era&rdquo;, 2026-01-06 · local: 2026-01-06-arm-rubin-converged-ai-datacenter.md | reused from networking-interconnect-deep-dive · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-30">
+<p>www.fool.com &ldquo;CPU:GPU ratio shift in agentic AI per Intel CFO Q1 2026 earnings&rdquo;, 2026-04-23 · https://www.fool.com/earnings/call-transcripts/2026/04/23/intel-intc-q1-2026-earnings-transcript/ (Motley Fool Intel Q1 2026 transcript) + https://www.theregister.com/2026/04/24/intel_expects_ai_inference_to/ · local: 2026-05-25-www.fool.com-earnings-call-transcripts-2026-04-23-intel-intc-q1-2026-earn.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-31">
+<p>insights.trendforce.com &ldquo;Industry CPU:GPU ratio for agentic AI era&rdquo;, 2026-04-14 · https://insights.trendforce.com/p/agentic-ai-cpu-gpu (TrendForce 2026-04-14) · local: 2026-05-25-insights.trendforce.com-p-agentic-ai-cpu-gpu.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-32">
+<p>blogs.microsoft.com &ldquo;Per-rack networking spec in Fairwater (GPU-to-GPU bandwidth)&rdquo;, 2025-09-18 · https://blogs.microsoft.com/blog/2025/09/18/inside-the-worlds-most-powerful-ai-datacenter/ · local: 2025-09-18-microsoft-fairwater-ai-datacenter.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<script src="../assets/vega-embed-bundle.js"></script>
+<script src="../assets/chart-embed.js"></script>
+</body>
+</html>

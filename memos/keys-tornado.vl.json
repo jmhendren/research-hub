@@ -1,0 +1,310 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json",
+  "config": {
+    "axis": {
+      "domainColor": "#D9D9D6",
+      "grid": false,
+      "labelAngle": 0,
+      "labelColor": "#3D3D3D",
+      "labelFont": "Helvetica Neue",
+      "labelFontSize": 12,
+      "tickColor": "#D9D9D6",
+      "titleColor": "#6B6B6B",
+      "titleFont": "Helvetica Neue",
+      "titleFontSize": 12
+    },
+    "background": "#faf9f7",
+    "font": "Helvetica Neue",
+    "range": {
+      "category": [
+        "#0E2A47",
+        "#8B2332",
+        "#0D7680",
+        "#C3C7CD",
+        "#3D3D3D"
+      ]
+    },
+    "title": {
+      "anchor": "start",
+      "color": "#1A1A1A",
+      "dy": -4,
+      "font": "Georgia",
+      "fontSize": 18,
+      "fontWeight": "bold",
+      "subtitleColor": "#6B6B6B",
+      "subtitleFont": "Helvetica Neue",
+      "subtitleFontSize": 12.5,
+      "subtitlePadding": 8
+    },
+    "view": {
+      "stroke": null
+    }
+  },
+  "datasets": {
+    "data-2c4da44b7b8ed29d32448757c9152d07": [
+      {
+        "v": 180.5072809328367
+      }
+    ],
+    "data-6fad5c34291b82fc9632cbce143d677a": [
+      {
+        "_": 0
+      }
+    ],
+    "data-a897d779e2e6774958f485f9811e577a": [
+      {
+        "driver": "Revenue growth (±5pp/yr)",
+        "high": 217.57525347131673,
+        "low": 148.80936591561792,
+        "swing": 68.76588755569881
+      },
+      {
+        "driver": "WACC (10% → 8%)",
+        "high": 218.33878065605745,
+        "low": 153.50515203242185,
+        "swing": 64.8336286236356
+      },
+      {
+        "driver": "Operating margin (±3pp)",
+        "high": 199.5172367843701,
+        "low": 161.49732508130336,
+        "swing": 38.019911703066754
+      },
+      {
+        "driver": "Terminal growth (2.5% → 3.5%)",
+        "high": 194.24707416446728,
+        "low": 168.88130204453392,
+        "swing": 25.365772119933354
+      }
+    ]
+  },
+  "spacing": 6,
+  "vconcat": [
+    {
+      "data": {
+        "name": "data-6fad5c34291b82fc9632cbce143d677a"
+      },
+      "height": 22,
+      "layer": [
+        {
+          "encoding": {
+            "y": {
+              "value": 1
+            }
+          },
+          "mark": {
+            "color": "#8B2332",
+            "size": 3,
+            "type": "rule"
+          }
+        },
+        {
+          "encoding": {
+            "text": {
+              "value": "EXHIBIT · SENSITIVITY"
+            },
+            "x": {
+              "value": 0
+            }
+          },
+          "mark": {
+            "align": "left",
+            "color": "#8B2332",
+            "dx": 2,
+            "dy": 16,
+            "fontSize": 10,
+            "fontWeight": "bold",
+            "type": "text"
+          }
+        }
+      ],
+      "width": 560
+    },
+    {
+      "height": 182,
+      "layer": [
+        {
+          "data": {
+            "name": "data-a897d779e2e6774958f485f9811e577a"
+          },
+          "encoding": {
+            "x": {
+              "field": "low",
+              "title": null,
+              "type": "quantitative"
+            },
+            "x2": {
+              "field": "high"
+            },
+            "y": {
+              "field": "driver",
+              "sort": [
+                "Revenue growth (±5pp/yr)",
+                "WACC (10% → 8%)",
+                "Operating margin (±3pp)",
+                "Terminal growth (2.5% → 3.5%)"
+              ],
+              "title": null,
+              "type": "nominal"
+            }
+          },
+          "mark": {
+            "color": "#0E2A47",
+            "type": "bar"
+          }
+        },
+        {
+          "data": {
+            "name": "data-a897d779e2e6774958f485f9811e577a"
+          },
+          "encoding": {
+            "text": {
+              "field": "lbl",
+              "type": "nominal"
+            },
+            "x": {
+              "field": "low",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "driver",
+              "sort": [
+                "Revenue growth (±5pp/yr)",
+                "WACC (10% → 8%)",
+                "Operating margin (±3pp)",
+                "Terminal growth (2.5% → 3.5%)"
+              ],
+              "title": null,
+              "type": "nominal"
+            }
+          },
+          "mark": {
+            "align": "right",
+            "color": "#1A1A1A",
+            "dx": -4,
+            "fontSize": 10,
+            "type": "text"
+          },
+          "transform": [
+            {
+              "as": "lbl",
+              "calculate": "'$' + format(datum.low * 1.0, ',.0f') + ''"
+            }
+          ]
+        },
+        {
+          "data": {
+            "name": "data-a897d779e2e6774958f485f9811e577a"
+          },
+          "encoding": {
+            "text": {
+              "field": "lbl",
+              "type": "nominal"
+            },
+            "x": {
+              "field": "high",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "driver",
+              "sort": [
+                "Revenue growth (±5pp/yr)",
+                "WACC (10% → 8%)",
+                "Operating margin (±3pp)",
+                "Terminal growth (2.5% → 3.5%)"
+              ],
+              "title": null,
+              "type": "nominal"
+            }
+          },
+          "mark": {
+            "align": "left",
+            "color": "#1A1A1A",
+            "dx": 4,
+            "fontSize": 10,
+            "type": "text"
+          },
+          "transform": [
+            {
+              "as": "lbl",
+              "calculate": "'$' + format(datum.high * 1.0, ',.0f') + ''"
+            }
+          ]
+        },
+        {
+          "data": {
+            "name": "data-2c4da44b7b8ed29d32448757c9152d07"
+          },
+          "encoding": {
+            "x": {
+              "field": "v",
+              "type": "quantitative"
+            }
+          },
+          "mark": {
+            "color": "#3D3D3D",
+            "size": 1.5,
+            "strokeDash": [
+              5,
+              4
+            ],
+            "type": "rule"
+          }
+        },
+        {
+          "data": {
+            "name": "data-2c4da44b7b8ed29d32448757c9152d07"
+          },
+          "encoding": {
+            "text": {
+              "field": "t",
+              "type": "nominal"
+            },
+            "x": {
+              "field": "v",
+              "type": "quantitative"
+            }
+          },
+          "mark": {
+            "align": "left",
+            "baseline": "top",
+            "color": "#3D3D3D",
+            "dx": 6,
+            "dy": 0,
+            "fontSize": 11,
+            "fontStyle": "italic",
+            "type": "text"
+          },
+          "transform": [
+            {
+              "as": "t",
+              "calculate": "'Base $' + format(datum.v * 1.0, ',.0f') + ''"
+            }
+          ]
+        }
+      ],
+      "title": {
+        "subtitle": "BASE value/share swing, one driver at a time (others held at base ≈ $180)",
+        "text": "The DCF hinges on AI-order durability: revenue growth and the discount rate swing value most"
+      },
+      "width": 560
+    },
+    {
+      "data": {
+        "name": "data-6fad5c34291b82fc9632cbce143d677a"
+      },
+      "encoding": {
+        "text": {
+          "value": "Source: Keysight comps+DCF model · Hendren analysis · as of 2026-06-03"
+        }
+      },
+      "mark": {
+        "align": "left",
+        "color": "#6B6B6B",
+        "dx": 2,
+        "fontSize": 10,
+        "type": "text"
+      }
+    }
+  ]
+}

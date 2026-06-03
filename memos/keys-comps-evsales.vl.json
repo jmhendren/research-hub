@@ -1,0 +1,230 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json",
+  "config": {
+    "axis": {
+      "domainColor": "#D9D9D6",
+      "grid": false,
+      "labelAngle": 0,
+      "labelColor": "#3D3D3D",
+      "labelFont": "Helvetica Neue",
+      "labelFontSize": 12,
+      "tickColor": "#D9D9D6",
+      "titleColor": "#6B6B6B",
+      "titleFont": "Helvetica Neue",
+      "titleFontSize": 12
+    },
+    "background": "#faf9f7",
+    "font": "Helvetica Neue",
+    "range": {
+      "category": [
+        "#0E2A47",
+        "#8B2332",
+        "#0D7680",
+        "#C3C7CD",
+        "#3D3D3D"
+      ]
+    },
+    "title": {
+      "anchor": "start",
+      "color": "#1A1A1A",
+      "dy": -4,
+      "font": "Georgia",
+      "fontSize": 18,
+      "fontWeight": "bold",
+      "subtitleColor": "#6B6B6B",
+      "subtitleFont": "Helvetica Neue",
+      "subtitleFontSize": 12.5,
+      "subtitlePadding": 8
+    },
+    "view": {
+      "stroke": null
+    }
+  },
+  "datasets": {
+    "data-6fad5c34291b82fc9632cbce143d677a": [
+      {
+        "_": 0
+      }
+    ],
+    "data-de6d443b436156b8ccf9500f160a0888": [
+      {
+        "category": "KEYS",
+        "order": 0,
+        "series": "fwd EV/Sales",
+        "value": 8.818366458726244
+      },
+      {
+        "category": "TER",
+        "order": 1,
+        "series": "fwd EV/Sales",
+        "value": 14.198400355476561
+      },
+      {
+        "category": "VIAV",
+        "order": 2,
+        "series": "fwd EV/Sales",
+        "value": 8.935013262599469
+      },
+      {
+        "category": "TDY",
+        "order": 3,
+        "series": "fwd EV/Sales",
+        "value": 4.762846465275615
+      }
+    ]
+  },
+  "spacing": 6,
+  "vconcat": [
+    {
+      "data": {
+        "name": "data-6fad5c34291b82fc9632cbce143d677a"
+      },
+      "height": 22,
+      "layer": [
+        {
+          "encoding": {
+            "y": {
+              "value": 1
+            }
+          },
+          "mark": {
+            "color": "#8B2332",
+            "size": 3,
+            "type": "rule"
+          }
+        },
+        {
+          "encoding": {
+            "text": {
+              "value": "EXHIBIT · COMPS"
+            },
+            "x": {
+              "value": 0
+            }
+          },
+          "mark": {
+            "align": "left",
+            "color": "#8B2332",
+            "dx": 2,
+            "dy": 16,
+            "fontSize": 10,
+            "fontWeight": "bold",
+            "type": "text"
+          }
+        }
+      ],
+      "width": 560
+    },
+    {
+      "data": {
+        "name": "data-de6d443b436156b8ccf9500f160a0888"
+      },
+      "height": 340,
+      "layer": [
+        {
+          "encoding": {
+            "color": {
+              "field": "category",
+              "legend": null,
+              "scale": {
+                "domain": [
+                  "TER",
+                  "VIAV",
+                  "KEYS",
+                  "TDY"
+                ],
+                "range": [
+                  "#C3C7CD",
+                  "#C3C7CD",
+                  "#8B2332",
+                  "#C3C7CD"
+                ]
+              },
+              "title": null,
+              "type": "nominal"
+            },
+            "x": {
+              "field": "category",
+              "sort": [
+                "TER",
+                "VIAV",
+                "KEYS",
+                "TDY"
+              ],
+              "title": null,
+              "type": "nominal"
+            },
+            "y": {
+              "field": "value",
+              "title": null,
+              "type": "quantitative"
+            }
+          },
+          "mark": {
+            "type": "bar"
+          }
+        },
+        {
+          "encoding": {
+            "text": {
+              "field": "lbl",
+              "type": "nominal"
+            },
+            "x": {
+              "field": "category",
+              "sort": [
+                "TER",
+                "VIAV",
+                "KEYS",
+                "TDY"
+              ],
+              "title": null,
+              "type": "nominal"
+            },
+            "y": {
+              "field": "value",
+              "title": null,
+              "type": "quantitative"
+            }
+          },
+          "mark": {
+            "baseline": "bottom",
+            "color": "#1A1A1A",
+            "dy": -6,
+            "fontSize": 11,
+            "fontWeight": "bold",
+            "type": "text"
+          },
+          "transform": [
+            {
+              "as": "lbl",
+              "calculate": "'' + format(datum.value * 1.0, '.1f') + '×'"
+            }
+          ]
+        }
+      ],
+      "title": {
+        "subtitle": "FY2026E EV / revenue, current-fiscal-year consensus",
+        "text": "On forward EV/Sales, Keysight sits mid-pack among test peers — the AI premium lives in the chip names, not KEYS"
+      },
+      "width": 560
+    },
+    {
+      "data": {
+        "name": "data-6fad5c34291b82fc9632cbce143d677a"
+      },
+      "encoding": {
+        "text": {
+          "value": "Source: FMP consensus (FY2026E) · Hendren analysis · as of 2026-06-03"
+        }
+      },
+      "mark": {
+        "align": "left",
+        "color": "#6B6B6B",
+        "dx": 2,
+        "fontSize": 10,
+        "type": "text"
+      }
+    }
+  ]
+}
