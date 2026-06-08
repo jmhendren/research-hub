@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Inter-Datacenter Optical Layer — Primer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF;
+  --bg-alt: #F7F7F4;
+  --ink: #1A1A1A;
+  --ink-soft: #3D3D3D;
+  --muted: #6B6B6B;
+  --rule: #D9D9D6;
+  --rule-soft: #E8E8E5;
+  --navy: #0E2A47;
+  --burgundy: #8B2332;
+  --ochre: #9C7626;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Source Serif 4', 'Times New Roman', Georgia, serif;
+  font-size: 17px;
+  line-height: 1.62;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 56px 48px 96px;
+}
+h1, h2, h3, h4 {
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--navy);
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
+  line-height: 1.25;
+}
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 0;
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 18px;
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-size: 22px;
+  margin-top: 2.2em;
+  border-bottom: 1px solid var(--rule-soft);
+  padding-bottom: 10px;
+  color: var(--burgundy);
+}
+h3 {
+  font-size: 18px;
+  color: var(--navy);
+}
+h4 { font-size: 16px; color: var(--ink-soft); }
+p { margin: 0 0 1.05em; }
+strong { color: var(--ink); font-weight: 600; }
+em { color: var(--ink-soft); }
+a {
+  color: var(--burgundy);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(139, 35, 50, 0.25);
+  transition: border-bottom-color 0.15s ease;
+}
+a:hover { border-bottom-color: var(--burgundy); }
+ul, ol { margin: 0 0 1.05em; padding-left: 1.4em; }
+li { margin-bottom: 0.4em; }
+li > p { margin: 0 0 0.4em; }
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2.4em 0;
+}
+blockquote {
+  margin: 0 0 1.05em;
+  padding: 0.6em 1em;
+  border-left: 3px solid var(--ochre);
+  background: var(--bg-alt);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+code {
+  font-family: 'IBM Plex Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+  font-size: 0.88em;
+  background: var(--bg-alt);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--navy);
+}
+pre {
+  background: var(--bg-alt);
+  padding: 14px 18px;
+  overflow-x: auto;
+  border-radius: 4px;
+  margin: 0 0 1.05em;
+  border: 1px solid var(--rule-soft);
+}
+pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 0.85em;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0 1.4em;
+  font-size: 0.95em;
+  font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+th {
+  background: var(--bg-alt);
+  color: var(--navy);
+  font-weight: 600;
+  border-bottom: 2px solid var(--rule);
+  font-size: 0.92em;
+}
+tr:last-child td { border-bottom: 1px solid var(--rule); }
+.meta {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule-soft);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+figure { margin: 1.6em 0; }
+figure img { width: 100%; height: auto; display: block; border: 1px solid var(--rule-soft); border-radius: 4px; }
+figure figcaption {
+  font-family: 'Source Serif 4', 'Times New Roman', Georgia, serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 12px;
+}
+@media (max-width: 720px) {
+  .container { padding: 32px 22px 64px; }
+  body { font-size: 16px; }
+  h1 { font-size: 26px; }
+  h2 { font-size: 20px; }
+  table { font-size: 0.88em; }
+  th, td { padding: 7px 8px; }
+}
+@media print {
+  body { font-size: 11pt; line-height: 1.45; }
+  .container { max-width: none; padding: 24pt 36pt; }
+  a { color: var(--ink); border-bottom: 0; }
+  h1, h2, h3 { page-break-after: avoid; }
+  table, blockquote { page-break-inside: avoid; }
+}
+</style>
+<link rel="stylesheet" href="../assets/hub-masthead.css">
+</head>
+<body>
+<div class="container">
+<header class="masthead">
+  <div class="masthead-top">
+    <span class="doctype">Primer</span>
+    <span class="draft">June 2026</span>
+  </div>
+  <div class="title-block">
+    <h1 class="title">
+      The Inter-Datacenter Optical Layer
+      <span class="subtitle">DCI and scale-across enablement &mdash; the technology, silicon, software, and services that light, upgrade, maintain, observe, and test the inter-datacenter optical network</span>
+    </h1>
+    <dl class="dossier">
+      <div class="row"><dt>Date</dt><dd>June 2026</dd></div>
+      <div class="row"><dt>Type</dt><dd>Primer</dd></div>
+      <div class="row"><dt>Topic</dt><dd>DCI &amp; Scale-Across Optics</dd></div>
+      <div class="row"><dt>Focus</dt><dd>US &amp; EU</dd></div>
+    </dl>
+  </div>
+  <p class="deck">A landscape (not a ranked recommendation) of the enabling layer the headline optical TAM excludes: coherent transport and silicon, dark-fiber reconditioning physics, outside-plant construction, and the test, observability, and sensing tier that watches the inter-datacenter network.</p>
+</header>
+
+<h2 id="1-audience-and-anchor-question">1. Audience and anchor question</h2>
+<p>This report is written for an investor who already knows the headline AI-infrastructure story &mdash; a trillion dollars of data-center capex, GPUs sold out, optics replacing copper inside the rack &mdash; but who wants to go one layer deeper than <a href="networking-interconnect.html">the Networking &amp; Interconnect primer</a> (2026-05-25) took two of its eight stack layers. That primer defined <strong>DC-to-DC scale-across (Data Center Interconnect, "DCI")</strong> and <strong>dark fiber / outside-plant</strong> in roughly ten lines each. This report opens both up.</p>
+<p>The deliberate framing: this is <strong>not</strong> a report on the people who make the glass and the cable (Corning, Prysmian, the Japanese fiber majors &mdash; the last of which is a separate study). It is a report on the <strong>enabling layer</strong> &mdash; the coherent transceivers and the silicon inside them, the optical-transport systems that light the fiber, the construction crews that install and splice it, the instruments and software that test and observe it, and the specific question of <em>what has to be done to decades-old dark fiber to make it carry today's coherent DCI traffic.</em> By the end, the reader should be able to name the layers of the inter-datacenter optical stack, the load-bearing tradeoffs in each, and the public-and-private companies that sit in them across the US and Europe.</p>
+<p>A note on stance: this is a <strong>landscape</strong>, not a stock call. It maps the terrain and the players and ties them back to an AI-infrastructure investment thesis; it does not rank names to buy.</p>
+
+<h2 id="2-bottom-line-up-front">2. Bottom line up front &mdash; the white space the headline TAM excludes</h2>
+<blockquote><strong>&sect;2 summary.</strong> The most-cited number in AI optical networking &mdash; Goldman's ~$154bn 2028 optical TAM &mdash; is built entirely from the dollar content <strong>inside the fence</strong> (the links within and across racks in a campus), and by construction excludes the fiber, optics, and construction <strong>between</strong> buildings. That excluded layer is not a rounding error: each of its legs &mdash; inter-DC transport equipment, coherent modules, leased dark fiber, outside-plant construction &mdash; is already a multi-billion-dollar annual market in its own right, growing off a faster base and from a less-mapped starting point. The legs sit on different measurement bases and horizons and cannot be summed into one clean total, but each is large, and together they describe a real second front of optical spend.</blockquote>
+<p>Goldman Sachs's April 2026 note <em>"Optical Networking: the next mega trend in AI infrastructure"</em> sizes the optical-networking opportunity at <strong>US$154bn in 2028</strong>. That figure anchors nearly every conversation about AI optics &mdash; and it is almost always quoted without its scope. The TAM is constructed, in Goldman's own words, from "the connection content value of each rack" multiplied across its forecast shipment of Vera Rubin / Rubin Ultra racks. Goldman's own Exhibit 8 is titled "Scale up / Scale out TAM opportunities": <strong>69% (US$106bn) is <em>scale-up</em></strong> (the links within a rack or super-node) and the balance is <em>scale-out</em> (the fabric across a building), with co-packaged optics alone contributing US$91bn (59%) of the total. Both tiers are inside-the-fence. Goldman defines a third tier &mdash; <em>scale-across</em>, "connecting servers across data centers in different locations" &mdash; but confines it to an appendix exhibit with <strong>no TAM line item attached</strong>. A per-rack-content methodology structurally cannot capture the fiber strung between campuses, the coherent optics that drive it, or the trench it sits in.</p>
+<p>That is the white space this report occupies. It can be sized, roughly, by assembling the legs the headline figure leaves out:</p>
+<ul>
+<li><strong>DCI optical-transport systems</strong> &mdash; the "boxes" at each end of an inter-DC link. The global optical-transport equipment market reached <strong>US$16bn in 2025, up 10% year-over-year and explicitly DCI-driven</strong>, per Dell'Oro; the disaggregated-WDM slice (transponders, line systems, and ZR pluggables sold without a full chassis) grew ~40%, and the IP-over-DWDM segment alone is forecast to reach US$4.4bn by 2030 at a 16% CAGR.</li>
+<li><strong>Coherent pluggable optics</strong> &mdash; the transceivers that actually carry the wavelengths. Coherent optical modules were <strong>~US$6bn of 2025 revenue</strong>, a subset of a ~US$25bn total optical-component market (Cignal AI).</li>
+<li><strong>Dark fiber and "East-West" connectivity</strong> &mdash; the carrier-served glass between buildings. Lumen sizes the East-West (DC-to-DC) connectivity market it serves at <strong>~US$11bn</strong> inside a ~US$23bn total &mdash; and, tellingly, its own deck <em>excludes</em> hyperscaler self-built infrastructure from that figure, so it <strong>undercounts</strong> the true inter-DC layer, since self-build is the dominant mode (&sect;3).</li>
+<li><strong>Outside-plant construction</strong> &mdash; the physical build. Dycom, the purest US fiber-construction name, identifies a <strong>US$20bn addressable market</strong> across long-haul, middle-mile, and inside-the-fence fiber work &mdash; though this is a <em>forward, back-half-weighted</em> opportunity (builds starting in earnest around 2028), not current annual spend.</li>
+<li><strong>Test, observation, and assurance</strong> &mdash; the instruments and software that qualify and watch the network. A low-single-digit-billion layer (Viavi, EXFO, Keysight, Anritsu, Luna).</li>
+</ul>
+
+<figure>
+  <img src="../assets/dci/dci-enablement-sizing.png" alt="Exhibit 1 — the inter-datacenter enablement layer the $154bn optical TAM leaves out, sized by leg, 2025-26.">
+  <figcaption>Exhibit 1 &mdash; the legs of the excluded inter-DC layer: outside-plant build (a forward, ~2028-weighted addressable TAM), DCI transport systems (2025 equipment market), carrier-served dark fiber / East-West (Lumen's served market, which excludes self-build), and coherent optics modules (2025 component market). Each leg sits on a <strong>different basis and time horizon</strong>, so the bars are deliberately <strong>not</strong> stacked and must not be summed &mdash; the exhibit shows the shape of the white space. Against these sits Goldman's US$154bn 2028 inside-the-fence TAM, which by construction counts none of them.</figcaption>
+</figure>
+
+<p>Two cautions keep this honest. First, <strong>these legs cannot be summed</strong> &mdash; the coherent modules (~$6bn) sit physically <em>inside</em> the transport-equipment figure (~$16bn), Lumen's carrier-served "East-West" revenue overlaps that equipment, and the Dycom figure is a forward addressable TAM on a different horizon. Adding the bars would double- and triple-count; the exhibit shows the <em>shape</em> of the excluded layer, not a total. Second, the market-data houses <strong>disagree materially by scope</strong>: Cignal AI's ~US$25bn (optical components), LightCounting's US$26bn (AI-cluster Ethernet transceivers plus co-packaged optics, rising toward US$100bn by 2030), and Dell'Oro's US$16bn (transport systems) are measuring three different things, and the gap is wide enough that any single headline must travel with its definition attached. The disagreement is itself the finding: this is an under-instrumented market, which is precisely why it is interesting.</p>
+<p>The rest of the report walks the stack that fills that white space, from the demand driver down to the trench.</p>
+
+<h2 id="3-why-scale-across-exists">3. Why scale-across exists &mdash; the demand driver</h2>
+<blockquote><strong>&sect;3 summary.</strong> AI training clusters have outgrown the power and floor space of any single campus, so hyperscalers now stitch multiple buildings &mdash; and multiple metros &mdash; into one logical machine. That forces a new tier of networking, "scale-across," whose defining physical regime is the 100-to-1,000-kilometre link: too far for the copper and short-reach optics that handle in-building traffic, and newly economic to build because the buyers are the richest companies on earth.</blockquote>
+<p><strong>The old flow.</strong> Until recently, an AI training run lived inside one data center. The networking problem was "scale-up" (wiring GPUs into a rack or super-node with copper and, increasingly, co-packaged optics) and "scale-out" (connecting racks into a cluster across a building with pluggable optical transceivers). Both are inside-the-fence problems, and both are what Goldman's $154bn measures.</p>
+<p><strong>The new flow.</strong> Frontier models now demand more power than a single site can draw. Microsoft has begun linking its "Fairwater" AI data centers in Wisconsin, Atlanta, and elsewhere into a single <strong>"AI superfactory"</strong> over a dedicated AI wide-area network; Meta states that its GPU-cluster requirements grew beyond what a single data-center campus can hold, so it now sources fiber and, in most cases, <strong>constructs its own</strong> inter-DC plant; and Google's framing &mdash; "the WAN is the new LAN and the continent is the data center" &mdash; captures a network sustaining roughly 10&times; the WAN traffic of a few years ago. The reach taxonomy now runs scale-up &rarr; scale-out &rarr; <strong>scale-across</strong>, and the industry has converged on that third term: it appears in Dell'Oro's market taxonomy, Ciena's 10-K growth strategy, and Cisco's and Ribbon's product literature alike. (The parallel 2026 Optical Compute Interconnect MSA &mdash; AMD, Broadcom, Meta, Microsoft, NVIDIA, and OpenAI &mdash; addresses optics <em>inside</em> the rack, the scale-up tier, and is therefore outside this report's scope.)</p>
+<p><strong>What changed, quantified.</strong> Scale-across has a <em>physical signature</em> distinct from classic DCI. Where traditional metro DCI ran point-to-point at &le;120 km, scale-across is defined by hyperscalers as the <strong>100-to-1,000-kilometre regime</strong> &mdash; connecting buildings and metros, not just rooms &mdash; and that distance band is what dictates the technology (coherent, amplified, dispersion-managed) covered in the rest of this report. The demand behind it is the same demand behind the whole AI-capex story: hyperscalers collectively raised capital-expenditure guidance to <strong>~US$718bn, up roughly 70% year-over-year</strong>, as cited on Dycom's March 2026 call. Optics is a low-single-digit percentage of that, but the inter-DC slice grows faster than the average because each new multi-site cluster creates inter-building links that did not exist before.</p>
+<p><strong>The lit-versus-dark decision &mdash; the spine of the buyer map.</strong> Crucially, the inter-DC network is bought two different ways, and which way a buyer chooses determines which companies in this report it pays:</p>
+<ul>
+<li><strong>Hyperscalers buy gear and light their own glass.</strong> Microsoft, Meta, and Google overwhelmingly acquire or lease dark fiber and illuminate it themselves with their own coherent equipment. Microsoft deployed <strong>120,000 miles of dedicated fiber for its AI WAN, raising its total mileage more than 25% in a single year</strong>; Meta's own DWDM (dense wavelength-division multiplexing &mdash; running many colors of light down one strand) design cuts the number of fiber strands it must build by up to <strong>64&times;</strong>, which is why owning the optics, not the glass, is the leverage point. Buying gear and lighting dark fiber lets them multi-source equipment and avoid vendor lock-in.</li>
+<li><strong>Enterprises and "neoclouds" buy lit wavelengths.</strong> Companies without their own fiber plant buy finished capacity &mdash; a "lit" 400G wavelength &mdash; from carriers. Lumen runs a 400G routed-optical network reaching 70+ data centers across 16 metros (its footprint touches 2,200+ DCs); Zayo's North American core reached <strong>100% 400G-enablement</strong> in 2025. These buyers pay the carriers; the hyperscalers pay the equipment, construction, and test vendors directly.</li>
+</ul>
+<p>This split is why the same report must cover both a coherent-DSP vendor and a fiber-splicing labor shortage: the buyer who owns the network touches every layer of the stack.</p>
+
+<h2 id="4-the-transport-system">4. The transport system &mdash; the "box" that lights the fiber</h2>
+<blockquote><strong>&sect;4 summary.</strong> At each end of an inter-DC link sits an optical-transport system that turns data into modulated light and packs dozens of wavelengths onto a fiber. This is a concentrated market &mdash; Ciena, Nokia (now including Infinera), and Cisco (via Acacia) lead it &mdash; that grew 10% to $16bn in 2025 on DCI demand, and it is being reshaped by two forces: coherent optics shrinking from chassis into pluggable modules, and the network itself disaggregating into mix-and-match "open line systems."</blockquote>
+<p>The transport system is the equipment that takes a router's electrical signal, encodes it onto a laser using <strong>coherent</strong> modulation (which carries far more bits per wavelength by manipulating the light's phase and amplitude, not just its on/off intensity), and multiplexes many such wavelengths onto a single fiber pair. The market is led by a handful of vendors. Dell'Oro's 2025 ranking puts the top five optical-transport system makers as Huawei, Ciena, Nokia, ZTE, and Cisco &mdash; and for DCI specifically, the leaders are Ciena, Nokia, and Cisco. The market grew <strong>10% to US$16bn in 2025</strong>, with the third quarter alone up 15% year-over-year and cloud-service-provider purchases up 58%.</p>
+<p><strong>Ciena (CIEN)</strong> is the Western pure-play and the share leader. Its WaveLogic 6 Extreme coherent engine is the <strong>first to run at 200 Gbaud and to deliver 1.6 Tb/s on a single wavelength</strong> for metro networks, a capability the company says held a more-than-one-year market lead. Its WaveLogic 6 Nano powers 400G&ndash;800G coherent <em>pluggables</em>, including interoperable 800ZR for DCI. Fiscal-2025 revenue was <strong>US$4.77bn, up 19%</strong>, with direct cloud-provider revenue up more than 50% and Reconfigurable Line System sales up 79% &mdash; and the company described itself as "essentially sold out." Ciena holds nearly <strong>50% of the US optical market</strong> on the strength of WaveLogic 6 and its ZR pluggables.</p>
+<p><strong>Nokia</strong> reshaped the competitive map by <strong>acquiring Infinera for ~US$2.3bn (US$6.65/share), closing February 2025</strong>, creating a combined optical business of more than US$3.6bn in turnover and ~1,000+ customers and explicitly aimed at the fast-growing webscale/DCI segment. The deal brought Nokia two assets that matter for this report: Infinera's coherent engines (the ICE6 at 1.6 Tb/s per engine and the 5nm ICE7, whose 1.2 Tb/s per-wavelength ceiling underpinned a live Zayo trial at 1 Tb/s over 1,391 km) and an in-house indium-phosphide photonic-chip fab in Sunnyvale that vertically integrates the lasers and modulators. Nokia's 1830 GX platform and its ICE-X 800G "multi-haul" pluggable round out the line.</p>
+<p><strong>Cisco</strong>, through its 2021 Acacia acquisition, leads the move that is quietly redrawing the whole market: collapsing the separate IP-router and optical-transport boxes into one. Its <strong>Routed Optical Networking (RON)</strong> architecture plugs Acacia coherent ZR/ZR+ modules directly into routers (an approach called IP-over-DWDM), and Cisco reports that <strong>more than 70% of coherent ports are now pluggable</strong> rather than embedded in a chassis, with 450+ RON customers including every top hyperscaler. Acacia's CIM8 was the industry's first 1.2 Tb/s coherent multi-haul pluggable, and its 1.6T ZR roadmap runs at 240 Gbaud. Cisco has also pushed its Silicon One P200 into purpose-built "scale-across" DCI routers aimed at neoclouds.</p>
+<p>Two smaller transport names matter for the US-and-EU map. <strong>Adtran</strong> (Huntsville, Alabama; majority owner of the Munich-listed Adtran Networks SE, the former ADVA) posted Q4-2025 revenue of US$291.6m at the holding level and &euro;130.2m at the German optical subsidiary, selling the FSP 3000 DWDM line and Oscilloquartz timing. <strong>Ribbon Communications (RBBN)</strong>, which absorbed ECI Telecom, sells the Apollo optical platform across DCI, metro, long-haul, and submarine, and guides to US$840&ndash;875m of FY2026 revenue.</p>
+<p><strong>The disaggregation force.</strong> Underneath the vendor rankings, the architecture is unbundling. An <strong>open line system (OLS)</strong> separates the optical amplifiers and wavelength-routing layer from the transponders that generate the light, so an operator can buy each from a different vendor. As of 2025, roughly <strong>half of network operators have deployed or plan to deploy multi-vendor disaggregated OLS</strong>, and disaggregated-WDM revenue grew ~40% in the year. Hyperscalers drove this &mdash; disaggregation is how they multi-source and avoid lock-in &mdash; and it is why a pure-component vendor (a DSP maker, a laser maker) can now sell into the network without going through a single systems incumbent. That unbundling is the bridge to the next layer: the coherent pluggable and the silicon inside it.</p>
+
+<h2 id="5-the-enabling-tech">5. The enabling tech &mdash; coherent pluggables and the silicon inside them</h2>
+<blockquote><strong>&sect;5 summary.</strong> The defining shift of this cycle is coherent optics migrating out of the chassis and into a plug-in module the size of a thick USB stick &mdash; a "ZR" pluggable. That move expands the buyer base and the unit volumes (good for module makers) while commoditizing the box (bad for systems margins), and it concentrates the defensible value into one component: the coherent digital signal processor. The DSP is a tight oligopoly, the laser and modulator beneath it are a materials race, and the single largest risk to the merchant vendors is a hyperscaler &mdash; NVIDIA &mdash; bringing the DSP in-house.</blockquote>
+<p><strong>The pluggable shift.</strong> A decade ago, coherent optics lived inside large, vendor-specific transponder chassis. Today the same capability ships as a <strong>pluggable transceiver</strong> &mdash; a QSFP-DD or OSFP module &mdash; that drops into a standard router or switch port. Cisco reports more than <strong>70% of coherent ports are now pluggable</strong>, and the industry standardized the interfaces so modules from different vendors interoperate: the OIF's 800ZR Implementation Agreement (October 2024) defines a single-wavelength 800G coherent line interface at <strong>118 Gbaud using DP-16QAM modulation with oFEC</strong> (open forward error correction), and an OIF plugfest demonstrated <strong>eight vendors' modules all carrying 800 Gbps over one DWDM line system</strong>. The OpenZR+ multi-source agreement extends interoperable coherent down to 100&ndash;400G with regional and long-haul reach. The naming follows reach: 400ZR is the short-reach DCI workhorse (~80&ndash;120 km), 800ZR steps up the rate, ZR+ variants push to regional and long-haul distances, and 1600ZR is emerging &mdash; with reach, not rate, the binding constraint at each step.</p>
+<p>This shift is double-edged, and the tension is the investment story of the layer. Pluggables <strong>expand the market</strong>: they let any router OEM and any neocloud buy coherent capacity without a systems contract, which is why pluggable coherent will exceed <strong>60% of telecom coherent bandwidth by 2026</strong> and why <strong>800ZR is forecast to ship more than 200,000 ports in 2026</strong>. But they also <strong>commoditize the box</strong> &mdash; when the coherent function is a standards-compliant plug, the systems vendor's chassis loses differentiation. Value migrates to whoever makes the plug, and within the plug, to whoever makes its brain.</p>
+<p><strong>The DSP oligopoly &mdash; where the defensibility lives.</strong> The coherent <strong>digital signal processor</strong> is the silicon that encodes data onto the light, decodes it at the far end, and &mdash; critically for &sect;6 &mdash; electronically cleans up the distortions the fiber adds. It is a brutally hard chip to build, and the market reflects that. At 400G, two merchant vendors &mdash; Acacia (now Cisco) and Marvell (via its Inphi acquisition) &mdash; dominated; at 800G the field widened to include those two plus the captive DSPs inside Ciena (WaveLogic) and Nokia/Infinera. The competitive dynamics are vivid:</p>
+<ul>
+<li><strong>Marvell</strong> shipped Orion, the first 5nm 800G coherent DSP for pluggables, reaching ~500 km at 800G and 1,200 km at 600G, and its 800ZR+ DSP doubled the symbol rate to 135 Gbaud to hit <strong>1,000&ndash;1,500 km at 800G and 4,000 km+ at 400G QPSK</strong>. Tellingly, hyperscalers pushed the industry to <strong>pull 800ZR+ forward by roughly 18 months specifically to enable "scale-across"</strong> &mdash; the clearest evidence that inter-DC demand is now setting the component roadmap. Marvell also shows how fragile share is: its first 800G DSP lacked OpenROADM-standard coding, so it missed the early 800G volume at Meta.</li>
+<li><strong>Cisco/Acacia</strong> has shipped <strong>25,000 of its 800G ZR/ZR+ coherent ports to date &mdash; among the most of any 800G supplier &mdash; on top of 750,000 cumulative 400G ports</strong>, an installed-base lead that compounds.</li>
+<li><strong>Nokia</strong> announced four new coherent DSPs at OFC 2026 (Huron, Superior, Ontario, Pacific), three sharing a common 2nm base, and the 1.6T ZR/ZR+ generation across all vendors is moving to <strong>2nm with general availability before end-2027</strong>. The DSP process node has marched from 7nm at 70 Gbaud to 5nm at 135 Gbaud and now toward 2nm at 1.6T.</li>
+</ul>
+<p>The single largest risk to this oligopoly is captive supply. <strong>NVIDIA is reportedly developing its own 1.6T DSP, intended to fulfill roughly half of its internal networking demand in-house</strong> &mdash; a low-confidence, single-source signal, but a structurally important one: the richest buyer building its own brain is exactly how merchant component markets get hollowed out. The same Marvell engineers describe a "DSP-to-optics pendulum," in which value swings between the processor and the optics depending on which is the bottleneck &mdash; a useful reminder that today's DSP scarcity premium is not permanent.</p>
+<p><strong>The laser and the modulator &mdash; the materials race beneath the DSP.</strong> A coherent module also needs a precise, tunable laser (the light source and local oscillator) and a modulator (which imprints data onto the light). Two materials contend:</p>
+<ul>
+<li><strong>Indium phosphide (InP).</strong> Lumentum's integrable tunable laser assemblies on InP &mdash; sub-megahertz linewidth across the C and L bands &mdash; are the incumbent source, and Lumentum's hybrid-PIC 800ZR+ module pairs an InP photonic chip with silicon photonics. Supply is the story: Lumentum is <strong>under-shipping InP demand by 25&ndash;30% and targeting a 40% increase in wafer output</strong>, and it guides the <strong>DCI scale-across transceiver TAM to US$6bn by 2030</strong>. InP scarcity is a genuine bottleneck on the whole layer.</li>
+<li><strong>Thin-film lithium niobate (TFLN).</strong> The challenger material delivers higher bandwidth at lower power. HyperLight, a Cambridge, Massachusetts startup (founded 2018, ~41 employees, US$37m Series B led by Summit Partners), shipped a <strong>1.6T-DR8 TFLN reference transceiver at 20 W &mdash; roughly 20% below alternatives</strong> and makes 110/145 GHz modulators that enable 240&ndash;260 Gbaud-class links &mdash; the rate the 1.6T generation needs. TFLN is the bet that the next baud step is won on the modulator, not the DSP.</li>
+</ul>
+<p><strong>The module makers and the manufacturing chokepoint.</strong> The companies that assemble these parts into shippable modules are where the volume revenue lands. <strong>Coherent Corp (COHR)</strong> posted calendar-Q1-2026 revenue of US$1.81bn with its Datacom &amp; Communications segment at <strong>US$1.36bn</strong>, driven by 800G/1.6T transceivers. <strong>Applied Optoelectronics (AAOI)</strong> hit a record US$151.1m quarter (+51%) and is ramping 800G/1.6T capacity from ~100,000 modules a month exiting Q1-2026 toward <strong>650,000/month by end-2026 and 930,000/month by end-2027</strong>. And <strong>Fabrinet (FN)</strong> &mdash; the contract manufacturer behind much of this capacity &mdash; sits at the chokepoint the whole layer now feels: across coherent optics, component and input availability has become the binding constraint, not design (Lumentum alone is under-shipping indium-phosphide demand by 25&ndash;30%). One independent estimate of 2026 AI-DC pluggable revenue puts Coherent at ~US$5.5bn, Lumentum at ~US$3.2bn, and Fabrinet at ~US$2.6bn. Smartoptics illustrates the long tail: its DCP-802 flexponder converts ordinary "gray" client optics to coherent DWDM, a small-vendor niche enabled by the disaggregation trend.</p>
+<p><strong>So what.</strong> The pluggable transition simultaneously enlarges the prize and erodes the moat. The module assemblers (Coherent, Lumentum, AOI, Fabrinet) ride a genuine volume surge &mdash; coherent modules were ~US$6bn in 2025, and total high-speed datacom module shipments hit 42 million units. But the durable economics sit in the scarce inputs &mdash; the DSP oligopoly and InP/TFLN supply &mdash; and both are exposed: the DSP to hyperscaler captive silicon, the laser to a capacity race. The investor's question for this layer is not "is volume growing" (it plainly is) but "who keeps the margin when the plug is a standard." That question routes to the components nobody else can make yet.</p>
+
+<h2 id="6-lighting-old-glass">6. Lighting old glass &mdash; what dark fiber needs to carry coherent DCI</h2>
+<blockquote><strong>&sect;6 summary.</strong> Hyperscalers are leasing and buying fiber that was buried decades ago. The reason they can light it for modern coherent traffic at all is that the coherent DSP electronically erases the dominant distortion &mdash; chromatic dispersion &mdash; which let the industry rip out the inline compensation huts that direct-detection systems needed. But there is one distortion the DSP cannot fully fix &mdash; polarization-mode dispersion &mdash; and on pre-1994 glass it sets a hard ceiling that pushes the highest-rate traffic onto newly overbuilt fiber. The economics of recondition-versus-overbuild, not the physics alone, decide where the construction dollars flow.</blockquote>
+<p>This is the section the question is really asking: <em>what has to be done to old dark fiber to make it usable for DCI?</em> The answer is a chain of physics and economics, and it begins with two distortions.</p>
+<p><strong>The two enemies: chromatic and polarization-mode dispersion.</strong> <strong>Chromatic dispersion (CD)</strong> is the spreading of a pulse because different wavelengths of light travel at slightly different speeds in glass; standard G.652 single-mode fiber accumulates CD at <strong>~16&ndash;18 ps/nm/km at 1550 nm</strong>. <strong>Polarization-mode dispersion (PMD)</strong> is subtler and more dangerous: a fiber's two polarization states travel at slightly different speeds because the glass is never perfectly round or stress-free, and the delay accumulates <em>stochastically</em> with the square root of distance. Modern fiber holds PMD to ~0.1 ps/&radic;km, but <strong>fiber installed before the mid-1990s runs 1&ndash;10 ps/&radic;km &mdash; ten to a hundred times worse &mdash; because PMD was not even a measured parameter when it was drawn</strong>. And the tolerance tightens with speed: the maximum acceptable PMD coefficient falls roughly inversely with bit rate &mdash; under ~0.5 ps/&radic;km is fine for a 10G signal, but high-rate coherent demands far less &mdash; so a span that was perfectly serviceable in the 10G era can be unusable for high-rate scale-across traffic <em>without ever physically changing</em>. This is the single most important fact about legacy dark fiber.</p>
+<p><strong>Why the DSP rescued old fiber &mdash; and killed the compensation huts.</strong> In the pre-coherent era, CD had to be cancelled physically, with dispersion-compensating modules installed at every amplifier site along the route &mdash; expensive, lossy, and a maintenance burden. The coherent receiver changed everything: its DSP undoes CD <em>in the digital domain</em>. A landmark demonstration electronically compensated <strong>107,424 ps/nm of chromatic dispersion over 6,400 km</strong>, and a polarization-diverse fractionally-spaced equalizer can compensate <strong>very large amounts</strong> of CD and first-order PMD. The consequence is structural: coherent optical networks <strong>need no dispersion compensation on the optical path at all</strong>, which let operators rip out the inline compensation modules &mdash; the line system is now just amplifiers and wavelength-routing. That simplification is precisely what makes lighting old glass economic.</p>
+<p><strong>Where it stops &mdash; the PMD ceiling.</strong> Here is the boundary that makes this section more than a victory lap. PMD is <em>not</em> fully compensable in the DSP. On high-PMD fiber, coherent links suffer real, sudden outages &mdash; fast changes in the state of polarization, abrupt PMD jumps, polarization-dependent loss, and loss of orthogonality between the two polarizations &mdash; and all seven of these failure modes worsen as the fiber's PMD rises. The budget is a fraction of the symbol period. The rule of thumb for an uncompensated link is that the accumulated differential group delay (the time-split between the two polarizations) stay under <strong>~10% of the symbol period</strong>; coherent DSP relaxes that by equalizing first-order PMD, but the tolerance still shrinks in <em>absolute</em> terms as the symbol rate climbs &mdash; a higher baud rate means a shorter symbol, so the same fractional budget buys fewer picoseconds (at the ~118 Gbaud of an 800G wavelength the symbol period is under 9 picoseconds, so the bare uncompensated budget is well under one picosecond &mdash; and the DSP's first-order-PMD equalization is what stretches that into a workable few-picosecond margin). Standards-compliant modern fiber (PMD &le;0.1&ndash;0.2 ps/&radic;km) clears that easily; legacy high-PMD glass does not. <strong>That is why the highest-rate wavelengths run metro-only while 800G covers the long links</strong> &mdash; the fiber, not the transceiver, sets the limit &mdash; and why the highest-rate scale-across traffic increasingly demands new glass rather than reconditioned old glass.</p>
+<p><strong>Qualification &mdash; what you measure before you light.</strong> Because of all this, a dark-fiber lease triggers a formal characterization regime. ITU-T G.650.3 defines a <strong>two-tier test</strong> &mdash; basic loss and continuity for every link, full CD and PMD characterization for high-rate routes &mdash; and recommends the full battery <em>specifically when a dark-fibre contract is signed</em>, because once the fiber is lit and in service the operator may never get physical access to it again. Carriers publish hard acceptance budgets: Verizon requires end-to-end loss not to exceed <strong>0.25 dB/km plus splice and connector allowances</strong>, with fusion splices under 0.25 dB; Telstra specifies <strong>0.20 dB/km at 1550 nm and PMD &le;0.1</strong>. And when characterization flags a bad span, a distributed PMD test localizes it &mdash; in most high-PMD routes a segment shorter than 5 km causes more than 70% of the total PMD &mdash; so the operator can splice out one bad section rather than rebuild the whole route. This is the work that the test-and-measurement vendors in &sect;7 get paid to do.</p>
+<p><strong>Amplification and regeneration &mdash; the in-line plant.</strong> Coherent's reach is set by optical signal-to-noise ratio, which means amplification strategy. <strong>Erbium-doped fiber amplifiers (EDFAs)</strong> are the workhorse, best to roughly <strong>80&ndash;90 km between sites</strong>; <strong>distributed Raman amplification</strong>, which uses the transmission fiber itself as the gain medium, delivers a better noise figure and <strong>~2.9&times; the reach</strong>. The tradeoff is power and real estate: a Raman pump draws ~10 W against ~80&ndash;100 W for a regeneration card, so adding Raman can delete an entire regeneration hut from a route &mdash; a meaningful capex and siting saving on long inter-DC spans. On aged plant, EDFA-only systems cap 100G at regional distances, while hybrid Raman pushes 100G past 4,500 km. Reconfigurable optical add-drop multiplexers (ROADMs) sit along the route to switch wavelengths in software.</p>
+<p><strong>Recondition versus overbuild &mdash; where the dollars actually go.</strong> The economics start heavily in favor of re-lighting existing fiber. Greenfield long-haul construction runs on the order of <strong>US$67,000&ndash;128,000 per route mile, the large majority of it civil works</strong> (trenching, conduit) &mdash; an older industry benchmark that is, if anything, light against today's labor costs &mdash; whereas leasing existing dark fiber costs <strong>US$15&ndash;275 per mile per month per strand with no construction at all</strong>; an ACG/Cisco study finds dark fiber plus coherent optics delivers <strong>~46% lower three-year total cost than carrier Ethernet on long-haul links above 400G</strong>. A pure capacity upgrade is cheaper still &mdash; lighting the L-band alongside the existing C-band adds substantial extra capacity on the same fiber. <em>And yet</em> the AI wave is pouring money into <strong>new</strong> fiber: Lumen reserved <strong>10% of Corning's entire global fiber output</strong> and is building roughly <strong>130,000 route miles</strong> of new cable &mdash; at up to 4&times; the strand density &mdash; by reusing its existing (Level 3-era) conduit, which is what lets it build fast. The reason is the PMD ceiling above: the new glass is <strong>G.654.E</strong>, a low-loss, large-effective-area grade (&asymp;0.156 dB/km, standardized November 2016) that beats legacy <strong>G.652.D</strong> (~0.21 dB/km) on both loss and reach, because G.652.D is reaching its limits for high-capacity long-haul. The synthesis: <em>reconditioning lights the existing routes for moderate rates, but the marginal high-rate scale-across dollar increasingly funds new G.654.E overbuild</em> &mdash; which is the demand that flows directly into the construction layer of &sect;7.</p>
+<p><strong>Hollow-core fiber &mdash; the latency option.</strong> One further technology deserves mention because hyperscalers are already deploying it. <strong>Hollow-core fiber (HCF)</strong> guides light through an air core (refractive index ~1 versus ~1.47 for silica), so light travels <strong>~47% faster, cutting latency ~30%</strong> &mdash; which for scale-across means data centers can sit <strong>~50% farther apart at the same latency budget</strong>, expanding the siting footprint for a distributed cluster. Microsoft, via its 2022 Lumenisity acquisition, reported HCF loss of <strong>0.091 dB/km &mdash; below the theoretical floor of solid silica</strong>, and named deployers now include Azure, euNetworks, Comcast, and BT, with broad availability estimated ~5 years out. HCF is not a reconditioning play; it is a reason some of the new overbuild is qualitatively different from the fiber it replaces.</p>
+
+<h2 id="7-install-maintain-observe-test">7. Install, maintain, observe, test &mdash; the services and software tier</h2>
+<blockquote><strong>&sect;7 summary.</strong> This is the most "picks-and-shovels" layer of the report: the crews that build and splice the fiber, the instruments that qualify it, the software that watches it, and the sensing systems that detect a cut before it takes a route down. Two structural facts dominate. First, the construction layer is gated by a skilled-labor shortage &mdash; fiber splicers above all &mdash; that caps how fast the buildout can physically happen. Second, there is no public pure-play long-haul fiber builder, so exposure routes through diversified specialty contractors, a handful of test-instrument leaders, and an assurance-software segment that is only now becoming a real profit center.</blockquote>
+
+<h3 id="7-1-install-and-maintain">7.1 Install and maintain &mdash; the construction layer</h3>
+<p>The companies that physically trench, pull, and splice inter-DC fiber are US specialty contractors and European multi-technical services groups. <strong>Dycom (DY)</strong> is the purest US fiber-construction play: fiscal-2026 revenue of <strong>US$5.55bn (+17.9%), a record US$9.5bn backlog, and FY27 guidance of US$6.85&ndash;7.15bn</strong>. Dycom is explicitly building toward the hyperscaler opportunity, having acquired Power Solutions to add inside-the-fence data-center work; like its peers, it runs on master service agreements (MSAs) &mdash; recurring, multi-year, but volume-non-binding, so backlog is an estimate rather than a contract. <strong>MasTec (MTZ)</strong> is larger and more diversified &mdash; Q1-2026 revenue of US$3.83bn (+34%) and a record <strong>US$20.3bn backlog</strong> &mdash; and names its Communications segment plus data-center connectivity as a growth driver. <strong>Quanta (PWR)</strong> is bigger still (US$48.5bn backlog) but its telecom/fiber work is minor next to electric-power EPC. <strong>Centuri (CTRI)</strong> is instructive precisely because it is <em>not</em> leaning in: US$3.0bn revenue, 78% under MSA, primarily a gas/electric utility contractor that treats fiber as complementary inside data-center scopes (it built a 16-mile fiber-conduit run into Northern Virginia's "Data Center Alley" but is explicitly not building a standalone fiber business).</p>
+<p>In Europe the structure is different and the trend is the opposite direction. <strong>Circet</strong> is Europe's #1 telecom-infrastructure services group and is pushing into the US, where its combination with KGPCo creates a ~US$3.1bn combined-revenue network-services player. <strong>SPIE</strong> (&euro;10.38bn group revenue) is actually <strong>winding down its City Networks fibre unit and pivoting toward data-center building solutions</strong>; <strong>VINCI Energies' Axians</strong> (ICT ~19% of a &euro;21.6bn group) and <strong>Eiffage &Eacute;nergie Syst&egrave;mes</strong> (&euro;8.1bn, full FTTH outside-plant scope) round out the European set. The structural read is sharp: <strong>European pure-play fiber-construction demand is decelerating as mature fiber-to-the-home rollouts wind down, while US demand is accelerating off data-center and long-haul builds &mdash; so the DCI construction tailwind is a US-led story</strong> &mdash; though data-center connectivity is the one European segment still surging, with operators pushing large customers toward Nx400Gbps links even as consumer fibre work fades. Within the US it concentrates in a handful of names, with Dycom the closest thing to a pure proxy.</p>
+<p>The construction layer has a hard governor: <strong>labor.</strong> The industry faces a net skilled-worker deficit of roughly <strong>120,000 through 2032</strong> (&asymp;58,000 new fiber roles needed against &asymp;178,000 departures), and the single most acute shortage is <strong>fiber splicers &mdash; a competent fusion splicer needs 12&ndash;18 months of supervised training</strong>. Surveys find 45% of firms reporting project delays directly from the shortage and 92% struggling to fill roles. The constraint is compounded by materials: ribbon-fiber lead times sit in the 60+ week range. Against a forecast need to build ~92,000 new route miles just to connect data centers, this labor ceiling is the real limit on how fast the inter-DC network can be lit &mdash; and it is why the hyperscaler fiber commitments are measured in years. Lumen's Private Connectivity Fabric is the headline pipeline: it plans to add <strong>34 million intercity fiber miles by end-2028 (to 47 million total)</strong>, has disclosed ~US$5bn of PCF sales plus ~US$7bn in active discussions (a ~US$13bn total PCF opportunity), and has booked builds like 22,000 route miles for Microsoft. Sitting above the crews is a fragmented <strong>outside-plant design and GIS-software layer</strong> &mdash; IQGeo (KKR-owned, ~&pound;333m revenue), VETRO FiberMap, 3-GIS, and Bentley OpenComms &mdash; that models routes, splice points, and conduit and drives crew dispatch.</p>
+
+<h3 id="7-2-observe-and-test">7.2 Observe and test &mdash; instruments and assurance software</h3>
+<p>Once fiber is built and lit, it must be qualified and watched, and this layer is more quantifiable &mdash; and more consolidated &mdash; than the construction layer.</p>
+<p><strong>Test and measurement instruments.</strong> <strong>Viavi Solutions (VIAV)</strong> is the public anchor: FY2025 revenue of US$1.08bn, of which the Network and Service Enablement segment (test, monitoring, assurance) was <strong>US$776.6m, up 10.6% &mdash; explicitly driven by fiber lab and production demand from the data-center ecosystem</strong>, with Q4 NSE up 14.8%. <strong>EXFO</strong> &mdash; taken private in 2021 at US$6.25/share &mdash; is a leading vendor in optical test, <strong>trusted across the major hyperscalers and top service providers</strong>, and ships the leading-edge instruments the 800G/1.6T transition needs: a 3.2T BER tester, industry-first 24-fiber testers for data-center builds, and an 800G coherent test platform spanning 100ZR&ndash;800ZR. <strong>Keysight (KEYS)</strong> rounds out the top tier with a US$3.73bn Communications Solutions Group (+9%), and <strong>Anritsu</strong> and <strong>VeEX</strong> supply 800G/1.6T bit-error-rate testers and handheld field units. A notable consolidation event sits inside this layer: <strong>Spirent was split between Viavi and Keysight</strong> &mdash; Viavi took the high-speed-ethernet, network-security, and channel-emulation lines, while Keysight acquired the rest (wireless test and assurance) for ~US$1.56bn, closing October 2025. The test layer is tightening into fewer, larger hands just as the volume of fiber to qualify surges.</p>
+<p><strong>Assurance and observability software.</strong> Watching a live inter-DC network is increasingly a software business, and the standout signal is that <strong>Ciena's Blue Planet became its own reportable segment</strong> with FY2025 revenue of <strong>US$115.5m, up 48.9%, and its first profitable year (US$31.2m segment profit, up from a loss)</strong> &mdash; adding two global cloud providers as Q4 customers. Blue Planet does multivendor service assurance and analytics; its peers are <strong>Cisco's Crosswork Hierarchical Controller</strong> (multilayer, multivendor assurance built on the acquired Sedona NetFusion) and <strong>Nokia's NSP / WaveSuite</strong>, whose closed-loop automation will, on a fiber cut or rising span loss, <em>automatically</em> launch an OTDR scan and localize the break. The open-source <strong>GNPy</strong> path-computation library (sponsored by the Telecom Infra Project) provides a vendor-independent way to plan optical routes, a counterweight to the proprietary stacks. The coherent transponders themselves feed this layer: modern units such as Cisco's NCS 1004 continuously report mean PMD, accumulated chromatic dispersion, and pre-FEC bit-error rate, so every endpoint doubles as a live fiber monitor streaming the very impairments &sect;6 described. The investable point: assurance software is a higher-margin, recurring-revenue layer riding the same DCI demand as the hardware, and Blue Planet's turn to profitability is the first hard evidence it can stand on its own.</p>
+<p><strong>Fiber sensing &mdash; turning the cable into a sensor.</strong> A newer layer uses the fiber itself as a distributed sensor. <strong>Distributed acoustic sensing (DAS)</strong> fires light down a strand and reads the back-scatter to detect vibration &mdash; a backhoe near the route, an intrusion, or the acoustic signature of a developing fault &mdash; before it becomes an outage. <strong>Viavi's NITRO Fiber Sensing</strong> (a true-phase DAS interrogator with edge AI, ~100 km range) <strong>explicitly lists "data-center interconnect monitoring" as an application</strong>. The competitive set is led by <strong>Luna Innovations (LUNA)</strong> &mdash; which rolled up OptaSense and Silixa (the latter for US$21.5m) and posted a Q3-2025 quarter of US$37.1m (+24%) spanning optical-comms test and sensing &mdash; alongside AP Sensing, Sintela, and NEC. (A research note worth correcting: the DAS pioneer Fotech was acquired by <em>BP</em>, not Viavi, which built NITRO on its own technology.) The market is still small and mostly third-party-sized &mdash; subsea-cable DAS at ~US$1.4bn and undersea-cable monitoring at ~US$3.8bn &mdash; but IT and telecom already represent ~22% of fiber-optic DAS revenue, and the application to protecting irreplaceable hyperscaler routes is the reason it appears in this report.</p>
+
+<h2 id="8-the-company-universe-by-layer">8. The company universe by layer</h2>
+<p>The map below organizes the names by where they sit in the stack, US and Europe, public and private. It is deliberately light on the commodity cable and glass makers and excludes the Japanese fiber majors (a separate study). Tickers are given where public; "private" marks names tracked but not listed.</p>
+<table>
+<thead>
+<tr><th>Layer</th><th>Public (US/EU)</th><th>Private / other</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Transport systems (the "box")</strong></td><td>Ciena (CIEN), Nokia (NOK, incl. Infinera), Cisco (CSCO, incl. Acacia), Adtran (ADTN / Adtran Networks SE), Ribbon (RBBN)</td><td>1Finity (Fujitsu); Huawei/ZTE (non-Western)</td></tr>
+<tr><td><strong>Coherent DSP</strong></td><td>Marvell (MRVL), Cisco/Acacia (CSCO), Broadcom (AVGO); captive: Ciena, Nokia</td><td>NVIDIA captive DSP (in development)</td></tr>
+<tr><td><strong>Lasers / modulators / components</strong></td><td>Lumentum (LITE), Coherent Corp (COHR)</td><td>HyperLight (TFLN, VC-backed)</td></tr>
+<tr><td><strong>Module assembly / manufacturing</strong></td><td>Coherent (COHR), Applied Optoelectronics (AAOI), Fabrinet (FN)</td><td>Smartoptics; Eoptolink, InnoLight (Asia)</td></tr>
+<tr><td><strong>Carriers / lit-wavelength + dark fiber</strong></td><td>Lumen (LUMN), Cogent (CCOI), Uniti (UNIT)</td><td>Zayo (EQT/DigitalBridge); EXA, euNetworks (EU)</td></tr>
+<tr><td><strong>OSP construction &amp; field services</strong></td><td>Dycom (DY), MasTec (MTZ), Quanta (PWR), Centuri (CTRI); SPIE, VINCI, Eiffage (EU)</td><td>Circet (EU #1); KGPCo</td></tr>
+<tr><td><strong>OSP design / GIS software</strong></td><td>Bentley (BSY)</td><td>IQGeo (KKR), VETRO FiberMap, 3-GIS (Synchronoss)</td></tr>
+<tr><td><strong>Test &amp; measurement</strong></td><td>Viavi (VIAV), Keysight (KEYS), Anritsu (6754.T)</td><td>EXFO (Lamonde, private); VeEX</td></tr>
+<tr><td><strong>Assurance / observability software</strong></td><td>Ciena Blue Planet (CIEN), Cisco Crosswork (CSCO), Nokia NSP (NOK)</td><td>GNPy (open-source / TIP)</td></tr>
+<tr><td><strong>Fiber sensing / DAS</strong></td><td>Luna Innovations (LUNA), Viavi (VIAV)</td><td>AP Sensing, Sintela, NEC; Fotech (BP)</td></tr>
+</tbody>
+</table>
+
+<h2 id="9-investment-lens">9. Investment lens &mdash; how this maps to the thesis</h2>
+<blockquote><strong>&sect;9 summary.</strong> An AI-infrastructure investment thesis holds that networking is the most-leveraged layer of the AI-data-center capex curve. This report argues the inter-datacenter sub-layer is the least-priced part of that bet &mdash; structurally excluded from the headline TAM, gated by real bottlenecks (coherent DSP supply, indium-phosphide capacity, and fiber-splicing labor), and exposed to a re-rating as a mature, low-multiple set of telecom-services assets gets re-cast as AI infrastructure.</blockquote>
+<p>The parent primer's bottleneck-progression argument &mdash; capex re-allocating to whichever link is currently binding &mdash; extends cleanly here: as clusters go multi-site, the binding constraint moves <em>outside the building</em>, into exactly the layer this report maps. Three observations frame where the leverage sits, consistent with a landscape (not a ranked) view:</p>
+<ol>
+<li><strong>The least-priced exposure is the excluded bucket.</strong> Because the headline $154bn TAM is built inside the rack, the inter-DC layer attracts less of the AI-optics narrative premium &mdash; and yet it is growing fast (DCI drove the 10% optical-transport growth and the ~40% disaggregated-WDM growth in 2025). Cignal AI names the scale-across supplier set plainly &mdash; Marvell and Acacia leading 400ZR, Ciena and Nokia ramping 800ZR &mdash; which is the cleanest list of who is paid first as scale-across scales.</li>
+<li><strong>The defensibility is in the chokepoints, not the volume.</strong> Module volume is booming but commoditizing; the durable margin sits where supply is scarce &mdash; the coherent-DSP oligopoly and indium-phosphide laser capacity (Lumentum under-shipping 25&ndash;30%) &mdash; and in the assurance software now turning profitable (Blue Planet). The construction layer's governor is labor, not demand.</li>
+<li><strong>Part of the thesis is a re-rating, not just growth.</strong> RBC's communications-infrastructure framework captures the gap: fiber and communications-infrastructure assets have historically traded at a deep discount to data-center-REIT multiples. The bet embedded in names like Lumen, Zayo, and Uniti is that long-haul fiber, re-cast as AI infrastructure, closes part of that multiple gap &mdash; a different return driver than the equipment-volume story, and one that does not depend on any single component winning.</li>
+</ol>
+<p>These connect to prior internal research: <a href="networking-interconnect.html">the Networking &amp; Interconnect primer</a> for the full eight-layer stack and the $154bn anchor, and prior internal market-map work on the Fiber+Optics category (a ~US$28bn AI-DC-attributable gross estimate) for the prior triangulation this report deepens.</p>
+
+<h2 id="10-counter-thesis">10. Counter-thesis</h2>
+<p><em>The strongest opposing read is that the inter-DC layer is a smaller, slower, more cyclical prize than the AI framing implies &mdash; and that the enabling vendors are the wrong way to play it. Scale-across is still nascent: hyperscalers can keep scaling power within and around single campuses for years, and genuinely continental training fabrics remain rumored more than ubiquitous. The "DSP-to-optics pendulum" that today rewards the coherent-DSP makers swings both ways &mdash; once 1.6T standardizes, the coherent plug becomes a commodity like the 400G plug before it, and the margin compresses into a multi-vendor interop contest (eight vendors already passed the 800ZR plugfest). The single biggest tail risk is captive supply: if NVIDIA's in-house 1.6T DSP and the hyperscalers' own fiber construction (Microsoft's 120,000 owned miles, Meta's self-built backbone) generalize, the merchant DSP and systems vendors get disintermediated by their own largest customers. And many of the "enabling" names are mature, low-growth telecom-equipment and services businesses (Adtran, Ribbon, the European services groups winding down fibre) whose AI-beta is more narrative than numbers. On this view the cleanest exposure is not the enabling vendors at all but the scarce physical inputs &mdash; indium-phosphide capacity and the fiber-splicing labor pool &mdash; and even those are bottlenecks that cap the upside rather than compound it.</em></p>
+
+<h2 id="11-sources">11. Sources</h2>
+<p>This report draws on a structured research base gathered across six parallel threads &mdash; transport systems, coherent pluggables and DSP, dark-fiber reconditioning physics, outside-plant construction and services, test/assurance/fiber-sensing, and market sizing and sell-side. Each load-bearing claim traces to a verbatim quote, a working source URL, and a publication date; the market-sizing and physics claims are triangulated across methodologically independent sources, and material market-house disagreements (Cignal AI vs. Dell'Oro vs. LightCounting) are flagged rather than averaged. Primary anchors include Goldman Sachs <em>"Optical Networking: the next mega trend in AI infrastructure"</em> (April 2026); Dell'Oro and Cignal AI optical-market data; company filings and transcripts (Ciena, Nokia, Cisco, Coherent, Lumentum, Dycom, MasTec, Viavi, Keysight, Luna, Lumen); ITU-T G.650.3 / G.654.E standards together with IEEE and academic transmission papers for the fiber physics; and RBC's communications-infrastructure coverage.</p>
+
+</div>
+</body>
+</html>
