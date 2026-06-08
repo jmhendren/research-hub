@@ -41,29 +41,29 @@
     }
   },
   "datasets": {
-    "data-4e886075c2343878b5dc8d012a8bf2e8": [
+    "data-6fad5c34291b82fc9632cbce143d677a": [
+      {
+        "_": 0
+      }
+    ],
+    "data-bc518289a8cabb07175b3bba6d3b3da2": [
       {
         "category": "Furukawa 5801",
         "order": 0,
-        "series": "jfm-ai-purity",
+        "series": "AI-segment OP share",
         "value": 0.4162754303599374
       },
       {
         "category": "Sumitomo 5802",
         "order": 1,
-        "series": "jfm-ai-purity",
+        "series": "AI-segment OP share",
         "value": 0.18507890961262555
       },
       {
         "category": "Fujikura 5803",
         "order": 2,
-        "series": "jfm-ai-purity",
+        "series": "AI-segment OP share",
         "value": 0.809220985691574
-      }
-    ],
-    "data-6fad5c34291b82fc9632cbce143d677a": [
-      {
-        "_": 0
       }
     ]
   },
@@ -71,7 +71,47 @@
   "vconcat": [
     {
       "data": {
-        "name": "data-4e886075c2343878b5dc8d012a8bf2e8"
+        "name": "data-6fad5c34291b82fc9632cbce143d677a"
+      },
+      "height": 22,
+      "layer": [
+        {
+          "encoding": {
+            "y": {
+              "value": 1
+            }
+          },
+          "mark": {
+            "color": "#8B2332",
+            "size": 3,
+            "type": "rule"
+          }
+        },
+        {
+          "encoding": {
+            "text": {
+              "value": "EXHIBIT · PURITY"
+            },
+            "x": {
+              "value": 0
+            }
+          },
+          "mark": {
+            "align": "left",
+            "color": "#8B2332",
+            "dx": 2,
+            "dy": 16,
+            "fontSize": 10,
+            "fontWeight": "bold",
+            "type": "text"
+          }
+        }
+      ],
+      "width": 560
+    },
+    {
+      "data": {
+        "name": "data-bc518289a8cabb07175b3bba6d3b3da2"
       },
       "height": 340,
       "layer": [

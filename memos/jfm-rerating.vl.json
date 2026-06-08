@@ -46,23 +46,23 @@
         "_": 0
       }
     ],
-    "data-fef69b9193bc345dc41ffa56d269aa62": [
+    "data-c83f77573427cffbc09946aef7f1f736": [
       {
         "category": "Furukawa 5801",
         "order": 0,
-        "series": "jfm-rerating",
+        "series": "52-wk total return",
         "value": 545.0
       },
       {
         "category": "Sumitomo 5802",
         "order": 1,
-        "series": "jfm-rerating",
+        "series": "52-wk total return",
         "value": 308.0
       },
       {
         "category": "Fujikura 5803",
         "order": 2,
-        "series": "jfm-rerating",
+        "series": "52-wk total return",
         "value": 283.0
       }
     ]
@@ -71,7 +71,47 @@
   "vconcat": [
     {
       "data": {
-        "name": "data-fef69b9193bc345dc41ffa56d269aa62"
+        "name": "data-6fad5c34291b82fc9632cbce143d677a"
+      },
+      "height": 22,
+      "layer": [
+        {
+          "encoding": {
+            "y": {
+              "value": 1
+            }
+          },
+          "mark": {
+            "color": "#8B2332",
+            "size": 3,
+            "type": "rule"
+          }
+        },
+        {
+          "encoding": {
+            "text": {
+              "value": "EXHIBIT · PERFORMANCE"
+            },
+            "x": {
+              "value": 0
+            }
+          },
+          "mark": {
+            "align": "left",
+            "color": "#8B2332",
+            "dx": 2,
+            "dy": 16,
+            "fontSize": 10,
+            "fontWeight": "bold",
+            "type": "text"
+          }
+        }
+      ],
+      "width": 560
+    },
+    {
+      "data": {
+        "name": "data-c83f77573427cffbc09946aef7f1f736"
       },
       "height": 340,
       "layer": [

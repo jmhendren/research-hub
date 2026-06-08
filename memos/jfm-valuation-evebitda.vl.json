@@ -41,29 +41,29 @@
     }
   },
   "datasets": {
-    "data-6fad5c34291b82fc9632cbce143d677a": [
-      {
-        "_": 0
-      }
-    ],
-    "data-e4ec25653bba5d2cd6141209ef44801c": [
+    "data-109e991ad3070ed881702ecc43917b92": [
       {
         "category": "Furukawa 5801",
         "order": 0,
-        "series": "jfm-valuation-evebitda",
+        "series": "EV/EBITDA",
         "value": 32.04014939309057
       },
       {
         "category": "Sumitomo 5802",
         "order": 1,
-        "series": "jfm-valuation-evebitda",
+        "series": "EV/EBITDA",
         "value": 15.8328025477707
       },
       {
         "category": "Fujikura 5803",
         "order": 2,
-        "series": "jfm-valuation-evebitda",
+        "series": "EV/EBITDA",
         "value": 33.53488372093023
+      }
+    ],
+    "data-6fad5c34291b82fc9632cbce143d677a": [
+      {
+        "_": 0
       }
     ]
   },
@@ -71,7 +71,47 @@
   "vconcat": [
     {
       "data": {
-        "name": "data-e4ec25653bba5d2cd6141209ef44801c"
+        "name": "data-6fad5c34291b82fc9632cbce143d677a"
+      },
+      "height": 22,
+      "layer": [
+        {
+          "encoding": {
+            "y": {
+              "value": 1
+            }
+          },
+          "mark": {
+            "color": "#8B2332",
+            "size": 3,
+            "type": "rule"
+          }
+        },
+        {
+          "encoding": {
+            "text": {
+              "value": "EXHIBIT · VALUATION"
+            },
+            "x": {
+              "value": 0
+            }
+          },
+          "mark": {
+            "align": "left",
+            "color": "#8B2332",
+            "dx": 2,
+            "dy": 16,
+            "fontSize": 10,
+            "fontWeight": "bold",
+            "type": "text"
+          }
+        }
+      ],
+      "width": 560
+    },
+    {
+      "data": {
+        "name": "data-109e991ad3070ed881702ecc43917b92"
       },
       "height": 340,
       "layer": [
