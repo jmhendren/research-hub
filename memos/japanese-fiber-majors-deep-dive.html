@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Japanese Fiber Majors — One AI-Optical Theme, Three Vehicles</title>
+<style>
+/* ===== Page templates ===== */
+
+@page {
+    size: Letter;
+    margin: 0.7in 0.75in 0.8in 0.75in;
+    @top-left {
+        content: "Hendren HQ Research";
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        font-weight: 600;
+        color: #1a1a1a;
+        letter-spacing: 0.04em;
+    }
+    @top-right {
+        content: string(running-title);
+        font-family: Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6b6b6b;
+    }
+    @bottom-center {
+        content: "Hendren HQ Research  ·  Page " counter(page) " of " counter(pages);
+        font-family: Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6b6b6b;
+    }
+}
+
+@page cover {
+    margin: 0;
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-center { content: none; }
+}
+
+/* ===== Cover page ===== */
+
+.cover-page {
+    page: cover;
+    page-break-after: always;
+    width: 100%;
+    min-height: 9.5in;
+    padding: 1.8in 1in 0.9in 1in;
+    text-align: center;
+    box-sizing: border-box;
+}
+.cover-wordmark {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    margin-bottom: 8pt;
+}
+.cover-wordmark-rule {
+    width: 36pt;
+    height: 1.5pt;
+    background: #991b1b;
+    margin: 0 auto 64pt auto;
+}
+.cover-title {
+    string-set: running-title content();
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.25;
+    margin: 0 0 12pt 0;
+    letter-spacing: -0.005em;
+}
+.cover-subtitle {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 14pt;
+    color: #4b5563;
+    font-style: italic;
+    font-weight: 400;
+    margin: 0 0 64pt 0;
+}
+.cover-meta {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    color: #4b5563;
+    letter-spacing: 0.04em;
+    margin: 4pt 0;
+}
+.cover-meta strong {
+    color: #1a1a1a;
+    font-weight: 600;
+}
+.cover-divider {
+    width: 80pt;
+    height: 0.5pt;
+    background: #d1d5db;
+    margin: 40pt auto;
+}
+.cover-stats {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-top: 24pt;
+    font-size: 10pt;
+    color: #4b5563;
+}
+.cover-stats .stat {
+    margin: 0 14pt;
+}
+.cover-stats strong {
+    color: #1a1a1a;
+    font-weight: 600;
+}
+.cover-footer {
+    margin-top: 80pt;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 9pt;
+    color: #6b6b6b;
+    font-style: italic;
+}
+
+/* ===== Body ===== */
+
+html { font-size: 11pt; }
+
+body {
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 100%;
+}
+
+/* Title block for body-only docs (no cover page) */
+.doc-title {
+    string-set: running-title content();
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 24pt;
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.25;
+    margin: 0 0 6pt 0;
+    letter-spacing: -0.005em;
+}
+.doc-meta {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6b6b6b;
+    letter-spacing: 0.04em;
+    margin: 0 0 22pt 0;
+    padding-bottom: 12pt;
+    border-bottom: 0.5pt solid #e2e8f0;
+}
+
+/* Page break marker for section transitions (briefs in a packet) */
+.page-break {
+    page-break-before: always;
+    height: 0;
+}
+
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22pt;
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.3;
+    margin: 0 0 6pt 0;
+    letter-spacing: -0.005em;
+    string-set: running-title content();
+}
+
+h2 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 24pt 0 8pt 0;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+}
+
+h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 14pt 0 4pt 0;
+}
+
+h4 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 12pt 0 4pt 0;
+    letter-spacing: 0.04em;
+}
+
+h5, h6 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    margin: 10pt 0 4pt 0;
+    color: #1a1a1a;
+}
+
+/* Paragraphs */
+
+p {
+    margin: 0 0 10pt 0;
+    orphans: 2;
+    widows: 2;
+}
+
+/* Links */
+
+a {
+    color: #991b1b;
+    text-decoration: none;
+    border-bottom: 0.5pt solid #991b1b;
+    word-break: break-word;
+}
+
+/* Lists */
+
+ul, ol {
+    margin: 8pt 0;
+    padding-left: 22pt;
+}
+li {
+    margin: 5pt 0;
+}
+li > ul, li > ol {
+    margin: 4pt 0;
+}
+
+/* Blockquotes — large opening quotation mark, italic serif */
+
+blockquote {
+    margin: 14pt 0 4pt 14pt;
+    padding: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    color: #1a1a1a;
+    font-size: 11pt;
+    line-height: 1.55;
+    text-indent: 0;
+}
+blockquote::before {
+    content: "\201C";
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    color: #991b1b;
+    line-height: 0;
+    vertical-align: -0.35em;
+    margin-right: 4pt;
+    font-style: normal;
+}
+blockquote p { margin: 0 0 8pt 0; display: inline; }
+blockquote p:last-child { margin-bottom: 0; }
+
+/* Citation line that follows a blockquote (italic em-dashed source) */
+
+.citation {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6b6b6b;
+    margin: 4pt 0 14pt 18pt;
+    font-style: normal;
+}
+
+/* BLUF callout — italic serif with red left rule, no fill */
+
+.bluf {
+    border-left: 2pt solid #991b1b;
+    padding: 4pt 0 4pt 18pt;
+    margin: 4pt 0 18pt 0;
+    font-style: italic;
+    font-size: 11pt;
+    color: #1a1a1a;
+    page-break-inside: avoid;
+}
+.bluf h2, .bluf h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #991b1b;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 4pt 0;
+    font-style: normal;
+}
+.bluf p { margin: 0 0 8pt 0; font-style: italic; }
+.bluf p:last-child { margin-bottom: 0; }
+.bluf strong { font-style: italic; }
+
+/* "What to ask Jeff" — distinguished section (optional class wrap) */
+
+.ask {
+    border-top: 0.5pt solid #d1d5db;
+    border-bottom: 0.5pt solid #d1d5db;
+    padding: 12pt 0 4pt 0;
+    margin: 22pt 0;
+}
+
+/* Code (rare in briefs but supported) */
+
+code {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9.5pt;
+    background: #f3f3f0;
+    padding: 1pt 4pt;
+    border-radius: 2pt;
+}
+pre {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9pt;
+    background: #f7f5f2;
+    padding: 10pt 12pt;
+    border-radius: 3pt;
+    line-height: 1.4;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code { background: transparent; padding: 0; }
+
+/* Tables — minimal lines, no fills (editorial restraint) */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 14pt 0;
+    font-size: 10pt;
+    page-break-inside: auto;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+th, td {
+    border-bottom: 0.5pt solid #d1d5db;
+    padding: 6pt 8pt 6pt 0;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    font-weight: 700;
+    color: #1a1a1a;
+    border-bottom: 1pt solid #1a1a1a;
+    letter-spacing: 0.02em;
+    font-size: 9.5pt;
+}
+
+/* Horizontal rule — visible separator inside a section (NOT a page break) */
+
+hr {
+    border: 0;
+    border-top: 0.5pt solid #d1d5db;
+    margin: 18pt 0;
+}
+
+/* Images */
+
+img { max-width: 100%; height: auto; }
+
+/* Emphasis */
+
+strong { font-weight: 700; color: #1a1a1a; }
+em { font-style: italic; }
+
+/* Topic tag / meta line at top of each brief */
+
+.brief-meta-line {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6b6b6b;
+    letter-spacing: 0.04em;
+    margin: 0 0 22pt 0;
+    padding-bottom: 12pt;
+    border-bottom: 0.5pt solid #e2e8f0;
+}
+.brief-meta-line .tag {
+    color: #991b1b;
+    font-style: italic;
+}
+
+/* Source list at the bottom of each brief */
+
+.sources-block {
+    margin-top: 28pt;
+    padding-top: 14pt;
+    border-top: 0.5pt solid #d1d5db;
+    font-size: 9.5pt;
+    color: #4b5563;
+}
+.sources-block h2,
+.sources-block h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #1a1a1a;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 8pt 0;
+    font-weight: 700;
+}
+.sources-block ul { padding-left: 18pt; margin: 0; }
+.sources-block li { margin: 3pt 0; }
+</style>
+</head>
+<body>
+<div class="doc-title">2026-06-08-japanese-fiber-majors-deep-dive</div><div class="doc-meta">Drafted 2026-06-08</div>
+<h1 id="the-japanese-fiber-majors-one-ai-optical-theme-three-very-different-vehicles">The Japanese Fiber Majors: One AI-Optical Theme, Three Very Different Vehicles</h1>
+<p><strong>Furukawa Electric (5801.T) · Sumitomo Electric (5802.T) · Fujikura (5803.T)</strong><br>
+Comparative deep-dive — individual names vs an equal-weighted basket<br>
+<em>2026-06-08 · buy-side AI-infrastructure research · all figures fiscal-year-ended 31 Mar 2026 unless noted</em></p>
+<hr>
+<h2 id="the-view-up-front">The view, up front</h2>
+<p>Japan&rsquo;s three listed &ldquo;electric-wire&rdquo; majors — Furukawa, Sumitomo Electric, and Fujikura — have become the cleanest public proxy for a single secular driver: the build-out of <strong>optical interconnect inside AI datacenters</strong>. All three are century-old cable conglomerates; all three multi-bagged over the past year on the same AI-optical story; and all three sold off near-identically in the May–June 2026 &ldquo;Japan cable-maker rout.&rdquo; That co-movement is the central fact. <strong>This is one theme expressed through three vehicles, not three independent bets.</strong></p>
+<p>The vehicles differ enormously in three dimensions that determine what you actually own:</p>
+<ul>
+<li><strong>Purity.</strong> Fujikura earns ~81% of its group operating profit from its AI-exposed telecom segment; Furukawa ~42%; Sumitomo ~18% <sup id="fnref3:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref6:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref10:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>. Buying Sumitomo is mostly buying automotive wiring harnesses with an AI call option stapled on.</li>
+<li><strong>Valuation.</strong> Fujikura trades at ~34x EV/EBITDA, Furukawa ~32x, Sumitomo ~16x on the model&rsquo;s consistent EBITDA basis. You pay roughly twice the multiple for purity.</li>
+<li><strong>Balance-sheet and operating gearing.</strong> Fujikura is net cash with a 16% operating margin; Sumitomo carries modest leverage at an 8% margin; Furukawa is the most financially geared (net debt/EBITDA ~2.3x) and the highest-beta (1.17) of the three <sup id="fnref2:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>.</li>
+</ul>
+<p><strong>The recommendation:</strong> for an investor who wants exposure to AI-datacenter optical interconnect but cannot confidently pick the winner, an <strong>equal-weighted basket of all three is the disciplined default.</strong> It keeps full thematic beta while diversifying the idiosyncratic blow-up risk that just played out — Fujikura&rsquo;s below-consensus guidance, Furukawa&rsquo;s leverage, Sumitomo&rsquo;s auto/tariff drag. What the basket does <em>not</em> do is diversify the theme: a multiple reset hits all three within a few points of each other (the model&rsquo;s sensitivity table puts a 30% de-rating at –30% to –32% for every name). Because the names sit at 3–7x off their 52-week lows and the May rout showed the re-rating is fragile, this is a high-beta thematic satellite to size as a satellite — not a core holding — and entry matters. For investors with a firmer view: concentrate in <strong>Fujikura</strong> for maximum quality and purity (and accept peak-multiple, peak-cycle risk), or own <strong>Sumitomo</strong> as the cheap, defensive way to keep a toe in. <strong>Furukawa is the one to be most careful with</strong> — it trades nearly as expensive as Fujikura on roughly half the AI purity, with the most leverage and the most beta.</p>
+<hr>
+<h2 id="1-the-setup-who-these-companies-are">1. The setup: who these companies are</h2>
+<p>Furukawa, Sumitomo Electric, and Fujikura are Japan&rsquo;s &ldquo;electric-wire majors&rdquo; (the <em>densen gosanke</em>, literally the wire industry&rsquo;s &ldquo;big three&rdquo;) — a recognized market cohort whose tickers even run in sequence (5801/5802/5803) <sup id="fnref:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. Each was founded around copper wire and cable more than a century ago, and each has since diversified into a different mix of automotive, energy, electronics, and telecom. What unites them now is <strong>optical fiber</strong>: all three are top-tier global makers of the glass strand and cable that carry the world&rsquo;s data, and all three sit in the global top six of fiber-optic cable revenue (Prysmian #1, Corning #2, <strong>Sumitomo #3, Furukawa #4</strong>, CommScope #5, <strong>Fujikura #6</strong>) <sup id="fnref:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>.</p>
+<p>The base optical-fiber business is, by itself, a slow grower: the global market for pure fiber strand was roughly US$12.7B in the base year and is forecast to reach ~US$18.7B by 2031, a ~5.8% CAGR <sup id="fnref:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>. That is <strong>not</strong> the story driving these stocks. The story is the AI-datacenter overlay sitting on top of it.</p>
+<blockquote>
+<p><strong>Why now.</strong> The same physical product — high-count optical fiber, connectors, and transceivers — is being pulled into a far faster-growing end market (AI datacenters) at the exact moment fiber is in short supply. That demand mix-shift, not the underlying telecom market, is what re-rated the cohort.</p>
+</blockquote>
+<hr>
+<h2 id="2-the-demand-driver-ai-datacenter-optical-not-telecom-fiber">2. The demand driver: AI-datacenter optical, not telecom fiber</h2>
+<p>The thing being bought is the optical plumbing of the AI datacenter. As GPU clusters scale, the interconnect between chips, servers, and buildings shifts from copper to optics, and the fiber counts per cable, the connector density, and the transceiver speeds all step up together.</p>
+<p><strong>The size of the prize.</strong> The AI-attributable slice of fiber and optics is growing several times faster than the base market. One bottom-up digest puts the AI-datacenter-attributable fiber-plus-optics category at ~US$25.8B in 2026 rising to ~US$63.5B by 2029 — roughly a 35% CAGR <sup id="fnref:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. Independent cuts corroborate the order of magnitude: Cignal AI counted ~US$25B of optical-component revenue in 2025 <sup id="fnref:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>, and the narrower data-center-interconnect (DCI) sub-segment is projected to grow from ~US$15.4B (2025) to ~US$25.9B (2030) <sup id="fnref:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>. Methodologically these are different lenses — a bottom-up component count versus a defined sub-segment — and they converge on a mid-$20Bs 2026 demand pool, which is what gives the demand number credibility rather than a single vendor&rsquo;s headline.</p>
+<p><strong>The technology that matters.</strong> Three product vectors carry the AI-optical demand, and the three Japanese majors are positioned differently on each:</p>
+<ul>
+<li><strong>Ultra-high-density fiber cable</strong> — packing thousands of fibers into a thin cable to wire dense GPU campuses. Fujikura&rsquo;s spider-web-ribbon (WTC) cable reaches 6,912 fibers in a 29mm diameter <sup id="fnref2:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>; Furukawa mass-produces a 13,824-count cable, among the world&rsquo;s highest density <sup id="fnref:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>. This is the most mature, highest-volume AI-optical product, and <strong>Fujikura leads it</strong> <sup id="fnref4:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>.</li>
+<li><strong>Co-packaged optics (CPO)</strong> — moving the optical engine onto the same package as the switch/GPU silicon to cut power. Here <strong>Sumitomo is differentiated</strong>: it is named a technology partner in NVIDIA&rsquo;s CPO ecosystem on the fiber/connector and indium-phosphide-laser tier <sup id="fnref2:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup><sup id="fnref5:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>, and Furukawa is pursuing CPO joint development with Shinko Electric <sup id="fnref:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>.</li>
+<li><strong>Next-generation fiber and faster transceivers</strong> — multi-core fiber (MCF) and hollow-core fiber (HCF) for the longest reaches, plus the step-up in transceiver speeds from 200/400G toward 800G and 1.6T <sup id="fnref5:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup><sup id="fnref6:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>. LightCounting expects AI-cluster Ethernet optics to scale into a multi-tens-of-billions market this decade <sup id="fnref:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup>.</li>
+</ul>
+<p><strong>A required reality check.</strong> Bernstein&rsquo;s framing is the discipline against over-extrapolation: inside the rack (&ldquo;scale-up,&rdquo; GPU-to-GPU), <strong>copper remains dominant</strong> and will for some time; CPO begins at limited scale in scale-out networks around H2 2026, with scale-up adoption not until ~2028+ <sup id="fnref:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup><sup id="fnref2:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>. And CPO&rsquo;s bigger effect is to <em>reallocate</em> the optical profit pool toward engines, fiber-array units, and lasers rather than to expand the total dramatically <sup id="fnref3:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>. The bull case is real but it is a multi-year ramp with a copper-shaped ceiling, not a step-change.</p>
+<p>The near-term tailwind that is <em>not</em> speculative: <strong>fiber is in active shortage</strong>, and the supply tightness is already producing 2026 price increases <sup id="fnref:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>. That is margin-positive for all three today, ahead of any CPO transition.</p>
+<hr>
+<h2 id="3-the-purity-spectrum-what-you-are-actually-buying">3. The purity spectrum: what you are actually buying</h2>
+<p>The single most important distinction across the three is how concentrated each is in the AI-optical story. The cleanest disclosed gauge is the share of group operating profit earned by each company&rsquo;s AI/datacenter-exposed segment.</p>
+<p><img alt="AI-optical purity spectrum — Fujikura ~81% of group OP, Furukawa ~42%, Sumitomo ~18% (FY ended Mar-2026)." src="jfm-ai-purity.png"></p>
+<ul>
+<li><strong>Fujikura — ~81% AI-optical.</strong> Its Telecommunication Systems (Information &amp; Communication) segment generated ¥152.7B of operating profit, ~81% of group OP, and grew ~1.7x year-on-year <sup id="fnref4:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref5:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref2:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup>. Fujikura is, in profit terms, an AI-optical pure-play wearing a cable-conglomerate&rsquo;s name.</li>
+<li><strong>Furukawa — ~42% AI-optical.</strong> From FY2026 Furukawa reorganized into six market-based segments explicitly to &ldquo;accelerate growth in the data center domain&rdquo; <sup id="fnref7:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>. Its two datacenter-centric segments — Optical Solutions (¥196.9B sales) and Digital Infrastructure Components (¥198.0B) — together are ~30% of sales and ~¥26.6B, or ~42%, of group OP, guided to ~70% of OP in FY2026 <sup id="fnref8:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref9:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref10:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref11:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>. Real and rising, but still less than half the profit base.</li>
+<li><strong>Sumitomo — ~18% AI-optical, and even that overstates it.</strong> Its Infocommunications segment (all optical) is just 6.4% of sales at ¥326.6B and ¥77.4B of OP, ~18% of group profit <sup id="fnref11:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref12:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref13:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>. Within that, the genuinely AI-datacenter piece is estimated at only ~US$0.8B — roughly 2–3% of group sales <sup id="fnref:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup><sup id="fnref2:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup><sup id="fnref2:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup>. Sumitomo&rsquo;s profit is dominated by its Automotive segment (wiring harnesses, 57.5% of sales) <sup id="fnref14:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref15:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>.</li>
+</ul>
+<p>A useful grounding cross-check sizes each company&rsquo;s 2026 AI-datacenter fiber revenue at similar absolute scale — Fujikura&rsquo;s US subsidiary AFL ~US$0.8B, Sumitomo ~US$0.6B, Furukawa ~US$0.4B <sup id="fnref2:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref3:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref4:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup> — which tells you the <em>purity</em> difference is driven as much by how small the rest of Fujikura is as by how large its AI business is. That is the right way to read the spectrum: you are choosing how much non-AI ballast to accept alongside the same theme.</p>
+<hr>
+<h2 id="4-the-numbers-comparative-financials-and-valuation">4. The numbers: comparative financials and valuation</h2>
+<p>All three printed record results for the year ended March 2026. The table below is the model&rsquo;s comps output; every figure ties to a cell in <code>japanese-fiber-majors-comps_v1_2026-06-08.xlsx</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Metric (FY ended Mar-2026)</th>
+<th style="text-align: right;">Furukawa 5801</th>
+<th style="text-align: right;">Sumitomo 5802</th>
+<th style="text-align: right;">Fujikura 5803</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Net sales (¥B)</td>
+<td style="text-align: right;">1,307.6 <sup id="fnref7:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup></td>
+<td style="text-align: right;">5,110.2 <sup id="fnref16:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup></td>
+<td style="text-align: right;">1,182.4 <sup id="fnref6:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup></td>
+</tr>
+<tr>
+<td>Operating profit (¥B)</td>
+<td style="text-align: right;">63.9 <sup id="fnref8:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup></td>
+<td style="text-align: right;">418.2 <sup id="fnref17:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup></td>
+<td style="text-align: right;">188.7 <sup id="fnref7:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup></td>
+</tr>
+<tr>
+<td>Operating margin</td>
+<td style="text-align: right;">4.9% <sup id="fnref9:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup></td>
+<td style="text-align: right;">8.2% <sup id="fnref18:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup></td>
+<td style="text-align: right;">16.0% <sup id="fnref8:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup></td>
+</tr>
+<tr>
+<td>Net income (¥B)</td>
+<td style="text-align: right;">72.5 <sup id="fnref10:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup></td>
+<td style="text-align: right;">369.5 <sup id="fnref19:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup></td>
+<td style="text-align: right;">157.2 <sup id="fnref9:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup></td>
+</tr>
+<tr>
+<td>Market cap (¥B)</td>
+<td style="text-align: right;">3,184 <sup id="fnref4:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup></td>
+<td style="text-align: right;">9,470 <sup id="fnref3:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup></td>
+<td style="text-align: right;">7,290 <sup id="fnref3:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup></td>
+</tr>
+<tr>
+<td>Market cap (US$B)</td>
+<td style="text-align: right;">~19.9</td>
+<td style="text-align: right;">~59.1</td>
+<td style="text-align: right;">~45.5</td>
+</tr>
+<tr>
+<td>Enterprise value (¥B)</td>
+<td style="text-align: right;">3,432 <sup id="fnref5:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup></td>
+<td style="text-align: right;">9,943 <sup id="fnref4:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup></td>
+<td style="text-align: right;">7,210 <sup id="fnref4:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup></td>
+</tr>
+<tr>
+<td>P/E trailing (x)</td>
+<td style="text-align: right;">43.9</td>
+<td style="text-align: right;">25.6 <sup id="fnref5:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup></td>
+<td style="text-align: right;">46.4</td>
+</tr>
+<tr>
+<td>EV/EBITDA — model (x)</td>
+<td style="text-align: right;">32.0</td>
+<td style="text-align: right;">15.8 <sup id="fnref6:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup></td>
+<td style="text-align: right;">33.5</td>
+</tr>
+<tr>
+<td>P/B (x)</td>
+<td style="text-align: right;">7.6 <sup id="fnref6:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup></td>
+<td style="text-align: right;">3.5 <sup id="fnref7:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup></td>
+<td style="text-align: right;">13.0</td>
+</tr>
+<tr>
+<td>EV/Sales (x)</td>
+<td style="text-align: right;">2.6</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">6.1</td>
+</tr>
+<tr>
+<td>ROE (period-end equity)</td>
+<td style="text-align: right;">17.4%</td>
+<td style="text-align: right;">13.5%</td>
+<td style="text-align: right;">28.1%</td>
+</tr>
+<tr>
+<td>Dividend yield</td>
+<td style="text-align: right;">0.45% <sup id="fnref7:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup></td>
+<td style="text-align: right;">1.2% <sup id="fnref4:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup></td>
+<td style="text-align: right;">0.80%</td>
+</tr>
+<tr>
+<td>Net debt/EBITDA (x)</td>
+<td style="text-align: right;">2.3</td>
+<td style="text-align: right;">0.75 <sup id="fnref8:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup></td>
+<td style="text-align: right;">–0.4 (net cash)</td>
+</tr>
+<tr>
+<td>Beta (5Y)</td>
+<td style="text-align: right;">1.17 <sup id="fnref3:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup></td>
+<td style="text-align: right;">0.89 <sup id="fnref:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup></td>
+<td style="text-align: right;">0.78 <sup id="fnref4:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup></td>
+</tr>
+<tr>
+<td>52-wk total return</td>
+<td style="text-align: right;">+545% <sup id="fnref4:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup></td>
+<td style="text-align: right;">+308% <sup id="fnref3:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup></td>
+<td style="text-align: right;">+283% <sup id="fnref2:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup></td>
+</tr>
+</tbody>
+</table>
+<p><em>USD conversions at USD/JPY 160.13 <sup id="fnref:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup>. EV/EBITDA is computed on a single consistent basis — EV ÷ (company-reported operating profit + D&amp;A) — for all three names. Third-party screens show 28.0x / 16.1x / 34.4x <sup id="fnref:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup><sup id="fnref:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup><sup id="fnref:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup>; the Furukawa screen figure of 28.0x is not internally consistent with the same screen&rsquo;s own reported EBITDA (which implies ~32x), so the model uses the consistent computed basis.</em></p>
+<p><img alt="Valuation spread — Furukawa is nearly as expensive as Fujikura (~32x vs ~34x EV/EBITDA) while Sumitomo sits at ~16x." src="jfm-valuation-evebitda.png"></p>
+<p>Two reconciliation points are worth stating plainly, because each is also a thesis point:</p>
+<ul>
+<li><strong>The EV/EBITDA basis.</strong> On a consistent OP-plus-D&amp;A definition, Furukawa computes at ~32x — only modestly below Fujikura&rsquo;s ~34x and double Sumitomo&rsquo;s ~16x. The widely-quoted third-party screen shows ~28x for Furukawa, but that figure is internally inconsistent with the same screen&rsquo;s <em>own</em> reported EBITDA (~¥107B, which implies ~32x), so the model uses the consistent computed basis rather than the screen&rsquo;s published multiple <sup id="fnref3:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>. The takeaway survives either number: <strong>Furukawa is priced close to Fujikura on far less AI purity.</strong></li>
+<li><strong>Forward P/E and the guidance gap.</strong> The model&rsquo;s forward P/E uses <em>company guidance</em>, not Street consensus — which matters most for Fujikura. On a like-for-like operating-profit basis, Fujikura&rsquo;s FY2027 OP guidance of ¥211B (+11.8%) came in roughly 20% below the ¥263.6B analyst (QUICK) consensus the Street had penciled in <sup id="fnref5:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref6:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; management guided conservatively and the stock fell as much as 17% on the three-year plan <sup id="fnref3:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup>. A guidance-based forward multiple therefore looks <em>higher</em> than the consensus-based screen — the conservatism is the signal, not noise.</li>
+</ul>
+<p><strong>The shared re-rating.</strong> Over the trailing year all three names compounded several-fold — Furukawa +545%, Sumitomo +308%, Fujikura +283% <sup id="fnref:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup><sup id="fnref:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup><sup id="fnref:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup> — and Fujikura&rsquo;s multi-year record is extraordinary (+~400% in 2024 as the best Nikkei 225 performer, +~155% in 2025) <sup id="fnref:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup><sup id="fnref:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup>. The point of the chart below is not the absolute moves but their <em>togetherness</em>: this cohort re-rates and de-rates as one.</p>
+<p><img alt="All three multi-bagged together over the past year — one theme, three vehicles." src="jfm-rerating.png"></p>
+<hr>
+<h2 id="5-the-names-one-by-one">5. The names, one by one</h2>
+<h3 id="fujikura-5803t-the-purest-the-priciest-at-peak-cycle">Fujikura (5803.T) — the purest, the priciest, at peak cycle</h3>
+<p>Fujikura is the highest-quality and highest-purity vehicle. FY2025 was a record across the board: sales ¥1,182.4B (+20.7%), operating profit ¥188.7B (+39.2%) at a 16.0% margin, net income ¥157.2B (+72.5%) <sup id="fnref:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref2:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref3:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>. The balance sheet is pristine — a 57.8% equity ratio, ¥181.2B of cash, and an essentially net-cash position <sup id="fnref:fn-35"><a class="footnote-ref" href="#fn:fn-35">35</a></sup><sup id="fnref2:fn-35"><a class="footnote-ref" href="#fn:fn-35">35</a></sup> — which on period-end equity puts ROE at ~28% (and higher on an average-equity basis). The AI-optical engine is the whole story: telecom OP up 1.7x to ~81% of group profit <sup id="fnref:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref2:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, driven by differentiated ultra-high-density cable, a Verizon-certified air-blown product, and supply relationships across <em>all</em> the hyperscalers <sup id="fnref:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup><sup id="fnref2:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup>. Management&rsquo;s new mid-term plan targets ¥315B of OP at a 28.5% ROE, with up to ¥260B of US investment to roughly quadruple optical-fiber-cable capacity versus FY2022 <sup id="fnref:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup><sup id="fnref:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup><sup id="fnref2:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup>.</p>
+<p><strong>The bull case</strong> is that AI-optical demand compounds, fiber stays tight, and Fujikura&rsquo;s purity plus best-in-class margins and balance sheet make it the franchise to own; Goldman rates it Buy at a target 19.0x EV/EBITDA — the highest multiple in its Japan coverage <sup id="fnref2:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>. (The GS targets cited throughout are from its January 2026 update, which predates the May-2026 FY2025 results; treat them as a relative-conviction signal, not a refreshed price view.)</p>
+<p><strong>The bear case</strong> is valuation and cycle. At ~34x EV/EBITDA and ~13x book <sup id="fnref2:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup>, the stock prices in continued hypergrowth — Fujikura&rsquo;s ~¥7.3T market cap now exceeds three-quarters of Sumitomo&rsquo;s on roughly a quarter of Sumitomo&rsquo;s revenue <sup id="fnref:fn-39"><a class="footnote-ref" href="#fn:fn-39">39</a></sup>. It guided FY2027 below consensus <sup id="fnref4:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>, and its three-year plan landed so far short of expectations (¥315B FY2029 OP vs a ¥460.5B consensus) that the stock plunged 17% on the day <sup id="fnref:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup>; a US tariff dispute cost ¥12.8B this year <sup id="fnref:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup>; and &gt;50% US revenue concentration adds policy risk <sup id="fnref2:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup>. <strong>You are paying the peak multiple for peak purity at what may be peak cycle</strong> — the asymmetry that makes the single name riskier than its quality suggests.</p>
+<h3 id="furukawa-5801t-the-geared-middle-and-the-one-to-handle-with-care">Furukawa (5801.T) — the geared middle, and the one to handle with care</h3>
+<p>Furukawa is the most operationally and financially geared of the three, and the most awkward on valuation. FY2025 sales were ¥1,307.6B (+8.8%) with OP up 35.8% to ¥63.9B — but at just a 4.9% margin, a third of Fujikura&rsquo;s <sup id="fnref:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref2:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>. Reported net income of ¥72.5B (+117%) and a 19.1% reported ROE (17.4% on period-end equity in the table above) flatter the picture: ~¥29.1B was one-off extraordinary income, so the operating read is the cleaner +36% <sup id="fnref:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref3:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>. Furukawa is building its AI-optical position aggressively — a reorganization to &ldquo;accelerate growth in the data center domain,&rdquo; the Lightera optical brand, the ¥4.4B acquisition of (loss-making) Fujitsu Optical Components, and a 67% stake in connector-maker Hakusan <sup id="fnref2:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref:fn-40"><a class="footnote-ref" href="#fn:fn-40">40</a></sup><sup id="fnref:fn-41"><a class="footnote-ref" href="#fn:fn-41">41</a></sup><sup id="fnref:fn-42"><a class="footnote-ref" href="#fn:fn-42">42</a></sup><sup id="fnref:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup>. The datacenter segments are guided from ~42% to ~70% of group OP <sup id="fnref3:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>.</p>
+<p><strong>The bull case</strong> is the operating leverage: a low-margin base means datacenter mix-shift drops disproportionately to profit, and FY2026 guidance of ¥95B OP (+48.8%) reflects exactly that <sup id="fnref4:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>. Furukawa beat every target in its prior mid-term plan <sup id="fnref4:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>.</p>
+<p><strong>The bear case</strong> is that the market already pays for it. Furukawa trades at ~32x EV/EBITDA and ~7.6x book — nearly Fujikura&rsquo;s multiple on roughly half the purity and a third of the margin — while carrying the most leverage (net debt/EBITDA ~2.3x) and the highest beta (1.17) of the three <sup id="fnref2:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup><sup id="fnref5:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. Goldman is Neutral at an 8.5x target multiple <sup id="fnref3:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>. The +545% trailing-year move is the largest of the cohort <sup id="fnref2:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup>, which cuts both ways: <strong>most upside if the theme runs, most downside on a reset.</strong> Of the three, Furukawa offers the least valuation cushion for its risk.</p>
+<h3 id="sumitomo-electric-5802t-the-cheap-diversified-defensive-call-option">Sumitomo Electric (5802.T) — the cheap, diversified, defensive call option</h3>
+<p>Sumitomo is the large, cheap, diversified blue-chip — and the least AI-levered. FY2025 sales crossed ¥5T for the first time (¥5,110.2B, +9.2%) with OP of ¥418.2B at an 8.2% margin <sup id="fnref:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref2:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref3:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>. But the company is dominated by <strong>automotive wiring harnesses</strong> (57.5% of sales) and power/energy infrastructure (23.1%); optical is just 6.4% of sales, and the genuinely AI-datacenter slice is ~2–3% <sup id="fnref4:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref5:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref6:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup>. The AI-optical piece is nonetheless high-quality and accelerating — Infocommunications OP margin reached 19%, and the segment is guided to ¥500B sales (+53%) and ¥130B OP in FY2026 with capex tripling <sup id="fnref:fn-44"><a class="footnote-ref" href="#fn:fn-44">44</a></sup><sup id="fnref7:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref8:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref9:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> — and Sumitomo holds genuine strategic optionality as a named NVIDIA CPO partner <sup id="fnref:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>.</p>
+<p><strong>The bull case</strong> is valuation and defensiveness: at ~16x EV/EBITDA, ~3.5x book, a 25.6x trailing P/E and a ~1.2% yield <sup id="fnref:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup><sup id="fnref2:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup><sup id="fnref3:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup><sup id="fnref2:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup>, Sumitomo is half the multiple of the other two, with the lowest beta (0.89) and the diversification of a true industrial conglomerate. Its 2028 mid-term plan targets ¥6T sales and ¥600B OP at a &gt;13% ROE <sup id="fnref:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup><sup id="fnref2:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup><sup id="fnref3:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup>. If AI-optical compounds, Infocommunications could grow toward ~20% of the company <sup id="fnref2:fn-44"><a class="footnote-ref" href="#fn:fn-44">44</a></sup> — a real call option you are buying cheaply.</p>
+<p><strong>The bear case</strong> is the mirror image: you get the least AI exposure, so in an up-tape Sumitomo lags (it returned &ldquo;only&rdquo; +308% versus Furukawa&rsquo;s +545%) <sup id="fnref2:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup><sup id="fnref3:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup>, and the bulk of the company is exposed to autos and tariffs rather than datacenters. Tellingly, Goldman&rsquo;s Buy target of ¥7,350 sits <em>below</em> the current price — the market has run past even the bullish sell-side case <sup id="fnref:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup>. <strong>Sumitomo is the way to own the theme with a seatbelt — but the seatbelt is most of the car.</strong></p>
+<hr>
+<h2 id="6-the-basket-decision">6. The basket decision</h2>
+<p>The case for treating these as a basket rests on one empirical fact and one structural one.</p>
+<p><strong>Empirically, they move together.</strong> They are a named cohort that multi-bagged in unison and sold off in unison — all three fell roughly 7% on the 2026-06-08 session alone, and the broader May-2026 cable-maker rout hit all three after Fujikura&rsquo;s weak guidance <sup id="fnref2:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref2:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup>. High co-movement means a basket does little to diversify <em>theme</em> risk.</p>
+<p><strong>Structurally, the single-name risks are idiosyncratic and offsetting.</strong> Fujikura&rsquo;s risk is a growth-guidance miss; Furukawa&rsquo;s is leverage and an expensive multiple; Sumitomo&rsquo;s is auto/tariff drag and AI under-exposure. An equal-weighted basket diversifies precisely these company-specific risks while retaining full thematic beta.</p>
+<p>The model makes the trade-off explicit:</p>
+<ul>
+<li><strong>Equal-weight basket:</strong> ~27x EV/EBITDA, ~39x P/E, ~8.0x P/B, ~20% ROE, ~0.95 beta. It captures the secular driver and dampens single-name blow-up risk.</li>
+<li><strong>Cap-weight basket:</strong> ~25x EV/EBITDA — lower, because Sumitomo&rsquo;s ¥9.5T market cap pulls ~48% of the weight, diluting the AI exposure toward the cheapest, least-pure name. Cap-weighting is the <em>more defensive, less pure</em> basket; equal-weighting is the cleaner thematic expression.</li>
+<li><strong>Downside is shared.</strong> The sensitivity table shows a 30% sector multiple compression takes all three down 30–32% (leverage makes Furukawa worst, net cash makes Fujikura best) — the basket falls ~31%. A basket spreads idiosyncratic risk; it does not protect against a theme-wide de-rating.</li>
+</ul>
+<p><strong>How to choose:</strong></p>
+<table>
+<thead>
+<tr>
+<th>If your view is…</th>
+<th>Vehicle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&ldquo;I want the theme but can&rsquo;t pick the winner&rdquo;</td>
+<td><strong>Equal-weight basket</strong> — the disciplined default</td>
+</tr>
+<tr>
+<td>&ldquo;AI-optical compounds; I want maximum quality/purity&rdquo;</td>
+<td><strong>Fujikura</strong> — accept peak-multiple, peak-cycle risk</td>
+</tr>
+<tr>
+<td>&ldquo;I&rsquo;m skeptical of the re-rating; give me cheap, defensive exposure&rdquo;</td>
+<td><strong>Sumitomo</strong> — cheap, diversified, NVIDIA-CPO optionality</td>
+</tr>
+<tr>
+<td>&ldquo;I want maximum operating leverage to the theme&rdquo;</td>
+<td><strong>Furukawa</strong> — but the least valuation cushion for the risk</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="7-risks-and-what-would-change-the-view">7. Risks and what would change the view</h2>
+<ul>
+<li><strong>AI-capex digestion.</strong> The dominant risk. Any hyperscaler capex pause de-rates the entire cohort together; the May-2026 rout was a preview. Watch hyperscaler capex guidance and the 800G/1.6T transceiver-speed transition <sup id="fnref7:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>.</li>
+<li><strong>Fiber over-supply.</strong> Today&rsquo;s shortage and price hikes are the near-term tailwind <sup id="fnref8:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>; capacity additions (including Fujikura&rsquo;s planned 4x US expansion <sup id="fnref3:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup>) could swing the cycle to over-supply within a few years.</li>
+<li><strong>The CPO timeline disappoints.</strong> If copper holds in the rack longer and CPO scale-up slips past 2028, the highest-multiple names (Fujikura, Furukawa) lose their forward justification first <sup id="fnref4:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup><sup id="fnref5:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>.</li>
+<li><strong>Fujikura execution / guidance.</strong> Already a live risk — a below-consensus three-year plan and a ¥12.8B tariff hit <sup id="fnref7:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref3:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup>. Further conservatism or US trade friction (&gt;50% US revenue) would pressure the priciest name <sup id="fnref3:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup>.</li>
+<li><strong>Furukawa leverage.</strong> At ~2.3x net debt/EBITDA and a 4.9% margin, Furukawa has the least cushion if the cycle turns <sup id="fnref12:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref5:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>.</li>
+<li><strong>FX.</strong> Reported in JPY; USD/JPY at 160.13 is near the top of its range, so yen strength is an earnings headwind for the US-heavy names <sup id="fnref2:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup>.</li>
+<li><strong>Split mechanics (technical, not fundamental).</strong> All three are splitting — Fujikura 6:1 (done April 2026), Furukawa 10:1 (1 July 2026), Sumitomo 4:1 (record date 30 June 2026) <sup id="fnref:fn-47"><a class="footnote-ref" href="#fn:fn-47">47</a></sup><sup id="fnref6:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref:fn-48"><a class="footnote-ref" href="#fn:fn-48">48</a></sup>. Splits change per-share optics, not value; the comps here are stated on market-cap and aggregate bases to stay split-invariant.</li>
+</ul>
+<p><strong>What would change the view to &ldquo;concentrate, don&rsquo;t basket&rdquo;:</strong> clear evidence that AI-optical demand is durable through a capex cycle (multi-quarter hyperscaler order visibility) <em>and</em> that Fujikura&rsquo;s premium is supported by widening margin/share — that combination would favor concentrating in the purest name over diluting into the cohort.</p>
+<hr>
+<h2 id="8-bottom-line">8. Bottom line</h2>
+<p>This is a rare case where the cleanest way to play a powerful theme is also a diversifiable one. The three Japanese fiber majors give you the same AI-datacenter-optical driver at three different concentrations, valuations, and risk profiles. After a year in which all three tripled-to-quintupled and then wobbled together, the prudent expression is an <strong>equal-weighted basket sized as a thematic satellite</strong> — full theme beta, diversified single-name risk, entry-sensitive. Investors with conviction on durability and quality should concentrate in <strong>Fujikura</strong>; investors who want the theme with downside protection should own <strong>Sumitomo</strong>; and <strong>Furukawa</strong>, the expensive, geared middle, earns the most caution. The one thing the basket cannot do — and no construction can — is protect against the theme itself cooling. That, not stock selection, is the risk to underwrite.</p>
+<hr>
+<h2 id="sources">Sources</h2>
+<p>Full provenance (verbatim quotes, source URLs, local snapshots, retrieval dates) is in the findings sidecar <code>2026-06-08-japanese-fiber-majors-deep-dive.md.findings.jsonl</code> (216 findings, S001–S216). Headline anchors: company FY2025 results (tanshin / Fact Book / results presentations, filed May 2026) for all financials and segments; stockanalysis.com and FMP for same-day market data; Goldman Sachs &ldquo;Era of Optics&rdquo; / Japan Technology (via Noldor) for ratings and target multiples; Valuates/QYResearch, Cignal AI, MarketsandMarkets, LightCounting, and a Noldor fiber-optics demand digest for market sizing; Bernstein (via Noldor) for the CPO/copper reality check. The comparative model is <code>japanese-fiber-majors-comps_v1_2026-06-08.xlsx</code>; charts are rendered from it and re-verified against its cells at audit.</p>
+<p><em>Prepared for John Hendren. Source: named primary providers, Hendren analysis. Not investment advice; figures are indicative and as of 2026-06-08.</em></p>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:fn-1">
+<p>note.com &ldquo;Telecommunication Systems segment OP share of total company operating profit FY ended March 2026&rdquo;, 2026-05-15 · https://note.com/kabuya66/n/n95038053aa7b · local: 2026-06-08-note.com-kabuya66-n-n95038053aa7b.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-2">
+<p>www.furukawaelectric.com &ldquo;FY2025 operating profit of the two data-center-centric segments (Optical Solutions JPY 10.7B + Digital Infrastructure Components JPY 15.9B) = JPY 26.6B, ~41.6% of group OP (JPY 63.9B); guided to ~70% of group OP in FY2026&rdquo;, 2026-05-12 · https://www.furukawaelectric.com/en/ir/library/finalreport/pdf/2026/20260512_pre.pdf · local: 2026-06-08-www.furukawaelectric.com-en-ir-library-finalreport-pdf-2026-20260512-pre-pdf.bin · Primary&#160;<a class="footnote-backref" href="#fnref:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-3">
+<p>sumitomoelectric.com &ldquo;Sumitomo Electric Infocommunications segment operating income FY2025&rdquo;, 2026-05-12 · https://sumitomoelectric.com/sites/default/files/2026-05/download_documents/fb2025_allv_0.pdf · local: 2026-06-08-sumitomoelectric.com-sites-default-files-2026-05-download-documents-fb2025-allv-0.bin · Primary&#160;<a class="footnote-backref" href="#fnref:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref15:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref16:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref17:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref18:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref19:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-4">
+<p>news-aggregator &ldquo;5Y betas: Furukawa 1.17 (only one &gt;1; smallest, most levered), Sumitomo 0.89, Fujikura 0.78. All three fell near-identically on 2026-06-08 (Furukawa -7.7%, Sumitomo -6.7%, Fujikura -7.3%), evidencing high short-term co-movement within the cohort&rdquo;, 2026-06-08 · local: FMP profile-symbol + stockanalysis.com (2026-06-08) · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-5">
+<p>www.japantimes.co.jp &ldquo;The three are a recognized market cohort — Japan&#x27;s &#x27;electric-wire Big Three&#x27; (Furukawa 5801, Sumitomo 5802, Fujikura 5803) — which surged together 2024-2026 on AI-data-center optical demand and sold off together in the May 2026 &#x27;Japan cable maker rout&#x27;; high thematic co-movement&rdquo;, 2026-05-26 · https://www.japantimes.co.jp/business/2026/05/26/companies/japan-ai-stocks-fragility/ · local: 2026-06-08-www.japantimes.co.jp-business-2026-05-26-companies-japan-ai-stocks-fragility.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-6">
+<p>trade-press &ldquo;Global fiber-optic cable revenue ranking (GII/Mordor 2025-2030): #1 Prysmian, #2 Corning, #3 Sumitomo Electric, #4 Furukawa Electric, #5 CommScope, #6 Fujikura&rdquo;, 2026-06-01 · local: 2026-06-01-optical-fiber-and-display-glass-market-shares.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-7">
+<p>reports.valuates.com &ldquo;Global optical fiber (pure strand) market ~US$12.68B (base year) → US$18.7B by 2031, ~5.8% CAGR; single-mode &gt;95% of product; top five makers hold &gt;40% share&rdquo;, 2026-06-01 · https://reports.valuates.com/market-reports/QYRE-Auto-23J10091/global-optical-fiber · local: 2026-06-01-optical-fiber-and-display-glass-market-shares.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-8">
+<p>Noldor: fiber optics category digest (2026-05-12 ai-infra-market-map) &ldquo;Fiber+Optics AI-DC-attributable gross category (base case): $25.8B in 2026 rising to $63.5B in 2029, ~35% CAGR (bear $22B→$48B / 30%; bull $32B→ up)&rdquo;, 2026-05-12 · Noldor: fiber optics category digest (2026-05-12 ai-infra-market-map) · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-9">
+<p>cignal.ai &ldquo;Cignal AI: optical components reached nearly $25B revenue in 2025 (datacom &gt;$18B); datacom forecast ~$29B by 2029 (20%+ CAGR)&rdquo;, 2026-01-07 · https://cignal.ai/2026/01/optical-component-revenue-reaches-nearly-25b-in-2025/ · local: 2026-06-08-cignal.ai-2026-01-optical-component-revenue-reaches-nearly-25b-in-2025.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-10">
+<p>www.marketsandmarkets.com &ldquo;Data center interconnect (DCI) market projected to grow from USD 15.38B in 2025 to USD 25.89B by 2030, 11.0% CAGR (MarketsandMarkets)&rdquo;, 2025-08-19 · https://www.marketsandmarkets.com/PressReleases/data-center-interconnect.asp · local: 2026-06-08-www.marketsandmarkets.com-pressreleases-data-center-interconnect-asp.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-11">
+<p>corporate.quick.co.jp &ldquo;Highest-density WTC optical fiber cable: fiber count in a 29mm-diameter cable (world&#x27;s smallest at this core count) — flagship AI-DC product&rdquo;, 2024-11-18 · https://corporate.quick.co.jp/en/japanmarketsview/equity/fujikura-5803-expands-performance-driven-by-growing-data-center-demand/ · local: 2026-06-08-corporate.quick.co.jp-en-japanmarketsview-equity-fujikura-5803-expands-performance.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-12">
+<p>www.furukawaelectric.com &ldquo;Furukawa started mass production of a 13,824-count optical fiber cable (one of world&#x27;s highest fiber densities, &lt;40mm dia via rollable ribbons of 16x 200um fibers) for hyperscale data centers&rdquo;, 2026-03-12 · https://www.furukawaelectric.com/en/release/2026/comm_20260312.html · local: 2026-06-08-www.furukawaelectric.com-en-release-2026-comm-20260312-html.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-13">
+<p>Noldor: japan fiber optics gs &ldquo;Fujikura&#x27;s AI growth driver is differentiated ultra-high-density fiber-optic cable (SWR/spider-web-ribbon) + optical connectors (MT ferrule); GS Exhibit 7 shows capacity ramp plans — SWR 1.5x and optical connector (MT ferrule) 3x — after refocusing post-FY3/20 losses on telecom (cables/connectors)&rdquo;, 2026-01-05 · Noldor: japan fiber optics gs · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-14">
+<p>Noldor: Seizing the Global Growth Opportunity (research_report) &ldquo;Sumitomo Electric selected as a technology partner for NVIDIA in co-packaged optics (CPO) ecosystem&rdquo;, 2026-01-05 · Noldor: Seizing the Global Growth Opportunity (research_report) · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-15">
+<p>Noldor: Seizing the Global Growth Opportunity (Morgan Stanley) &ldquo;On CPO, Furukawa Electric and Shinko Electric Industries are promoting joint development with NTT (one of the three CPO-leading groups alongside NVIDIA and Broadcom)&rdquo;, 2025-12-01 · Noldor: Seizing the Global Growth Opportunity (Morgan Stanley) · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-16">
+<p>www.lightcounting.com &ldquo;LightCounting: Ethernet optical transceivers for AI clusters reach $26B in 2026, +60% YoY from $16.5B in 2025; $100B market for AI cluster optics by 2030&rdquo;, 2026-03-01 · https://www.lightcounting.com/newsletter/en/march-2026-ethernet-optics-382 · local: 2026-06-08-www.lightcounting.com-newsletter-en-march-2026-ethernet-optics-382.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-17">
+<p>Noldor: futunn bernstein 97pp interconnect summary &ldquo;Bernstein core thesis: in scale-up (intra-rack GPU-to-GPU) copper remains dominant; Jensen Huang explicitly stated NVIDIA will NOT immediately adopt CPO for primary flagship-GPU interconnects (copper more reliable); optics wins in scale-out (inter-rack, longer reach)&rdquo;, 2026-05-19 · Noldor: futunn bernstein 97pp interconnect summary · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-18">
+<p>ae.marketscreener.com &ldquo;Telecommunication Systems segment OP growth multiple vs prior year FY ended March 2026&rdquo;, 2026-05-14 · https://ae.marketscreener.com/news/fujikura-presentation-material-for-fy2025-ce7f5bddd988f124 · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-19">
+<p>Noldor: fiber optics category digest (research_note, 2026-05-01) &ldquo;Sumitomo Electric estimated AI-datacenter fiber+cable revenue 2026 (internal research-note estimate)&rdquo;, 2026-05-01 · Noldor: fiber optics category digest (research_note, 2026-05-01) · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-20">
+<p>other &ldquo;Sumitomo Electric estimated AI/datacenter-optical revenue as share of total group sales FY2025&rdquo;, 2026-06-08 · local: computed:factbook-fy2025-segment-mix · other&#160;<a class="footnote-backref" href="#fnref:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-21">
+<p>www.furukawaelectric.com &ldquo;FY2025 (ended Mar 31 2026) consolidated net sales JPY 1,307,560M (+8.8% YoY)&rdquo;, 2026-05-12 · https://www.furukawaelectric.com/en/ir/library/finalreport/pdf/2026/20260512.pdf · local: 2026-06-08-www.furukawaelectric.com-en-ir-library-finalreport-pdf-2026-20260512-pdf.bin · Primary&#160;<a class="footnote-backref" href="#fnref:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-22">
+<p>finance.biggo.com &ldquo;Consolidated net sales FY ended March 2026 (FY2025): record high, +20.7% YoY&rdquo;, 2026-05-14 · https://finance.biggo.com/news/jpx_tdnet_140120260514532598 · local: 2026-06-08-finance.biggo.com-news-jpx-tdnet-140120260514532598.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-23">
+<p>stockanalysis.com &ldquo;Furukawa Electric is the smallest of the three by market cap (~¥3.18T); EV ~¥3.46T; revenue ~¥1.31T LTM; EBITDA ~¥107B; net debt ~¥258B; consensus Buy, 9 analysts; 52-week price change ~+545% (largest move of the three)&rdquo;, 2026-06-08 · https://stockanalysis.com/quote/tyo/5801/statistics/ · local: 2026-06-08-stockanalysis.com-quote-tyo-5801-statistics.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-24">
+<p>stockanalysis.com &ldquo;Sumitomo Electric is the largest of the three by market cap (~¥9.5-10.2T) and revenue (~¥5.1T LTM); EV ~¥10.6T; EBITDA ~¥628B; net income ~¥370B; consensus Buy, 10 analysts; 52-week change ~+308%&rdquo;, 2026-06-08 · https://stockanalysis.com/quote/tyo/5802/statistics/ · local: 2026-06-08-stockanalysis.com-quote-tyo-5802-statistics.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-25">
+<p>stockanalysis.com &ldquo;Fujikura market cap ~¥7.29T, EV ~¥7.8T (net cash ~¥80B), revenue ~¥1.18T LTM, EBITDA ~¥215B, net income ~¥157B; consensus Strong Buy, 11 analysts; 52-week price change ~+283%&rdquo;, 2026-06-08 · https://stockanalysis.com/quote/tyo/5803/statistics/ · local: 2026-06-08-stockanalysis.com-quote-tyo-5803-statistics.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-26">
+<p>other &ldquo;Sumitomo Electric enterprise value (mktcap + IBD - cash)&rdquo;, 2026-06-08 · local: computed:price-12140-x-factbook-fy2025 · other&#160;<a class="footnote-backref" href="#fnref:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-27">
+<p>news-aggregator &ldquo;Sumitomo Electric beta vs market&rdquo;, 2026-06-08 · local: FMP:profile-symbol:5802.T · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-28">
+<p>simplywall.st &ldquo;Furukawa Electric stock rose ~470-530% over the trailing year (to ~2026-06), vastly outperforming JP Electrical industry +55.6% and JP market +18.3% — a clear AI/data-center re-rating&rdquo;, 2026-06-08 · https://simplywall.st/stocks/jp/capital-goods/tse-5801/furukawa-electric-shares · local: 2026-06-08-simplywall.st-stocks-jp-capital-goods-tse-5801-furukawa-electric-shares.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-29">
+<p>news-aggregator &ldquo;Sumitomo Electric share price multiple from 52-week low to high (AI re-rating magnitude)&rdquo;, 2026-06-08 · local: FMP:profile-symbol:5802.T + TSE 52wk range · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-30">
+<p>in.tradingview.com &ldquo;1-year total share price return (to ~May/Jun 2026)&rdquo;, 2026-05-01 · https://in.tradingview.com/symbols/TSE-5803/ · local: 2026-06-08-in.tradingview.com-symbols-tse-5803.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-31">
+<p>news-aggregator &ldquo;USD/JPY = 160.13 on 2026-06-08 (yr range 142.7-160.7). Cross: Furukawa ¥3.18T ≈ $19.9B; Sumitomo ¥9.47T ≈ $59.1B; Fujikura ¥7.29T ≈ $45.5B market cap&rdquo;, 2026-06-08 · local: FMP forex USDJPY 2026-06-08 · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-32">
+<p>www.bloomberg.com &ldquo;Fujikura shares plunged 17% (closing JPY4,695, down JPY958) on 2026-05-19 after its three-year mid-term plan targeted JPY315B FY2029 OP, well below the QUICK consensus of JPY460.5B&rdquo;, 2026-05-19 · https://www.bloomberg.com/news/articles/2026-05-19/fujikura-shares-plunge-after-three-year-forecast-dents-ai-hope · local: 2026-06-08-finance.biggo.com-news-2q3gqp4bnl&ndash;4-gtkpy.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-33">
+<p>www.businesstimes.com.sg &ldquo;Calendar-2024 share price gain (best performer on Nikkei 225)&rdquo;, 2024-11-25 · https://www.businesstimes.com.sg/international/global/ai-boom-makes-139-year-old-cable-maker-japans-hottest-stock · local: 2026-06-08-www.businesstimes.com.sg-international-global-ai-boom-makes-139-year-old-cable-maker-.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-34">
+<p>www.dividendjapan.com &ldquo;Calendar-2025 share price gain (YTD as of Oct 2025)&rdquo;, 2025-10-21 · https://www.dividendjapan.com/p/fujikura-japan-connectivity-ai-dividend-2025 · local: 2026-06-08-www.dividendjapan.com-p-fujikura-japan-connectivity-ai-dividend-2025.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-35">
+<p>www.marketscreener.com &ldquo;Equity ratio as of March 31, 2026 (low-leverage balance sheet)&rdquo;, 2026-05-14 · https://www.marketscreener.com/news/fujikura-consolidated-financial-results-for-the-fiscal-year-ended-march-31-2026-under-japanese-g-ce7f5bddd988f222 · Primary&#160;<a class="footnote-backref" href="#fnref:fn-35" title="Jump back to footnote 35 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-35" title="Jump back to footnote 35 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-36">
+<p>Noldor: Era of Optics (GS Japan Technology Hardware - Industrial Electronics, 2025-07-07) &ldquo;Air Blown WTC max core count (Verizon WTC certification obtained 13 May 2025) — DCI/medium-distance product&rdquo;, 2025-07-07 · Noldor: Era of Optics (GS Japan Technology Hardware - Industrial Electronics, 2025-07-07) · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-37">
+<p>finance.biggo.com &ldquo;Mid-Term Plan operating profit target (near-term milestone, ~FY ending March 2029)&rdquo;, 2026-05-19 · https://finance.biggo.com/news/2Q3GQp4BNl__-4_GtKpy · local: 2026-06-08-finance.biggo.com-news-2q3gqp4bnl&ndash;4-gtkpy.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-38">
+<p>m.au.investing.com &ldquo;Mid-Term Plan ROE target (at the ¥315bn OP milestone)&rdquo;, 2026-05-19 · https://m.au.investing.com/news/stock-market-news/fujikura-unveils-mediumterm-plan-with-operating-profit-target-of-580bn-93CH-4444863 · Primary&#160;<a class="footnote-backref" href="#fnref:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-39">
+<p>fortune.com &ldquo;Despite revenue ~one-quarter of Sumitomo Electric&#x27;s, Fujikura reached ~¥6.8-7.3T market cap, nearly matching Sumitomo&#x27;s ~¥7-9.5T — market focus shifted from &#x27;scale&#x27; to &#x27;contribution to AI infrastructure&#x27;; Fujikura earns the majority of profits from infocomm/data-center business&rdquo;, 2026-06-08 · https://fortune.com/2024/11/24/ai-boom-fukijura-stock-data-center-cable-company-nikkei-225-japan/ · local: 2026-06-08-fortune.com-2024-11-24-ai-boom-fukijura-stock-data-center-cable-company-.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-39" title="Jump back to footnote 39 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-40">
+<p>www.furukawaelectric.com &ldquo;Lightera brand launched April 1 2025 under Lightera Holding G.K. — integrates Furukawa&#x27;s optical fiber &amp; cable business; becomes core of new Optical Solutions segment&rdquo;, 2025-03-06 · https://www.furukawaelectric.com/en/release/2025/comm_20250306.html · local: 2026-06-08-www.furukawaelectric.com-en-release-2025-comm-20250306-html.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-40" title="Jump back to footnote 40 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-41">
+<p>www.marketscreener.com &ldquo;Furukawa completed acquisition of Fujitsu Optical Components (FOC) from Fujitsu on April 1 2025 for ~JPY 4.4B; renamed Furukawa FITEL Optical Components&rdquo;, 2025-04-01 · https://www.marketscreener.com/quote/stock/FUJITSU-LIMITED-6492460/news/Furukawa-Electric-Co-Ltd-completed-the-acquisition-of-Fujitsu-Optical-Components-Limited-from-Fuj-49510868/ · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-41" title="Jump back to footnote 41 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-42">
+<p>www.marketscreener.com &ldquo;Fujitsu Optical Components (acquired) had FYE-Mar-2024 revenue JPY 13.68B and operating LOSS JPY 10.28B — a turnaround/strategic optical-transceiver acquisition&rdquo;, 2024-12-12 · https://www.marketscreener.com/quote/stock/FUJITSU-LIMITED-6492460/news/Furukawa-Electric-Co-Ltd-agreed-to-acquire-Fujitsu-Optical-Components-Limited-from-Fujitsu-Limite-48586423/ · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-42" title="Jump back to footnote 42 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-43">
+<p>www.furukawaelectric.com &ldquo;Furukawa acquiring 67% of Hakusan Inc. (announced Nov 7 2024); Hakusan holds #2 global share in multi-fiber MT ferrules / MPO optical connectors for hyperscale data centers&rdquo;, 2024-11-07 · https://www.furukawaelectric.com/en/release/2024/kei_20241107.html · local: 2026-06-08-www.furukawaelectric.com-en-release-2024-kei-20241107-html.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-44">
+<p>Noldor: Era of Optics (Goldman Sachs, Japan Technology: Hardware - Industrial Electronics) &ldquo;Sumitomo Electric Infocommunications business operating margin reached 19% in 2Q FY3/26 (GS estimate)&rdquo;, 2026-01-05 · Noldor: Era of Optics (Goldman Sachs, Japan Technology: Hardware - Industrial Electronics) · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-44" title="Jump back to footnote 44 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-44" title="Jump back to footnote 44 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-45">
+<p>sumitomoelectric.com &ldquo;Sumitomo Electric Mid-term Management Plan 2028 net sales target (FY2028)&rdquo;, 2026-05-12 · https://sumitomoelectric.com/sites/default/files/2026-05/download_documents/28me.pdf · local: 2026-06-08-sumitomoelectric.com-sites-default-files-2026-05-download-documents-28me-pdf.bin · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-46">
+<p>Noldor: japan fiber optics gs &ldquo;Goldman Sachs 12-month price target for Sumitomo Electric (5802.T), Buy rated, latest note&rdquo;, 2026-01-05 · Noldor: japan fiber optics gs / Technological changes in AI Server (Goldman Sachs) · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-47">
+<p>news-aggregator &ldquo;Share price 2026-06-08 (post 6:1 split)&rdquo;, 2026-06-08 · local: FMP MCP profile-symbol 5803.T (2026-06-08) · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-47" title="Jump back to footnote 47 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-48">
+<p>sumitomoelectric.com &ldquo;Sumitomo Electric stock split ratio (announced May 12 2026)&rdquo;, 2026-05-12 · https://sumitomoelectric.com/sites/default/files/2026-05/download_documents/prs022v.pdf · local: 2026-06-08-sumitomoelectric.com-sites-default-files-2026-05-download-documents-prs022v-pdf.bin · Primary&#160;<a class="footnote-backref" href="#fnref:fn-48" title="Jump back to footnote 48 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<script src="../assets/vega-embed-bundle.js"></script>
+<script src="../assets/chart-embed.js"></script>
+</body>
+</html>
