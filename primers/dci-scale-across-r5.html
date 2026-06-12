@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Scale-Across DCI Enablement — Market Primer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* ===== Page templates ===== */
+
+@page {
+    size: Letter;
+    margin: 0.7in 0.75in 0.8in 0.75in;
+    @top-left {
+        content: "Hendren HQ Research";
+        font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        font-weight: 600;
+        color: #1A1A1A;
+        letter-spacing: 0.04em;
+    }
+    @top-right {
+        content: string(running-title);
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6B6B6B;
+    }
+    @bottom-center {
+        content: "Hendren HQ Research  ·  Page " counter(page) " of " counter(pages);
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6B6B6B;
+    }
+}
+
+@page cover {
+    margin: 0;
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-center { content: none; }
+}
+
+/* ===== Cover page ===== */
+
+.cover-page {
+    page: cover;
+    page-break-after: always;
+    width: 100%;
+    min-height: 9.5in;
+    padding: 1.8in 1in 0.9in 1in;
+    text-align: center;
+    box-sizing: border-box;
+}
+.cover-wordmark {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: #1A1A1A;
+    text-transform: uppercase;
+    margin-bottom: 8pt;
+}
+.cover-wordmark-rule {
+    width: 36pt;
+    height: 1.5pt;
+    background: #8B2332;
+    margin: 0 auto 64pt auto;
+}
+.cover-title {
+    string-set: running-title content();
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.25;
+    margin: 0 0 12pt 0;
+    letter-spacing: -0.005em;
+}
+.cover-subtitle {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 14pt;
+    color: #3D3D3D;
+    font-style: italic;
+    font-weight: 400;
+    margin: 0 0 64pt 0;
+}
+.cover-meta {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    color: #3D3D3D;
+    letter-spacing: 0.04em;
+    margin: 4pt 0;
+}
+.cover-meta strong {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+.cover-divider {
+    width: 80pt;
+    height: 0.5pt;
+    background: #D9D9D6;
+    margin: 40pt auto;
+}
+.cover-stats {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-top: 24pt;
+    font-size: 10pt;
+    color: #3D3D3D;
+}
+.cover-stats .stat {
+    margin: 0 14pt;
+}
+.cover-stats strong {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+.cover-footer {
+    margin-top: 80pt;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    font-style: italic;
+}
+
+/* ===== Masthead (uniform across published surfaces — mirrors hub-masthead.css) ===== */
+
+.masthead {
+    border-bottom: 1px solid #1A1A1A;
+    padding: 6pt 0 14pt 0;
+    margin-bottom: 22pt;
+}
+.masthead-top {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6B6B6B;
+    font-weight: 500;
+    padding-bottom: 10pt;
+    border-bottom: 1px solid #D9D9D6;
+    margin-bottom: 14pt;
+}
+.masthead-top .doctype { color: #0E2A47; font-weight: 600; }
+.masthead-top .date { color: #8B2332; font-weight: 600; }
+.masthead h1.title {
+    string-set: running-title content();
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 24pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.15;
+    letter-spacing: -0.012em;
+    margin: 0;
+}
+.masthead .subtitle {
+    display: block;
+    margin-top: 6pt;
+    font-size: 0.5em;
+    font-weight: 400;
+    color: #6B6B6B;
+    letter-spacing: 0;
+    font-style: italic;
+    line-height: 1.3;
+}
+
+/* ===== Body ===== */
+
+html { font-size: 11pt; }
+
+body {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    line-height: 1.6;
+    color: #1A1A1A;
+    max-width: 100%;
+}
+
+/* Page break marker for section transitions (briefs in a packet) */
+.page-break {
+    page-break-before: always;
+    height: 0;
+}
+
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+}
+
+h1 {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 22pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.3;
+    margin: 0 0 6pt 0;
+    letter-spacing: -0.005em;
+    string-set: running-title content();
+}
+
+h2 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 24pt 0 8pt 0;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+}
+
+h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin: 14pt 0 4pt 0;
+}
+
+h4 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 12pt 0 4pt 0;
+    letter-spacing: 0.04em;
+}
+
+h5, h6 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    margin: 10pt 0 4pt 0;
+    color: #1A1A1A;
+}
+
+/* Paragraphs */
+
+p {
+    margin: 0 0 10pt 0;
+    orphans: 2;
+    widows: 2;
+}
+
+/* Links */
+
+a {
+    color: #0E2A47;
+    text-decoration: none;
+    border-bottom: 0.5pt solid #0E2A47;
+    word-break: break-word;
+}
+
+/* Lists */
+
+ul, ol {
+    margin: 8pt 0;
+    padding-left: 22pt;
+}
+li {
+    margin: 5pt 0;
+}
+li > ul, li > ol {
+    margin: 4pt 0;
+}
+
+/* Blockquotes — large opening quotation mark, italic serif */
+
+blockquote {
+    margin: 14pt 0 4pt 14pt;
+    padding: 0;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    color: #1A1A1A;
+    font-size: 11pt;
+    line-height: 1.55;
+    text-indent: 0;
+}
+blockquote::before {
+    content: "\201C";
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    color: #8B2332;
+    line-height: 0;
+    vertical-align: -0.35em;
+    margin-right: 4pt;
+    font-style: normal;
+}
+blockquote p { margin: 0 0 8pt 0; display: inline; }
+blockquote p:last-child { margin-bottom: 0; }
+
+/* Citation line that follows a blockquote (italic em-dashed source) */
+
+.citation {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    margin: 4pt 0 14pt 18pt;
+    font-style: normal;
+}
+
+/* BLUF callout — italic serif with accent left rule, no fill */
+
+.bluf {
+    border-left: 2pt solid #8B2332;
+    padding: 4pt 0 4pt 18pt;
+    margin: 4pt 0 18pt 0;
+    font-style: italic;
+    font-size: 11pt;
+    color: #1A1A1A;
+    page-break-inside: avoid;
+}
+.bluf h2, .bluf h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #8B2332;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 4pt 0;
+    font-style: normal;
+}
+.bluf p { margin: 0 0 8pt 0; font-style: italic; }
+.bluf p:last-child { margin-bottom: 0; }
+.bluf strong { font-style: italic; }
+
+/* "What to ask" — distinguished section (optional class wrap) */
+
+.ask {
+    border-top: 0.5pt solid #D9D9D6;
+    border-bottom: 0.5pt solid #D9D9D6;
+    padding: 12pt 0 4pt 0;
+    margin: 22pt 0;
+}
+
+/* Code (rare in briefs but supported) */
+
+code {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9.5pt;
+    background: #f3f3f0;
+    padding: 1pt 4pt;
+    border-radius: 2pt;
+}
+pre {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9pt;
+    background: #f7f5f2;
+    padding: 10pt 12pt;
+    border-radius: 3pt;
+    line-height: 1.4;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code { background: transparent; padding: 0; }
+
+/* Tables — minimal lines, no fills (editorial restraint) */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 14pt 0;
+    font-size: 10pt;
+    page-break-inside: auto;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+th, td {
+    border-bottom: 0.5pt solid #D9D9D6;
+    padding: 6pt 8pt 6pt 0;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    font-weight: 700;
+    color: #1A1A1A;
+    border-bottom: 1pt solid #1A1A1A;
+    letter-spacing: 0.02em;
+    font-size: 9.5pt;
+}
+
+/* Horizontal rule — visible separator inside a section (NOT a page break) */
+
+hr {
+    border: 0;
+    border-top: 0.5pt solid #D9D9D6;
+    margin: 18pt 0;
+}
+
+/* Images */
+
+img { max-width: 100%; height: auto; }
+
+/* Emphasis */
+
+strong { font-weight: 700; color: #1A1A1A; }
+em { font-style: italic; }
+
+/* Topic tag / meta line at top of each brief */
+
+.brief-meta-line {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    letter-spacing: 0.04em;
+    margin: 0 0 22pt 0;
+    padding-bottom: 12pt;
+    border-bottom: 0.5pt solid #D9D9D6;
+}
+.brief-meta-line .tag {
+    color: #8B2332;
+    font-style: italic;
+}
+
+/* Source list at the bottom of each brief */
+
+.sources-block {
+    margin-top: 28pt;
+    padding-top: 14pt;
+    border-top: 0.5pt solid #D9D9D6;
+    font-size: 9.5pt;
+    color: #3D3D3D;
+}
+.sources-block h2,
+.sources-block h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #1A1A1A;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 8pt 0;
+    font-weight: 700;
+}
+.sources-block ul { padding-left: 18pt; margin: 0; }
+.sources-block li { margin: 3pt 0; }
+</style>
+</head>
+<body>
+<header class="masthead">
+<div class="masthead-top"><span class="doctype">Primer</span><span class="date">Drafted 2026-06-11</span></div>
+<h1 class="title">Scale-Across DCI Enablement — Market Primer</h1>
+</header>
+<p><strong>Date:</strong> 2026-06-11 · <strong>Type:</strong> Market / sector primer · <strong>Model:</strong> <code>/Users/johnhendren/Desktop/Projects/vault/kb/outputs/models/dci-scale-across-sizer_v1_2026-06-11.xlsx</code></p>
+<p><strong>Who this is for and what it answers.</strong> This primer is for a buy-side reader oriented to AI infrastructure but not to optical networking. It answers one question: is &ldquo;scale-across&rdquo; enablement — the equipment that lets multiple data centers train and serve AI models as one cluster — a distinct, investable equipment category, and if so, how big is it, how fast is it growing, who is winning each layer, and what breaks it? After reading, you should be able to place any vendor print or analyst forecast in this market on the right layer and the right scope — and know which headline numbers must never be added together.</p>
+<hr>
+<h2 id="1-what-scale-across-is-and-why-it-exists-now">1. What scale-across is, and why it exists now</h2>
+<p><strong>Scale-across became a named equipment category in 2025 because power — not compute, not networking preference — now caps what a single data center can do, and the interconnect it demands sits an order of magnitude beyond legacy data-center interconnect.</strong></p>
+<p>The industry stack has three tiers. <em>Scale-up</em> networking connects GPUs within a rack (latency-optimized, largely copper); <em>scale-out</em> connects racks within a data center; <em>scale-across</em> — the new third tier — connects geographically separate data centers so they operate as a unified AI system <sup id="fnref:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> <sup id="fnref:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>. NVIDIA coined the term at Hot Chips in August 2025 with its Spectrum-XGS Ethernet launch, positioning it as a third pillar of AI computing beyond scale-up and scale-out <sup id="fnref:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> <sup id="fnref:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup> <sup id="fnref:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. Broadcom shipped Jericho4, its Ethernet fabric router for interconnecting 1M+ XPUs (accelerators) across data centers, the same month <sup id="fnref:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>, and Cisco, NVIDIA and Broadcom together created the category because legacy WAN (wide-area network) and DCI (data-center interconnect — historically the links that connect data centers to users and to each other for ordinary cloud traffic) are not fast enough to scale AI training across sites <sup id="fnref:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> <sup id="fnref:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. Three competing vendor ecosystems plus IDC converging on the same taxonomy inside twelve months tells us this is an industry-wide architectural response, not one vendor&rsquo;s marketing label <sup id="fnref2:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> <sup id="fnref2:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> <sup id="fnref2:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup> <sup id="fnref2:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>.</p>
+<p>The forcing function is power. Cisco&rsquo;s networking lead states plainly that power consumption has become the primary limiting factor on AI scaling, making scale-up and scale-out alone insufficient <sup id="fnref:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>. Microsoft&rsquo;s optical-infrastructure team quantifies it: traditional cloud facilities run 50–300 MW, AI clusters are pushing toward 1–5 GW, and the uneven geography of US power plus regulatory lag make single-site concentration of training capacity increasingly infeasible <sup id="fnref:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>. Multiple one-million-XPU clusters are planned for 2027, and no single building can deliver the gigawatts they need — so the cluster must be split across sites and across power grids <sup id="fnref2:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. Google frames the same constraint as campus-as-a-computer: training demand now exceeds the power and space of any one data center, forcing unified multi-data-center domains <sup id="fnref:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup> <sup id="fnref:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>. Because the driver is grid physics rather than a networking refresh cycle, the demand is structural: it goes away only if single-site power availability is solved.</p>
+<p>Four axes — worth holding onto, because every later section refers back to them — define what scale-across demands of equipment:</p>
+<ol>
+<li><strong>Bandwidth density.</strong> A scale-across network needs roughly 14x the bandwidth of a traditional WAN interconnect (Cisco) <sup id="fnref2:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>; Marvell projects aggregate bandwidth requirements at more than 10x current front-end DCI networks <sup id="fnref5:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>. Inter-site requirements run to tens of Pb/s (petabits per second) <sup id="fnref2:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>, and Meta&rsquo;s inter-building links are designed for 16–48 Pbps per region pair <sup id="fnref5:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup>.</li>
+<li><strong>Latency.</strong> Light in fiber propagates at 5 ns per meter — 1 km costs 5 microseconds <sup id="fnref6:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup> — and a US east-coast-to-west-coast round trip is 43.2 ms before any equipment delay <sup id="fnref2:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup> <sup id="fnref3:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup>. Bandwidth is purchasable (lay more fiber); latency is not, which is why SemiAnalysis argues the long-run limiting factor is the speed of light in glass, not bandwidth <sup id="fnref4:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup> <sup id="fnref3:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>.</li>
+<li><strong>Fiber count.</strong> Prior DCI deployments commonly used 288 fiber pairs; scale-across builds run to 3,456 pairs <sup id="fnref11:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. AI sites need 10–36x more fiber than legacy data centers, with hyperscalers ordering 24–48 fiber pairs per path <sup id="fnref5:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>, and inter-facility traffic is growing ~23% per year with examples up to 13,000 fibers between sites <sup id="fnref:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup>.</li>
+<li><strong>Power per bit.</strong> Meta&rsquo;s move to coherent pluggable optics in routers — eliminating standalone transponders — cuts backbone power 80–90% and quadruples fiber-landing density per rack <sup id="fnref4:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>. At gigawatt campuses, interconnect power efficiency is a first-order design input, not a rounding error.</li>
+</ol>
+<p>Each axis is an order-of-magnitude step beyond what legacy DCI gear was built for <sup id="fnref:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup> <sup id="fnref3:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup> <sup id="fnref:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup> — and our reading of that gap is the core of the market case: the buildout translates into new equipment spend across every layer of the optical and switching stack, which is the market this primer sizes.</p>
+<h2 id="2-who-runs-scale-across-today">2. Who runs scale-across today</h2>
+<p><strong>This is production reality, not roadmap: every US frontier-compute operator — Microsoft, Meta, Google, AWS, and OpenAI/Stargate — is running or building multi-data-center AI clusters today.</strong></p>
+<p><strong>Microsoft</strong> operates the flagship: its Fairwater Atlanta site is connected to the first Fairwater site in Wisconsin over a dedicated AI WAN, forming what it calls a planet-scale AI superfactory <sup id="fnref:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>. Supporting it, Microsoft added more than 120,000 miles of dedicated fiber in a single year <sup id="fnref:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup> — growing its total fiber plant by more than 25% <sup id="fnref:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup> — and Azure&rsquo;s overall WAN capacity reached 18 Pb/s by late 2025, having tripled since the end of fiscal 2024 <sup id="fnref2:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>. The fiber mileage matters because we read the self-build choice as evidence that dedicated physical capacity, not leased transit, is the binding input.</p>
+<p><strong>Meta</strong> is the most transparent deployer and the demand event behind the pluggable-optics inflection (§4). Its AI Backbone interconnects clusters across campus data centers using 800G ZR+ coherent pluggables on C+L-band DWDM — terms defined in §3 — at 64x800G (51.2 Tb/s) per fiber pair; a single AI Backbone site-pair is twice the size of the global backbone Meta built over the prior decade <sup id="fnref2:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>. By emptying five production data centers in one campus region, Meta assembled a single 129,000-H100 cluster <sup id="fnref:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup>, runs production training jobs across a few data centers housing hundreds of thousands of GPUs — including a 100K-GPU job spanning buildings <sup id="fnref:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup> <sup id="fnref:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup> — and is building Prometheus (1 GW+, online 2026) and Hyperion (scaling to 5 GW) next <sup id="fnref:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup>. The hardware spine is a hierarchical &ldquo;BAG&rdquo; super-spine on Broadcom Jericho3 line cards (432x800G ports each) with inter-BAG links at 16–48 Pbps per region pair <sup id="fnref:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup> <sup id="fnref2:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup>. Meta also runs a scale-across testbed with fiber spools up to 500 km to characterize the design space before committing capital <sup id="fnref2:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup> — evidence the architecture is being engineered, not improvised.</p>
+<p><strong>Google</strong> is the existence proof at the frontier-model level: Gemini Ultra was trained synchronously across multiple data centers, combining TPUv4 SuperPods (4,096 chips each) with model parallelism inside pods and data parallelism across them <sup id="fnref:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup> <sup id="fnref:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>. Google&rsquo;s WAN sustained 10x traffic growth from 2020 to 2025 to support cross-site AI <sup id="fnref2:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>, and its Virgo network links 134,000 TPUs at 47 Pb/s of non-blocking bandwidth in one fabric, expandable to more than one million TPUs — or up to 960,000 GPUs — across multiple sites, with 4x more bandwidth per accelerator and 40% lower unloaded fabric latency than its prior generation <sup id="fnref2:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup> <sup id="fnref:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup> <sup id="fnref3:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup> — fabric capacity engineered for million-accelerator scale before the accelerators arrive; we read that as interconnect spend scaling with ambition, not just installed base.</p>
+<p><strong>AWS</strong> corroborates the pattern on a non-NVIDIA stack: Project Rainier spans multiple US data centers with EFA networking connecting Trainium2 UltraServers both inside and across sites — roughly 500K chips at activation, with Claude to scale past 1M chips by end of 2025 <sup id="fnref:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup>. The New Carlisle, Indiana campus alone runs 7 of a planned 30 buildings drawing over 2.2 GW <sup id="fnref:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup>. AWS is also rethinking the switching layer itself: its RNG random-graph topology cuts switch count 9–45% versus conventional fat-tree designs <sup id="fnref3:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup> — a reminder that scale-across reshapes switching economics, not just optics.</p>
+<p><strong>OpenAI/Stargate</strong> is distributed by design: the Abilene flagship runs 1.2 GW across eight buildings connected as a single cluster (eventually &gt;450,000 GB200 GPUs) <sup id="fnref:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup>, and the program reached nearly 7 GW of planned capacity and over $400B of investment across at least seven US sites, on a path to 10 GW <sup id="fnref:fn-35"><a class="footnote-ref" href="#fn:fn-35">35</a></sup>. Among neoclouds, CoreWeave will be among the first to connect its data centers with NVIDIA&rsquo;s Spectrum-XGS <sup id="fnref2:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> — so adoption is already extending beyond the big five operators.</p>
+<p>Five independent operators, three different accelerator families, one architecture — which is why the equipment market in §4 can be sized as a category rather than as one customer&rsquo;s shopping list.</p>
+<h2 id="3-the-enablement-stack-five-layers-five-vendor-sets">3. The enablement stack: five layers, five vendor sets</h2>
+<p><strong>The equipment opportunity decomposes into five layers — coherent pluggables, DSPs, scale-across switching, DWDM line systems, and fiber — each with a distinct vendor set, and the model sizes the market on exactly this taxonomy.</strong></p>
+<p>The model splits DCI enablement into: (L1) coherent ZR/ZR+ pluggable optics; (L2) the coherent DSPs inside them; (L3) routers/switches purpose-built for scale-across; (L4) DWDM open line systems; and (L5) fiber itself — a five-layer cut that is the model&rsquo;s own organizing scheme; at the supplier level, sell-side interconnect coverage (the Bernstein interconnect primer in Noldor) groups the same optical/interconnect supplier set — Coherent, Lumentum, Fabrinet, Corning, Sumitomo and others — as a single tier <sup id="fnref:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup>. Definitions and the state of play, layer by layer:</p>
+<p><strong>L1 — Coherent pluggables.</strong> Coherent optics encode data in the phase and amplitude of light, enabling long distances over a single wavelength; a &ldquo;pluggable&rdquo; packs that capability into a module the size and power class of an ordinary switch-port optic, rather than a dedicated chassis (a &ldquo;transponder&rdquo;). The governing standards come from OIF (the Optical Internetworking Forum): its 800ZR Implementation Agreement (OIF-800ZR-01.0, published October 30, 2024) defines single-span, amplified 80–120 km links for DCI, and it remains the sole canonical version as of June 2026, with multivendor interoperability demonstrated at ECOC 2025 (35 companies) and OFC 2026 (nearly 100 modules from 15 vendors) <sup id="fnref:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup> <sup id="fnref:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup> <sup id="fnref:fn-39"><a class="footnote-ref" href="#fn:fn-39">39</a></sup>. A companion 800LR agreement (April 2025) covers unamplified 2–10 km links <sup id="fnref2:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup> <sup id="fnref3:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup> <sup id="fnref2:fn-39"><a class="footnote-ref" href="#fn:fn-39">39</a></sup>. In practice, 800ZR carries 800G up to 120 km amplified, while 800G ZR+ (the longer-reach variant) carries 800G over 1,000+ km, at roughly 28–31 W per module <sup id="fnref:fn-40"><a class="footnote-ref" href="#fn:fn-40">40</a></sup> <sup id="fnref:fn-41"><a class="footnote-ref" href="#fn:fn-41">41</a></sup>; reach trades against rate — 800G to 1,000 km, 600G to 2,000 km, 400G to 3,000 km <sup id="fnref:fn-42"><a class="footnote-ref" href="#fn:fn-42">42</a></sup>. Cignal AI reports coherent pluggables now lead the coherent market in deployed bandwidth and growth, with DCI and AI scale-across fabrics as their primary application and large deployments at Microsoft to be joined by other hyperscalers over the next several years <sup id="fnref:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup>; Cignal expects Meta to be the earliest 800ZR+ customer <sup id="fnref:fn-44"><a class="footnote-ref" href="#fn:fn-44">44</a></sup>, and its 4Q25 report has the race to fill Meta&rsquo;s scale-across orders just beginning <sup id="fnref:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup>. Standardized, multivendor, and small — which is why this layer scales fastest and commoditizes fastest.</p>
+<p><strong>L2 — Coherent DSPs.</strong> The digital signal processor is the silicon brain of a coherent module, and it is an effective duopoly with no mature Chinese alternative <sup id="fnref:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup>: at 400G, Acacia (Cisco) and Marvell dominated; at 800G the field opened — Marvell&rsquo;s first 800G DSP lacked OpenROADM PCS support and was excluded from early Meta 800ZR+ volumes, which were shared by Cisco/Acacia, Ciena and Nokia <sup id="fnref:fn-47"><a class="footnote-ref" href="#fn:fn-47">47</a></sup> <sup id="fnref:fn-48"><a class="footnote-ref" href="#fn:fn-48">48</a></sup>. A single missing protocol feature reallocating the marquee deployment tells us hyperscaler qualification detail, not headline specs, decides DSP share. The 1.6T generation is the next contest: Broadcom&rsquo;s 3nm Taurus DSP is already sampling, roughly six months ahead of Marvell&rsquo;s Electra/Libra and COLORZ 1600 (2H 2026) <sup id="fnref:fn-49"><a class="footnote-ref" href="#fn:fn-49">49</a></sup> <sup id="fnref2:fn-48"><a class="footnote-ref" href="#fn:fn-48">48</a></sup>; OIF&rsquo;s 1600ZR/ZR+ agreements are in flight (no IA published as of June 2026) with IEEE 802.3dj 1.6TbE standardization work underway <sup id="fnref:fn-50"><a class="footnote-ref" href="#fn:fn-50">50</a></sup> <sup id="fnref4:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup> <sup id="fnref:fn-51"><a class="footnote-ref" href="#fn:fn-51">51</a></sup>; and 3.2T coherent will demand a ~40–50W liquid-cooled envelope on 1.4nm-class silicon <sup id="fnref2:fn-51"><a class="footnote-ref" href="#fn:fn-51">51</a></sup> — a roughly two-year generation cadence that re-runs the design-win contest each cycle and keeps DSP share contestable.</p>
+<p><strong>L3 — Scale-across switching and routing.</strong> This is where the category label was minted and where revenue is youngest. NVIDIA&rsquo;s Spectrum-XGS claims up to 1.9x NCCL all-reduce bandwidth (the collective-communication operation at the heart of distributed training) at 10 km versus off-the-shelf Ethernet, using telemetry-based, distance-aware congestion control instead of the deep packet buffers that add latency and jitter <sup id="fnref2:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup> <sup id="fnref:fn-52"><a class="footnote-ref" href="#fn:fn-52">52</a></sup> <sup id="fnref3:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. Broadcom&rsquo;s Jericho4 delivers 51.2 Tb/s per ASIC and could connect two data centers at ~115.2 Pb/s at full port scale, with reach fundamentally limited to ~100 km by light speed <sup id="fnref:fn-53"><a class="footnote-ref" href="#fn:fn-53">53</a></sup> <sup id="fnref3:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>. Cisco booked its first Silicon One P200 scale-across design wins in FQ3 FY2026 — two hyperscalers, plus a third in early Q4 — with management noting zero scale-across contribution in reported numbers or guidance yet <sup id="fnref:fn-54"><a class="footnote-ref" href="#fn:fn-54">54</a></sup>. Silicon from all three ecosystems landed within twelve months and design wins are dated mid-2026, so L3 deployment is just starting — spending here trails the optical layers.</p>
+<p><strong>L4 — DWDM open line systems.</strong> DWDM (dense wavelength-division multiplexing) puts many wavelengths on one fiber pair — each carrying 800G to 1.6T — and an open line system (OLS) is the amplifiers, multiplexers and management layer that carries them across C-band plus L-band spectrum (e.g., 32+32 channels) over thousands of km <sup id="fnref:fn-55"><a class="footnote-ref" href="#fn:fn-55">55</a></sup>. Two deployment patterns are emerging: &ldquo;near&rdquo; scale-across (metro/regional, single-span, Raman-amplified to avoid intermediate amplifier huts) and &ldquo;far&rdquo; scale-across (multi-region, where in-line amplification sites — ILAs — are unavoidable and need order-of-magnitude densification; Nokia&rsquo;s multi-rail ILA amplifies 160 fiber pairs per rack, 40x legacy density) <sup id="fnref:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup> <sup id="fnref4:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. At the transponder end, Ciena&rsquo;s WaveLogic 6 Extreme runs 1.6T single-carrier wavelengths in metro and 1.2T across 1,000 km <sup id="fnref:fn-56"><a class="footnote-ref" href="#fn:fn-56">56</a></sup>. A managed variant exists for operators who don&rsquo;t want to own the network: MOFN (managed optical fiber network), where a carrier builds and operates a hyperscaler-spec dedicated DWDM network as a service — Ciena, Lumen and Zayo offer it <sup id="fnref:fn-57"><a class="footnote-ref" href="#fn:fn-57">57</a></sup>, which converts L4 capex into opex and widens the buyer base beyond operators willing to own networks.</p>
+<p><strong>L5 — Fiber.</strong> The physical layer is locking up under long-term agreements rather than spot purchases: Corning&rsquo;s optical sales grew 36% YoY in Q1 2026 to ~$1.8B, and it signed two more hyperscaler long-term deals similar to its up-to-$6B Meta agreement <sup id="fnref:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup> <sup id="fnref:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup>. Lumen has secured nearly $13B of Private Connectivity Fabric contracts — including selection by Anthropic — building toward ~58M intercity fiber miles by 2031 <sup id="fnref:fn-60"><a class="footnote-ref" href="#fn:fn-60">60</a></sup>. Zayo signed its largest-ever network investment (8,000 route miles, 15M+ fiber miles, anchored by a global AI infrastructure partner) and closed its $4.25B acquisition of Crown Castle&rsquo;s fiber business — part of Crown Castle&rsquo;s $8.5B two-part exit, whose small-cells business went to EQT — taking its network to 224,000 route miles <sup id="fnref:fn-61"><a class="footnote-ref" href="#fn:fn-61">61</a></sup> <sup id="fnref:fn-62"><a class="footnote-ref" href="#fn:fn-62">62</a></sup> <sup id="fnref:fn-63"><a class="footnote-ref" href="#fn:fn-63">63</a></sup>. And as §2 showed, Microsoft self-builds at 120,000-fiber-miles-per-year scale <sup id="fnref2:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup> — so carrier contracts capture only part of L5 demand, and the layer&rsquo;s true size exceeds what any carrier-revenue series shows.</p>
+<p>One structural note on where value sits: seven of the global top-10 optical module suppliers in 2024 were Chinese — Innolight and Eoptolink alone supply roughly 60% of NVIDIA&rsquo;s 800G volume, and Innolight led 2025 datacom module revenue at more than $5B <sup id="fnref2:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup> <sup id="fnref2:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup> <sup id="fnref:fn-64"><a class="footnote-ref" href="#fn:fn-64">64</a></sup> — but the critical silicon is Western: DSPs are a Broadcom/Marvell-class duopoly and high-speed EML lasers (electro-absorption modulated lasers, the light sources in high-speed optics) are held by Lumentum, Coherent and Mitsubishi <sup id="fnref3:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup>. Module assembly share and chip value capture are different markets; this primer&rsquo;s sizing and lens attach to the equipment and chip layers, where the concentration and margin live. (A China supply-chain deep-dive is out of scope for this run.)</p>
+<p><img alt="DWDM/OLS line systems (L4) lead the 2029 layer mix at $8.2B base — nearly half the scale-across enablement market (Model: Calc!E27)" src="2026-06-11-dci-scale-across-market-map.png"></p>
+<h2 id="4-how-big-a-bracketed-dual-basis-sizing">4. How big: a bracketed, dual-basis sizing</h2>
+<p><strong>Sized like-for-like, scale-across enablement is roughly a $10.4B market in 2026 (Model: Calc!B20) growing to a 2029 base of $17.5B (Model: Outputs!B25) inside a $13.9B–$23.4B bear-to-bull bracket (Model: Outputs!B24/B26) — an 18.9% CAGR (Model: Calc!B32) — and the estimate leans hardest on the two layers with genuinely independent triangulation, L1 pluggables and L4 line systems.</strong></p>
+<p>These are estimates, and they should always travel with their bracket: $13.9B if the cycle disappoints, $23.4B if the bull case lands (Model: Outputs!B24/B26), with the base extending to about $21.0B in 2030 (Model: Calc!F29). The model builds the total from the five layers of §3 on a dual basis — top-down analyst anchors bridged to scale-across scope, cross-checked against bottom-up deployment arithmetic — with the scope bridges documented on the model&rsquo;s Cover, rows 14–20.</p>
+<p><img alt="Scale-across enablement grows from $10.4B in 2026 to a $13.9–23.4B bracketed range by 2029, base $17.5B at an 18.9% CAGR (Model: Calc!B20, Outputs!B24–B26, Calc!B32)" src="2026-06-11-dci-scale-across-trajectory.png"></p>
+<p><strong>L1 (coherent pluggables, $4.3B 2029 base — Model: Calc!E24) is the layer the model marks HIGH confidence, on the strength of three analyst houses converging from different methods.</strong> Cignal AI forecasts over 200,000 shipments of 800ZR/ZR+ modules in 2026 with revenue exceeding $1B (an implied ~$5,000 blended ASP — revenue floor over unit floor), on top of a $2B IPoDWDM market in 2025 — IPoDWDM meaning IP-over-DWDM, coherent plugs hosted directly in routers and switches — projected to reach nearly $5B by 2029 <sup id="fnref:fn-65"><a class="footnote-ref" href="#fn:fn-65">65</a></sup> <sup id="fnref2:fn-44"><a class="footnote-ref" href="#fn:fn-44">44</a></sup>. Dell&rsquo;Oro independently has IPoDWDM growing at a 16% average annual rate to $4.4B by 2030 <sup id="fnref:fn-66"><a class="footnote-ref" href="#fn:fn-66">66</a></sup>, with ZR/ZR+ plugs at a 20% annual rate contributing nearly 12% of the optical transport market <sup id="fnref:fn-67"><a class="footnote-ref" href="#fn:fn-67">67</a></sup> <sup id="fnref:fn-68"><a class="footnote-ref" href="#fn:fn-68">68</a></sup> and more than a third of IPoDWDM ZR/ZR+ revenue coming from 800ZR/ZR+ in 2026 <sup id="fnref:fn-69"><a class="footnote-ref" href="#fn:fn-69">69</a></sup> <sup id="fnref:fn-70"><a class="footnote-ref" href="#fn:fn-70">70</a></sup>. A third series tracks router-hosted coherent module revenue at $1.5B in 2024 growing at a 29% CAGR to more than $5B by 2029 <sup id="fnref:fn-71"><a class="footnote-ref" href="#fn:fn-71">71</a></sup>, and Dell&rsquo;Oro&rsquo;s coherent-optics work has ZR+ shipments compounding at a 70% five-year CAGR with coherent-on-router (router and switch deployments combined) exceeding 45% of transceiver volume by 2028 <sup id="fnref:fn-72"><a class="footnote-ref" href="#fn:fn-72">72</a></sup>. Four trajectories, one landing zone — roughly $4–5B by 2029-30 <sup id="fnref3:fn-44"><a class="footnote-ref" href="#fn:fn-44">44</a></sup> <sup id="fnref2:fn-66"><a class="footnote-ref" href="#fn:fn-66">66</a></sup> <sup id="fnref2:fn-71"><a class="footnote-ref" href="#fn:fn-71">71</a></sup> — which is what licenses the model&rsquo;s $4.3B (Model: Calc!E24; Cignal IPoDWDM bridged to L1 per Cover rows 14–20).</p>
+<p><strong>L4 (DWDM/OLS for DCI, $8.2B and 47% of the 2029 base — Model: Calc!E27) is the second HIGH-confidence layer, anchored to Dell&rsquo;Oro&rsquo;s transport series with a model-derived DCI share — and the HIGH label rests on the triangulation cross-check: the model&rsquo;s L4 lands within ~8% of Dell&rsquo;Oro&rsquo;s own 2029 transport forecast (Model: Triangulation!D6, +8.1%).</strong> The optical transport equipment market reached $16B in 2025 (+10% YoY), with the recovery driven by DCI <sup id="fnref:fn-73"><a class="footnote-ref" href="#fn:fn-73">73</a></sup>, and is forecast to grow 16% in 2026, surpassing $18B for the first time since 2000 on AI data-center DCI demand <sup id="fnref:fn-74"><a class="footnote-ref" href="#fn:fn-74">74</a></sup>. Dell&rsquo;Oro&rsquo;s five-year frame has the total market at $19B by 2029 on a blended 5% CAGR — but with DCI growing at twice the overall market rate and DWDM long-haul for DCI at a 15% CAGR <sup id="fnref2:fn-67"><a class="footnote-ref" href="#fn:fn-67">67</a></sup>. The actuals are running hotter than the 2025-vintage forecast: DCI-attributable revenue grew an estimated 40% YoY in Q1 2026 <sup id="fnref2:fn-70"><a class="footnote-ref" href="#fn:fn-70">70</a></sup>, direct WDM equipment for DCI grew nearly 40% in 2025 with cloud-provider purchases up ~50% <sup id="fnref2:fn-73"><a class="footnote-ref" href="#fn:fn-73">73</a></sup>, and disaggregated WDM was already ~40% of transport revenue in the first nine months of 2025 <sup id="fnref:fn-75"><a class="footnote-ref" href="#fn:fn-75">75</a></sup>. The model&rsquo;s L4 isolates and extends that DCI slice (bridge on Cover rows 14–20) — so the $8.2B (Model: Calc!E27) is a faster-growing carve-out of a slow-growing headline market, not a share of the $19B total <sup id="fnref3:fn-67"><a class="footnote-ref" href="#fn:fn-67">67</a></sup>.</p>
+<p><strong>L2, L3 and L5 are analyst-derived attribution shares — LOW-confidence, DERIVED — and any number you see for them should be treated accordingly.</strong> No analyst house yet publishes a scale-across-specific DSP, switching, or fiber-equipment series; the model attributes slices of adjacent markets using disclosed ratios (DSP content per module, the switching design-win cadence of §3 <sup id="fnref2:fn-54"><a class="footnote-ref" href="#fn:fn-54">54</a></sup>, the fiber-attach evidence of §1 <sup id="fnref5:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup> <sup id="fnref:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>). They are honest placeholders inside the bracket, not triangulated facts. Together they are roughly $5.0B of the $17.5B 2029 base — about 29% of the headline rides on derived shares (Model: Calc!E25, Calc!E26, Calc!E28).</p>
+<p><img alt="Like-for-like analyst anchors land within −14%/+8% of the model's bridged layers; the headline optics anchors are scope-mismatched context (Model: Triangulation!D5/D6)" src="2026-06-11-dci-scale-across-anchor-reconciliation.png"></p>
+<p><strong>The discipline that holds the sizing together: scope-mismatched anchors are bridged or quarantined, never summed.</strong> The biggest numbers in circulation measure different markets. LightCounting&rsquo;s $16.5B (2025) / $26B (2026) series covers Ethernet optical transceivers for AI clusters — overwhelmingly intra-data-center scale-out optics, not DCI <sup id="fnref:fn-76"><a class="footnote-ref" href="#fn:fn-76">76</a></sup>. Cignal AI&rsquo;s $19B+ 2025 datacom figure — growing at a 20%+ CAGR from 2024, toward ~$29B by 2029 <sup id="fnref3:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup> — covers intra-DC 400GbE-and-above modules <sup id="fnref4:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup>. MarketsandMarkets&rsquo; $15.4B (2025) to $25.9B (2030) DCI market is the broad legacy-DCI scope, including non-AI traffic <sup id="fnref:fn-77"><a class="footnote-ref" href="#fn:fn-77">77</a></sup>. Where a scope genuinely overlaps the model&rsquo;s layers, it is bridged (Cignal&rsquo;s IPoDWDM series to L1; Dell&rsquo;Oro&rsquo;s transport-DCI slice to L4 — Cover rows 14–20); where it does not, it is context only. Add the headline anchors together and you double-count intra-DC optics into a &ldquo;DCI&rdquo; number; bridge them and the like-for-like gaps to the model&rsquo;s layers run −14% to +8% (Model: Triangulation!D5/D6) — the spread the anchor-reconciliation exhibit shows. For ceiling-of-sentiment context only: LightCounting sees a &ldquo;reasonable chance&rdquo; AI-cluster optical interconnect sales reach $100B by 2030, after ~70% growth in 2025 and ~60% expected in 2026, capped by XPU and switch-ASIC shortages <sup id="fnref:fn-78"><a class="footnote-ref" href="#fn:fn-78">78</a></sup> <sup id="fnref2:fn-76"><a class="footnote-ref" href="#fn:fn-76">76</a></sup> — useful as the ceiling of sentiment, never as a number to underwrite.</p>
+<p><img alt="L4 line systems stay the largest layer through 2029 ($8.2B base) while L1 pluggables scale to $4.3B; L2/L3/L5 are derived attribution shares (Model: Calc!E24, Calc!E27)" src="2026-06-11-dci-scale-across-layer-mix.png"></p>
+<h2 id="5-who-is-winning-the-vendor-scoreboard">5. Who is winning: the vendor scoreboard</h2>
+<p><strong>Vendor prints corroborate the sizing from the supply side — every layer is printing record demand — and the consistent message across them is that supply, not demand, is the gate.</strong></p>
+<p><strong>Ciena is the purest L4 read — the cleanest single-vendor proxy for line-system demand: cloud providers at 46% of revenue, a record $7.7B backlog, and FY2026 guidance up 32% at the midpoint.</strong> The evidence: FQ2 2026 (ended May 2, 2026) revenue was $1.57B, up 40% YoY, with cloud providers at 46% of revenue (up 70% YoY) and two cloud customers above 10% each — roughly a third of revenue combined <sup id="fnref:fn-79"><a class="footnote-ref" href="#fn:fn-79">79</a></sup> <sup id="fnref2:fn-79"><a class="footnote-ref" href="#fn:fn-79">79</a></sup> <sup id="fnref:fn-80"><a class="footnote-ref" href="#fn:fn-80">80</a></sup>. One cloud customer paid $851.6M in FY2025, ~18% of revenue <sup id="fnref:fn-81"><a class="footnote-ref" href="#fn:fn-81">81</a></sup>. Backlog rose more than $600M sequentially to $7.7B, roughly 80% of the hardware portion expected to convert within twelve months, FY2026 guidance was raised to $6.3B (+32% at midpoint), and the CFO cited supply not keeping pace with demand, with customers willing to take more if supply allowed <sup id="fnref2:fn-80"><a class="footnote-ref" href="#fn:fn-80">80</a></sup> <sup id="fnref:fn-82"><a class="footnote-ref" href="#fn:fn-82">82</a></sup>. A near-$1B single customer plus a record backlog converts the scale-across thesis from forecast into audited revenue <sup id="fnref2:fn-81"><a class="footnote-ref" href="#fn:fn-81">81</a></sup> <sup id="fnref3:fn-80"><a class="footnote-ref" href="#fn:fn-80">80</a></sup>. The street has noticed: BofA upgraded Ciena to Buy (price target to $355 from $260) calling a possible super-cycle to 2027 <sup id="fnref:fn-83"><a class="footnote-ref" href="#fn:fn-83">83</a></sup>, and post-FQ2 targets ranged from $450 (Northland) to $720 (Rosenblatt) <sup id="fnref:fn-84"><a class="footnote-ref" href="#fn:fn-84">84</a></sup> — though see §8 for what the market now demands of these prints <sup id="fnref:fn-85"><a class="footnote-ref" href="#fn:fn-85">85</a></sup>.</p>
+<p><strong>Nokia bought its way to L4 scale</strong>, closing the Infinera acquisition in February 2025 (~$2.3B equity value, creating a &gt;$3.6B-turnover optical business) <sup id="fnref:fn-86"><a class="footnote-ref" href="#fn:fn-86">86</a></sup>. Its Q1 2026 print validates the timing: Optical Networks at EUR 821M (+56% reported; +20% on a constant-currency-and-portfolio basis) <sup id="fnref:fn-87"><a class="footnote-ref" href="#fn:fn-87">87</a></sup>, AI &amp; Cloud sales up 49%, EUR 1B of AI &amp; Cloud orders with optical book-to-bill well above one, FY2026 Network Infrastructure guidance raised to 12–14% — and Nokia lifted its assumed AI/cloud addressable-market CAGR to 27% through 2028 <sup id="fnref2:fn-87"><a class="footnote-ref" href="#fn:fn-87">87</a></sup> <sup id="fnref3:fn-87"><a class="footnote-ref" href="#fn:fn-87">87</a></sup>. Traditional transport remains concentrated — Huawei, Ciena, Nokia and ZTE hold over 80% combined share — while the IPoDWDM pluggable layer is led by chip vendors Marvell and Cisco/Acacia <sup id="fnref3:fn-70"><a class="footnote-ref" href="#fn:fn-70">70</a></sup>. That split is also a fault line: cloud operators have made router-hosted pluggables their <em>default</em> DCI architecture, a shift of about $2.5B out of traditional optical equipment spending in 2024 alone <sup id="fnref3:fn-71"><a class="footnote-ref" href="#fn:fn-71">71</a></sup> — so the same hyperscaler dollar that once bought a transponder chassis now buys a module plus a thinner line system, which is, on our read, why L1 and L4 growth rates diverge.</p>
+<p><strong>Components are the most supply-constrained prints in the corpus.</strong> Coherent (the company): Q3 FY2026 revenue $1.81B (+21% YoY) with Datacenter &amp; Communications at $1.36B, ~75% of revenue and up 40%+ <sup id="fnref:fn-88"><a class="footnote-ref" href="#fn:fn-88">88</a></sup>; the datacenter business grew 37% YoY on ZR/ZR+ momentum, with the 800G/1.6T ramp explicitly gated by indium phosphide capacity and Q4 guided to $1.91–2.05B <sup id="fnref:fn-89"><a class="footnote-ref" href="#fn:fn-89">89</a></sup>, on a record backlog with bookings into 2028 <sup id="fnref:fn-90"><a class="footnote-ref" href="#fn:fn-90">90</a></sup> <sup id="fnref:fn-91"><a class="footnote-ref" href="#fn:fn-91">91</a></sup>. Lumentum: Q3 FY2026 revenue $808.4M, up 90% YoY (components +77%, systems +121%), with the supply-demand imbalance <em>widening</em> to greater than 30% and components effectively sold out — pump lasers on customer allocation <sup id="fnref:fn-92"><a class="footnote-ref" href="#fn:fn-92">92</a></sup>. Its narrow-linewidth laser assemblies — the scale-across DCI component line — grew 120% YoY <sup id="fnref:fn-93"><a class="footnote-ref" href="#fn:fn-93">93</a></sup>, EML shipments are on track to grow more than 50% from the December-2025 to December-2026 quarter <sup id="fnref:fn-94"><a class="footnote-ref" href="#fn:fn-94">94</a></sup>, and Q4 was guided to $960M–1.01B with a long-term $2B-per-quarter transceiver goal <sup id="fnref2:fn-92"><a class="footnote-ref" href="#fn:fn-92">92</a></sup>. A &gt;30% gap that forces allocation decisions means reported revenue <em>understates</em> demand at this layer <sup id="fnref3:fn-92"><a class="footnote-ref" href="#fn:fn-92">92</a></sup> <sup id="fnref4:fn-92"><a class="footnote-ref" href="#fn:fn-92">92</a></sup>.</p>
+<p><strong>Marvell ties its outlook to the category by name.</strong> Q1 FY2027 (ended May 2, 2026): record revenue of $2.418B (+28%; data center $1.833B, +27%), with raised FY27/FY28 outlooks explicitly citing scale-across datacenter interconnect modules among the drivers <sup id="fnref:fn-95"><a class="footnote-ref" href="#fn:fn-95">95</a></sup>. Its pluggable DCI module business has line of sight to $1B annualized revenue during FY2028 — roughly double FY2026 — interconnect revenue is now guided to grow more than 70% YoY in FY2027 (prior ~50%), and its first 1.6T ZR/ZR+ modules on a 2nm coherent DSP begin sampling this year <sup id="fnref:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup> <sup id="fnref2:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup> <sup id="fnref3:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>. One vendor&rsquo;s module line reaching ~$1B annualized <sup id="fnref4:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup> against the model&rsquo;s $4.3B 2029 L1 layer (Model: Calc!E24) is consistent with — not in excess of — the sizing, a useful sanity check from a fourth direction.</p>
+<p><strong>The switching/silicon giants are mostly printing the adjacent wave — read them carefully.</strong> Cisco took $5.3B of hyperscaler AI-infrastructure orders in the first three quarters of FY2026 and raised its FY2026 hyperscaler AI order target to $9B <sup id="fnref:fn-96"><a class="footnote-ref" href="#fn:fn-96">96</a></sup>, but its P200 scale-across design wins are explicitly not in numbers or guidance yet <sup id="fnref3:fn-54"><a class="footnote-ref" href="#fn:fn-54">54</a></sup>. Broadcom&rsquo;s Q2 FY2026 AI semiconductor revenue hit a record $10.8B (+143% YoY; Q3 guided to $16B) with networking at almost 40% of AI revenue, and Hock Tan calls Broadcom the de facto standard in CPO, 1.6T DSPs and CW/EML lasers &ldquo;to extend AI clusters across data centers,&rdquo; citing Jericho fabric leadership in the largest hyperscaler deployments <sup id="fnref:fn-97"><a class="footnote-ref" href="#fn:fn-97">97</a></sup> <sup id="fnref:fn-98"><a class="footnote-ref" href="#fn:fn-98">98</a></sup> — but most of that revenue today appears tied to scale-up/scale-out deployments, a mix the company doesn&rsquo;t disaggregate <sup id="fnref2:fn-98"><a class="footnote-ref" href="#fn:fn-98">98</a></sup>. Arista raised its 2026 AI revenue target to $3.5B on a 35.1%-growth Q1 <sup id="fnref:fn-99"><a class="footnote-ref" href="#fn:fn-99">99</a></sup> <sup id="fnref:fn-100"><a class="footnote-ref" href="#fn:fn-100">100</a></sup>, and its exposure is predominantly intra-DC scale-out. This is why the model holds L3 as a derived share despite enormous adjacent revenue: the design wins are real, the attributable revenue is not yet <sup id="fnref4:fn-54"><a class="footnote-ref" href="#fn:fn-54">54</a></sup>.</p>
+<h2 id="6-demand-drivers-and-supply-constraints">6. Demand drivers and supply constraints</h2>
+<p><strong>Demand is structural — it inherits the power constraint of §1 — while supply is gated by three slower clocks: indium phosphide laser capacity, fiber civil works, and the grid itself; and close to half of the cloud services backlog funding the demand traces to just two AI labs.</strong></p>
+<p><strong>Indium phosphide (InP) is the named industry bottleneck.</strong> InP is the semiconductor material from which high-speed lasers are made, and capacity is fully spoken for: Lumentum&rsquo;s Japan wafer fab &ldquo;remains at a premium and is fully allocated,&rdquo; with the EML/pump supply-demand gap above 30% and widening <sup id="fnref5:fn-92"><a class="footnote-ref" href="#fn:fn-92">92</a></sup> <sup id="fnref6:fn-92"><a class="footnote-ref" href="#fn:fn-92">92</a></sup>. The response is funded and dated: Coherent is doubling InP capacity in calendar 2026 and expects to more than double again next year — &ldquo;a quadrupling over a two-year period&rdquo; — via 6-inch wafer conversion at Sherman, Texas plus a third announced 6-inch site in Zurich, backed by NVIDIA&rsquo;s $2B investment of March 2026 <sup id="fnref:fn-101"><a class="footnote-ref" href="#fn:fn-101">101</a></sup>; Texas granted Coherent $14.1M toward a &gt;$154M project establishing the world&rsquo;s first 6-inch InP wafer fab <sup id="fnref:fn-102"><a class="footnote-ref" href="#fn:fn-102">102</a></sup>; Lumentum acquired a fifth InP fab and brings Greensboro online in early 2028 <sup id="fnref7:fn-92"><a class="footnote-ref" href="#fn:fn-92">92</a></sup> <sup id="fnref8:fn-92"><a class="footnote-ref" href="#fn:fn-92">92</a></sup>. When the GPU monopolist puts $2B into a laser supplier <sup id="fnref2:fn-101"><a class="footnote-ref" href="#fn:fn-101">101</a></sup> and a state subsidizes wafer capacity <sup id="fnref2:fn-102"><a class="footnote-ref" href="#fn:fn-102">102</a></sup>, the constraint has been promoted from vendor problem to ecosystem problem — and the relief arrives 2026–28, a date that matters again below.</p>
+<p><strong>Fiber runs on the slowest clock: civil works.</strong> Cable lead times have stretched to 60 weeks, the longest since the early 2000s; municipal permitting takes 6–9 months, urban make-ready engineering beyond 12 months, railroad easement crossings over a year each; dual-diverse routes cost ~$150,000 per route-mile <sup id="fnref2:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>. Permitting sets the deployment pace — one project saw permitting alone push delivery more than a year past schedule <sup id="fnref3:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup> — and the cost of laying fiber likewise derives primarily from permitting and trenching, not the cable itself <sup id="fnref:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup>; our inference is that workarounds multiplying existing assets carry scarcity value, and the deal evidence supports it: Corning&rsquo;s Lumen arrangement lets carriers fit 2–4x more fiber into existing conduit <sup id="fnref2:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup>, and incumbent route owners are signing decade-scale agreements <sup id="fnref2:fn-60"><a class="footnote-ref" href="#fn:fn-60">60</a></sup> <sup id="fnref2:fn-62"><a class="footnote-ref" href="#fn:fn-62">62</a></sup> <sup id="fnref:fn-103"><a class="footnote-ref" href="#fn:fn-103">103</a></sup> — rights-of-way cannot be conjured on equipment lead times.</p>
+<p><strong>The grid is an emerging constraint on the architecture itself.</strong> AI training loads swing ~15x harder than cloud data-center loads at millisecond scale during checkpointing and synchronization; in ERCOT, a 2.0–2.6 GW sudden load loss risks instability up to cascade blackout, and 108 GW of large loads — mostly data centers — are seeking ERCOT connection <sup id="fnref:fn-104"><a class="footnote-ref" href="#fn:fn-104">104</a></sup>. Synchronized training makes separate sites electrically correlated, a risk class utilities have not planned for <sup id="fnref2:fn-104"><a class="footnote-ref" href="#fn:fn-104">104</a></sup> — and a second-order argument for the asynchronous methods in §7.</p>
+<p><strong>Concentration is the cycle risk sitting under all of it.</strong> Close to half of the leading cloud companies&rsquo; services backlog — binding contracts for undelivered services, of which Microsoft alone reported $627B — traces to OpenAI and Anthropic, a concentration LightCounting presents inside its optics note as the demand base behind the optical order book; LightCounting calls Q1 2026 supply-chain results &ldquo;truly exceptional&rdquo; and in the same note warns, &ldquo;please have a Plan B for next year and especially for 2028. The situation can change overnight.&rdquo; <sup id="fnref2:fn-91"><a class="footnote-ref" href="#fn:fn-91">91</a></sup> <sup id="fnref3:fn-91"><a class="footnote-ref" href="#fn:fn-91">91</a></sup>. The InP buildout now underway (Lumentum&rsquo;s EML output up 8x since FY2023, with a further &gt;50% InP expansion into late 2026 <sup id="fnref:fn-105"><a class="footnote-ref" href="#fn:fn-105">105</a></sup> <sup id="fnref2:fn-94"><a class="footnote-ref" href="#fn:fn-94">94</a></sup>) creates a 2027–28 merchant oversupply watch window — TD Cowen rates Lumentum Hold on exactly that risk despite strong near-term demand <sup id="fnref4:fn-91"><a class="footnote-ref" href="#fn:fn-91">91</a></sup> <sup id="fnref:fn-106"><a class="footnote-ref" href="#fn:fn-106">106</a></sup>. Record backlogs are simultaneously the demand evidence and the bullwhip fuel <sup id="fnref5:fn-91"><a class="footnote-ref" href="#fn:fn-91">91</a></sup> <sup id="fnref6:fn-91"><a class="footnote-ref" href="#fn:fn-91">91</a></sup>: a funding or architecture shift at either anchor lab propagates through every layer at once.</p>
+<h2 id="7-what-breaks-it-the-three-debates">7. What breaks it: the three debates</h2>
+<p><strong>Three open debates set the market&rsquo;s forward shape: whether training stays synchronous (it is, today), how far apart buildings can usefully sit (an architecture choice), and whether co-packaged optics threatens the pluggable layer (not in scale-across — different socket).</strong></p>
+<p><strong>Synchronous is the production reality; asynchronous is the horizon.</strong> Virtually all production multi-DC training today is synchronous — every XPU waits for every other before aggregating updates — which holds practical scale-across distance to roughly hundreds of kilometers <sup id="fnref6:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. Gemini Ultra was trained synchronously across sites <sup id="fnref2:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup> <sup id="fnref2:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>, and as of May 2026 asynchronous and semi-asynchronous methods (Local SGD, HALoS, StellaTrain) are <em>not</em> production-ready at any major hyperscaler — Meta&rsquo;s own tooling will consider them once they are <sup id="fnref3:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup>. Synchrony is also why mundane reliability bites: long-haul fiber availability falls far short of five-nines, a major obstacle Microsoft flags for synchronous training <sup id="fnref2:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>, and the latency physics of §1 — 5 ns/m, 43.2 ms coast-to-coast <sup id="fnref4:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup> <sup id="fnref:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup> <sup id="fnref2:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup> — bound the design space. The horizon: Google DeepMind&rsquo;s Decoupled DiLoCo trained a 12B-parameter model across four US regions on just 2–5 Gbps of WAN, more than 20x faster than conventional synchronization, by overlapping communication with longer compute <sup id="fnref3:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>. That result is research-scale, not production <sup id="fnref4:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup> — but if async matures, it <em>relaxes</em> the distance limit toward thousands of kilometers <sup id="fnref7:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>, easing the premium on extreme bandwidth density while opening the far-flung sites the grid argument of §1 favors.</p>
+<p><strong>Within synchronous limits, distance trades against oversubscription, and two topology philosophies coexist.</strong> Meta&rsquo;s production experience: co-located buildings (10s–100 km) run 1:3–1:8 bandwidth oversubscription; cross-region buildings (100s of km) go beyond 1:8 <sup id="fnref5:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup>. Architecturally, Google&rsquo;s Virgo runs a flat, two-layer non-blocking campus-as-a-computer fabric optimized for deterministic latency (40% lower unloaded than its prior generation) <sup id="fnref4:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>, while Meta&rsquo;s BAG runs a hierarchical, oversubscribed super-spine optimized for petabit-scale capacity across separate buildings <sup id="fnref3:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup> <sup id="fnref4:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup>. Both philosophies buy different bills of materials — a diversification tailwind for the stack, but also a reason no single design win locks the market <sup id="fnref5:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>. The wildcard on the distance limit is hollow-core fiber (HCF — fiber that guides light through air rather than glass, cutting propagation delay): Microsoft is industrializing production with Corning and Heraeus after deploying HCF in Azure since 2023, claiming up to 47% faster transmission and ~33% lower latency than standard fiber <sup id="fnref:fn-107"><a class="footnote-ref" href="#fn:fn-107">107</a></sup>, with a 15,000-km deployment plan and a sub-0.1 dB/km attenuation result published in Nature <sup id="fnref:fn-108"><a class="footnote-ref" href="#fn:fn-108">108</a></sup>. Simulation work shows HCF enables up to 50% greater data-center separation for synchronous training, most pronounced at 10–100 km <sup id="fnref:fn-109"><a class="footnote-ref" href="#fn:fn-109">109</a></sup> <sup id="fnref8:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup> — attacking the one constraint money otherwise can&rsquo;t move <sup id="fnref5:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>.</p>
+<p><strong>Co-packaged optics is a risk note here, not a section.</strong> CPO integrates the optical engine into the switch package, eliminating the pluggable transceiver — and production-grade CPO switch silicon now exists (Broadcom&rsquo;s Tomahawk 6-Davisson, showcased at OFC 2026) <sup id="fnref:fn-110"><a class="footnote-ref" href="#fn:fn-110">110</a></sup> <sup id="fnref:fn-111"><a class="footnote-ref" href="#fn:fn-111">111</a></sup>. But CPO&rsquo;s target sockets are scale-up (copper replacement) and scale-out inside the data center; coherent DCI pluggables solve a different problem — distance, dispersion, amplified spans — that CPO does not address <sup id="fnref:fn-112"><a class="footnote-ref" href="#fn:fn-112">112</a></sup>. CPO ports stay small in 2026, grow from 2027, and take off 2029–30 (&gt;25M ports annually by 2030 on conservative estimates), as incremental market expansion rather than cannibalization of the scale-across layer <sup id="fnref2:fn-112"><a class="footnote-ref" href="#fn:fn-112">112</a></sup> <sup id="fnref3:fn-112"><a class="footnote-ref" href="#fn:fn-112">112</a></sup>. The watch item is long-term: broad CPO adoption plus manufacturing learning curves would pressure pluggable economics from the adjacent sockets inward <sup id="fnref2:fn-110"><a class="footnote-ref" href="#fn:fn-110">110</a></sup> <sup id="fnref2:fn-111"><a class="footnote-ref" href="#fn:fn-111">111</a></sup>.</p>
+<h2 id="8-investment-lens">8. Investment lens</h2>
+<p><strong>The answer to the anchor question is yes — scale-across enablement is a distinct, measurable equipment category — but it is an estimate-bracketed one, and the investable expressions concentrate in the two layers the evidence actually supports.</strong> The category is real by the tests that matter: independent taxonomies <sup id="fnref3:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> <sup id="fnref3:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> <sup id="fnref3:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>, five deploying operators (§2) <sup id="fnref2:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup> <sup id="fnref3:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup> <sup id="fnref3:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup> <sup id="fnref2:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup> <sup id="fnref2:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup>, analyst series that now isolate it <sup id="fnref4:fn-70"><a class="footnote-ref" href="#fn:fn-70">70</a></sup> <sup id="fnref4:fn-67"><a class="footnote-ref" href="#fn:fn-67">67</a></sup> <sup id="fnref2:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup>, and vendors guiding to it by name <sup id="fnref2:fn-95"><a class="footnote-ref" href="#fn:fn-95">95</a></sup>. The model frames it at $10.4B in 2026 (Model: Calc!B20) growing to a $17.5B base by 2029 (Model: Outputs!B25) inside a $13.9–23.4B bracket (Model: Outputs!B24/B26) at an 18.9% CAGR (Model: Calc!B32). Within that, conviction is layer-shaped: L4 line systems ($8.2B, 47% of the 2029 base — Model: Calc!E27) and L1 coherent pluggables ($4.3B — Model: Calc!E24) carry HIGH-confidence triangulation <sup id="fnref3:fn-73"><a class="footnote-ref" href="#fn:fn-73">73</a></sup> <sup id="fnref2:fn-74"><a class="footnote-ref" href="#fn:fn-74">74</a></sup> <sup id="fnref5:fn-67"><a class="footnote-ref" href="#fn:fn-67">67</a></sup> <sup id="fnref2:fn-65"><a class="footnote-ref" href="#fn:fn-65">65</a></sup> <sup id="fnref4:fn-44"><a class="footnote-ref" href="#fn:fn-44">44</a></sup> <sup id="fnref3:fn-66"><a class="footnote-ref" href="#fn:fn-66">66</a></sup> <sup id="fnref4:fn-71"><a class="footnote-ref" href="#fn:fn-71">71</a></sup>; L2/L3/L5 are derived attribution shares and should be underwritten as such. For the project&rsquo;s AI/HPC services thesis, the durable structural facts are: demand is grid-physics-structural, not cyclical <sup id="fnref3:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup> <sup id="fnref9:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>; value concentrates where supply concentrates — the DSP duopoly <sup id="fnref2:fn-47"><a class="footnote-ref" href="#fn:fn-47">47</a></sup>, the EML/InP oligopoly <sup id="fnref4:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup> <sup id="fnref9:fn-92"><a class="footnote-ref" href="#fn:fn-92">92</a></sup>, and rights-of-way <sup id="fnref4:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup> <sup id="fnref3:fn-60"><a class="footnote-ref" href="#fn:fn-60">60</a></sup>; and the architecture fault line (router-hosted pluggables vs traditional transport <sup id="fnref5:fn-71"><a class="footnote-ref" href="#fn:fn-71">71</a></sup> <sup id="fnref5:fn-70"><a class="footnote-ref" href="#fn:fn-70">70</a></sup>) decides which incumbents the growth actually reaches. What to watch, with dates: 1.6T DSP design wins through 2027 <sup id="fnref2:fn-49"><a class="footnote-ref" href="#fn:fn-49">49</a></sup> <sup id="fnref3:fn-48"><a class="footnote-ref" href="#fn:fn-48">48</a></sup>; whether Cisco&rsquo;s P200 wins convert to reported revenue <sup id="fnref5:fn-54"><a class="footnote-ref" href="#fn:fn-54">54</a></sup>; the 2027–28 InP capacity landing <sup id="fnref3:fn-101"><a class="footnote-ref" href="#fn:fn-101">101</a></sup> <sup id="fnref7:fn-91"><a class="footnote-ref" href="#fn:fn-91">91</a></sup>; and any production deployment of asynchronous training <sup id="fnref6:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup> — each one moves a named layer of the bracket. Per the run&rsquo;s scope, this primer makes no per-ticker recommendations.</p>
+<p><em>Counter-thesis (LightCounting, May 2026; TD Cowen, 2026): the scale-across equipment cycle is a concentration trade wearing a category costume. Close to half of the leading cloud companies&rsquo; services backlog — the contract base LightCounting reads, in its own optics note, as what the optical order book ultimately rests on — traces to two AI labs, and LightCounting&rsquo;s own caution — &ldquo;please have a Plan B for next year and especially for 2028. The situation can change overnight.&rdquo; — sits inside its most bullish reporting period; TD Cowen rates Lumentum Hold on the 2027–28 InP oversupply now being built <sup id="fnref8:fn-91"><a class="footnote-ref" href="#fn:fn-91">91</a></sup> <sup id="fnref9:fn-91"><a class="footnote-ref" href="#fn:fn-91">91</a></sup> <sup id="fnref2:fn-106"><a class="footnote-ref" href="#fn:fn-106">106</a></sup>. The equities already price the super-cycle: Coherent +449% and Lumentum +1,255% over one year, Coherent at ~49x forward earnings <sup id="fnref:fn-113"><a class="footnote-ref" href="#fn:fn-113">113</a></sup>, and Ciena dropped more than 19% in early trading on a beat-and-raise <sup id="fnref2:fn-85"><a class="footnote-ref" href="#fn:fn-85">85</a></sup> — the market demands acceleration beyond already-elevated expectations. And the technology horizon cuts both ways: asynchronous methods like DiLoCo, if productionized, relax exactly the latency-and-bandwidth premium this equipment monetizes <sup id="fnref4:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup> <sup id="fnref10:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. On this read, the category is real but the cycle is borrowed from two customers&rsquo; capex, and the model&rsquo;s bear case (Model: Outputs!B24) — not its base — is the prudent anchor. If the counter-case wins, the 2029 anchor moves from the $17.5B base to the $13.9B bear — a $3.6B (~21%) reduction, concentrated in L1 and L4 (Model: Outputs!B24/B25). No deeper counter-thesis writeup exists yet for this run; the bear bracket and the §6 concentration evidence are its current home.</em></p>
+<hr>
+<h2 id="sources-and-provenance">Sources and provenance</h2>
+<ul>
+<li><strong>Findings corpus (every <code>[S###]</code> resolves here):</strong> <code>/Users/johnhendren/Desktop/Projects/vault/raw/research-2026-06-11-dci-scale-across-enablement/findings.jsonl</code> — 139 findings; each carries its source URL (or Noldor document reference), source class, and publication date, and every web-sourced finding carries a local snapshot path. A copy sits beside this file as <code>2026-06-11-dci-scale-across-enablement.md.findings.jsonl</code>.</li>
+<li><strong>Model (every <code>(Model: …)</code> figure resolves here):</strong> <code>/Users/johnhendren/Desktop/Projects/vault/kb/outputs/models/dci-scale-across-sizer_v1_2026-06-11.xlsx</code> — totals at Calc!B20 (2026), Outputs!B25 (2029 base), Outputs!B24/B26 (bear/bull), Calc!B32 (CAGR), Calc!F29 (2030); scope definitions and anchor bridges on Cover rows 14–20.</li>
+<li><strong>Charts:</strong> <code>2026-06-11-dci-scale-across-trajectory.png</code>, <code>2026-06-11-dci-scale-across-layer-mix.png</code>, <code>2026-06-11-dci-scale-across-anchor-reconciliation.png</code>, <code>2026-06-11-dci-scale-across-market-map.png</code> — each with a <code>.chart-provenance.json</code> sidecar in this directory.</li>
+<li><strong>Synthesis matrix:</strong> <code>2026-06-11-dci-scale-across-enablement.matrix.json</code> (beside this file) — claim-level mapping of every finding to kept prose or a recorded drop.</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:fn-1">
+<p>www.cisco.com &ldquo;IDC defines scale-across networking as connecting multiple geographically dispersed datacenters/clusters to operate as a unified system for AI workloads, leveraging advanced DCI technologies; vs scale-out (racks within a DC) and scale-up (GPUs within a rack)&rdquo;, 2026-02-01 · https://www.cisco.com/c/dam/en/us/solutions/artificial-intelligence/idc-spotlight-scale-across-networking.pdf · local: 2026-06-09-cisco.com-idc-spotlight-scale-across.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-2">
+<p>semiengineering.com &ldquo;Per Semiconductor Engineering (with NVIDIA&#x27;s Gilad Shainer): scale-up is within a rack (optimize latency, memory semantics, copper, static); scale-out is between racks within a DC (optimize jitter, RDMA, dynamic); scale-across reaches into another DC and works like scale-out but with different long-distance congestion-control algorithms&rdquo;, 2026-03-12 · https://semiengineering.com/scale-up-scale-out-get-a-new-partner/ · local: 2026-06-09-semiengineering.com-scale-up-scale-out-new-partner.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-3">
+<p>nvidianews.nvidia.com &ldquo;NVIDIA coined &#x27;scale-across&#x27; as a third pillar of AI computing beyond scale-up and scale-out, announced at Hot Chips Aug 22 2025, to interconnect distributed data centers into giga-scale AI super-factories&rdquo;, 2025-08-22 · https://nvidianews.nvidia.com/news/nvidia-spectrum-xgs-ethernet-to-connect-distributed-data-centers-into-giga-scale-ai-super-factories · local: 2026-06-09-nvidianews.nvidia.com-spectrum-xgs-press-release.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-4">
+<p>developer.nvidia.com &ldquo;NVIDIA defines scale-across networking as a new category of AI compute fabric connectivity that is orthogonal to scale-up and scale-out; with Spectrum-XGS Ethernet, multiple data centers of varying sizes and distances can be unified as one large AI factory, enabling large-scale single job AI training and inference across geographically separated data centers for the first time.&rdquo;, 2025-09-09 · https://developer.nvidia.com/blog/how-to-connect-distributed-data-centers-into-large-ai-factories-with-scale-across-networking/ · local: 2026-06-11-developer.nvidia.com-4cda71e9.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-5">
+<p>www.sdxcentral.com &ldquo;NVIDIA launched Spectrum-XGS Ethernet on August 22, 2025 as a scale-across third pillar beyond scale-up and scale-out, claiming 1.6 times the bandwidth density of standard Ethernet and a near-doubling of NCCL performance across sites, with CoreWeave among the first to connect its data centers with it.&rdquo;, 2026-06-10 · https://www.sdxcentral.com/news/nvidias-new-spectrum-xgs-aims-to-turn-multiple-data-centers-into-one-gigantic-gpu/ · local: 2026-06-10-sdxcentral-com-spectrum-xgs.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-6">
+<p>investors.broadcom.com &ldquo;Broadcom shipped Jericho4 (Aug 4 2025), an Ethernet fabric router to interconnect 1M+ XPUs across multiple data centers; positions SUE/Tomahawk Ultra/Tomahawk 6/Jericho4 as covering within a rack, across racks, and across data centers — Broadcom&#x27;s cross-DC tier rather than the &#x27;scale-across&#x27; label&rdquo;, 2025-08-04 · https://investors.broadcom.com/news-releases/news-release-details/broadcom-ships-jericho4-enabling-distributed-ai-computing-across · local: 2026-06-09-investors.broadcom.com-jericho4-shipping.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-7">
+<p>www.nextplatform.com &ldquo;Nvidia, Broadcom and Cisco created a new networking category, the &#x27;scale across network&#x27;, because legacy WAN/DCI are not fast enough to scale AI training across multiple datacenters; it bridges high-bandwidth scale-out networks across datacenters&rdquo;, 2025-10-08 · https://www.nextplatform.com/2025/10/08/cisco-takes-on-broadcom-nvidia-for-fat-ai-datacenter-interconnects/ · local: 2026-06-09-noldor-nextplatform-scale-across.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-8">
+<p>www.nokia.com &ldquo;Scale-across networking is a specialized form of DCI for back-end networks that enables an XPU cluster to scale beyond the physical space and power limitations of a single data center, connecting XPUs across tens to potentially thousands of kilometers; it is distinct from scale-out (intra-DC rack-to-rack) and from legacy DCI (which connects data centers to end users over traditional WAN).&rdquo;, 2026-06-11 · https://www.nokia.com/blog/scale-across-networking-unlocking-ai-factory-scale-with-optical-innovation/ · local: 2026-06-11-nokia.com-37a65699.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-9">
+<p>blogs.cisco.com &ldquo;Cisco (Rakesh Chopra) states power consumption has become the primary limiting factor on AI scaling, making traditional scale-up and scale-out methodologies insufficient and necessitating scale-across deployments&rdquo;, 2025-10-08 · https://blogs.cisco.com/sp/cisco-silicon-one-p200-powers-the-first-51-2t-scale-across-routing-systems · local: 2026-06-09-blogs.cisco.com-p200-scale-across.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-10">
+<p>convergedigest.com &ldquo;Microsoft&#x27;s Yawei Yin (Optica Executive Forum, March 2026): traditional cloud facilities operate in the 50-300 MW range while AI clusters are pushing toward 1-5 GW, and uneven geographic distribution of US power (plus regulatory lag in bringing power online) makes single-site concentration of training capacity increasingly infeasible — the foundational driver of geographically distributed scale-across AI; he also noted long-haul fiber availability falls far short of five-nines, a major obstacle for synchronous training.&rdquo;, 2026-06-10 · https://convergedigest.com/optica-executive-forum-microsofts-yawei-yin-explores-scale-across/ · local: 2026-06-10-convergedigest-microsoft-yin-scale-across-power.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-11">
+<p>cloud.google.com &ldquo;Google&#x27;s Virgo Network embraces a campus-as-a-computer philosophy driven by power/space constraints forcing multi-datacenter domains; training demands now exceed the power and space of a single data center, requiring unified multi-data-center domains; with Virgo 4x more bandwidth per accelerator and 40% lower unloaded fabric latency than the previous generation.&rdquo;, 2026-04-22 · https://cloud.google.com/blog/products/networking/introducing-virgo-megascale-data-center-fabric · local: 2026-06-11-cloud.google.com-b52dc15f.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-12">
+<p>cloud.google.com &ldquo;Google&#x27;s global network sustained 10x WAN traffic growth from 2020 to 2025 to support cross-site AI deployments; it has developed a suite of WAN innovations for cross-site AI, including a multi-shard global network for horizontal scaling, treating distributed data centers across campuses as one unified AI compute resource due to power availability constraints forcing distribution of accelerator clusters across multiple buildings.&rdquo;, 2026-05-26 · https://cloud.google.com/blog/products/networking/data-center-and-global-networks-built-for-ai-era · local: 2026-06-11-cloud.google.com-8bcdbef0.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-13">
+<p>siliconangle.com &ldquo;Cisco&#x27;s Rakesh Chopra distinguishes scale-across from classic DCI: scale-across bridges high-bandwidth scale-out networks across datacenters at massively higher bandwidth than traditional DCI; a scale-across network needs ~14x more bandwidth than a traditional WAN interconnect&rdquo;, 2025-10-08 · https://siliconangle.com/2025/10/08/ciscos-51-2t-silicon-one-p200-chip-brings-scale-across-distributed-ai/ · local: 2026-06-09-siliconangle.com-p200-scale-across.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-14">
+<p>www.fool.com &ldquo;On the Q1 FY2027 call Marvell said its pluggable DCI module business has line of sight to $1 billion annualized revenue during fiscal 2028 (roughly double FY2026), that aggregate bandwidth requirements for scale-across networks are projected at more than 10x current front-end DCI networks, that interconnect revenue should now grow more than 70% YoY in FY2027 (prior ~50%), and that its first 1.6T ZR/ZR+ DCI modules on a new 2nm coherent DSP begin sampling this year.&rdquo;, 2026-06-10 · https://www.fool.com/earnings/call-transcripts/2026/05/27/marvell-mrvl-q1-2027-earnings-transcript/ · local: 2026-06-10-fool-com-marvell-q1-fy2027-transcript.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-15">
+<p>www.ciena.com &ldquo;Hyperscaler customers require an exponential increase in traffic between scale-across sites — tens of Pb/s — deploying tens of thousands of connections in compressed timeframes; coherent optical technology becomes foundational (not optional) for AI cluster connectivity once training extends beyond a single campus, because packet loss, congestion, and inconsistent latency compound dramatically with distance.&rdquo;, 2026-02-18 · https://www.ciena.com/insights/blog/2026/developing-the-first-tailored-optical-solutions-for-scale-across-ai-applications · local: 2026-06-11-ciena.com-c7352264-exa.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-16">
+<p>engineering.fb.com &ldquo;Meta&#x27;s Prometheus AI cluster will deliver 1-gigawatt of capacity spanning several data center buildings in a single larger region, interconnecting tens of thousands of GPUs via Backend Aggregation (BAG), a centralized Ethernet-based super-spine network layer; inter-BAG capacities reach the petabit range (16-48 Pbps per region pair).&rdquo;, 2026-02-09 · https://engineering.fb.com/2026/02/09/data-center-engineering/building-prometheus-how-backend-aggregation-enables-gigawatt-scale-ai-clusters/ · local: 2026-06-11-engineering.fb.com-c1f03a57.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-17">
+<p>semianalysis.substack.com &ldquo;The hard physical constraint on synchronous scale-across training is propagation latency: at the speed of light in fiber (208,188 km/s), a US east-to-west-coast round trip is 43.2 ms before equipment delay; longer term the limiting factor is latency (speed of light in glass), not bandwidth, since bandwidth scales by laying more fiber pairs&rdquo;, 2024-09-04 · https://semianalysis.substack.com/p/multi-datacenter-training-openais · local: 2026-06-09-semianalysis-multidc-latency-budget.md · other&#160;<a class="footnote-backref" href="#fnref:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-18">
+<p>newsletter.semianalysis.com &ldquo;SemiAnalysis &#x27;Multi-Datacenter Training: OpenAI&#x27;s Ambitious Plan To Beat Google&#x27;s Infrastructure&#x27; (published September 4, 2024, confirmed via WebFetch): speed of light in fiber is 208,188 km/s; US east-to-west-coast round-trip is 43.2 ms before equipment delay — hard to overcome for standard synchronous training; authors explicitly state &#x27;longer term the limiting factor will be the latency due to speed of light in glass, not bandwidth&#x27; because fiber deployment costs derive primarily from permitting and trenching, not the fiber material; synchronous gradient descent introduces &#x27;giant bursts&#x27; of cross-DC communication at strict latency budgets; article also cites power availability as a breaking point for single-site synchronous training at 100K+ GPU scale&rdquo;, 2024-09-04 · https://newsletter.semianalysis.com/p/multi-datacenter-training-openais · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-19">
+<p>www.globaldatacenterhub.com &ldquo;Fiber infrastructure supply constraints for AI DCI as of mid-2026: (1) lead times for fiber optic cables have reached up to 60 weeks, longest since the early 2000s; (2) municipal permitting typically takes 6-9 months, urban make-ready engineering beyond 12 months, railroad easement crossings over a year each; (3) one project: permitting alone pushed delivery more than a year beyond schedule; (4) dual-diverse fiber routes cost approximately $150,000 per route-mile to construct; (5) AI sites now require 10-36x more fiber than a legacy DC counterpart; hyperscalers ordering 12-48 fiber pairs per route vs. 4-pair pre-AI norm&rdquo;, 2026-01-01 · https://www.globaldatacenterhub.com/p/fiber-is-the-new-bottleneck-why-ai · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-20">
+<p>www.rcrwireless.com &ldquo;Nokia (Rob Shore, RCR webinar Jun 9, 2026): inter-facility (between-DC) traffic growing ~23% annually vs ~65%/yr inside data centers; AI shifting from hundreds of fibers to thousands (examples up to 13,000 fibers between sites).&rdquo;, 2026-06-09 · https://www.rcrwireless.com/20260609/networks/ai-boom-optical · local: 2026-06-09-rcrwireless-dci-40pct-2026.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-21">
+<p>engineering.fb.com &ldquo;Meta&#x27;s AI Backbone for scale-across uses 800G ZR+ C+L-band technology, deploying ZR pluggables in routers and eliminating standalone transponders; in aggregate, this yields 80-90% less power for backbone capacity, and fiber landing density improves from 1 fiber pair per rack (pre-ZR) to 4 fiber pairs per rack (with ZR).&rdquo;, 2025-10-16 · https://engineering.fb.com/2025/10/16/data-center-engineering/10x-backbone-how-meta-is-scaling-backbone-connectivity-for-ai/ · local: 2026-06-11-engineering.fb.com-a84a87dc.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-22">
+<p>blogs.microsoft.com &ldquo;Microsoft connected its Fairwater Atlanta site to its first Fairwater site in Wisconsin via a dedicated AI WAN to form a planet-scale AI superfactory&rdquo;, 2025-11-12 · https://blogs.microsoft.com/blog/2025/11/12/infinite-scale-the-architecture-behind-the-azure-ai-superfactory/ · local: 2026-06-09-blogs.microsoft.com-azure-superfactory.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-23">
+<p>om.co &ldquo;Microsoft added more than 120,000 new fiber miles across the United States in a single year (per its November 2025 disclosure) specifically to extend its dedicated AI WAN connecting Fairwater AI superfactory campuses into a single system; Azure&#x27;s overall WAN capacity reached 18 Pb/s by late 2025, having tripled since the end of fiscal year 2024.&rdquo;, 2026-05-04 · https://om.co/2026/05/04/say-hello-to-the-internet-of-ai/ · local: 2026-06-11-om.co-9694dd72.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-24">
+<p>news.microsoft.com &ldquo;Microsoft deployed 120,000 miles of dedicated fiber for its AI WAN, increasing its overall fiber mileage by more than 25% in one year&rdquo;, 2025-11-12 · https://news.microsoft.com/source/features/ai/from-wisconsin-to-atlanta-microsoft-connects-datacenters-to-build-its-first-ai-superfactory/ · local: 2026-06-09-news.microsoft.com-wisconsin-atlanta-superfactory.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-25">
+<p>engineering.fb.com &ldquo;By emptying out five production data centers in a single campus region, Meta built a single AI cluster with 129,000 H100 GPUs; Meta&#x27;s next cluster Prometheus will be a 1-gigawatt cluster spanning across multiple data center buildings, and Hyperion (planned 2028) will scale to 5 gigawatts.&rdquo;, 2025-09-29 · https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/ · local: 2026-06-11-engineering.fb.com-f67de8be.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-26">
+<p>arxiv.org &ldquo;Meta defines scale-across as model training expanded across multiple data center buildings interconnected via cross-building networks (vs scale-out which increases capacity within a zone); Meta runs a 100K-GPU job spanning multiple buildings — independent hyperscaler corroboration the concept is in production&rdquo;, 2026-05-23 · https://arxiv.org/abs/2605.24326 · local: 2026-06-09-arxiv.org-scaleacross-explorer-meta.md · other&#160;<a class="footnote-backref" href="#fnref:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-27">
+<p>arxiv.org &ldquo;Meta runs production training jobs across a few data centers housing hundreds of thousands of GPUs; scale-across is enabled by advanced parallelism placement, scheduling, and networking protocols; Meta deployed a scale-across testbed with configurable latency and bandwidth including fiber spools of up to 500 km to characterize the design space.&rdquo;, 2026-05-23 · https://arxiv.org/html/2605.24326v1 · local: 2026-06-11-arxiv.org-3e55ccdc.html · other&#160;<a class="footnote-backref" href="#fnref:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-28">
+<p>www.datacenterdynamics.com &ldquo;Meta is building several multi-GW clusters: Prometheus (1GW+, online 2026, Ohio) and Hyperion (scaling to 5GW over several years, Louisiana)&rdquo;, 2026-05-21 · https://www.datacenterdynamics.com/en/news/meta-to-invest-hundreds-of-billions-of-dollars-into-compute-to-build-superintelligence-with-several-multi-gw-data-center-clusters/ · local: 2026-06-09-datacenterdynamics.com-meta-multi-gw-clusters.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-29">
+<p>www.datacenterdynamics.com &ldquo;Google trained Gemini Ultra across multiple data centers/sites, combining TPUv4 SuperPods (4,096 chips each) via intra-cluster and inter-cluster networks (model parallelism within SuperPod, data parallelism across SuperPods)&rdquo;, 2026-05-14 · https://www.datacenterdynamics.com/en/news/training-gemini-tpus-multiple-data-centers-and-risks-of-cosmic-rays/ · local: 2026-06-09-datacenterdynamics.com-gemini-multi-dc.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-30">
+<p>deepmind.google &ldquo;Synchronous training tolerates only tight latency (Google ran Gemini Ultra synchronously across multiple DCs); asynchronous low-communication methods break the latency wall — Google DeepMind&#x27;s Decoupled DiLoCo trained a 12B model across 4 US regions on just 2-5 Gbps WAN, &gt;20x faster than conventional synchronization, by overlapping comms with longer compute&rdquo;, 2026-04-23 · https://deepmind.google/blog/decoupled-diloco/ · local: 2026-06-09-deepmind-decoupled-diloco-async.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-31">
+<p>cloud.google.com &ldquo;Google&#x27;s Virgo Network combined with TPU 8t supports more than one million TPUs connected across multiple data center sites into a single training cluster, and also supports up to 960,000 A5X GPUs (NVIDIA Vera Rubin NVL72) across multiple sites.&rdquo;, 2026-04-22 · https://cloud.google.com/blog/products/compute/ai-infrastructure-at-next26 · local: 2026-06-11-cloud.google.com-d53fe6a2.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-32">
+<p>www.aboutamazon.com &ldquo;Project Rainier spans multiple US data centers; EFA networking connects Trainium2 UltraServers inside AND across data centers; ~500K Trainium2 chips at activation, Claude to scale past 1M chips by year-end&rdquo;, 2025-10-29 · https://www.aboutamazon.com/news/aws/aws-project-rainier-ai-trainium-chips-compute-cluster · local: 2026-06-09-aboutamazon.com-project-rainier.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-33">
+<p>www.cnbc.com &ldquo;AWS New Carlisle, Indiana Project Rainier campus: 1,200 acres, $11B+, 7 buildings online Oct 2025, full site 30 buildings drawing &gt;2.2GW&rdquo;, 2025-10-29 · https://www.cnbc.com/2025/10/29/amazon-opens-11-billion-ai-data-center-project-rainier-in-indiana.html · local: 2026-06-11-cnbc.com-99da9ff0.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-34">
+<p>www.datacenterdynamics.com &ldquo;Stargate Abilene flagship campus = 1.2GW, eight buildings connected as a single cluster, eventually &gt;450,000 Nvidia GB200 GPUs; first 2 buildings live Sep 2025, remaining 6 by mid-2026&rdquo;, 2026-05-21 · https://www.datacenterdynamics.com/en/news/openai-and-oracle-to-deploy-450000-gb200-gpus-at-stargate-abilene-data-center/ · local: 2026-06-09-datacenterdynamics.com-stargate-abilene-450k.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-35">
+<p>openai.com &ldquo;With five new US sites announced September 23, 2025, Stargate reached nearly 7 gigawatts of planned capacity and over $400 billion of investment over three years across at least seven distributed sites (Abilene TX flagship plus Shackelford County TX, Dona Ana County NM, Wisconsin, Lordstown OH, Milam County TX, and CoreWeave projects), on a path to 10 GW.&rdquo;, 2026-06-10 · https://openai.com/index/five-new-stargate-sites/ · local: 2026-06-10-openai-com-five-new-stargate-sites.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-35" title="Jump back to footnote 35 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-36">
+<p>Noldor: futunn bernstein 97pp interconnect summary &ldquo;Bernstein&#x27;s 97pp interconnect coverage (in Noldor) tiers the optical/interconnect supplier set: Tier 2 &#x27;optical + high-speed interconnects with higher certainty&#x27; (1.6T optical modules, LPO/NPO, silicon photonics, lasers, external light sources, FAUs, optical connectors) names Coherent, Lumentum, Fabrinet, Zhongji Xuchuang, Xinyisheng, Sankoh, Corning, Sumitomo et al.; Tier 3 (PCBs, ABF, CCL, materials) names Chroma, Luxshare Precision, Unimicron, Ibiden plus suppliers to NVIDIA/Broadcom/TSMC.&rdquo;, 2026-05-19 · Noldor: futunn bernstein 97pp interconnect summary · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-37">
+<p>other &ldquo;OIF released the 800ZR coherent interface Implementation Agreement (OIF-800ZR-01.0) on October 30, 2024, defining requirements for an 800G coherent line interface and frame format for single-span amplified 80-120 km DWDM links targeting DCI applications; enables Ethernet clients (minimum 100GE) to scale up to 800G aggregate over a single coherent line; IA specifies low-power, cost-effective coherent solutions in small form-factor pluggable modules with port densities equivalent to client optics; first multivendor 800ZR interop demonstrated at ECOC 2024&rdquo;, 2024-10-30 · local: 2026-06-11-oiforum.com-8687e2dd.html · other&#160;<a class="footnote-backref" href="#fnref:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-38">
+<p>www.oiforum.com &ldquo;OIF-800ZR-01.0 (published October 30, 2024) remains the single current canonical version of the 800ZR Implementation Agreement as of June 2026 — no revision, errata, or version 01.1 has been published; the OIF IA index page lists OIF-800ZR-01.0 (Oct 2024) and OIF-800LR-01.0 (Apr 2025, a related but distinct single-span unamplified short-reach standard) as the current 800G coherent IAs; no 1600ZR IA has been published as of June 2026 (work-in-progress, hyperscaler-driven per prior corpus); multi-vendor 800ZR interoperability confirmed at ECOC 2025 (35 companies) and OFC 2026 (near-100 modules from 15 vendors), per OIF press releases&rdquo;, 2026-03-12 · https://www.oiforum.com/technical-work/implementation-agreements-ias/ · Primary&#160;<a class="footnote-backref" href="#fnref:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-39">
+<p>www.oiforum.com &ldquo;The OIF 800ZR Implementation Agreement defines a single-wavelength 800G coherent line interface for single-span, amplified, 80-120km point-to-point DWDM noise-limited links (DCI); supports Ethernet clients (min 100GE) up to 800G aggregate, in small form-factor pluggables; unamplified fixed-wavelength reach is 2-10km&rdquo;, 2024-10-30 · https://www.oiforum.com/wp-content/uploads/OIF-800ZR-01.0.pdf · local: 2026-06-09-oif-800zr-ia.md · other&#160;<a class="footnote-backref" href="#fnref:fn-39" title="Jump back to footnote 39 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-39" title="Jump back to footnote 39 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-40">
+<p>www.cisco.com &ldquo;Cisco QSFP-DD/OSFP 800G coherent modules: 800ZR carries 800G over amplified DWDM up to 120 km (unamplified up to 75 km) for single-span DCI; 800G ZR+ carries 800G over 1000+ km amplified (unamplified up to 80 km) for metro/regional; 800ZR uses 16QAM; QSFP-DD type 2B / OSFP power class 8&rdquo;, 2025-12-12 · https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/qsfp-dd-osfp-800g-zr-zr-plus-coherent-optics.html · local: 2026-06-09-cisco-800zr-zrplus-datasheet.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-40" title="Jump back to footnote 40 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-41">
+<p>www.juniper.net &ldquo;Per Juniper&#x27;s 800G coherent spec table, an OIF 800ZR QSFP-DD module consumes ~28 W typical / 30 W max; 800G ZR+ ~29 W typ / 31 W max — for 800 Gb/s, i.e. roughly 35-38 pJ/bit (~0.035 W per Gbps) of module-level power in a client-equivalent pluggable form factor&rdquo;, 2025-01-01 · https://www.juniper.net/documentation/ke-apps/hct/optStdParams/stdHtml/JCO800-QDD-ZR-M-HP.html · local: 2026-06-09-juniper-800zr-spec-table.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-41" title="Jump back to footnote 41 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-42">
+<p>www.marvell.com &ldquo;Coherent reach trades against bit-rate: Marvell COLORZ 800 connects metro DCs up to 1,000km apart at 800G, regional DCs up to 2,000km at 600G, and up to 3,000km at 400G — illustrating that longer scale-across reach requires dropping the per-wavelength data rate&rdquo;, 2026-03-05 · https://www.marvell.com/company/newsroom/marvell-1-6t-zr-zr-plus-pluggable-2nm-coherent-dsp-ai-interconnects.html · local: 2026-06-09-marvell-colorz-1600-1.6t-zr.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-42" title="Jump back to footnote 42 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-43">
+<p>trade-press &ldquo;Cignal AI (January 2026): coherent pluggables now lead in deployed bandwidth, overall market size, and bandwidth growth; 400ZR/ZR+ firmly established and 800ZR/ZR+ beginning large-scale rollouts in 2026 in support of AI scale-across architectures; datacenter interconnect and AI scale-across fabrics are the primary applications for coherent pluggables today, with large deployments at Microsoft to be joined by other hyperscalers over the next several years; pluggables now deliver performance comparable to embedded solutions at 400G and are closing the gap at 800G&rdquo;, 2026-01-27 · local: 2026-06-11-cignal.ai-51a744d2.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-44">
+<p>trade-press &ldquo;Cignal AI (July 28, 2025): sharply increased forecast for 800ZR and 800ZR+ pluggable coherent modules to over 200,000 shipments in 2026 with revenue exceeding $1 billion, implying blended ASP of roughly $5,000 per 800G coherent module; greater-than-anticipated demand driven by hyperscalers (led by Meta) adopting 800ZR+ for IP-over-DWDM to interconnect geographically distributed DCs; pluggable coherent optics already created a $2B IPoDWDM market in 2025, projected to grow to nearly $5B by 2029&rdquo;, 2025-07-28 · local: 2026-06-11-cignal.ai-4b148f1c.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-44" title="Jump back to footnote 44 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-44" title="Jump back to footnote 44 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-44" title="Jump back to footnote 44 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-44" title="Jump back to footnote 44 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-45">
+<p>trade-press &ldquo;Cignal AI April 2026 (4Q25 Optical Components Report): the race to fill Meta&#x27;s 800ZR+ scale-across orders has just begun; 800G pluggable shipments aligned with 2025 forecast and will be the highest area of growth for coherent interfaces in 2026; embedded 800G/1.2T+ optics forecast revised downward for 2029 due to slower adoption and application overlap with 800ZR+ modules; Innolight led datacom revenue with more than $5 billion in 2025, followed by Eoptolink and Coherent&rdquo;, 2026-04-21 · local: 2026-06-11-cignal.ai-029cc16f.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-46">
+<p>trade-press &ldquo;Seven of the global top 10 optical module suppliers in 2024 were Chinese companies; Innolight and Eoptolink estimated to supply roughly 60% of NVIDIA&#x27;s 800G volume; but DSPs are effectively a duopoly between Broadcom and Marvell, while high-speed laser chips (EMLs) are held by Lumentum, Coherent, and Mitsubishi; Chinese module makers are assembly-powerhouse, chip-desert — critical chips mostly imported&rdquo;, 2026-04-18 · local: 2026-06-11-photoncap.net-d251a8a2.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-47">
+<p>trade-press &ldquo;At 400G, Acacia (Cisco) and Marvell dominated the coherent DSP market; at 800G the battle is more competitive — Marvell&#x27;s first 800G DSP lacked OpenROADM PCS, excluding it from early Meta 800ZR+ volumes shared by Cisco (Acacia), Ciena, and Nokia; Broadcom&#x27;s Taurus BCM83640 (3nm, 1.6T) was sampling in early 2026 while Marvell&#x27;s Electra/Libra 800G and COLORZ 1600/800 were expected to begin sampling 2H 2026 — giving Broadcom a ~6-month 1.6T design-win advantage; DSPs are described as an effective duopoly between Broadcom and Marvell with no mature Chinese alternative&rdquo;, 2026-04-30 · local: 2026-06-11-cignal.ai-f5c030c1.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-47" title="Jump back to footnote 47 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-47" title="Jump back to footnote 47 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-48">
+<p>cignal.ai &ldquo;At 400G, Acacia and Marvell dominated the coherent-DSP market; at 800G it is more competitive — Marvell&#x27;s first 800G DSP (lacking OpenROADM PCS) excluded from early Meta volumes, shared by Cisco, Ciena, Nokia (Cignal AI Apr 2026)&rdquo;, 2026-04-30 · https://cignal.ai/2026/04/tracking-the-coherent-dsp-supply-chain-2026/ · local: 2026-06-09-marvell-fy2026-10k-and-dsp-position.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-48" title="Jump back to footnote 48 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-48" title="Jump back to footnote 48 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-48" title="Jump back to footnote 48 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-49">
+<p>futurumgroup.com &ldquo;Broadcom&#x27;s Taurus BCM83640 (3nm 1.6T optical DSP) is already sampling; Marvell&#x27;s Electra/Libra coherent DSPs + COLORZ 1600/800 begin sampling 2H 2026 — a ~6-month gap giving Broadcom first-wave 1.6T design-win advantage&rdquo;, 2026-03-12 · https://futurumgroup.com/insights/broadcoms-dsp-launch-intensifies-the-ai-optics-race-with-marvell/ · local: 2026-06-09-broadcom-marvell-dsp-race.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-49" title="Jump back to footnote 49 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-49" title="Jump back to footnote 49 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-50">
+<p>other &ldquo;OIF has two active 1600G coherent projects: 1600ZR (power-optimized, single-lambda DP-16QAM, ~235 GBaud, 80-120km amplified DCI reach, using oFEC) and 1600ZR+ (hierarchical-tree PCS, OFEC, DP-16QAM, two digital subcarriers, up to 1,000km at 1600G or 2,000km at 1200G); both IAs were expected to be finalized in 2025 with first products in 2026; a third &#x27;coherent-lite&#x27; (1600CL) low-latency variant was added in early 2025; OIF panel at OFC 2026 (March 18, 2026) reviewed deployment status&rdquo;, 2025-01-18 · local: 2026-06-11-oiforum.com-f5904e67.html · other&#160;<a class="footnote-backref" href="#fnref:fn-50" title="Jump back to footnote 50 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-51">
+<p>gazettabyte.com &ldquo;OIF is defining 1600ZR and 1600ZR+ IAs (1600ZR closer to market, hyperscaler-driven); IEEE 802.3dj is standardizing 1.6TbE interfaces (ready 2H2026). The next step, 3.2T coherent, requires fitting the DSP within a liquid-cooled ~40-50W envelope, likely on a 1.4nm-or-below CMOS process; 200G/lane to 400G/lane electrical evolution enables it (2027-2028 sampling)&rdquo;, 2026-02-25 · https://gazettabyte.com/marvell-on-coherent-pluggables-demand-is-way-outstripping-supply/ · local: 2026-06-09-gazettabyte-marvell-1600-3200-roadmap.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-51" title="Jump back to footnote 51 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-51" title="Jump back to footnote 51 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-52">
+<p>www.nvidia.com &ldquo;Spectrum-XGS Ethernet delivers 1.9x higher NCCL performance in cross-data-center environments via topology-aware congestion control, precise latency management, and end-to-end telemetry&rdquo;, 2026-06-09 · https://www.nvidia.com/en-us/networking/spectrumx/ · local: 2026-06-09-nvidia.com-spectrumx-platform.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-52" title="Jump back to footnote 52 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-53">
+<p>www.theregister.com &ldquo;Broadcom claims 51.2 Tb/s aggregate bandwidth per Jericho4 ASIC, and scaling to 36,000 hyper ports could connect two data centers at ~115.2 petabits per second; reach is fundamentally limited by light speed through fiber (~100km)&rdquo;, 2025-08-06 · https://www.theregister.com/special-features/2025/08/06/broadcom-targets-distributed-ai-training-with-jericho4-asic/966137 · local: 2026-06-11-theregister.com-bd6ba127.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-53" title="Jump back to footnote 53 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-54">
+<p>www.theglobeandmail.com &ldquo;Cisco booked its first Silicon One P200 scale-across design wins in FQ3 FY2026 &ndash; two different hyperscalers in Q3 plus a third hyperscaler in the first weeks of Q4 &ndash; with management noting there is no scale-across contribution in reported numbers or guidance yet.&rdquo;, 2026-06-10 · https://www.theglobeandmail.com/investing/markets/markets-news/Motley%20Fool/1935780/cisco-csco-q3-2026-earnings-transcript/ · local: 2026-06-10-theglobeandmail-com-cisco-q3-fy2026-transcript.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-54" title="Jump back to footnote 54 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-54" title="Jump back to footnote 54 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-54" title="Jump back to footnote 54 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-54" title="Jump back to footnote 54 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-54" title="Jump back to footnote 54 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-55">
+<p>newsletter.semianalysis.com &ldquo;On long-distance scale-across fiber, DWDM multiplexes wavelengths onto one fiber pair each carrying 800G or up to 1.6T; a reconfigurable line system over C-band + L-band (e.g. 32+32 channels) is used to span thousands of km&rdquo;, 2025-11-12 · https://newsletter.semianalysis.com/p/microsofts-ai-strategy-deconstructed · local: 2026-06-09-noldor-msft-ai-strategy-deconstructed.md · other&#160;<a class="footnote-backref" href="#fnref:fn-55" title="Jump back to footnote 55 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-56">
+<p>www.ciena.com &ldquo;Ciena WaveLogic 6 Extreme is a 1.6 Tb/s single-carrier coherent DSP (3nm, 200 GBaud) for DWDM open line systems: 1.6T single-carrier wavelengths for metro ROADM and 1.2 Tb/s across 1,000 km, extending 800G across virtually all links incl. transpacific; a 2x1.6T module delivers 12.8 Tb/s in 2RU&rdquo;, 2025-06-01 · https://www.ciena.com/products/wavelogic/wavelogic-6/wavelogic-6-extreme · local: 2026-06-09-ciena-wavelogic6-extreme-ols.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-56" title="Jump back to footnote 56 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-57">
+<p>www.ciena.com &ldquo;MOFN is a carrier-grade fully-managed dedicated DWDM/dark-fiber network (DCI platforms + open line systems + coherent optics) that a service provider builds to a hyperscaler&#x27;s architecture and operates as a service (OPEX vs CAPEX) — Ciena, Lumen and Zayo offer it; Lumen&#x27;s wavelength tier reaches up to 5TB+ and dark fiber up to 50TB+ per route&rdquo;, 2025-06-01 · https://www.ciena.com/solutions/managed-optical-fiber-networks · local: 2026-06-09-mofn-ciena-lumen-zayo.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-57" title="Jump back to footnote 57 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-58">
+<p>www.lightwaveonline.com &ldquo;Corning Q1 2026 Optical Communications sales +36% YoY to $1.8B; signed two more hyperscaler long-term deals similar to its up-to-$6B Meta agreement; Lumen DCI deal lets carriers fit 2-4x more fiber into existing conduit (route/conduit constraint workaround)&rdquo;, 2026-05-11 · https://www.lightwaveonline.com/home/article/55376863/cornings-q1-18b-optical-sales-get-boosted-from-gen-ai · local: 2026-06-09-lightwaveonline.com-corning-q1-2026-fiber.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-59">
+<p>investor.corning.com &ldquo;Corning Q1 2026 (ended March 31, 2026): Optical Communications core net sales $1.846B (+36% YoY), Optical net income $387M (+93% YoY); Q2 2026 guidance: core sales approximately $4.6B total (+14% YoY), EPS $0.73-$0.77 (+25% YoY); Corning finalized two additional hyperscaler long-term supply agreements similar in size and duration to the previously disclosed up-to-$6B Meta agreement; CEO Weeks: &#x27;Optical Communications sales surged 36%, fueled by demand from AI infrastructure&#x27;&ldquo;, 2026-04-27 · https://investor.corning.com/news-and-events/news/news-details/2026/Corning-Announces-Strong-First-Quarter-2026-Financial-Results/ · local: 2026-05-25-investor.corning.com-news-and-events-news-news-details-2026-corning-announces-str.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-60">
+<p>ir.lumen.com &ldquo;Lumen has secured nearly $13 billion in total Private Connectivity Fabric (PCF) contracts to date &ndash; including roughly $2.5 billion of new PCF agreements signed in Q4 2025 and selection by Anthropic to expand its fiber network across North America &ndash; supporting planned expansion to approximately 58 million intercity fiber miles by 2031 (17 million deployed at year-end 2025, 47 million targeted by end-2028).&rdquo;, 2026-06-10 · https://ir.lumen.com/news/news-details/2026/Lumen-Marks-New-Phase-of-Transformation-at-2026-Investor-Day/default.aspx · local: 2026-06-10-ir-lumen-com-2026-investor-day-pcf.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-60" title="Jump back to footnote 60 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-60" title="Jump back to footnote 60 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-60" title="Jump back to footnote 60 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-61">
+<p>www.zayo.com &ldquo;Zayo agreed to acquire Crown Castle&#x27;s fiber solutions business for approximately $4.25 billion (announced March 13, 2025; expected to close in the first half of 2026); Crown Castle&#x27;s two-part exit totaled $8.5 billion combined, with EQT separately acquiring the small cells business.&rdquo;, 2025-03-13 · https://www.zayo.com/newsroom/zayo-to-acquire-crown-castles-fiber-solutions-business/ · Primary&#160;<a class="footnote-backref" href="#fnref:fn-61" title="Jump back to footnote 61 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-62">
+<p>www.zayo.com &ldquo;Zayo announced on April 16, 2026 that it secured an anchor agreement with &#x27;a leading global AI infrastructure partner&#x27; to build 8,000 route miles of new builds and overbuilds (more than 15 million fiber miles: six new long-haul routes totaling 3,000 route miles plus overbuilds of high-capacity corridors covering over 5,000 route miles), its largest single network investment in new-build and overbuild miles ever.&rdquo;, 2026-06-10 · https://www.zayo.com/newsroom/zayo-secures-anchor-customer-to-accelerate-network-expansion-across-critical-ai-corridors-2/ · local: 2026-06-10-zayo-com-anchor-customer-ai-corridors.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-62" title="Jump back to footnote 62 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-62" title="Jump back to footnote 62 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-63">
+<p>www.zayo.com &ldquo;Zayo closed its acquisition of Crown Castle&#x27;s Fiber Solutions business on May 1, 2026, adding approximately 90,000 route miles and 40,000 on-net enterprise locations and bringing Zayo&#x27;s network to 224,000 route miles, with the combined Fiber Solutions plus Small Cells (EQT) transactions valued at $8.5 billion.&rdquo;, 2026-06-10 · https://www.zayo.com/newsroom/strengthening-the-digital-infrastructure-backbone-for-ai-zayo-completes-acquisition-of-crown-castles-fiber-solutions-business/ · local: 2026-06-10-zayo-com-crown-castle-fiber-close.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-63" title="Jump back to footnote 63 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-64">
+<p>cignal.ai &ldquo;Marvell and Acacia (Cisco) remain leaders in 400ZRx coherent pluggables; Innolight leads 800GbE datacom shipments with Eoptolink, Coherent, Nvidia narrowing the gap (Cignal AI Jan 2026)&rdquo;, 2026-01-07 · https://cignal.ai/2026/01/optical-component-revenue-reaches-nearly-25b-in-2025/ · local: 2026-06-09-cignal-ai-optical-25b-2025.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-64" title="Jump back to footnote 64 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-65">
+<p>cignal.ai &ldquo;Cignal AI forecasts over 200,000 shipments of 800ZR and 800ZR+ pluggable coherent modules in 2026 with revenue exceeding $1 billion, implying a blended ASP of roughly $5,000 per 800G coherent module.&rdquo;, 2026-06-10 · https://cignal.ai/2025/07/800g-coherent-pluggable-shipments-to-exceed-1b-revenue-in-2026/ · local: 2026-06-10-cignal-ai-800zr-1b-2026.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-65" title="Jump back to footnote 65 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-65" title="Jump back to footnote 65 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-66">
+<p>www.delloro.com &ldquo;Dell&#x27;Oro: IPoDWDM (IP-over-DWDM) systems demand to grow at 16% avg annual rate, reaching $4.4B by 2030, driven by scale-across DCI and ZR+ optics (Dec 16, 2025 report).&rdquo;, 2025-12-16 · https://www.delloro.com/news/ipodwdm-systems-market-forecast-to-reach-4-4-billion-by-2030/ · local: 2026-06-09-delloro-ipodwdm-4-4b-2030.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-66" title="Jump back to footnote 66 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-66" title="Jump back to footnote 66 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-66" title="Jump back to footnote 66 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-67">
+<p>trade-press &ldquo;Dell&#x27;Oro Group (July 22, 2025): Optical Transport market forecast to grow at an average annual rate of 5 percent for five years, reaching $19 billion by 2029; DCI specifically to grow at twice the overall market rate; DWDM Long Haul for DCI expected 15% five-year CAGR driven by cloud providers; ZR/ZR+ optical plugs used in routers and Ethernet switches (IPoDWDM) forecast to grow at an average annual rate of 20 percent, contributing nearly 12% share of the Optical Transport market during the five-year forecast period&rdquo;, 2025-07-22 · local: 2026-06-11-delloro.com-c8237202.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-67" title="Jump back to footnote 67 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-67" title="Jump back to footnote 67 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-67" title="Jump back to footnote 67 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-67" title="Jump back to footnote 67 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-67" title="Jump back to footnote 67 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-68">
+<p>www.delloro.com &ldquo;Dell&#x27;Oro forecasts revenues for ZR/ZR+ optical plugs used in routers and Ethernet switches (IPoDWDM) to grow at an average annual rate of 20 percent over 2025-2029, contributing nearly 12 percent of the Optical Transport market, while DWDM Long Haul for DCI grows at a 15 percent five-year CAGR.&rdquo;, 2026-06-10 · https://www.delloro.com/news/cloud-providers-to-drive-optical-transport-market-to-19-billion-in-2029/ · local: 2026-06-10-delloro-com-optical-transport-19b-2029.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-68" title="Jump back to footnote 68 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-69">
+<p>www.lightwaveonline.com &ldquo;Dell&#x27;Oro expects over one-third of IPoDWDM ZR/ZR+ revenue to come from 800ZR/ZR+ module shipments in 2026, with the IPoDWDM market growing nearly 40 percent in 2025 and ZR+ customer interest up ten times in one year, driven by scale-across DCI.&rdquo;, 2026-06-10 · https://www.lightwaveonline.com/home/article/55339450/scale-across-data-center-interconnect-dci-drives-ipodwdm-with-zr-optics-demand · local: 2026-06-10-lightwaveonline-com-scale-across-dci-zr-plus.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-69" title="Jump back to footnote 69 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-70">
+<p>trade-press &ldquo;Dell&#x27;Oro (May 2026): revenue associated with direct purchases for DCI grew an estimated 40 percent year-over-year in Q1 2026; in full year 2025 direct WDM equipment for DCI grew nearly 40 percent, with direct cloud provider purchases growing approximately 50 percent in 2025; IPoDWDM systems demand on track to grow nearly 40 percent in 2025; over one-third of IPoDWDM ZR/ZR+ revenue expected from 800ZR/ZR+ module shipments in 2026&rdquo;, 2026-05-19 · local: 2026-06-11-delloro.com-c8237202-clean.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-70" title="Jump back to footnote 70 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-70" title="Jump back to footnote 70 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-70" title="Jump back to footnote 70 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-70" title="Jump back to footnote 70 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-70" title="Jump back to footnote 70 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-71">
+<p>mapyourtech.com &ldquo;Displacement risk (b) quantified: cloud operators have made router-hosted coherent pluggable optics their DEFAULT DCI architecture, bypassing traditional metro optical transport systems — a spending shift of about 2.5 billion USD out of traditional optical equipment in 2024 alone; router-hosted IPoDWDM coherent-module revenue was 1.5 billion USD in 2024 (1.25 billion from cloud operators) and is forecast to grow at a 29% CAGR to exceed 5 billion USD by 2029 — direct risk to standalone transport vendors (Ciena, Nokia optical).&rdquo;, 2026-06-10 · https://mapyourtech.com/how-ai-is-reshaping-optical-network-architecture-and-transport-hardware/ · local: 2026-06-10-mapyourtech-ipodwdm-transport-displacement.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-71" title="Jump back to footnote 71 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-71" title="Jump back to footnote 71 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-71" title="Jump back to footnote 71 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-71" title="Jump back to footnote 71 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-71" title="Jump back to footnote 71 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-72">
+<p>www.delloro.com &ldquo;Dell&#x27;Oro (Nov 2024 Coherent Optics report) forecast ZR+ optic shipments to grow at a five-year CAGR of 70 percent, with cumulative coherent transceiver shipments surpassing well over five million units over five years and coherent optics on routers/switches exceeding 45 percent of total transceiver volume by 2028.&rdquo;, 2026-06-10 · https://www.delloro.com/news/large-scale-ai-clusters-to-fuel-more-growth-in-coherent-optical-transceiver-shipments/ · local: 2026-06-10-delloro-com-coherent-transceiver-5m-shipments.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-72" title="Jump back to footnote 72 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-73">
+<p>www.delloro.com &ldquo;Dell&#x27;Oro: Optical Transport equipment market reached $16B in 2025 (+10% YoY), recovery driven by DCI (Feb 18, 2026 report).&rdquo;, 2026-02-18 · https://www.delloro.com/news/optical-transport-market-grew-to-16-billion-in-2025/ · local: 2026-06-09-delloro-optical-transport-16b-2025.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-73" title="Jump back to footnote 73 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-73" title="Jump back to footnote 73 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-73" title="Jump back to footnote 73 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-74">
+<p>www.delloro.com &ldquo;Dell&#x27;Oro forecasts the Optical Transport equipment market to GROW 16% in 2026, surpassing $18B in manufacturer revenue for the first time since 2000, driven by AI data center DCI demand (May 19, 2026 report).&rdquo;, 2026-05-19 · https://www.delloro.com/news/optical-transport-equipment-market-forecast-to-grow-16-percent-in-2026/ · local: 2026-06-09-delloro-optical-transport-16pct-2026.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-74" title="Jump back to footnote 74 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-74" title="Jump back to footnote 74 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-75">
+<p>www.delloro.com &ldquo;Dell&#x27;Oro expects that beginning in 2026 cloud providers will expand AI data centers across multiple buildings about 100 km apart, requiring 800ZR+ optics and optical line systems to tap different electricity grids, with Disaggregated WDM already at nearly 40 percent of total Optical Transport revenue in 9M 2025.&rdquo;, 2026-06-10 · https://www.delloro.com/2026-predictions-optical-transport-market/ · local: 2026-06-10-delloro-com-2026-predictions-optical-transport.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-75" title="Jump back to footnote 75 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-76">
+<p>trade-press &ldquo;LightCounting (January 2026 Optics for AI Clusters report): AI cluster Ethernet optical transceiver market reached $16.5 billion in 2025 and will reach $26 billion in 2026, corresponding to ~60% growth rates in both 2025 and 2026; sales of Ethernet optical transceivers doubled in 2024 and increased by 70% in 2025; growth limited to ~60% in 2026 by XPU and switch-ASIC shortages; moderation in growth expected for 2027-2031; LightCounting March 2026 Ethernet Optics report sees a &#x27;reasonable chance&#x27; that annual sales of optical interconnects used in AI clusters reach $100 billion by 2030&rdquo;, 2026-01-01 · local: 2026-06-11-lightcounting.com-7b301405.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-76" title="Jump back to footnote 76 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-76" title="Jump back to footnote 76 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-77">
+<p>www.prnewswire.com &ldquo;MarketsandMarkets projects the global data center interconnect market to grow from $15.38 billion in 2025 to $25.89 billion by 2030, an 11.0% CAGR (2024 base year: $13.55 billion).&rdquo;, 2026-06-10 · https://www.prnewswire.com/news-releases/data-center-interconnect-market-worth-25-89-billion-by-2030&mdash;exclusive-report-by-marketsandmarkets-302533215.html · local: 2026-06-10-prnewswire-com-mnm-dci-25-89b-2030.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-77" title="Jump back to footnote 77 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-78">
+<p>www.lightcounting.com &ldquo;LightCounting (March 2026 Ethernet Optics Report) sees a reasonable chance that annual sales of optical interconnects used in AI clusters reach $100 billion by 2030, after Ethernet optical transceiver sales grew ~70% in 2025, with growth limited to ~60% in 2026 by XPU and switch-ASIC shortages.&rdquo;, 2026-06-10 · https://www.lightcounting.com/newsletter/en/march-2026-ethernet-optics-382 · local: 2026-06-10-lightcounting-com-100b-ai-cluster-optics.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-78" title="Jump back to footnote 78 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-79">
+<p>s25.q4cdn.com &ldquo;Ciena FQ2-2026 (ended May 2, 2026): cloud-provider revenue reached 46% of total revenue, up 70% YoY; total revenue 1.57 billion USD (+40% YoY) with Optical Networking at 70% of revenue; two cloud-provider customers each exceeded 10% of revenue (about one-third combined); FY2026 revenue guidance raised to 6.3 billion USD plus or minus 100 million (+32% YoY at midpoint).&rdquo;, 2026-06-10 · https://s25.q4cdn.com/550667411/files/doc_financials/2026/q2/2026-Q2-Earnings-Presentation_FINAL.pdf · local: 2026-06-10-ciena-q2-fy26-earnings-presentation.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-79" title="Jump back to footnote 79 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-79" title="Jump back to footnote 79 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-80">
+<p>finance.yahoo.com &ldquo;Ciena FQ2 2026 (ended May 2, 2026): backlog increased more than $600M sequentially to $7.7B; more than 80% of hardware backlog expected to convert within 12 months; FQ3 2026 revenue guidance approximately $1.625B plus-or-minus $50M; full-year FY2026 revenue guidance raised to $6.3B plus-or-minus $100M (+32% YoY at midpoint); CFO cited supply not keeping pace with demand&rdquo;, 2026-06-05 · https://finance.yahoo.com/markets/stocks/articles/ciena-q2-earnings-call-highlights-140257961.html · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-80" title="Jump back to footnote 80 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-80" title="Jump back to footnote 80 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-80" title="Jump back to footnote 80 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-81">
+<p>www.sec.gov &ldquo;Ciena FY2025: one cloud-provider customer = $851.6M (~18% of revenue), up from $532.3M FY2024; five largest customers ~50% of revenue&rdquo;, 2025-12-12 · https://www.sec.gov/Archives/edgar/data/936395/000162828025056698/R10.htm · local: 2026-06-09-ciena-fy2025-10k-segment-revenue.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-81" title="Jump back to footnote 81 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-81" title="Jump back to footnote 81 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-82">
+<p>www.sdxcentral.com &ldquo;Ciena&#x27;s order backlog rose sequentially to $7.7B in Q2 FY2026 (~$6.4B hardware), reflecting demand-supply imbalance; ~80% expected to ship within 12 months and customers would take more if supply allowed&rdquo;, 2026-06-04 · https://www.sdxcentral.com/news/ciena-rides-ai-wave-to-40-revenue-surge-as-optical-demand-swamps-supply/ · local: 2026-06-09-sdxcentral.com-ciena-q2-2026-backlog.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-82" title="Jump back to footnote 82 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-83">
+<p>www.businessupturn.com &ldquo;BofA upgraded Ciena to Buy from Neutral, PT to $355 from $260, on data-center demand; FY26 rev est ~28% growth; called it a possible super-cycle to 2027&rdquo;, 2026-03-06 · https://www.businessupturn.com/usa/bank-of-america-upgrades-ciena-to-buy-as-data-center-boom-drives-optical-networking-demand/112949/ · local: 2026-06-09-businessupturn-bofa-ciena-upgrade.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-83" title="Jump back to footnote 83 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-84">
+<p>www.islandpacket.com &ldquo;Post-Q2FY26 Ciena price targets ranged widely: Rosenblatt $720, Argus $650, Barclays $607 (OW), Morgan Stanley $490 (EW), Northland $450; avg ~$460. CFO cited supply not keeping pace with demand&rdquo;, 2026-06-07 · https://www.islandpacket.com/news/business/article316036598.html · local: 2026-06-09-islandpacket-morgan-stanley-ciena-pt.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-84" title="Jump back to footnote 84 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-85">
+<p>invezz.com &ldquo;2026 YTD valuation moves through the 2026-06-03 close: Ciena +165%, Lumentum +143%, Coherent +114%, Corning +121%; on 2026-06-04 Ciena shares dropped roughly 15-20% intraday despite beating on EPS/revenue and raising FY26 guidance — evidence the market now requires beats materially above already-elevated AI-infrastructure expectations.&rdquo;, 2026-06-10 · https://invezz.com/news/2026/06/04/ciena-stock-sinks-despite-earnings-beat-as-investors-seek-bigger-ai-upside/ · local: 2026-06-10-invezz-ciena-optical-ytd-2026-moves.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-85" title="Jump back to footnote 85 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-85" title="Jump back to footnote 85 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-86">
+<p>www.sec.gov &ldquo;Nokia completed acquisition of Infinera on Feb 28, 2025 at US$6.65/share (~$2.3B equity value); creates optical business with &gt;$3.6B turnover; reported in Nokia Network Infrastructure segment&rdquo;, 2025-02-28 · https://www.sec.gov/Archives/edgar/data/1138639/000119312525041368/d847449d8k.htm · local: 2026-06-09-nokia-infinera-acquisition-close.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-86" title="Jump back to footnote 86 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-87">
+<p>www.nokia.com &ldquo;Nokia Q1 2026 (reported April 23, 2026): Optical Networks net sales EUR 821M (+56% reported, +20% on constant-currency-and-portfolio basis vs. prior year); AI and Cloud net sales +49% YoY (now 8% of group sales); Nokia booked EUR 1 billion of AI and Cloud orders in Q1 2026 with optical book-to-bill well above one; raised FY2026 Network Infrastructure growth guidance to 12-14% and Optical+IP combined to 18-20%; raised addressable market CAGR assumption for AI and Cloud infrastructure to 27% through 2028&rdquo;, 2026-04-23 · https://www.nokia.com/newsroom/nokia-corporation-interim-report-for-q1-2026/ · Primary&#160;<a class="footnote-backref" href="#fnref:fn-87" title="Jump back to footnote 87 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-87" title="Jump back to footnote 87 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-87" title="Jump back to footnote 87 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-88">
+<p>www.sec.gov &ldquo;Coherent Q3 FY2026 (ended Mar 31, 2026) revenue $1.81B (+21% YoY); Datacenter &amp; Communications segment $1,361.6M (~75% of rev, +40%+ YoY, up from $968.7M)&rdquo;, 2026-05-06 · https://www.sec.gov/Archives/edgar/data/820318/000119312526208972/d57080dex991.htm · local: 2026-06-09-coherent-q3fy26-segment-revenue.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-88" title="Jump back to footnote 88 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-89">
+<p>www.fool.com &ldquo;Coherent Q3 FY2026 data-center business revenue +37% YoY / +13% sequential; momentum in ZR/ZR+ transceivers; 800G + 1.6T ramp gated by indium phosphide capacity; Q4 guide $1.91-2.05B&rdquo;, 2026-05-06 · https://www.fool.com/earnings/call-transcripts/2026/05/06/coherent-cohr-q3-2026-earnings-transcript/ · local: 2026-06-09-coherent-q3fy26-segment-revenue.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-89" title="Jump back to footnote 89 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-90">
+<p>convergedigest.com &ldquo;Coherent posted record Q3 FY2026 revenue of $1.81B (+21% YoY); datacenter optics = 75% of revenue; a step-function increase in order book drove backlog to a record level, but indium phosphide is an industry-wide supply constraint&rdquo;, 2026-05-06 · https://convergedigest.com/lumentum-revenue-soars-90-as-ai-data-center-optics-drive-record-quarter/ · local: 2026-06-09-convergedigest.com-lumentum-coherent-q3.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-90" title="Jump back to footnote 90 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-91">
+<p>www.lightcounting.com &ldquo;Optical supply chain at record backlog (Coherent bookings into 2028, LTAs through decade) but demand concentrated: ~half of hyperscaler cloud backlog traces to OpenAI + Anthropic; LightCounting warns &#x27;have a Plan B for 2028, the situation can change overnight&#x27;&ldquo;, 2026-05-15 · https://www.lightcounting.com/research-note/may-2026-record-sales-profits-and-backlog-across-the-supply-chain-can-this-get-any-better-446 · local: 2026-06-09-lightcounting-plan-b-2028.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-91" title="Jump back to footnote 91 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-91" title="Jump back to footnote 91 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-91" title="Jump back to footnote 91 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-91" title="Jump back to footnote 91 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-91" title="Jump back to footnote 91 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-91" title="Jump back to footnote 91 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-91" title="Jump back to footnote 91 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-91" title="Jump back to footnote 91 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-91" title="Jump back to footnote 91 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-92">
+<p>finance.yahoo.com &ldquo;Lumentum Q3 FY2026 (ended March 28, 2026) net revenue was $808.4 million, up 90% year-over-year; Components revenue $533M (+77% YoY, +20% QoQ); Systems revenue $275M (+121% YoY, +24% QoQ); the supply-demand imbalance widened to greater than 30% (prior quarter 25-30%), with components effectively sold out for the foreseeable future; pump lasers gap is greater than 30%, requiring customer allocation decisions&rdquo;, 2026-05-05 · https://finance.yahoo.com/markets/stocks/articles/lumentum-q3-earnings-call-highlights-013546546.html · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-92" title="Jump back to footnote 92 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-92" title="Jump back to footnote 92 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-92" title="Jump back to footnote 92 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-92" title="Jump back to footnote 92 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-92" title="Jump back to footnote 92 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-92" title="Jump back to footnote 92 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-92" title="Jump back to footnote 92 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-92" title="Jump back to footnote 92 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-92" title="Jump back to footnote 92 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-93">
+<p>photoncap.net &ldquo;Lumentum&#x27;s Q3 FY2026 $808.4M quarter is underpinned by eight distinct customer/product relationships spanning scale-up CPO (design-in cycles for late CY2027 first shipments), scale-out transceiver (800G EML, 200G EML revenue doubled in Q3 QoQ), scale-across DCI (narrow linewidth laser assemblies +120% YoY), pump lasers (cloud hyperscaler, gap greater than 30%), and silicon photonics; wafer fab in Japan fully allocated; EML unit shipments on track for more than 50% growth Dec-2025 to Dec-2026 quarter&rdquo;, 2026-05-06 · https://photoncap.net/p/the-8-companies-behind-lumentums · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-93" title="Jump back to footnote 93 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-94">
+<p>www.semiconductor-today.com &ldquo;Lumentum laser-chip capacity ramp: EML unit shipments on track to grow more than 50% from the December-2025 quarter to the December-2026 quarter; FQ3-2026 set a company record in EML shipments with units more than doubling YoY, and 200G EML revenue more than doubled sequentially; FQ3 capex of $125M went mainly to manufacturing capacity for cloud/AI customers.&rdquo;, 2026-06-10 · https://www.semiconductor-today.com/news_items/2026/may/lumentum-140526.shtml · local: 2026-06-10-semiconductor-today-lumentum-q3-fy26.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-94" title="Jump back to footnote 94 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-94" title="Jump back to footnote 94 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-95">
+<p>investor.marvell.com &ldquo;Marvell&#x27;s Q1 FY2027 (ended May 2, 2026) revenue was a record $2.418 billion, up 28% year-over-year (data center $1.833 billion, +27%), and the company significantly raised its FY2027 and FY2028 outlook citing demand drivers that explicitly include &#x27;scale-across datacenter interconnect modules&#x27; alongside 800G/1.6T scale-out optics and custom XPU.&rdquo;, 2026-06-10 · https://investor.marvell.com/news-events/press-releases/detail/1023/marvell-technology-inc-reports-first-quarter-of-fiscal-year-2027-financial-results · local: 2026-06-10-investor-marvell-com-q1-fy2027-earnings.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-95" title="Jump back to footnote 95 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-95" title="Jump back to footnote 95 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-96">
+<p>newsroom.cisco.com &ldquo;Cisco took $5.3 billion of AI infrastructure orders from hyperscalers in the first three quarters of FY2026 and raised expected FY2026 hyperscaler AI orders to $9 billion (from $5 billion) and expected FY2026 AI infrastructure revenue to $4 billion (from $3 billion).&rdquo;, 2026-06-10 · https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2026/m05/cisco-reports-third-quarter-earnings.html · local: 2026-06-10-newsroom-cisco-com-q3-fy2026-earnings.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-96" title="Jump back to footnote 96 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-97">
+<p>investors.broadcom.com &ldquo;Broadcom&#x27;s Q2 FY2026 (ended May 3, 2026) AI semiconductor revenue was a record $10.8 billion, up 143% year-over-year and above forecast, driven by custom AI accelerators and AI networking, with Q3 FY2026 AI semiconductor revenue guided to $16.0 billion (over 200% YoY growth).&rdquo;, 2026-06-10 · https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-second-quarter-fiscal-year-2026-financial · local: 2026-06-10-investors-broadcom-com-q2-fy2026-earnings.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-97" title="Jump back to footnote 97 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-98">
+<p>www.fool.com &ldquo;Networking represented almost 40% of Broadcom&#x27;s Q2 FY2026 AI semiconductor revenue, with Hock Tan citing leadership in Jericho 3 and Jericho 4 fabric solutions enabling the world&#x27;s largest hyperscaler deployments and calling Broadcom the de facto standard in CPO, 1.6T DSPs and CW/EML lasers &#x27;to extend AI clusters across data centers,&#x27; while guiding the networking mix to normalize closer to ~30% of AI revenue over time.&rdquo;, 2026-06-10 · https://www.fool.com/earnings/call-transcripts/2026/06/03/broadcom-avgo-q2-2026-earnings-transcript/ · local: 2026-06-10-fool-com-broadcom-q2-fy2026-transcript.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-98" title="Jump back to footnote 98 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-98" title="Jump back to footnote 98 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-99">
+<p>www.insidermonkey.com &ldquo;On its Q1 2026 earnings call Arista raised its 2026 AI revenue target to $3.5 billion, more than doubling its annual AI sales.&rdquo;, 2026-06-10 · https://www.insidermonkey.com/blog/arista-networks-inc-nyseanet-q1-2026-earnings-call-transcript-1754846/ · local: 2026-06-10-insidermonkey-com-arista-q1-2026-transcript.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-99" title="Jump back to footnote 99 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-100">
+<p>investors.arista.com &ldquo;Arista&#x27;s Q1 2026 (ended March 31, 2026) revenue was $2.709 billion, up 35.1% year-over-year, and the company announced the XPO multi-source agreement for high-density liquid-cooled pluggable optics designed for next-generation AI data centers.&rdquo;, 2026-06-10 · https://investors.arista.com/Communications/Press-Releases-and-Events/Press-Release-Detail/2026/Arista-Networks-Inc&ndash;Reports-First-Quarter-2026-Financial-Results/default.aspx · local: 2026-06-10-investors-arista-com-q1-2026-earnings.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-100" title="Jump back to footnote 100 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-101">
+<p>www.sdxcentral.com &ldquo;Coherent is doubling indium-phosphide capacity in calendar 2026 and expects to more than double again next calendar year — &#x27;a quadrupling over a two-year period&#x27; (CEO Jim Anderson, FQ3-2026 call) — via 6-inch wafer conversion at Sherman TX and Jarfalla Sweden plus a third announced 6-inch site in Zurich; 6-inch output to reach half of total InP capacity by year-end 2026; NVIDIA backs the ramp via a 2-billion-dollar investment made in early March 2026.&rdquo;, 2026-06-10 · https://www.sdxcentral.com/news/nvidia-backed-coherent-posts-record-quarter-as-ai-infrastructure-buildout-accelerates-optics-demand/ · local: 2026-06-10-sdxcentral-coherent-q3-fy26-inp-quadruple.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-101" title="Jump back to footnote 101 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-101" title="Jump back to footnote 101 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-101" title="Jump back to footnote 101 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-102">
+<p>gov.texas.gov &ldquo;Texas Semiconductor Innovation Fund granted Coherent 14,076,031 USD (announced Feb 6, 2026) to accelerate scaled production of InP wafers in Sherman, TX; the project represents more than 154 million USD of capital investment and establishes the world&#x27;s first 6-inch InP wafer fabrication plant, consolidating Coherent&#x27;s North American semiconductor operations.&rdquo;, 2026-06-10 · https://gov.texas.gov/news/post/governor-abbott-announces-texas-semiconductor-innovation-fund-grant-to-coherent · local: 2026-06-10-gov-texas-coherent-tsif-inp-grant.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-102" title="Jump back to footnote 102 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-102" title="Jump back to footnote 102 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-103">
+<p>www.lightwaveonline.com &ldquo;Uniti (which completed its Windstream acquisition) describes the hyperscaler fiber deal Windstream brought to the table as a 20-year IRU on existing infrastructure using 296 existing strands; Uniti&#x27;s hyperscaler sales funnel represents about $1.5 billion of total contract value.&rdquo;, 2025-08-20 · https://www.lightwaveonline.com/home/article/55311236/units-ceo-hyperscaler-funnel-represents-about-15b-of-total-contract-value · local: 2026-05-29-lightwave-uniti-hyperscaler-funnel.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-103" title="Jump back to footnote 103 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-104">
+<p>newsletter.semianalysis.com &ldquo;SemiAnalysis (June 25, 2025): AI training load fluctuations are approximately 15x larger than cloud DC fluctuations (cloud ~1.5 MW swing vs AI DC ~15 MW swing) at millisecond scales during checkpointing and synchronization; in ERCOT, a 2.0 GW load loss in West Texas triggers dangerous instability and 2.5-2.6 GW disconnection risks cascade blackout across ERCOT; 108 GW of large loads (primarily datacenters) seeking ERCOT grid connection; OpenAI&#x27;s largest training cluster is approximately 300 MW IT capacity and 400 MW nameplate; GW-scale datacenter sites planned by mid-2026; grid-scale synchronous AI training load volatility is unprecedented in utility planning&rdquo;, 2025-06-25 · https://newsletter.semianalysis.com/p/ai-training-load-fluctuations-at-gigawatt-scale-risk-of-power-grid-blackout · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-104" title="Jump back to footnote 104 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-104" title="Jump back to footnote 104 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-105">
+<p>www.marketbeat.com &ldquo;Lumentum CEO Michael Hurlston stated that since fiscal 2023 Lumentum has increased EML (electro-absorption modulated laser) output by 8x, and the company plans to raise indium-phosphide output by another 50% from the last quarter of calendar 2025 through the last quarter of calendar 2026; even so, demand outpaces supply, with Lumentum &#x27;under shipping&#x27; the market by roughly 25-30%.&rdquo;, 2026-03-20 · https://www.marketbeat.com/instant-alerts/lumentum-touts-ai-optics-boom-2b-quarterly-target-new-fab-and-16t-transceiver-shipments-2026-03-20/ · local: 2026-06-11-marketbeat.com-b1a725e8.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-105" title="Jump back to footnote 105 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-106">
+<p>www.itiger.com &ldquo;TD Cowen (analyst Sean O&#x27;Loughlin) initiated coverage of Lumentum (LITE) with a Hold rating, citing that significant capacity expansion by leading indium-phosphide (InP) manufacturers and a demand shift toward continuous-wave (CW) lasers could drive eventual merchant-market oversupply, despite acknowledging strong AI-infrastructure demand.&rdquo;, 2026-03-12 · https://www.itiger.com/news/1156135139 · local: 2026-06-11-itiger.com-463d9e51.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-106" title="Jump back to footnote 106 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-106" title="Jump back to footnote 106 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-107">
+<p>techcommunity.microsoft.com &ldquo;Microsoft announced the industrial scale-up of hollow-core fiber (Lumenisity-derived DNANF) production via manufacturing collaborations with Corning (North Carolina facilities) and Heraeus Covantics (Europe and U.S.), having deployed HCF across multiple Azure regions since 2023 with production links meeting targets and claimed benefits of up to 47% faster transmission and ~33% lower latency versus single-mode fiber.&rdquo;, 2026-06-10 · https://techcommunity.microsoft.com/blog/azurenetworkingblog/microsoft-azure-scales-hollow-core-fiber-hcf-production-through-outsourced-manuf/4455953 · local: 2026-06-10-techcommunity-microsoft-com-hcf-production-scaleup.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-107" title="Jump back to footnote 107 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-108">
+<p>fiberbroadband.org &ldquo;As of April 2026 Microsoft is bringing hollow-core fiber into large-scale production for Azure data centers, building on its 2024 stated plan to deploy 15,000 kilometers of HCF across the Azure network within a two-year period and its sub-0.1 dB/km attenuation result published in Nature (September 2025).&rdquo;, 2026-06-10 · https://fiberbroadband.org/2026/04/02/microsoft-scales-up-hollow-core-fiber-production/ · local: 2026-06-10-fiberbroadband-org-microsoft-hcf-production.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-108" title="Jump back to footnote 108 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-109">
+<p>arxiv.org &ldquo;Hollow-core fiber lowers propagation latency vs standard SMF: ASTRA-sim modeling of data-parallel GPT-3 multi-DC training shows HCF enables up to 50% greater DC separation and 25% higher compute-communication overlap for synchronous per-layer collectives; benefit is most pronounced at 10-100km inter-DC distances&rdquo;, 2026-05-01 · https://arxiv.org/html/2605.19169 · local: 2026-06-09-arxiv-fiber-latency-multidc-training.md · other&#160;<a class="footnote-backref" href="#fnref:fn-109" title="Jump back to footnote 109 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-110">
+<p>techticker.fyi &ldquo;CPO integrates laser+switch chip in one package, eliminating pluggable transceiver; broad hyperscale-switch adoption could disintermediate pluggable optics, but adoption is slower than predicted due to manufacturing complexity&rdquo;, 2026-03-16 · https://techticker.fyi/what-is-data-center-interconnect-dci-the-65b-highway-connecting-every-ai-factory/ · local: 2026-06-09-techticker-dci-cpo-risk.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-110" title="Jump back to footnote 110 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-110" title="Jump back to footnote 110 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-111">
+<p>investors.broadcom.com &ldquo;Displacement risk (a) status: at OFC 2026 (March 12, 2026) Broadcom showcased the 102.4T Tomahawk 6 as &#x27;the first and only&#x27; 100T-class Ethernet switch shipping in production volume, alongside the Tomahawk 6-Davisson co-packaged-optics variant, a 400G/lane optical DSP, Tomahawk Ultra (250ns latency), and Jericho 4 for secure lossless fabrics spanning 1M+ XPU clusters — CPO is now in production-grade switch silicon, the concrete vector for disintermediating pluggable transceivers.&rdquo;, 2026-06-10 · https://investors.broadcom.com/news-releases/news-release-details/broadcom-showcases-industry-leading-solutions-scaling-ai · local: 2026-06-10-broadcom-ofc-2026-cpo-portfolio.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-111" title="Jump back to footnote 111 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-111" title="Jump back to footnote 111 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-112">
+<p>cignal.ai &ldquo;CPO&#x27;s main applications are within scale-up and scale-out networks — NOT scale-across; scale-out is already 100% optical and pluggables dominate; CPO ports will be small in 2026 with growth starting in 2027 and taking off in 2029-2030, reaching over 25 million ports annually by 2030 conservatively. CPO is not a near-term risk to pluggable optics in scale-across DCI.&rdquo;, 2026-04-01 · https://cignal.ai/2026/04/cpo-and-elsfp-1q26-update/ · local: 2026-06-11-cignal.ai-6e313876.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-112" title="Jump back to footnote 112 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-112" title="Jump back to footnote 112 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-112" title="Jump back to footnote 112 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-113">
+<p>247wallst.com &ldquo;On 2026-06-02 the optics complex rallied together after NVIDIA CEO commentary spotlighting optical networking: Coherent +16% to 422 USD (new 52-week high 440 on June 3), Lumentum +13% crossing the 1,000-dollar level, AAOI +8%; one-year runs at that date: Coherent +449%, Lumentum +1,255%, AAOI +1,219%; NVIDIA&#x27;s 2-billion-dollar investment in Coherent (deepening their laser and optical networking partnership) cited as structural support; Coherent forward P/E about 49x.&rdquo;, 2026-06-10 · https://247wallst.com/investing/2026/06/02/coherent-advances-16-lumentum-climbs-13-applied-optoelectronics-adds-8-as-optics-rally-broadens/ · local: 2026-06-10-247wallst-optics-rally-jun2.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-113" title="Jump back to footnote 113 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<script src="../assets/vega-embed-bundle.js"></script>
+<script src="../assets/chart-embed.js"></script>
+</body>
+</html>
