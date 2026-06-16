@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ribbon Communications (RBBN) vs ADTRAN Holdings (ADTN) — Tier-2 Optical Through the AI-DC Interconnect Lens</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* ===== Page templates ===== */
+
+@page {
+    size: Letter;
+    margin: 0.7in 0.75in 0.8in 0.75in;
+    @top-left {
+        content: "Hendren HQ Research";
+        font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        font-weight: 600;
+        color: #1A1A1A;
+        letter-spacing: 0.04em;
+    }
+    @top-right {
+        content: string(running-title);
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6B6B6B;
+    }
+    @bottom-center {
+        content: "Hendren HQ Research  ·  Page " counter(page) " of " counter(pages);
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6B6B6B;
+    }
+}
+
+@page cover {
+    margin: 0;
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-center { content: none; }
+}
+
+/* ===== Cover page ===== */
+
+.cover-page {
+    page: cover;
+    page-break-after: always;
+    width: 100%;
+    min-height: 9.5in;
+    padding: 1.8in 1in 0.9in 1in;
+    text-align: center;
+    box-sizing: border-box;
+}
+.cover-wordmark {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: #1A1A1A;
+    text-transform: uppercase;
+    margin-bottom: 8pt;
+}
+.cover-wordmark-rule {
+    width: 36pt;
+    height: 1.5pt;
+    background: #8B2332;
+    margin: 0 auto 64pt auto;
+}
+.cover-title {
+    string-set: running-title content();
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.25;
+    margin: 0 0 12pt 0;
+    letter-spacing: -0.005em;
+}
+.cover-subtitle {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 14pt;
+    color: #3D3D3D;
+    font-style: italic;
+    font-weight: 400;
+    margin: 0 0 64pt 0;
+}
+.cover-meta {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    color: #3D3D3D;
+    letter-spacing: 0.04em;
+    margin: 4pt 0;
+}
+.cover-meta strong {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+.cover-divider {
+    width: 80pt;
+    height: 0.5pt;
+    background: #D9D9D6;
+    margin: 40pt auto;
+}
+.cover-stats {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-top: 24pt;
+    font-size: 10pt;
+    color: #3D3D3D;
+}
+.cover-stats .stat {
+    margin: 0 14pt;
+}
+.cover-stats strong {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+.cover-footer {
+    margin-top: 80pt;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    font-style: italic;
+}
+
+/* ===== Masthead (uniform across published surfaces — mirrors hub-masthead.css) ===== */
+
+.masthead {
+    border-bottom: 1px solid #1A1A1A;
+    padding: 6pt 0 14pt 0;
+    margin-bottom: 22pt;
+}
+.masthead-top {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6B6B6B;
+    font-weight: 500;
+    padding-bottom: 10pt;
+    border-bottom: 1px solid #D9D9D6;
+    margin-bottom: 14pt;
+}
+.masthead-top .doctype { color: #0E2A47; font-weight: 600; }
+.masthead-top .date { color: #8B2332; font-weight: 600; }
+.masthead h1.title {
+    string-set: running-title content();
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 24pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.15;
+    letter-spacing: -0.012em;
+    margin: 0;
+}
+.masthead .subtitle {
+    display: block;
+    margin-top: 6pt;
+    font-size: 0.5em;
+    font-weight: 400;
+    color: #6B6B6B;
+    letter-spacing: 0;
+    font-style: italic;
+    line-height: 1.3;
+}
+
+/* ===== Body ===== */
+
+html { font-size: 11pt; }
+
+body {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    line-height: 1.6;
+    color: #1A1A1A;
+    max-width: 100%;
+}
+
+/* Page break marker for section transitions (briefs in a packet) */
+.page-break {
+    page-break-before: always;
+    height: 0;
+}
+
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+}
+
+h1 {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 22pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.3;
+    margin: 0 0 6pt 0;
+    letter-spacing: -0.005em;
+    string-set: running-title content();
+}
+
+h2 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 24pt 0 8pt 0;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+}
+
+h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin: 14pt 0 4pt 0;
+}
+
+h4 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 12pt 0 4pt 0;
+    letter-spacing: 0.04em;
+}
+
+h5, h6 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    margin: 10pt 0 4pt 0;
+    color: #1A1A1A;
+}
+
+/* Paragraphs */
+
+p {
+    margin: 0 0 10pt 0;
+    orphans: 2;
+    widows: 2;
+}
+
+/* Links */
+
+a {
+    color: #0E2A47;
+    text-decoration: none;
+    border-bottom: 0.5pt solid #0E2A47;
+    word-break: break-word;
+}
+
+/* Lists */
+
+ul, ol {
+    margin: 8pt 0;
+    padding-left: 22pt;
+}
+li {
+    margin: 5pt 0;
+}
+li > ul, li > ol {
+    margin: 4pt 0;
+}
+
+/* Blockquotes — large opening quotation mark, italic serif */
+
+blockquote {
+    margin: 14pt 0 4pt 14pt;
+    padding: 0;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    color: #1A1A1A;
+    font-size: 11pt;
+    line-height: 1.55;
+    text-indent: 0;
+}
+blockquote::before {
+    content: "\201C";
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    color: #8B2332;
+    line-height: 0;
+    vertical-align: -0.35em;
+    margin-right: 4pt;
+    font-style: normal;
+}
+blockquote p { margin: 0 0 8pt 0; display: inline; }
+blockquote p:last-child { margin-bottom: 0; }
+
+/* Citation line that follows a blockquote (italic em-dashed source) */
+
+.citation {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    margin: 4pt 0 14pt 18pt;
+    font-style: normal;
+}
+
+/* BLUF callout — italic serif with accent left rule, no fill */
+
+.bluf {
+    border-left: 2pt solid #8B2332;
+    padding: 4pt 0 4pt 18pt;
+    margin: 4pt 0 18pt 0;
+    font-style: italic;
+    font-size: 11pt;
+    color: #1A1A1A;
+    page-break-inside: avoid;
+}
+.bluf h2, .bluf h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #8B2332;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 4pt 0;
+    font-style: normal;
+}
+.bluf p { margin: 0 0 8pt 0; font-style: italic; }
+.bluf p:last-child { margin-bottom: 0; }
+.bluf strong { font-style: italic; }
+
+/* "What to ask" — distinguished section (optional class wrap) */
+
+.ask {
+    border-top: 0.5pt solid #D9D9D6;
+    border-bottom: 0.5pt solid #D9D9D6;
+    padding: 12pt 0 4pt 0;
+    margin: 22pt 0;
+}
+
+/* Code (rare in briefs but supported) */
+
+code {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9.5pt;
+    background: #f3f3f0;
+    padding: 1pt 4pt;
+    border-radius: 2pt;
+}
+pre {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9pt;
+    background: #f7f5f2;
+    padding: 10pt 12pt;
+    border-radius: 3pt;
+    line-height: 1.4;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code { background: transparent; padding: 0; }
+
+/* Tables — minimal lines, no fills (editorial restraint) */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 14pt 0;
+    font-size: 10pt;
+    page-break-inside: auto;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+th, td {
+    border-bottom: 0.5pt solid #D9D9D6;
+    padding: 6pt 8pt 6pt 0;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    font-weight: 700;
+    color: #1A1A1A;
+    border-bottom: 1pt solid #1A1A1A;
+    letter-spacing: 0.02em;
+    font-size: 9.5pt;
+}
+
+/* Horizontal rule — visible separator inside a section (NOT a page break) */
+
+hr {
+    border: 0;
+    border-top: 0.5pt solid #D9D9D6;
+    margin: 18pt 0;
+}
+
+/* Images */
+
+img { max-width: 100%; height: auto; }
+
+/* Emphasis */
+
+strong { font-weight: 700; color: #1A1A1A; }
+em { font-style: italic; }
+
+/* Topic tag / meta line at top of each brief */
+
+.brief-meta-line {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    letter-spacing: 0.04em;
+    margin: 0 0 22pt 0;
+    padding-bottom: 12pt;
+    border-bottom: 0.5pt solid #D9D9D6;
+}
+.brief-meta-line .tag {
+    color: #8B2332;
+    font-style: italic;
+}
+
+/* Source list at the bottom of each brief */
+
+.sources-block {
+    margin-top: 28pt;
+    padding-top: 14pt;
+    border-top: 0.5pt solid #D9D9D6;
+    font-size: 9.5pt;
+    color: #3D3D3D;
+}
+.sources-block h2,
+.sources-block h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #1A1A1A;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 8pt 0;
+    font-weight: 700;
+}
+.sources-block ul { padding-left: 18pt; margin: 0; }
+.sources-block li { margin: 3pt 0; }
+</style>
+</head>
+<body>
+<header class="masthead">
+<div class="masthead-top"><span class="doctype">Primer</span><span class="date">Drafted 2026-06-16</span></div>
+<h1 class="title">Ribbon Communications (RBBN) vs ADTRAN Holdings (ADTN) — Tier-2 Optical Through the AI-DC Interconnect Lens</h1>
+</header>
+<p><em>Buy-side deeper-report · comparative two-name coverage · neutral survey · 2026-06-16</em></p>
+<p><strong>The central question.</strong> Are RBBN and ADTN cheap tier-2 optical names with real AI–data-center (AI-DC) interconnect optionality the market is missing — or correctly-discounted sub-scale vendors whose AI-DC exposure is too small, and whose risks too large, to matter?</p>
+<p><strong>Terms used in this note (defined on first use):</strong> <em>DCI</em> — data-center interconnect, the optical links that carry traffic between (and increasingly within) data centers. <em>ZR / ZR+</em> — industry standards for coherent pluggable optics (transceivers that plug directly into routers/switches), with 400ZR, 800ZR and ZR+ denoting capacity/reach variants. <em>Coherent pluggable</em> — a coherent optical transceiver in a pluggable form factor that lets a router host the optics directly. <em>Scale-across</em> — interconnecting AI data centers across metro/regional distances so multiple sites act as one training fabric. <em>MOFN</em> — Managed Optical Fiber Network, where a hyperscaler contracts a carrier to build/operate optical capacity on its behalf. <em>DPLTA</em> — Domination and Profit-and-Loss Transfer Agreement, the German corporate instrument governing ADTRAN&rsquo;s control of its Adtran Networks SE subsidiary and the minority squeeze-out. <em>SOTP</em> — sum-of-the-parts valuation.</p>
+<hr>
+<h2 id="1-investment-summary-thesis-answer-first">1. Investment summary / thesis (answer-first)</h2>
+<p><strong>The evidence-led answer: both are correctly-discounted sub-scale tier-2 optical/access vendors with real but minority AI-DC optionality — not a missed AI re-rating. ADTN has the stronger claim of the two; neither is thesis-grade AI exposure.</strong></p>
+<p>The starting point is scale, and it is unflattering for both. Neither Ribbon nor ADTRAN appears in any optical-systems leader tier: on a trailing-four-quarter basis through Q1 2026, Huawei, Ciena, Nokia (including Infinera) and ZTE held more than 80% of optical transport systems revenue between them, and for the ZR/ZR+ IPoDWDM segment the lead vendors are Marvell and Cisco/Acacia — neither RBBN nor ADTN is named <sup id="fnref:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>. Each company&rsquo;s optical franchise runs at roughly $0.33–0.38B annually versus Ciena&rsquo;s ~$5.6B, i.e. about one-fifteenth the scale <sup id="fnref:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref2:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. A separate sell-side interconnect tiering (Bernstein, 97pp) names component/DSP leaders and neither of these two <sup id="fnref:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. Three independent reads place both firmly in the tier-2 challenger band.</p>
+<p>AI-DC exposure is real but a minority of each name, and is more product-positioning than booked revenue. On the model&rsquo;s analytic build-up, RBBN carries ~$25.0M of AI-DC-exposed revenue (~3.0% of FY2025 sales) and ADTN ~$123.6M (~11.4%) — ADTN roughly 4.9x RBBN. RBBN discloses no data-center revenue line at all, so its figure is inferred small <sup id="fnref:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>; ADTN&rsquo;s larger number is grounded in a cloud/enterprise mix that the company does disclose (21% of FY2025 revenue), optical growth its management attributes to cloud data-center capacity, and an explicit subsidiary-level &ldquo;AI data centers&rdquo; attribution <sup id="fnref:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup><sup id="fnref2:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup><sup id="fnref:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>. Both companies&rsquo; AI framing leans on product launches and reference customers rather than disclosed AI revenue <sup id="fnref:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup><sup id="fnref:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>.</p>
+<p>The AI re-rating accrued almost entirely to the scale leader. Ciena trades at roughly 11.6x EV/Sales; RBBN at ~1.0x and ADTN at ~1.2x got none of it <sup id="fnref3:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref2:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup><sup id="fnref:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref2:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref3:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>.</p>
+<p><img alt="The AI re-rating bypassed the tier-2 names: RBBN 1.0x / ADTN 1.2x sales vs Coherent 10.1x, Ciena 11.6x" src="rbbn-adtran-dc-networking-valuation-gap.png"></p>
+<p>On the relative call within a neutral survey: ADTN has the stronger claim — more genuine AI-DC exposure, faster optical growth (+26.4% YoY), and a deleveraging turnaround — but it carries the DPLTA squeeze-out overhang, up to ~€304.4M/$351.7M if all minorities elect, per the Q1 2026 10-Q <sup id="fnref2:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref3:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup><sup id="fnref:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>. RBBN is cheaper but more levered, with a May-2026 covenant waiver and near-zero demonstrated AI-DC traction (zero named hyperscaler wins in FY2025) <sup id="fnref:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup><sup id="fnref2:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>. Neither is a pure-play AI-interconnect bet; both are optionality-with-baggage <sup id="fnref2:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref3:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref4:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup><sup id="fnref2:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup><sup id="fnref3:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>.</p>
+<hr>
+<h2 id="2-variant-view-what-the-street-is-and-isnt-missing">2. Variant view — what the Street is (and isn&rsquo;t) missing</h2>
+<p>The Street prices both as cyclical sub-scale hardware vendors, not AI beneficiaries — and that is the variant the bull case must exploit. Ciena&rsquo;s ~165% year-to-date move and ~11.6x multiple sit on a <em>verified</em> $5.57B top line growing ~30.6% YoY <sup id="fnref:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup><sup id="fnref3:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. RBBN and ADTN lack a comparable disclosed AI revenue line <sup id="fnref4:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>, and only ADTN shows a demonstrably cloud/DC-driven optical mix <sup id="fnref5:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>.</p>
+<p>So the honest variant is narrow: the market may be under-crediting <strong>ADTN&rsquo;s</strong> demonstrated optical pull, not that it has mispriced a hidden AI franchise at either name. A re-rating toward the leader&rsquo;s multiple would require disclosed AI-DC revenue that the filings do not yet show. The valuation gap is the opportunity; the exposure reality only partly supports closing it <sup id="fnref4:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref4:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup><sup id="fnref6:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup><sup id="fnref5:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>.</p>
+<hr>
+<h2 id="3-business-economics-the-optical-sliver-and-who-buys-it">3. Business &amp; economics — the optical sliver and who buys it</h2>
+<p><strong>RBBN.</strong> Optical is the minority of the company. IP Optical Networks generated $333.1M in FY2025 (~39% of the $844.6M total); the larger Cloud &amp; Edge segment ($511.4M, ~61%) is voice/UC modernization with no data-center linkage <sup id="fnref:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup><sup id="fnref2:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup><sup id="fnref5:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>. Even a fully successful optical story addresses under 40% of Ribbon. The Apollo platform&rsquo;s AI-DC capability is real — 800G ZR+ scaling to 1.2T coherent, Scale-Across, a distinctive &ldquo;Rural DCI&rdquo; angle targeting 67% of US DCI growth via cross-sell to the rural telco installed base — but it is positioned at Tier-1/Tier-2 service providers, not sold direct to hyperscalers <sup id="fnref:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup><sup id="fnref:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup>. The capability is architecturally credible; the channel is mismatched to where hyperscaler spend lands.</p>
+<p><strong>ADTN.</strong> Optical is the largest and fastest-growing product family: $380.3M in FY2025, +26.4% YoY, with Q4 optical up 33% YoY that management attributes to cloud providers expanding data-center capacity plus enterprise upgrades <sup id="fnref4:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref7:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>. The other two families are broadband-access-oriented and grew on telco demand: Subscriber Solutions $369.1M (+11.6%) and Access &amp; Aggregation $334.4M (+14.9%) <sup id="fnref5:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref6:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. The 10-K explicitly frames the business around metro optical transport, DCI and broadband access, and names hyperscalers, neocloud and data-center companies in its customer base <sup id="fnref7:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. The optical line is the single best-evidenced AI-DC linkage in the pair.</p>
+<p>The exposure cannot be pinned precisely, and the imprecision cuts both ways. ADTN&rsquo;s enterprise+cloud-provider mix was 21% of revenue in FY2025 (25% in Q4) — but that blends large non-AI enterprise (e.g. banking), so it <em>overstates</em> AI-DC; meanwhile MOFN demand (hyperscalers contracting carriers to build for them) books as <em>carrier</em> revenue, so direct hyperscaler pull is split across lines and <em>understated</em> <sup id="fnref8:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup><sup id="fnref9:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>. The model&rsquo;s ~11.4% is therefore the midpoint of a wide range, not a disclosed figure. A second, smaller thread: the Oscilloquartz timing portfolio offers a niche GPS/GNSS-independent timing angle for data centers, but it sits in Access &amp; Aggregation, not Optical, and is unsized <sup id="fnref8:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>.</p>
+<p><img alt="ADTN carries ~5x RBBN's genuine AI-DC revenue, but it is a minority for both (3% vs 11% of FY2025 sales)" src="rbbn-adtran-dc-networking-aidc-revenue-split.png"></p>
+<p>For context on how much of each name is even optical:</p>
+<p><img alt="Optical is a minority of each name's mix: RBBN IP Optical ~39%, ADTN Optical ~35% of FY2025 revenue" src="rbbn-adtran-dc-networking-segment-mix.png"></p>
+<hr>
+<h2 id="4-competitive-position-moat-the-tier-2-reality-and-merchant-pluggable-disruption">4. Competitive position / moat — the tier-2 reality and merchant-pluggable disruption</h2>
+<p>The demand backdrop is genuine and large. Optical transport equipment grew to $16B in 2025 (+10%) and is forecast to surpass $18B in 2026 (+16%), DCI-led, with DCI growing roughly twice the overall market and 800ZR/ZR+ pluggables exceeding $1B of revenue in 2026 <sup id="fnref:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup><sup id="fnref:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup><sup id="fnref:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>. The opportunity is real; the open question for tier-2 vendors is <em>reach</em>, not size.</p>
+<p>Two structural forces work against that reach. First, the architecture itself is shifting under them: cloud operators have made router-hosted coherent pluggables their default DCI architecture, shifting an estimated ~$2.5B out of traditional optical transport in 2024 alone <sup id="fnref:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref2:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>. That fault line both displaces the chassis transport RBBN and ADTN historically sold <em>and</em> forces them to compete as pluggable hosts on someone else&rsquo;s silicon. Second, the scale leaders are consolidating up into the wave: Nokia closed Infinera in February 2025, creating a &gt;$3.6B optical business <sup id="fnref2:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref2:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The scale gap is widening, not narrowing.</p>
+<p>The outside-in read confirms the inside-out one: sell-side interconnect coverage tiers the investable set around component and DSP leaders (Coherent, Lumentum, Fabrinet, Corning) and names neither RBBN nor ADTN <sup id="fnref3:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. The market&rsquo;s neglect looks considered, not an oversight.</p>
+<hr>
+<h2 id="5-financials-forecast-growth-margins-earnings-quality">5. Financials &amp; forecast — growth, margins, earnings quality</h2>
+<p><strong>RBBN — flat top line, weak earnings quality.</strong> FY2025 revenue was $844.6M (+1.3%) <sup id="fnref:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup> with non-GAAP gross margin compressing to 52.3% (from 55.9%) <sup id="fnref2:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>, a GAAP operating loss of $(3)M <sup id="fnref3:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>, and adjusted EBITDA down to $107M <sup id="fnref4:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>. The headline GAAP net income of $39.6M is tax-benefit-driven, not operating — the reader should not mistake it for earnings power <sup id="fnref5:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>. The balance sheet is workable but thin: total debt of $405.1M (term debt plus finance leases) against $96.4M of cash, leaving the $308.7M net-debt figure that frames the leverage discussion below <sup id="fnref:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup><sup id="fnref2:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup>. The FY2026 guide is modest and back-half weighted: revenue $840–875M (midpoint $857.5M, ~+1.5%), gross margin 52.5–53.5%, adjusted EBITDA $105–120M, with IP Optical guided to ~5% growth driven by India/EMEA telco and BEAD broadband subsidies — explicitly not hyperscaler AI-DC <sup id="fnref6:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup><sup id="fnref7:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup><sup id="fnref6:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>. The Q4 IP Optical line actually declined 2% YoY and US Federal revenue roughly halved, framing the caution <sup id="fnref7:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref8:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>.</p>
+<p><strong>ADTN — real turnaround on non-GAAP/cash, unproven on GAAP.</strong> FY2025 grew 17.5% to $1,083.8M, with the non-GAAP operating margin swinging to +4.8% (from -0.3%) and free cash flow up 58% to $60.5M <sup id="fnref9:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref10:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup><sup id="fnref11:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>. GAAP gross margin also improved to 38.3% (from 35.1%), evidence the mix/cost work is reaching the P&amp;L <sup id="fnref10:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. But the company remained GAAP loss-making: operating loss $(15.6)M, net loss $(45.7)M — narrowed sharply from 2024&rsquo;s impairment-driven losses, yet still red <sup id="fnref11:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref12:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. ADTN gives only Q1&lsquo;26 guidance ($275–295M, non-GAAP operating margin 4–8%) and no full-year 2026 guide; the Q4&lsquo;25 exit-rate was strong (revenue +20.1%, a sixth consecutive sequential-growth quarter), though component supply (memory/optics) is a flagged risk <sup id="fnref:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup><sup id="fnref2:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup>. The short book-to-ship and absent FY guide are themselves earnings-quality signals. Both names run heavy R&amp;D (RBBN ~21.8% of revenue, ADTN ~18.4%) and ADTN&rsquo;s trailing ROE is still negative (~-24%) on the GAAP losses — consistent with the picture above and not separately load-bearing <sup id="fnref4:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref5:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref6:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>.</p>
+<hr>
+<h2 id="6-valuation-comps-and-the-illustrative-sotp-gap">6. Valuation — comps and the illustrative SOTP gap</h2>
+<p>On the comparable set, RBBN (0.97x EV/Sales) and ADTN (1.25x) trade far below access peer Calix (2.26x) and the AI-optics beneficiaries Coherent (10.13x) and Ciena (11.63x) <sup id="fnref7:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref8:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref9:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref6:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>. RBBN&rsquo;s and ADTN&rsquo;s multiples here are computed on FY2025 revenue (the model basis); on the trailing-twelve-month basis used for the peer figures they screen marginally higher, at 0.99x and 1.21x respectively <sup id="fnref10:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref11:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>EV/Sales (x)</th>
+<th>EV/EBITDA (x)</th>
+<th>Market cap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ribbon (RBBN)</td>
+<td>0.97</td>
+<td>18.19 <sup id="fnref27:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup></td>
+<td>~$490M</td>
+</tr>
+<tr>
+<td>ADTRAN (ADTN)</td>
+<td>1.25</td>
+<td>12.89 <sup id="fnref28:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup></td>
+<td>~$1,223M</td>
+</tr>
+<tr>
+<td>Calix (CALX)</td>
+<td>2.26 <sup id="fnref29:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup></td>
+<td>36.47 <sup id="fnref30:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup></td>
+<td>~$2,440M <sup id="fnref31:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup></td>
+</tr>
+<tr>
+<td>Coherent (COHR)</td>
+<td>10.13 <sup id="fnref32:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup></td>
+<td>57.65 <sup id="fnref33:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup></td>
+<td>~$65,060M <sup id="fnref34:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup></td>
+</tr>
+<tr>
+<td>Ciena (CIEN)</td>
+<td>11.63 <sup id="fnref35:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup></td>
+<td>97.54 <sup id="fnref36:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup></td>
+<td>~$64,210M <sup id="fnref37:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup></td>
+</tr>
+</tbody>
+</table>
+<p><em>EV/Sales basis: RBBN and ADTN computed on FY2025 revenue (model); Calix, Coherent and Ciena on FMP trailing-twelve-month. The two bases differ only marginally for the tier-2 names (RBBN 0.97x vs 0.99x TTM; ADTN 1.25x vs 1.21x TTM) and do not affect the comparison.</em></p>
+<p>The EBITDA multiples carry less signal than EV/Sales here. RBBN&rsquo;s (18.19x) and the peers&rsquo; optically high readings — Ciena 97.54x, Coherent 57.65x — sit on depressed or fast-growing EBITDA denominators, and for RBBN the GAAP/non-GAAP EBITDA-basis issue noted below applies. A sales-multiple comparison is therefore the cleaner lens for the re-rating question <sup id="fnref12:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref13:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref14:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>.</p>
+<p>An <strong>illustrative</strong> sum-of-the-parts — valuing the AI-DC sliver at 10x sales (in line with where the scale leaders Coherent and Ciena trade, ~10–12x) and the rest at 1x — implies a +30.4% enterprise-value uplift for RBBN and +62.2% for ADTN <sup id="fnref15:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref16:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>. This is indicative of the embedded optionality, <strong>not a price target</strong>: ADTN&rsquo;s larger sliver drives the bigger gap.</p>
+<p>Leverage colors the equity read. RBBN&rsquo;s net debt is $308.7M, roughly 2.9x adjusted EBITDA, versus ADTN&rsquo;s ~$125M, roughly 1.24x <sup id="fnref3:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup><sup id="fnref17:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>. Note a data conflict worth flagging: FMP reports RBBN net-debt/EBITDA at 7.33x, but that is computed on a GAAP/trailing-EBITDA basis that does not reconcile to the ~2.9x on FY2025 adjusted EBITDA of $107M <sup id="fnref8:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup> and net debt of $308.7M — the model adopts the ~2.9x adjusted-EBITDA basis as primary and treats the 7.33x as the FMP-basis artifact <sup id="fnref18:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref4:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup>. The corrected read still leaves RBBN the more-levered of the two, and its cheaper sales multiple is partly a more-levered balance sheet rather than pure neglect.</p>
+<hr>
+<h2 id="7-scenarios-per-name-and-the-asymmetry">7. Scenarios — per name, and the asymmetry</h2>
+<p><strong>ADTN.</strong> <em>Bull:</em> demonstrated cloud/DC optical pull continues (Q4 optical +33%) and the EMEA Huawei-replacement opportunity (~$850–860M of annual EMEA Huawei spend in ADTN&rsquo;s target products, on management&rsquo;s estimate) converts to share <sup id="fnref12:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup><sup id="fnref13:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>. <em>Bear:</em> the DPLTA exit cash drain crystallizes while a GAAP-loss relapse returns <sup id="fnref2:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup><sup id="fnref13:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. <strong>RBBN.</strong> <em>Bull:</em> the nascent DCI wins become disclosed revenue. <em>Bear:</em> flat optical, federal softness and covenant pressure compound <sup id="fnref9:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref10:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref3:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>. The asymmetry favors ADTN on demonstrated traction, but with a larger discrete cash claim (DPLTA) standing against it.</p>
+<hr>
+<h2 id="8-catalysts-next-612-months-hard-vs-soft">8. Catalysts — next 6–12 months, hard vs soft</h2>
+<p><strong>Soft (product/reference, no disclosed AI revenue):</strong> ADTN&rsquo;s LiteWave800 — its first product purpose-built for intra-data-center AI infrastructure (800G), with volume production roughly a year out — and a quantum-safe optical narrative; RBBN&rsquo;s Q1&lsquo;26 &ldquo;several new Data Center Interconnect wins&rdquo; (no DCI revenue disclosed) and an AWS Strategic Collaboration Agreement <sup id="fnref:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup><sup id="fnref2:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup><sup id="fnref2:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup>. The path to a re-rating runs through <em>disclosed</em> AI revenue that does not yet exist.</p>
+<p><strong>Hard (dated, testable):</strong> ADTN&rsquo;s Q1&lsquo;26 print already landed ($286.1M, +15.5%; optical $237.9M) and DPLTA appraisal proceedings are live; RBBN&rsquo;s Q1&lsquo;26 already showed revenue down 10% to $163M with negative adjusted EBITDA of $(8)M and a May-2026 covenant waiver <sup id="fnref2:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup><sup id="fnref2:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup><sup id="fnref3:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup><sup id="fnref4:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>. The next earnings prints, covenant tests and the appraisal outcome are the events that move the names.</p>
+<hr>
+<h2 id="9-risks-and-what-would-change-my-mind-falsifiable-trip-wires">9. Risks and what would change my mind — falsifiable trip-wires</h2>
+<p><strong>For the bull case (would convert optionality to thesis-grade):</strong> a named hyperscaler or neocloud optical design win with <em>disclosed</em> AI-DC revenue at either name. RBBN named zero such wins in FY2025; ADTN names hyperscalers in its customer base but discloses no AI-DC revenue line <sup id="fnref11:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref14:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref12:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref14:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>. A disclosed win or revenue line would flip the call.</p>
+<p><strong>Against (would confirm the discount):</strong> the router-hosted pluggable shift accelerating faster than DCI wins replace the displaced systems/chassis revenue both depend on. RBBN&rsquo;s flat-to-declining IP Optical (Q4 -2%) is the early tell <sup id="fnref2:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref13:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref3:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>.</p>
+<hr>
+<h2 id="10-single-name-specifics">10. Single-name specifics</h2>
+<p><strong>RBBN.</strong> Market cap ~$489.7M, enterprise value ~$820.4M, share ~$2.78, consensus price target $3.50 <sup id="fnref19:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref20:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref21:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref22:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>. The term loan matures in 2029 at SOFR+6.25% — no maturity wall — but a May-2026 covenant waiver (raising max net leverage to 4.50x, stepping to 4.00x) makes leverage headroom the binding single-name risk, alongside high-cost floating-rate debt <sup id="fnref:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup><sup id="fnref5:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>.</p>
+<p><strong>ADTN.</strong> Market cap ~$1,223M, enterprise value ~$1,353.8M, share ~$15.10, consensus price target $18.00 <sup id="fnref23:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref24:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref25:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref26:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>. ADTRAN owns just over 70% of Adtran Networks SE; the DPLTA squeeze-out gives minorities a €17.21/share cash put, aggregating up to ~€304.4M/$351.7M if all elect, per the Q1 2026 10-Q (including guaranteed interest, at the 3/31/26 exchange rate) — and German appraisal proceedings could raise it. Funded debt is ~$201.3M of 3.75% convertibles due 2030 plus a $25M revolver <sup id="fnref4:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup><sup id="fnref15:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. The DPLTA claim, against an otherwise improving balance sheet, is the binding single-name risk.</p>
+<p>The optical exposure lives in a specifically-named subsidiary the reader can track: Adtran Networks SE (ex-ADVA, Munich), which houses the FSP 3000 platform and AOE coherent pluggables, grew FY2025 group revenue 10% to €481.7M and explicitly attributes demand to an &ldquo;unprecedented investment boom in AI data centers&rdquo; — the strongest filing-grade AI linkage in the pair, though framed largely via service-provider transport rather than direct hyperscaler sales <sup id="fnref2:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup><sup id="fnref3:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>.</p>
+<p><strong>Implementation/sizing.</strong> Both are small-cap and sub-scale; RBBN&rsquo;s micro-cap size and covenant overhang argue for the smaller position if either is taken, while ADTN&rsquo;s larger float and cash generation give it the cleaner balance sheet net of the discrete DPLTA claim.</p>
+<hr>
+<h2 id="11-sources">11. Sources</h2>
+<p>Full provenance — source URLs, document types, publication dates and confidence — lives in the findings sidecar: <code>/Users/johnhendren/Desktop/Projects/vault/raw/research-2026-06-16-rbbn-adtran-dc-networking/findings.jsonl</code> (S001–S087). Derived valuation figures (AI-DC-exposed revenue estimates, the illustrative SOTP uplift, comps) tie to the model <code>/Users/johnhendren/Desktop/Projects/vault/kb/outputs/models/rbbn-adtran-dc-networking-comps_v1_2026-06-16.xlsx</code>.</p>
+<p>Key primary sources cited above include: RBBN and ADTN FY2025 results and 10-K filings [S027–S054]; RBBN and ADTN Q1&lsquo;26 results <sup id="fnref3:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup><sup id="fnref3:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup>; Adtran Networks SE FY2025 annual report <sup id="fnref4:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup><sup id="fnref5:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>; the ADTRAN Q1 2026 10-Q (current DPLTA Exit Compensation) <sup id="fnref5:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>; Dell&rsquo;Oro and Cignal AI optical/DCI market forecasts [S069–S071]; FMP market-data snapshots and stockanalysis.com Ciena verification [S001–S026][S081–S084]; and Bernstein interconnect coverage <sup id="fnref4:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>.</p>
+<h2 id="sources">Sources</h2>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:fn-1">
+<p>trade-press &ldquo;On a trailing-four-quarter basis through Q1 2026, the top optical transport systems vendors holding over 80% combined revenue share were Huawei, Ciena, Nokia (incl. Infinera), and ZTE; for IPoDWDM ZR/ZR+ specifically the lead vendors were Marvell and Cisco/Acacia. Neither Ribbon nor ADTRAN appears in the leader tier, placing both as sub-scale tier-2 challengers in systems optical / DCI.&rdquo;, 2026-05-01 · local: 2026-06-11-delloro.com-c8237202-clean.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-2">
+<p>www.sec.gov &ldquo;Nokia closed its acquisition of Infinera on Feb 28, 2025 (~$2.3B equity, $6.65/sh), creating an optical business with &gt;$3.6B turnover; Q1 2026 Optical Networks net sales were EUR 821M (+20% constant-currency/portfolio), AI &amp; Cloud sales +49%, with EUR 1B of AI &amp; Cloud orders. Scale leaders are consolidating UP into the AI-DC interconnect wave while RBBN/ADTN remain sub-$0.4B optical run-rates.&rdquo;, 2025-02-28 · https://www.sec.gov/Archives/edgar/data/1138639/000119312525041368/d847449d8k.htm · local: 2026-06-09-nokia-infinera-acquisition-close.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-3">
+<p>primary-filing &ldquo;Ribbon&#x27;s IP Optical Networks segment (the unit housing its DCI/coherent products, ex-ECI) generated $333.1M of FY2025 revenue (vs $328.7M FY2024) — roughly flat and only ~$0.33B annualized. Against scale leaders Ciena (~$5.6B) and Nokia Optical (&gt;$3.6B), this confirms RBBN&#x27;s optical franchise is an order of magnitude sub-scale in the AI-DC interconnect race.&rdquo;, 2026-02-01 · local: 2026-06-16-fmp-market-data-rbbn-adtn-peers.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-4">
+<p>stockanalysis.com &ldquo;Ciena&#x27;s TTM revenue is $5.57B (+30.6% YoY) as of 2026-06-16, with FQ2 FY2026 (ended May 2, 2026) revenue of $1.57B (+40% YoY), cloud providers at 46% of revenue, an order backlog of $7.7B, and FY2026 revenue guidance raised to $6.3B (+32% at midpoint). This is the verified revenue denominator behind the ~11.6-11.8x EV/Sales — a genuinely fast-growing, AI-DC-interconnect-driven top line, which is what licenses (rightly or not) the premium multiple.&rdquo;, 2026-06-16 · https://stockanalysis.com/stocks/cien/ · local: 2026-06-16-stockanalysis.com-ciena-valuation.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-5">
+<p>Noldor: futunn bernstein 97pp interconnect summary &ldquo;Bernstein&#x27;s 97pp interconnect coverage tiers the optical/interconnect supplier set around component leaders (Coherent, Lumentum, Fabrinet, Corning) and DSP/module leaders; neither Ribbon nor ADTRAN is named in its interconnect investability tiers — corroborating from a sell-side lens that both are off-radar as AI-DC interconnect plays.&rdquo;, 2026-05-25 · Noldor: futunn bernstein 97pp interconnect summary · local: 2026-05-19-futunn-bernstein-97pp-interconnect-summary.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-6">
+<p>www.investing.com &ldquo;RBBN does not disclose any data-center / hyperscaler revenue split for IP Optical; DC interconnect is product-marketing positioning not a quantified revenue stream&rdquo;, 2026-02-26 · https://www.investing.com/news/transcripts/earnings-call-transcript-ribbon-communications-q4-2025-earnings-beat-expectations-93CH-4489160 · local: 2026-06-16-investing-com-rbbn-q4-2025-transcript.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-7">
+<p>www.marketscreener.com &ldquo;Enterprise + cloud providers as a share of total revenue in FY2025 (full-year); 25% in Q4 2025 specifically — the best filing-grade proxy for AI-DC/cloud exposure of ADTN&#x27;s mix&rdquo;, 2026-02-26 · https://www.marketscreener.com/news/adtran-fourth-quarter-2025-transcript-ce7e5cdfdc8cf221 · local: 2026-02-26-marketscreener.com-adtn-q4-2025-transcript.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-8">
+<p>&ldquo;10-K explicitly frames the business around metro optical transport, data center interconnect and broadband access, and names hyperscalers, neocloud and data center companies among its customer base&rdquo;, 2026-02-26 · /Users/johnhendren/Desktop/Projects/vault/raw/noldor-research/sec-filings/adtran-holdings-inc-10-k-2026-02-26-2026-02-26.md · local: adtran-holdings-inc-10-k-2026-02-26-2026-02-26.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref15:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-9">
+<p>www.eqs-news.com &ldquo;SE annual report attributes optical-transport demand growth to an &#x27;unprecedented investment boom in AI data centers&#x27;; DCI6 + edge architectures enable the low-latency/high-bandwidth environment required for AI infrastructure&rdquo;, 2026-03-30 · https://www.eqs-news.com/media/document/3ee29967-3d35-4a88-b5f4-b4f98f69b908/assets/DE0005103006-JA-2025-EQ-E-00.pdf · local: 2026-03-30-adtran-networks-se-fy2025-annual-report.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-10">
+<p>www.sec.gov &ldquo;Trade press has begun connecting ADTRAN to the AI-DC interconnect theme via LiteWave800 (intra-DC AI infrastructure, 800G) and quantum-safe optical transport for AI data-center connectivity, with a late-May 2026 share spike on AI-adjacent momentum. The narrative exists but is early and product-launch-driven, not backed by disclosed AI-DC revenue — consistent with ADTN as an aspirational tier-2 entrant rather than a proven scale-across supplier.&rdquo;, 2026-05-27 · https://www.sec.gov/Archives/edgar/data/926282/000119312526204995/adtn-ex99_1.htm · local: 2026-05-XX-sec-gov-adtn-q1-2026-8k-ex991-litewave.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-11">
+<p>www.prnewswire.com &ldquo;Ribbon has publicly tied itself to the AI-DC interconnect wave: Q1 2026 &#x27;several new DCI wins&#x27; across Europe/US/Asia, a high-density low-power DCI deployment for an AI cloud contact-center customer, and an AWS Strategic Collaboration Agreement for cloud-native comms — set against the broader ~10x rise in ZR+ interest. The connection is real but small-scale and reference-customer-driven; no disclosed AI-DC revenue and a negative Q1 adjusted EBITDA temper any AI-beneficiary re-rating thesis.&rdquo;, 2026-04-29 · https://www.prnewswire.com/news-releases/ribbon-supercharges-diabolocoms-ai-powered-cloud-contact-center-software-with-high-density-low-power-data-center-interconnect-302328575.html · local: 2026-06-16-prnewswire.com-ribbon-q1-2026.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-12">
+<p>FMP API snapshot 2026-06-16 &ldquo;CIEN EV/Sales (TTM)&rdquo;, 2026-06-16 · FMP API snapshot 2026-06-16 · local: 2026-06-16-fmp-market-data-rbbn-adtn-peers.md · other&#160;<a class="footnote-backref" href="#fnref:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref15:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref16:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref17:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref18:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref19:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref20:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref21:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref22:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref23:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref24:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref25:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref26:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref27:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref28:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref29:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref30:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref31:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref32:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref33:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref34:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref35:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref36:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref37:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-13">
+<p>www.sec.gov &ldquo;Current aggregate DPLTA Exit Compensation (incl. guaranteed interest) if all Adtran Networks minorities elect the put, per the Q1 2026 10-Q (interest accrued through and FX as of 2026-03-31); supersedes the FY2025 10-K&#x27;s $357.0M figure&rdquo;, 2026-05-01 · https://www.sec.gov/Archives/edgar/data/0000926282/000119312526205276/adtn-20260331.htm · local: 2026-05-XX-sec-gov-adtn-10q-q1-2026-dplta.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-14">
+<p>www.stocktitan.net &ldquo;RBBN obtained a May 2026 covenant waiver raising max net-leverage to 4.50x then 4.00x — leverage is a live pressure point despite ~2.9x adj-EBITDA net leverage&rdquo;, 2026-05-05 · https://www.stocktitan.net/sec-filings/RBBN/10-q-ribbon-communications-inc-quarterly-earnings-report-a94df8a88022.html · local: 2026-06-16-ribbon-385m-credit-facility-leverage-waiver.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-15">
+<p>invezz.com &ldquo;Ciena is up ~165% YTD 2026 (through 2026-06-03), part of a broad optics re-rating, yet on 2026-06-04 shares fell ~15-20% intraday despite an FQ2 beat and an FY2026 guidance raise — evidence the market now requires beats materially above already-elevated expectations. BofA upgraded to Buy (PT $355) calling a possible super-cycle to 2027; post-FQ2 price targets ranged $450-720. Confirms the multiple is investor-driven momentum, not a stale or erroneous data feed.&rdquo;, 2026-06-04 · https://invezz.com/news/2026/06/04/ciena-stock-sinks-despite-earnings-beat-as-investors-seek-bigger-ai-upside/ · local: 2026-06-10-invezz-ciena-optical-ytd-2026-moves.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-16">
+<p>FMP revenue-product-segmentation (from 10-K filed 2026-02-26, CIK 0001708055) &ldquo;RBBN IP Optical Networks segment FY2025 revenue&rdquo;, 2026-02-26 · FMP revenue-product-segmentation (from 10-K filed 2026-02-26, CIK 0001708055) · local: 2026-06-16-fmp-rbbn-segments-balancesheet-fy2025.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-17">
+<p>ribboncommunications.com &ldquo;RBBN Apollo optical AI-DC capability is real (800G ZR+ to 1.2T coherent, Scale-Across, Rural DCI) but positioned at service providers, not a direct hyperscaler optical supplier&rdquo;, 2026-06-08 · https://ribboncommunications.com/products/service-provider-products/apollo-optical-networking · local: 2026-06-08-ribbon-ECI-apollo-fy2025-dci.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-18">
+<p>investors.ribboncommunications.com &ldquo;RBBN Rural DCI strategy targets 67% of US DCI growth in rural areas via cross-sell to rural telecom installed base — a telco-adjacency play, not hyperscaler core-DC&rdquo;, 2026-06-08 · https://investors.ribboncommunications.com/static-files/f4b751a8-2c75-4754-863f-a506dab627e8 · local: 2026-06-08-ribbon-ECI-apollo-fy2025-dci.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-19">
+<p>www.delloro.com &ldquo;Dell&#x27;Oro forecasts the optical transport equipment market to grow 16% in 2026, surpassing $18B for the first time since 2000, with the recovery driven by AI data-center DCI demand (it reached $16B in 2025, +10% YoY, also DCI-led); DCI specifically grows at roughly twice the overall market rate. This is the demand backdrop for the AI-DC interconnect / scale-across opportunity that RBBN and ADTN address at the systems layer.&rdquo;, 2026-05-19 · https://www.delloro.com/news/optical-transport-equipment-market-forecast-to-grow-16-percent-in-2026/ · local: 2026-06-09-delloro-optical-transport-16pct-2026.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-20">
+<p>trade-press &ldquo;Cignal AI (July 2025) forecasts over 200,000 shipments of 800ZR/ZR+ coherent pluggable modules in 2026 with revenue exceeding $1B (implied blended ASP ~$5,000), driven by hyperscaler AI scale-across DCI demand; coherent pluggables now lead the coherent market in deployed bandwidth and growth. Frames the demand pull for the 800G-1.6T interconnect category.&rdquo;, 2025-07-28 · local: 2026-06-11-cignal.ai-4b148f1c.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-21">
+<p>www.delloro.com &ldquo;Dell&#x27;Oro forecasts IPoDWDM (router/switch-hosted coherent) systems demand to grow ~16% avg annual to $4.4B by 2030, driven by scale-across DCI and ZR+ optics; ZR/ZR+ plugs grow ~20%/yr 2025-2029 to nearly 12% of optical transport; ZR+ customer interest rose ~10x in one year. This is the fastest-growing AI-DC interconnect sub-segment and the architecture shift RBBN/ADTN are chasing via DCI wins.&rdquo;, 2025-12-16 · https://www.delloro.com/news/ipodwdm-systems-market-forecast-to-reach-4-4-billion-by-2030/ · local: 2026-06-09-delloro-ipodwdm-4-4b-2030.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-22">
+<p>mapyourtech.com &ldquo;Cloud operators have made router-hosted coherent pluggable optics their default DCI architecture, bypassing traditional metro optical transport systems — a spending shift of ~$2.5B out of traditional optical equipment in 2024 alone. This fault line decides which vendors the AI-DC interconnect growth reaches; tier-2 systems vendors RBBN/ADTN must compete both as a coherent-pluggable host and against the displacement of the chassis transport they historically sold.&rdquo;, 2026-06-10 · https://mapyourtech.com/how-ai-is-reshaping-optical-network-architecture-and-transport-hardware/ · local: 2026-06-10-mapyourtech-ipodwdm-transport-displacement.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-23">
+<p>ribboncommunications.com &ldquo;RBBN FY2025 total revenue&rdquo;, 2026-02-26 · https://ribboncommunications.com/company/media-center/press-releases/ribbon-communications-inc-reports-fourth-quarter-and-full-year-2025-financial-results · local: 2026-06-16-ribboncommunications-com-fy2025-q4-results.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-24">
+<p>FMP balance-sheet-statement (from 10-K filed 2026-02-26, CIK 0001708055) &ldquo;RBBN total debt FY2025 (term debt plus finance leases)&rdquo;, 2026-02-26 · FMP balance-sheet-statement (from 10-K filed 2026-02-26, CIK 0001708055) · local: 2026-06-16-fmp-rbbn-segments-balancesheet-fy2025.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-25">
+<p>investors.adtran.com &ldquo;Q1 2026 revenue guidance midpoint ($275-295M range); non-GAAP operating margin guided 4.0%-8.0%. ADTN gives no full-year 2026 guidance (short book-to-ship)&rdquo;, 2026-02-26 · https://investors.adtran.com/news/news-details/2026/ADTRAN-Holdings-Inc&ndash;reports-fourth-quarter-and-full-year-2025-financial-results/ · local: 2026-02-26-investors.adtran.com-q4-fy2025-results.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-26">
+<p>www.stocktitan.net &ldquo;ADTRAN Q1 2026 revenue was $286.1M (+15.5% YoY) with Optical Networking the largest product line at $237.9M for the quarter ($380.3M FY2025). ADTRAN introduced LiteWave800, its first product purpose-built for INTRA-data-center AI infrastructure (800G, &gt;90% power reduction claim), with volume production ~a year out, and frames AI infra as &#x27;additive to core business.&#x27; Its FSP 3000 platform supplies DCI (OLS + coherent pluggables incl 100/400/800ZR). ADTN is a tier-2 systems-optical/access vendor with an early, additive AI-DC interconnect angle — not an established scale-across supplier.&rdquo;, 2026-05-06 · https://www.stocktitan.net/sec-filings/ADTN/8-k-adtran-holdings-inc-reports-material-event-86ef487279ee.html · local: 2026-06-16-stocktitan.net-adtran-q1-2026.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-27">
+<p>www.prnewswire.com &ldquo;Ribbon Q1 2026 total revenue was $163M (-10% YoY), with IP Optical Networks the smaller of two segments (~$333M FY2025, ~39% of $844.6M total). Management cited &#x27;several new Data Center Interconnect wins&#x27; across Europe/US/Asia but disclosed NO DCI revenue; Non-GAAP adjusted EBITDA was negative ($8M) in Q1. Ribbon is a sub-scale tier-2 systems-optical/voice player with a nascent DCI story, not an established AI-DC interconnect supplier.&rdquo;, 2026-04-29 · https://www.prnewswire.com/news-releases/ribbon-communications-inc-reports-first-quarter-2026-financial-results-302756071.html · local: 2026-06-16-prnewswire.com-ribbon-q1-2026.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-28">
+<p>ribboncommunications.com &ldquo;RBBN term loan matures June 21, 2029 — no near-term maturity wall, but high-cost SOFR+6.25% floating-rate debt&rdquo;, 2024-06-21 · https://ribboncommunications.com/company/media-center/press-releases/ribbon-communications-inc-announces-closing-new-385-million-senior-secured-credit-facility · local: 2026-06-16-ribbon-385m-credit-facility-leverage-waiver.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<script src="../assets/vega-embed-bundle.js"></script>
+<script src="../assets/chart-embed.js"></script>
+</body>
+</html>
