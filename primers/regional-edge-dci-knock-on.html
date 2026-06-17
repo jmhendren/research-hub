@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Regional &amp; Edge DCI: the AI-inference "knock-on" theme — a market deep-dive primer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* ===== Page templates ===== */
+
+@page {
+    size: Letter;
+    margin: 0.7in 0.75in 0.8in 0.75in;
+    @top-left {
+        content: "Hendren HQ Research";
+        font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        font-weight: 600;
+        color: #1A1A1A;
+        letter-spacing: 0.04em;
+    }
+    @top-right {
+        content: string(running-title);
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6B6B6B;
+    }
+    @bottom-center {
+        content: "Hendren HQ Research  ·  Page " counter(page) " of " counter(pages);
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6B6B6B;
+    }
+}
+
+@page cover {
+    margin: 0;
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-center { content: none; }
+}
+
+/* ===== Cover page ===== */
+
+.cover-page {
+    page: cover;
+    page-break-after: always;
+    width: 100%;
+    min-height: 9.5in;
+    padding: 1.8in 1in 0.9in 1in;
+    text-align: center;
+    box-sizing: border-box;
+}
+.cover-wordmark {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: #1A1A1A;
+    text-transform: uppercase;
+    margin-bottom: 8pt;
+}
+.cover-wordmark-rule {
+    width: 36pt;
+    height: 1.5pt;
+    background: #8B2332;
+    margin: 0 auto 64pt auto;
+}
+.cover-title {
+    string-set: running-title content();
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.25;
+    margin: 0 0 12pt 0;
+    letter-spacing: -0.005em;
+}
+.cover-subtitle {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 14pt;
+    color: #3D3D3D;
+    font-style: italic;
+    font-weight: 400;
+    margin: 0 0 64pt 0;
+}
+.cover-meta {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    color: #3D3D3D;
+    letter-spacing: 0.04em;
+    margin: 4pt 0;
+}
+.cover-meta strong {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+.cover-divider {
+    width: 80pt;
+    height: 0.5pt;
+    background: #D9D9D6;
+    margin: 40pt auto;
+}
+.cover-stats {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-top: 24pt;
+    font-size: 10pt;
+    color: #3D3D3D;
+}
+.cover-stats .stat {
+    margin: 0 14pt;
+}
+.cover-stats strong {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+.cover-footer {
+    margin-top: 80pt;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    font-style: italic;
+}
+
+/* ===== Masthead (uniform across published surfaces — mirrors hub-masthead.css) ===== */
+
+.masthead {
+    border-bottom: 1px solid #1A1A1A;
+    padding: 6pt 0 14pt 0;
+    margin-bottom: 22pt;
+}
+.masthead-top {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6B6B6B;
+    font-weight: 500;
+    padding-bottom: 10pt;
+    border-bottom: 1px solid #D9D9D6;
+    margin-bottom: 14pt;
+}
+.masthead-top .doctype { color: #0E2A47; font-weight: 600; }
+.masthead-top .date { color: #8B2332; font-weight: 600; }
+.masthead h1.title {
+    string-set: running-title content();
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 24pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.15;
+    letter-spacing: -0.012em;
+    margin: 0;
+}
+.masthead .subtitle {
+    display: block;
+    margin-top: 6pt;
+    font-size: 0.5em;
+    font-weight: 400;
+    color: #6B6B6B;
+    letter-spacing: 0;
+    font-style: italic;
+    line-height: 1.3;
+}
+
+/* ===== Body ===== */
+
+html { font-size: 11pt; }
+
+body {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    line-height: 1.6;
+    color: #1A1A1A;
+    max-width: 100%;
+}
+
+/* Page break marker for section transitions (briefs in a packet) */
+.page-break {
+    page-break-before: always;
+    height: 0;
+}
+
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+}
+
+h1 {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 22pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.3;
+    margin: 0 0 6pt 0;
+    letter-spacing: -0.005em;
+    string-set: running-title content();
+}
+
+h2 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 24pt 0 8pt 0;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+}
+
+h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin: 14pt 0 4pt 0;
+}
+
+h4 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 12pt 0 4pt 0;
+    letter-spacing: 0.04em;
+}
+
+h5, h6 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    margin: 10pt 0 4pt 0;
+    color: #1A1A1A;
+}
+
+/* Paragraphs */
+
+p {
+    margin: 0 0 10pt 0;
+    orphans: 2;
+    widows: 2;
+}
+
+/* Links */
+
+a {
+    color: #0E2A47;
+    text-decoration: none;
+    border-bottom: 0.5pt solid #0E2A47;
+    word-break: break-word;
+}
+
+/* Lists */
+
+ul, ol {
+    margin: 8pt 0;
+    padding-left: 22pt;
+}
+li {
+    margin: 5pt 0;
+}
+li > ul, li > ol {
+    margin: 4pt 0;
+}
+
+/* Blockquotes — large opening quotation mark, italic serif */
+
+blockquote {
+    margin: 14pt 0 4pt 14pt;
+    padding: 0;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    color: #1A1A1A;
+    font-size: 11pt;
+    line-height: 1.55;
+    text-indent: 0;
+}
+blockquote::before {
+    content: "\201C";
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    color: #8B2332;
+    line-height: 0;
+    vertical-align: -0.35em;
+    margin-right: 4pt;
+    font-style: normal;
+}
+blockquote p { margin: 0 0 8pt 0; display: inline; }
+blockquote p:last-child { margin-bottom: 0; }
+
+/* Citation line that follows a blockquote (italic em-dashed source) */
+
+.citation {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    margin: 4pt 0 14pt 18pt;
+    font-style: normal;
+}
+
+/* BLUF callout — italic serif with accent left rule, no fill */
+
+.bluf {
+    border-left: 2pt solid #8B2332;
+    padding: 4pt 0 4pt 18pt;
+    margin: 4pt 0 18pt 0;
+    font-style: italic;
+    font-size: 11pt;
+    color: #1A1A1A;
+    page-break-inside: avoid;
+}
+.bluf h2, .bluf h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #8B2332;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 4pt 0;
+    font-style: normal;
+}
+.bluf p { margin: 0 0 8pt 0; font-style: italic; }
+.bluf p:last-child { margin-bottom: 0; }
+.bluf strong { font-style: italic; }
+
+/* "What to ask" — distinguished section (optional class wrap) */
+
+.ask {
+    border-top: 0.5pt solid #D9D9D6;
+    border-bottom: 0.5pt solid #D9D9D6;
+    padding: 12pt 0 4pt 0;
+    margin: 22pt 0;
+}
+
+/* Code (rare in briefs but supported) */
+
+code {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9.5pt;
+    background: #f3f3f0;
+    padding: 1pt 4pt;
+    border-radius: 2pt;
+}
+pre {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9pt;
+    background: #f7f5f2;
+    padding: 10pt 12pt;
+    border-radius: 3pt;
+    line-height: 1.4;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code { background: transparent; padding: 0; }
+
+/* Tables — minimal lines, no fills (editorial restraint) */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 14pt 0;
+    font-size: 10pt;
+    page-break-inside: auto;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+th, td {
+    border-bottom: 0.5pt solid #D9D9D6;
+    padding: 6pt 8pt 6pt 0;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    font-weight: 700;
+    color: #1A1A1A;
+    border-bottom: 1pt solid #1A1A1A;
+    letter-spacing: 0.02em;
+    font-size: 9.5pt;
+}
+
+/* Horizontal rule — visible separator inside a section (NOT a page break) */
+
+hr {
+    border: 0;
+    border-top: 0.5pt solid #D9D9D6;
+    margin: 18pt 0;
+}
+
+/* Images */
+
+img { max-width: 100%; height: auto; }
+
+/* Emphasis */
+
+strong { font-weight: 700; color: #1A1A1A; }
+em { font-style: italic; }
+
+/* Topic tag / meta line at top of each brief */
+
+.brief-meta-line {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    letter-spacing: 0.04em;
+    margin: 0 0 22pt 0;
+    padding-bottom: 12pt;
+    border-bottom: 0.5pt solid #D9D9D6;
+}
+.brief-meta-line .tag {
+    color: #8B2332;
+    font-style: italic;
+}
+
+/* Source list at the bottom of each brief */
+
+.sources-block {
+    margin-top: 28pt;
+    padding-top: 14pt;
+    border-top: 0.5pt solid #D9D9D6;
+    font-size: 9.5pt;
+    color: #3D3D3D;
+}
+.sources-block h2,
+.sources-block h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #1A1A1A;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 8pt 0;
+    font-weight: 700;
+}
+.sources-block ul { padding-left: 18pt; margin: 0; }
+.sources-block li { margin: 3pt 0; }
+</style>
+</head>
+<body>
+<header class="masthead">
+<div class="masthead-top"><span class="doctype">Primer</span><span class="date">Drafted 2026-06-16</span></div>
+<h1 class="title">Regional &amp; Edge DCI: the AI-inference "knock-on" theme — a market deep-dive primer</h1>
+</header>
+<p><strong>Type:</strong> market deep-dive primer (descriptive / diagnostic). <strong>Audience:</strong> a smart finance professional (PM/analyst) oriented to nothing specific in optical networking; technical terms are defined parenthetically on first use. <strong>What you&rsquo;ll be able to do after reading:</strong> tell, with evidence, whether the AI-inference &ldquo;knock-on optical wave&rdquo; at the edge is real today, which of its proposed mechanisms are operative versus aspirational, where the spend actually lands, and exactly which public and private companies capture which tier of it.</p>
+<p>This primer is descriptive: it maps what is <strong>real today</strong>. It carries no forward projections, no forecast or scenario math, no model, and no buy/sell recommendation. Where a source offers a forward number it is tagged &ldquo;(forecast)&rdquo; and never built upon.</p>
+<hr>
+<h2 id="1-the-question-and-why-it-matters">1. The question, and why it matters</h2>
+<p><em>The knock-on hypothesis is that hyperscaler AI capex, by pushing inference outward toward users, should ignite a secondary wave of optical and interconnect spend at edge data centers, content-delivery networks (CDNs), and regional/tier-2/tier-3 carriers and colocation providers — and the question this primer answers is whether that wave is measurable today and who captures it.</em></p>
+<p>The hypothesis has named proponents. CBRE states plainly that the shift &ldquo;from AI training to AI Inference demand is creating a need for more regional and distributed data centers, not just hyperscale hubs,&rdquo; because inference &ldquo;often need to be near end users&rdquo; <sup id="fnref:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. Equinix, the largest carrier-neutral colocation operator, projects private interconnection capacity growing at a 29% compound annual growth rate (CAGR) through 2027 — to nearly 40,000 terabits per second (forecast) — and attributes the growth to &ldquo;AI, edge computing and distributed ecosystem business models&rdquo; <sup id="fnref:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>. So the bull narrative is not a strawman: serious operators assert that inference is dispersing and that interconnect demand is rising with it.</p>
+<p>The question is therefore not <em>whether</em> inference disperses — it does, at the margin — but whether that dispersion has yet produced <strong>measurable third-party optical spend at the edge tiers</strong>, and which companies capture the dollars it does move. This matters because the answer routes capital very differently depending on the tier. If the wave is genuinely dispersing to tier-3, the long tail of regional carriers, municipal networks and small colocation operators (and the sub-scale vendors that serve them) is where the incremental dollar lands. If it is not — if the measured money is hyperscaler campus-cluster and long-haul interconnect — then the dollar lands with scale systems vendors and component suppliers, and the tail captures only a fragmented residual.</p>
+<p>This is the <strong>regional/edge counterpart</strong> to two sister deliverables that the reader should treat as already-read context. The scale-across DCI primer (<code>vault/kb/outputs/primers/2026-06-11-dci-scale-across-enablement.md</code>) covers the hyperscaler campus-cluster and long-haul interconnect build — the &ldquo;scale-across&rdquo; leg — and the bottom-up sizing of that market; this primer does not re-derive it. The Ribbon/ADTRAN DC-networking report (<code>vault/kb/outputs/primers/2026-06-16-rbbn-adtran-dc-networking.md</code>) covers the two named sub-scale vendors at company depth; this primer treats them as roster entries within a tiered framework rather than re-explaining their segment mechanics. Defined terms used throughout: <strong>DCI</strong> = data-center interconnect (the optical links between data centers); <strong>DWDM</strong> = dense wavelength-division multiplexing (carrying many &ldquo;colors&rdquo; of light on one fiber to multiply capacity); <strong>coherent pluggable</strong> = a small modular coherent optical transceiver that plugs directly into a switch or router port; <strong>ZR/ZR+ optics</strong> = the OIF-standardized coherent pluggable types, ZR reaching ~120 km and ZR+ reaching ROADM-network distances; <strong>IPoDWDM</strong> = IP-over-DWDM, terminating the optical wavelength inside the router instead of a separate transponder box; <strong>ROADM</strong> = reconfigurable optical add-drop multiplexer (the device that routes wavelengths in a mesh network); <strong>neocloud</strong> = a GPU-centric specialist cloud; <strong>MOFN</strong> = manage-on-others&rsquo;-network (a hyperscaler contracting a carrier to build for it); <strong>KV-cache</strong> = the key-value attention cache that holds prior tokens during inference; <strong>CPO</strong> = co-packaged optics (optics integrated next to the chip rather than at the faceplate).</p>
+<hr>
+<h2 id="2-the-state-of-the-debate-the-bull-narrative-versus-what-the-independent-data-shows">2. The state of the debate: the bull narrative versus what the independent data shows</h2>
+<p><em>The bull case is that an outward-dispersing inference workload spawns a secondary optical wave at the edge; the independent data shows the opposite where the bull needs it most — the optical wave is real but concentrated in hyperscaler scale-across, while the segment geographically nearest the edge is the weakest part of the market.</em></p>
+<p>Start with the cleanest disconfirming anchor: <strong>no independent analyst house sizes &ldquo;edge/regional-inference optical spend&rdquo; as a discrete line at all.</strong> Dell&rsquo;Oro&rsquo;s total optical-transport equipment market reached $16B in 2025 (+10% year-over-year), and the recovery was &ldquo;driven by demand for data center interconnect&rdquo; — with direct purchases of WDM equipment for DCI up nearly 40% and direct cloud-provider purchases up about 50%, the top three suppliers being Ciena, Nokia and Cisco, and &ldquo;high concentration of revenue coming from North America&rdquo; <sup id="fnref:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref2:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>. Cignal AI&rsquo;s optical-component market hit a record ~$25B in 2025 (datacom &gt;$18B, telecom coherent modules ~$6B) <sup id="fnref:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. Both are real, large, and growing — and neither breaks out an edge or regional-inference line. Dell&rsquo;Oro&rsquo;s VP is explicit that even the fast-growing neocloud buyer sits inside the cloud/DCI aggregate and is not separately sized <sup id="fnref:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. The knock-on is asserted by vendors; it is never sized by an analyst. That absence is the first finding, not a research gap.</p>
+<p>The second finding is that <strong>the boom and the edge are not the same thing — and the two can both be true.</strong> The same Dell&rsquo;Oro coverage that reports DCI +40% <sup id="fnref3:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> also reports that WDM Metro — the optical segment geographically <em>closest</em> to edge/regional inference — declined for a <strong>seventh consecutive quarter</strong> through 1Q 2025, headwinded by IPoDWDM adoption, inventory glut and macro <sup id="fnref:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>. And in the longer view, Dell&rsquo;Oro finds that DWDM spending by &ldquo;the rest of the market&rdquo; (telecom and regional carriers — the tier-2/3 layer) was <strong>flat from 2017 to 2024</strong>, even as hyperscaler direct DWDM purchases grew at a 12% CAGR <sup id="fnref:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>. There is no contradiction between &ldquo;DCI is booming +40%&rdquo; and &ldquo;metro/regional is flat-to-declining,&rdquo; <em>because the boom is hyperscale campus-cluster and long-haul, not the metro/regional layer the edge thesis requires</em> <sup id="fnref4:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. This is the single most important reconciliation in the primer: the aggregate must never stand in for &ldquo;the edge is booming.&rdquo;</p>
+<p>The third finding bounds the physics. Nokia reports that inter-facility (between-data-center) traffic is growing roughly 23% per year while traffic <em>inside</em> data centers is growing about 65% per year — and its largest fiber examples (up to 13,000 fibers between sites) are hyperscaler campus-to-campus <sup id="fnref:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>. Intra-DC traffic outpaces inter-facility by about 3x, which tells us most AI bandwidth never leaves the building or campus. The bull case needs bandwidth to disperse outward; the bandwidth is instead piling up inside the campus.</p>
+<p>So the debate resolves not into &ldquo;bull versus bear&rdquo; but into a more precise claim: a real, measured optical wave exists, it is hyperscaler scale-across, North-America-concentrated, and the layer the edge thesis depends on is the weakest part of that wave. The rest of the primer establishes <em>which mechanisms are live</em>, <em>where the spend lands</em>, <em>who the buyers are</em>, and <em>who captures the dollar by tier</em>.</p>
+<hr>
+<h2 id="3-the-evidence-by-sub-claim">3. The evidence, by sub-claim</h2>
+<h3 id="3a-demand-and-sizing-reality">3a — Demand and sizing reality</h3>
+<p><em>The reusable lens for the rest of this primer is four named tiers of buyer — hyperscaler, neocloud, long-haul/regional carrier, and the regional/metro/municipal tail — because the capture answer is different at each, and the measured demand is overwhelmingly in the first and third.</em></p>
+<p>The cleanest sizing anchor is the one already stated: $16B total optical transport, DCI-driven, +40% on the DCI line, NA-concentrated, no edge sub-line <sup id="fnref5:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref6:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref2:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. To that, add the component view ($25B, coherent modules ~$6B) <sup id="fnref2:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>, which confirms the wave is real at the silicon/optics layer too. The honest read is that the demand is large and growing but is measured at the wrong granularity for the thesis: every published number aggregates the edge into the cloud/DCI bucket.</p>
+<p>The proxy that matters most is the &ldquo;rest of market flat&rdquo; datapoint <sup id="fnref2:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>: hyperscaler DWDM spend was ~$2B in 2024 (heading to &gt;$3B by 2029, forecast) growing at a 12% CAGR, while non-hyperscaler DWDM — telecom and regional carriers, i.e. the edge tiers — was flat over seven years. The tier-2/3 layer&rsquo;s aggregate optical spend is not merely unsized; where it can be proxied, it is flat. Hold this against the WDM-Metro seven-quarter decline <sup id="fnref2:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>, and the demand-side verdict is settled: the edge tiers are not yet pulling optical equipment revenue up.</p>
+<h3 id="3b-the-mechanism-map-which-of-five-drivers-is-operative-today-versus-aspirational">3b — The mechanism map: which of five drivers is operative-today versus aspirational</h3>
+<p><em>Five mechanisms could plausibly push optical spend outward — latency-sensitive inference, data sovereignty, CDN refresh, metro/middle-mile capacity, and edge KV-caching — but only the first is demonstrably operative today as an outward push, and even it rides existing fiber plus new GPUs rather than new optical orders.</em></p>
+<p><strong>Latency-sensitive inference is live.</strong> The cleanest operative-today anchor is Akamai Inference Cloud, a generally-available platform launched October 2025 that extends inference from core data centers to the edge using NVIDIA Blackwell GPUs and BlueField-3 DPUs, <strong>targeting 20 initial launch locations</strong> <sup id="fnref:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>. Cloudflare runs a unified edge-inference layer across <strong>330 cities</strong> with sub-50ms latency on NVIDIA L4/T4 GPUs, explicitly to process inference at a nearby edge DC rather than a distant cloud region <sup id="fnref:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>. Both are real today — and both run on the operators&rsquo; <em>own</em> networks. Crucially, the spend lands on GPUs and DPUs at <em>existing</em> points of presence: Akamai&rsquo;s AI Grid handles networking via BlueField DPUs, not new optical transport <sup id="fnref:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>, and Charter/Spectrum&rsquo;s edge build runs over its own 100 Gbps fiber, an upgrade of in-place plant rather than a greenfield long-haul order <sup id="fnref:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>. The mechanism is operative; its optical knock-on is utilization of existing fiber, not third-party metro-DWDM orders.</p>
+<p><strong>The other four candidate mechanisms are aspirational, intra-cluster, or treated elsewhere as regional-optical drivers</strong> (metro/middle-mile capacity, the fifth, is taken up in §3c). On data sovereignty, the corpus offers no evidence of it driving optical purchases today: the nearest datapoint is Akamai expanding compute into &ldquo;major metros that lack cloud computing options&rdquo; <sup id="fnref:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup> — an edge-footprint fact, not a sovereignty-driven optical buy — so sovereignty remains aspirational as an optical driver. Edge KV-caching is the most technical of the candidates, and the corpus places it firmly inside the cluster: KV-cache and model-cache movement occurs over RDMA / InfiniBand / NVLink (NVIDIA&rsquo;s NIXL transfer engine, Mooncake) between prefill and decode nodes, with <strong>no primary tying it to inter-regional optical buy</strong> <sup id="fnref:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>. CDN refresh is real as a product (the Akamai/Cloudflare layers above) but its optical implication is unquantified. So the mechanism map collapses from five candidates to one live driver — and that one is GPU-led.</p>
+<p>This forces a careful treatment of the most-quoted edge number in the theme. Akamai is widely cited as deploying GPUs into &ldquo;<strong>more than 4,400 edge locations</strong>&rdquo; — but that figure is a claimed <em>footprint</em>, not proven inference-at-scale. The 4,400 figure is Akamai&rsquo;s own claim, from its AI Grid release <sup id="fnref2:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>; the skeptical reaction is a reader&rsquo;s — Om Malik (&ldquo;When I read that Akamai is putting NVIDIA Blackwell-edition GPUs into more than 4,400 edge locations, I chuckled&rdquo;) <sup id="fnref:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup>; it is a deployment count whose optical-dollar implication is explicitly unquantified <sup id="fnref3:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>; and Akamai&rsquo;s own 10-K reports ~4,300 edge points of presence as a CDN footprint into which it <em>buys</em> bandwidth and colocation, not one from which it captures vendor optical margin <sup id="fnref:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>. The operative-today anchor for edge inference is therefore the <strong>20-site Akamai Inference Cloud</strong> <sup id="fnref2:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup> and Cloudflare&rsquo;s 330-city layer <sup id="fnref2:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup> — the 4,400 figure belongs in the record only as a footprint claim, never as evidence that inference-at-the-edge is at scale.</p>
+<h3 id="3c-the-knock-on-chain-and-where-spend-actually-lands">3c — The knock-on chain and where spend actually lands</h3>
+<p><em>The well-evidenced money does not flow to tier-3 edge inference; it flows along a different path — campus-to-campus DCI and long-haul dark fiber for the hyperscaler and neocloud core — and the real 2026 &ldquo;regional&rdquo; transport wave is hub-to-metro long-haul captured by scale carriers.</em></p>
+<p>The cleanest dollar anchors on this path are large and named. Lumen has closed nearly <strong>$13B in Private Connectivity Fabric</strong> deals with hyperscalers, neoclouds, social platforms and AI companies, scaling toward 47 million intercity fiber miles by 2028 (forecast) <sup id="fnref:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup>. Zayo booked <strong>more than $1B</strong> in AI-related long-haul deals in 2024 with a further ~$3B in pipeline, as hyperscaler orders shifted from 8–12 fibers per route pre-AI to 12–48 fiber pairs (some 144–432) <sup id="fnref:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>. Where this build is &ldquo;regional,&rdquo; it is hub-to-metro long-haul, not edge dispersion: Zayo&rsquo;s 8,000-route-mile AI-corridor program concentrates in &ldquo;a defined set of high-value corridors&rdquo; connecting power-rich data centers to <strong>adjacent metros</strong> <sup id="fnref:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup>, and the Midco/Switch deal lights 500-plus 400 Gbps circuits (200 Tb capacity) on diverse routes from <strong>Ellendale, North Dakota to Chicago</strong> — a remote power-sited DC backhauled to a hub metro, with Nokia (a scale vendor) on the parallel route <sup id="fnref:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>. The knock-on chain is real and produces real 2026 spend, but its shape is power-sited-DC → long-haul/metro hub, captured by scale carriers — a different animal from inference-at-the-edge.</p>
+<p>This is also how the Equinix interconnect-growth claim reconciles with the &ldquo;training stays co-located&rdquo; view. Equinix&rsquo;s 29% interconnection CAGR (forecast) cites edge <sup id="fnref2:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, but Equinix is itself a scale interconnection landlord reporting $1.6B in annualized gross bookings (+27%), and (separately) its Fiber Connect provides dark-fiber links between data centers <sup id="fnref3:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, and Deloitte frames distributed and smaller inferencing data centers as increasingly able to handle the load and &ldquo;will likely&rdquo; emerge — forward-looking language, not a present-tense deployment <sup id="fnref:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>. The growing interconnect bandwidth is <strong>east-west DCI between scale facilities</strong>, not last-mile edge. There is no contradiction to resolve once the granularity is fixed: Equinix&rsquo;s number is real and it is a scale-facility number.</p>
+<h3 id="3d-the-buyer-universe">3d — The buyer universe</h3>
+<p><em>The buyer universe for regional/edge optical is genuinely large and deeply fragmented — and that fragmentation is precisely why no source can isolate its optical spend; the dollar disappears into the cloud/DCI aggregate.</em></p>
+<p>The counts are substantial. There are roughly 190–200 distinct neocloud operators worldwide, of which only ~10–15 operate at meaningful scale in the US (JLL/RCR and GlobalData, late 2025 — ranges retained because the firms and dates differ) <sup id="fnref:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>, collectively doing more than $5B of revenue in Q2 2025 (+205% year-over-year) <sup id="fnref:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup>. The US colocation market spans ~2,226 colocation businesses (IBISWorld 2025), with Equinix and Digital Realty holding under 21% of 2024 revenue combined, leaving ~80% to a long tail of regional and tier-2/3 operators <sup id="fnref:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup>. There are 1,561 active US fiber providers as of FCC BDC Version 7 <sup id="fnref:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup>, and the CDN/edge fleets are large (Akamai &gt;4,000 nodes, Cloudflare 330+ cities, CloudFront &gt;600 embedded PoPs) <sup id="fnref:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup>. Yet Dell&rsquo;Oro&rsquo;s VP confirms the gap directly: neocloud and tier-2/3 colo optical spend sits inside the cloud/DCI aggregate and is not broken out as a standalone figure <sup id="fnref3:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. The buyer pool is deep and numerous; its optical-spend line does not exist in published research. The closest proxies are the flat &ldquo;rest of market&rdquo; DWDM datapoint <sup id="fnref3:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> and a ~$2B long-haul wavelength services market in which Lumen and Zayo hold ~90% <sup id="fnref:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup> — both of which point the same way: where the edge tiers can be measured, the dollars are concentrated upward.</p>
+<p>One buyer-side wrinkle reshapes the whole picture: the fastest-growing emerging buyer is being courted by a <em>scale</em> vendor. Ciena reports it is engaged with about <strong>two dozen neoscalers</strong> (CoreWeave, Nebius, Lambda among them) that &ldquo;have already decided that they need to build out their own optical network infrastructure&rdquo; <sup id="fnref:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup>. Ciena&rsquo;s own framing puts $8–10B of a ~$50B-by-2029 TAM (forecast) in &ldquo;scale-across&rdquo; in-and-around-the-DC and more than $20B in long-haul/metro <sup id="fnref:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>, with its first multi-rail hyperscaler award rolling out from 2027 (forecast) <sup id="fnref2:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>. The neocloud DCI dollar — the highest-growth slice of the emerging buyer base — leaks <em>up</em> to scale, not down to sub-scale.</p>
+<hr>
+<h2 id="4-who-captures-it-the-tiered-capture-framework">4. Who captures it — the tiered capture framework</h2>
+<p><em>The capture answer is the report&rsquo;s centerpiece, and it is tiered: scale systems vendors and component players take the money tiers (hyperscaler, neocloud, long-haul), while non-scale vendors reliably take only the fragmented regional/metro/municipal tail — with a sharp ceiling of zero non-scale wins at the hyperscaler or marquee-neocloud tier.</em></p>
+<p>The table below is the framework. Read it as buyer tier (rows) against who captures the optical equipment dollar (columns); every number or named claim carries its marker.</p>
+<p><strong>Table 1 — The tiered capture matrix: who captures the optical dollar, by buyer tier</strong></p>
+<table>
+<thead>
+<tr>
+<th>Buyer tier</th>
+<th>Who captures the dollar</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hyperscaler</strong> (campus scale-across + long-haul)</td>
+<td>Scale systems (Ciena, Nokia/Infinera, Cisco) + components (Marvell, Coherent, Lumentum) + Fabrinet (contract manufacturer)</td>
+<td>Top-3 DCI suppliers Ciena/Nokia/Cisco <sup id="fnref4:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup>; Ciena top-2 customers both cloud, ~⅓ of sales <sup id="fnref9:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>; Marvell DCI modules to all five hyperscalers FY27 (forecast) <sup id="fnref4:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup>. <strong>Non-scale: zero wins.</strong></td>
+</tr>
+<tr>
+<td><strong>Neocloud</strong> (own-optical builds)</td>
+<td>Scale systems (Ciena)</td>
+<td>~24 neoscalers building own optical, captured by Ciena <sup id="fnref6:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup>. <strong>Non-scale: zero marquee wins.</strong></td>
+</tr>
+<tr>
+<td><strong>Long-haul / regional carrier</strong> (hub-to-metro)</td>
+<td>Scale carriers + scale systems</td>
+<td>Lumen ~$13B PCF <sup id="fnref3:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup>; Zayo &gt;$1B AI long-haul <sup id="fnref3:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>; Lumen+Zayo ~90% of ~$2B long-haul wavelengths <sup id="fnref3:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup>; Nokia on Midco route <sup id="fnref3:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>.</td>
+</tr>
+<tr>
+<td><strong>Regional / metro / municipal tail</strong> (ISPs, middle-mile, wholesale)</td>
+<td><strong>Non-scale</strong> (Smartoptics, Ekinops, ADTRAN, Ribbon, PacketLight)</td>
+<td>8 named real-today wins <sup id="fnref5:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup><sup id="fnref4:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup><sup id="fnref4:fn-35"><a class="footnote-ref" href="#fn:fn-35">35</a></sup><sup id="fnref4:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup><sup id="fnref4:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup><sup id="fnref4:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup><sup id="fnref4:fn-39"><a class="footnote-ref" href="#fn:fn-39">39</a></sup><sup id="fnref4:fn-40"><a class="footnote-ref" href="#fn:fn-40">40</a></sup>; Smartoptics +35.6% on AI-DCI <sup id="fnref4:fn-41"><a class="footnote-ref" href="#fn:fn-41">41</a></sup>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4a-the-money-tiers-scale-systems-and-components">4a — The money tiers: scale systems and components</h3>
+<p><strong>Scale systems.</strong> The quantitative spine of the capture story is that Ciena&rsquo;s Optical Networking line alone was <strong>$3.25B in FY2025, up 22.8%</strong> <sup id="fnref:fn-42"><a class="footnote-ref" href="#fn:fn-42">42</a></sup> — an order of magnitude larger than any single sub-scale optical franchise, and several times the entire sub-scale set combined — and it is growing far faster. the $453.4M Americas revenue jump was driven by demand from cloud providers and communications service providers, the segment in which Ciena&rsquo;s Waveserver serves as the workhorse DCI platform <sup id="fnref:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup>; its top two customers (both cloud) account for about one-third of sales <sup id="fnref3:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>; and — most relevant to the thesis — Ciena names &ldquo;next-generation metro and edge networking&rdquo; as an explicit growth pillar, integrating IP routing with coherent optics and targeting metro DCI/access at 800G and 1.6T <sup id="fnref2:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup><sup id="fnref3:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup>. The regional/metro DCI socket the sub-scale vendors hold is <em>exactly</em> the addressable market Ciena names as its growth target, which means the leak vector is structural rather than incidental.</p>
+<p>Consolidation reinforces it. Nokia completed its ~$2.3B acquisition of Infinera in February 2025, boosting its Optical Networks business by 75% and absorbing a mid-scale DCI/metro/line-systems vendor (one tier above the sub-scale names) into a scale player <sup id="fnref:fn-44"><a class="footnote-ref" href="#fn:fn-44">44</a></sup>. And the architecture itself is collapsing the standalone box: Cisco/Acacia leads coherent pluggables, with more than 70% of coherent ports now pluggable, and its Routed Optical Networking (RON) drops a coherent pluggable directly into a switch or router — eliminating the standalone DWDM transponder where ADTRAN/ADVA, Ribbon and Ekinops sell <sup id="fnref:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup>. Dell&rsquo;Oro confirms the top-3 DCI suppliers are Ciena, Nokia and Cisco <sup id="fnref:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup>. The structural shift moves the interconnect dollar from a dedicated optical system (sub-scale turf) into the router plus the pluggable module — both scale-captured.</p>
+<p><strong>Components.</strong> Beneath the systems vendors, the component layer captures the silicon and optics of DCI growth tier-agnostically — but overwhelmingly at hyperscale scale. Marvell&rsquo;s data-center end market was <strong>$6.1B (74% of revenue)</strong> in FY2026, with optical interconnect roughly half of that and DCI modules slated for all five major hyperscalers in FY27 (forecast) <sup id="fnref:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup><sup id="fnref:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup>. Coherent&rsquo;s Networking segment profit rose <strong>82% to $644M</strong>, explicitly naming DCI demand <sup id="fnref:fn-47"><a class="footnote-ref" href="#fn:fn-47">47</a></sup>. Lumentum supplies lasers, PICs and transceivers across access, metro, long-haul and submarine to the network-equipment makers <sup id="fnref:fn-48"><a class="footnote-ref" href="#fn:fn-48">48</a></sup>. Fabrinet — the contract manufacturer behind the optical vendors — saw DCI revenue reach <strong>$197M (+90% year-over-year)</strong>, its fastest-growing line, a clean real-today gauge that DCI optical is the fastest-growing optical category <sup id="fnref:fn-49"><a class="footnote-ref" href="#fn:fn-49">49</a></sup>; Cignal puts coherent modules at ~$6B <sup id="fnref3:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. Whoever wins the box, the component layer captures the DCI silicon — but the named growth is hyperscale, not tier-2/3.</p>
+<p>A coverage note prevents a common conflation: the highest-growth <em>interconnect</em> names are intra-DC and orthogonal to the regional knock-on. Credo&rsquo;s HiWire active electrical cables are rack/row copper for scale-up/scale-out <sup id="fnref:fn-50"><a class="footnote-ref" href="#fn:fn-50">50</a></sup>, and Astera Labs&rsquo; $308.4M Q1 (+93%) PCIe/CXL retimers connect within and between servers <sup id="fnref:fn-51"><a class="footnote-ref" href="#fn:fn-51">51</a></sup>. Both are inside-the-DC and touch no metro/regional optical transport. They are the highest-growth, highest-margin names in the interconnect universe — and irrelevant to the edge-DCI thesis. The reader who equates &ldquo;AI interconnect boom&rdquo; with &ldquo;edge-DCI boom&rdquo; is conflating two different markets.</p>
+<h3 id="4b-the-tail-the-repeatable-non-scale-capture-pattern">4b — The tail: the repeatable non-scale capture pattern</h3>
+<p>The most important affirmative finding for the bottom tier is that <strong>non-scale capture is a repeatable pattern, not a one-off.</strong> The corpus holds eight named, real-today wins on non-scale vendors, each at the regional/metro/municipal tier: Smartoptics upgraded German regional ISP TKRZ&rsquo;s backbone from 10G CWDM to 100G/400G open DWDM <sup id="fnref:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup> and replaced rural-Illinois CSP Geneseo&rsquo;s aging 10G core <sup id="fnref:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup>; Ekinops won Western-Kentucky municipal operator MuniNet&rsquo;s 400G coherent transport <sup id="fnref:fn-35"><a class="footnote-ref" href="#fn:fn-35">35</a></sup> and the NW-Colorado Project THOR middle-mile network <sup id="fnref:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup>; ADTRAN won Belgian regional cloud provider Cegeka&rsquo;s FSP 3000 DCI deployment to a new Brussels data center <sup id="fnref:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup> and Italy&rsquo;s wholesale-only FiberCop nationwide metro rollout <sup id="fnref:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup>; Ribbon won Planters Broadband&rsquo;s 400G/800G regional build <sup id="fnref:fn-39"><a class="footnote-ref" href="#fn:fn-39">39</a></sup>; and PacketLight interconnected five data centers across Singapore and Indonesia for an ASEAN regional service provider over 1,200 km <sup id="fnref:fn-40"><a class="footnote-ref" href="#fn:fn-40">40</a></sup>. The recurring selling point is identical across all eight — &ldquo;cost-effective,&rdquo; and avoidance of Tier-1 vendor lock-in. That repetition is what turns the tail from anecdote into pattern: non-scale vendors reliably win regional ISPs, municipal/middle-mile networks and wholesale fiber operators.</p>
+<p>But the tail is thin and uneven, and only one vendor is clearly monetizing it today. Smartoptics — an open-DWDM pure-play — grew FY2025 revenue <strong>35.6% to $75.3M</strong>, with Q4 a record $23.2M (+37.7%), explicitly on &ldquo;AI related DCI demand&hellip; new orders from major operators, neo-scalers, and Internet Content Providers across EMEA and the US&rdquo; <sup id="fnref:fn-41"><a class="footnote-ref" href="#fn:fn-41">41</a></sup>. Its closest comparable, Ekinops, ran the <em>opposite</em> way: optical revenue declined ~12% in FY2025 as two North American customers cut capex, and its dedicated DCI product line (PTM) does not commercialize until end-2026, with a vendor-self-estimated 13–20% DCI growth (a company forecast, not an independent market figure) <sup id="fnref:fn-52"><a class="footnote-ref" href="#fn:fn-52">52</a></sup>. So even the cleanest non-scale comparable is forward-loaded; the present-tense capture is concentrated in the one vendor executing on open-DWDM.</p>
+<p>And the ceiling is sharp: <strong>zero non-scale wins at the hyperscaler or marquee-neocloud tier.</strong> The neocloud tier is captured by scale player Ciena <sup id="fnref2:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup>; Ciena&rsquo;s book is concentrated among a small number of large customers <sup id="fnref4:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup>; and Ciena&rsquo;s optical line is several times the entire sub-scale set combined — an order of magnitude larger than any single sub-scale optical franchise <sup id="fnref2:fn-42"><a class="footnote-ref" href="#fn:fn-42">42</a></sup>. No corpus finding records a single non-scale win at the hyperscaler or marquee-neocloud tier. This boundary is what makes the framework genuinely <em>tiered</em> rather than a smooth gradient: the sub-scale vendors are structurally locked out of the money tiers and reliably present only in the fragmented tail.</p>
+<h3 id="4c-the-public-exposure-roster">4c — The public exposure roster</h3>
+<p>Every interesting public company exposed to the theme, with how/why and a capture-versus-leak read.</p>
+<p><strong>Table 2 — Public exposure roster (capture-vs-leak)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Company</th>
+<th>Tier / role</th>
+<th>Exposure (how/why)</th>
+<th>Capture vs leak</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ciena (CIEN)</td>
+<td>Scale systems</td>
+<td>Optical Networking $3.25B FY25, +22.8% <sup id="fnref6:fn-42"><a class="footnote-ref" href="#fn:fn-42">42</a></sup>; Waveserver DCI; explicit metro/edge pillar <sup id="fnref10:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup><sup id="fnref11:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup>; top-2 cloud ~⅓ sales <sup id="fnref10:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup></td>
+<td><strong>Captures</strong> the money tiers; the regional socket is its named growth target</td>
+</tr>
+<tr>
+<td>Nokia (incl. Infinera)</td>
+<td>Scale systems</td>
+<td>~$2.3B Infinera deal +75% to Optical; long-haul/submarine/DCI/metro; ICP &gt;30% of Infinera sales <sup id="fnref3:fn-44"><a class="footnote-ref" href="#fn:fn-44">44</a></sup></td>
+<td><strong>Captures</strong>; consolidation pulls mid-scale DCI upward</td>
+</tr>
+<tr>
+<td>Cisco (incl. Acacia)</td>
+<td>Scale systems + components</td>
+<td>RON; &gt;70% of coherent ports pluggable; captures router + pluggable <sup id="fnref3:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup>; top-3 DCI supplier <sup id="fnref5:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup></td>
+<td><strong>Captures</strong>; RON is the structural leak away from sub-scale</td>
+</tr>
+<tr>
+<td>Marvell (MRVL)</td>
+<td>Components</td>
+<td>Data center $6.1B, 74% of revenue <sup id="fnref6:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup>; DCI modules to all 5 hyperscalers FY27 (forecast) <sup id="fnref5:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup></td>
+<td><strong>Captures</strong> the silicon, tier-agnostic but hyperscale-concentrated</td>
+</tr>
+<tr>
+<td>Coherent (COHR)</td>
+<td>Components</td>
+<td>Networking profit +82% to $644M on named DCI demand <sup id="fnref3:fn-47"><a class="footnote-ref" href="#fn:fn-47">47</a></sup></td>
+<td><strong>Captures</strong> at component layer, leak-agnostic</td>
+</tr>
+<tr>
+<td>Lumentum (LITE)</td>
+<td>Components</td>
+<td>Lasers/PICs/transceivers across access/metro/long-haul to NEMs <sup id="fnref3:fn-48"><a class="footnote-ref" href="#fn:fn-48">48</a></sup></td>
+<td><strong>Captures</strong> component layer; bulk is hyperscale transceivers</td>
+</tr>
+<tr>
+<td>Fabrinet (FN)</td>
+<td>Contract manufacturer</td>
+<td>DCI revenue $197M, +90% YoY — fastest-growing line <sup id="fnref5:fn-49"><a class="footnote-ref" href="#fn:fn-49">49</a></sup></td>
+<td><strong>Captures</strong> manufacturing; no design margin; consolidation-exposed</td>
+</tr>
+<tr>
+<td>Arista (ANET)</td>
+<td>Router/switch</td>
+<td>Real ≤120km 400ZR DCI (3.2Tb/s over a fiber pair) <sup id="fnref3:fn-53"><a class="footnote-ref" href="#fn:fn-53">53</a></sup>; but franchise is intra-DC AI fabric, Meta 15% of FY24 rev <sup id="fnref3:fn-54"><a class="footnote-ref" href="#fn:fn-54">54</a></sup></td>
+<td><strong>Leaks</strong> metro/regional transport; RON-upside only</td>
+</tr>
+<tr>
+<td>HPE / Juniper</td>
+<td>Router/switch</td>
+<td>HPE closed Juniper $40/sh <sup id="fnref3:fn-55"><a class="footnote-ref" href="#fn:fn-55">55</a></sup>; ACX7000 Cloud Metro + JCO400 under CORA IPoDWDM spans metro/regional/core/DCI <sup id="fnref3:fn-56"><a class="footnote-ref" href="#fn:fn-56">56</a></sup></td>
+<td><strong>Captures</strong> — strongest of the 3 router names on the knock-on</td>
+</tr>
+<tr>
+<td>Ribbon (RBBN)</td>
+<td>Non-scale systems</td>
+<td>IP Optical (~$340M of $844.6M total) sells DCI to CSPs/utilities/defense, NA-concentrated <sup id="fnref2:fn-57"><a class="footnote-ref" href="#fn:fn-57">57</a></sup>; Planters Broadband 400G/800G win <sup id="fnref5:fn-39"><a class="footnote-ref" href="#fn:fn-39">39</a></sup></td>
+<td><strong>Captures</strong> the tail where scale won&rsquo;t bother; most volume leaks to scale</td>
+</tr>
+<tr>
+<td>ADTRAN (ADTN)</td>
+<td>Non-scale systems</td>
+<td>Explicitly names metro optical transport + DCI + utilities/municipalities as its market <sup id="fnref4:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup><sup id="fnref5:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup>; Cegeka DCI + FiberCop wins <sup id="fnref5:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup><sup id="fnref5:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup></td>
+<td><strong>Captures</strong> the regional/metro tail; RON erodes the chassis base</td>
+</tr>
+<tr>
+<td>Smartoptics (SMOP)</td>
+<td>Non-scale (open-DWDM)</td>
+<td>FY25 $75.3M, +35.6% on AI-DCI; neo-scaler/ICP orders <sup id="fnref5:fn-41"><a class="footnote-ref" href="#fn:fn-41">41</a></sup>; TKRZ + Geneseo wins <sup id="fnref6:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup><sup id="fnref5:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup></td>
+<td><strong>Captures</strong> — cleanest non-scale capture monetizing now</td>
+</tr>
+<tr>
+<td>Ekinops (EKI)</td>
+<td>Non-scale</td>
+<td>FY25 optical −12%; dedicated DCI line commercializes end-2026 <sup id="fnref4:fn-52"><a class="footnote-ref" href="#fn:fn-52">52</a></sup>; MuniNet + Project THOR wins <sup id="fnref5:fn-35"><a class="footnote-ref" href="#fn:fn-35">35</a></sup><sup id="fnref5:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup></td>
+<td><strong>Captures</strong> the tail but forward-loaded and shrinking</td>
+</tr>
+<tr>
+<td>Cogent (CCOI)</td>
+<td>Carrier / operator</td>
+<td>Wavelength revenue doubled to $38.5M (only growth line); 52+87 edge DCs across 305 metros <sup id="fnref6:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup><sup id="fnref7:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup></td>
+<td><strong>Buys</strong> the gear; captures service revenue, not vendor margin</td>
+</tr>
+<tr>
+<td>Lumen (LUMN)</td>
+<td>Carrier / operator</td>
+<td>~$13B PCF; Business Grow segment $4.38B <sup id="fnref4:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup><sup id="fnref3:fn-60"><a class="footnote-ref" href="#fn:fn-60">60</a></sup></td>
+<td><strong>Buys</strong>; captures connectivity service revenue</td>
+</tr>
+<tr>
+<td>Uniti (UNIT)</td>
+<td>Wholesale fiber</td>
+<td>High-capacity transport to hyperscalers/content/carriers; fiber-to-tower <sup id="fnref3:fn-61"><a class="footnote-ref" href="#fn:fn-61">61</a></sup></td>
+<td><strong>Buys</strong>; captures recurring transport/lease revenue</td>
+</tr>
+<tr>
+<td>Equinix (EQIX)</td>
+<td>Colo landlord</td>
+<td>$1.6B annualized gross bookings (+27%); 29% interconnection CAGR (forecast); Fiber Connect provides dark-fiber links <sup id="fnref7:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref8:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup></td>
+<td><strong>Buys</strong>; captures interconnection/port fees; clearest demand signal</td>
+</tr>
+<tr>
+<td>Digital Realty (DLR)</td>
+<td>Colo landlord</td>
+<td>PlatformDIGITAL; cloud/AI named demand drivers <sup id="fnref3:fn-62"><a class="footnote-ref" href="#fn:fn-62">62</a></sup></td>
+<td><strong>Buys</strong>; captures rent + interconnection fees</td>
+</tr>
+<tr>
+<td>Akamai (AKAM)</td>
+<td>CDN / edge buyer</td>
+<td>20-site Inference Cloud <sup id="fnref5:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>; ~4,300 edge POPs (footprint) <sup id="fnref5:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>; compute into underserved metros <sup id="fnref6:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup></td>
+<td><strong>Buys</strong> bandwidth/colo; demand signal, not margin capturer</td>
+</tr>
+<tr>
+<td>Cloudflare (NET)</td>
+<td>CDN / edge buyer</td>
+<td>Edge inference across 330 cities, sub-50ms <sup id="fnref5:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref3:fn-63"><a class="footnote-ref" href="#fn:fn-63">63</a></sup></td>
+<td><strong>Buys</strong>; demand signal</td>
+</tr>
+<tr>
+<td>Fastly (FSLY)</td>
+<td>CDN / edge buyer</td>
+<td>High-density PoPs near major clouds <sup id="fnref3:fn-64"><a class="footnote-ref" href="#fn:fn-64">64</a></sup></td>
+<td><strong>Buys</strong>; modest demand signal</td>
+</tr>
+<tr>
+<td>Applied Optoelectronics (AAOI)</td>
+<td>Transceiver vendor</td>
+<td>Data-center $195.7M (42.9%), Microsoft 28.8% of total; CATV side <sup id="fnref2:fn-65"><a class="footnote-ref" href="#fn:fn-65">65</a></sup></td>
+<td>Hyperscale-transceiver + CATV; <strong>not</strong> the regional play</td>
+</tr>
+</tbody>
+</table>
+<p>The router/switch row carries the subtle capture distinction. Arista has a <em>real</em> metro DCI product — its 7280R3 supports 400ZR/ZR+ and its own ZR Line System multiplexes 8x 400ZR for 3.2 Tb/s over a fiber pair to 120 km <sup id="fnref:fn-53"><a class="footnote-ref" href="#fn:fn-53">53</a></sup> — but its franchise is intra-DC AI fabric, Meta-concentrated (15% of FY2024 revenue) <sup id="fnref:fn-54"><a class="footnote-ref" href="#fn:fn-54">54</a></sup>, so it leaks metro/regional transport to dedicated optical vendors and captures the knock-on only to the extent DCI migrates into the router. Juniper (now HPE) is the strongest of the three on the knock-on: its ACX7000 Cloud Metro routers plus JCO400 coherent pluggables, unified under the CORA IP-over-DWDM strategy, span access/metro/regional/core/DCI exactly where tier-2/3 and CSP spend lands <sup id="fnref:fn-55"><a class="footnote-ref" href="#fn:fn-55">55</a></sup><sup id="fnref:fn-56"><a class="footnote-ref" href="#fn:fn-56">56</a></sup> — which means the cleanest <em>public</em> router-side capture of the regional knock-on is now an HPE line item, not a standalone optical vendor, reinforcing that even the router path consolidates the dollar toward scale.</p>
+<p>The carrier and colo row is the other half of the public picture, and the rule is consistent: operators are <strong>demand nodes that buy the gear</strong>, not capturers of vendor margin. Cogent is the textbook regional/edge buyer — its wavelength line doubled to $38.5M, the only growing revenue category, off a footprint of 52 data centers plus 87 edge data centers across 305 metro markets <sup id="fnref:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup><sup id="fnref2:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup>; Lumen&rsquo;s Grow segment was $4.38B <sup id="fnref:fn-60"><a class="footnote-ref" href="#fn:fn-60">60</a></sup>; Uniti wholesales transport to hyperscalers <sup id="fnref:fn-61"><a class="footnote-ref" href="#fn:fn-61">61</a></sup>; Equinix and Digital Realty capture interconnection and rent while the optical-equipment dollar that lights their cross-DC links leaks to Ciena/Nokia/Cisco <sup id="fnref4:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref:fn-62"><a class="footnote-ref" href="#fn:fn-62">62</a></sup>; Akamai, Cloudflare and Fastly are pure edge buyers consuming interconnect, transit and colocation <sup id="fnref2:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup><sup id="fnref:fn-63"><a class="footnote-ref" href="#fn:fn-63">63</a></sup><sup id="fnref:fn-64"><a class="footnote-ref" href="#fn:fn-64">64</a></sup>. The distinction the whole thesis turns on lives in this row: service-revenue capture (operators) is not equipment-margin capture (vendors).</p>
+<h3 id="4d-the-ribbon-67-rural-dci-stress-test">4d — The Ribbon &ldquo;67% rural DCI&rdquo; stress-test</h3>
+<p><em>Ribbon markets a &ldquo;Rural DCI&rdquo; thesis asserting &ldquo;67% of US DCI growth is in rural areas&rdquo;; the correct treatment is to refute the wording and confirm the direction, because the number is a relabel of a facility count, and capacity-weighted data refutes the spend implication while confirming that secondary builds are a real growing tail.</em></p>
+<p>Ribbon&rsquo;s Q1-2026 earnings deck states, verbatim, &ldquo;USA: 67% of DCI growth is in rural areas,&rdquo; sourced to &ldquo;Pew Research &amp; Datacentermap.com&rdquo; <sup id="fnref:fn-66"><a class="footnote-ref" href="#fn:fn-66">66</a></sup>. But Pew&rsquo;s underlying finding is that <strong>67% of <em>planned</em> US data-center <em>facilities</em> (a count) are in rural areas</strong> — not 67% of DCI growth, spend or bandwidth <sup id="fnref:fn-67"><a class="footnote-ref" href="#fn:fn-67">67</a></sup>. The relabel matters because a facility count and a capacity/spend share are different quantities: in Pew&rsquo;s database a 10 MW edge site and a 1,000 MW hyperscale campus each count as one facility <sup id="fnref2:fn-67"><a class="footnote-ref" href="#fn:fn-67">67</a></sup>. The table below runs the stress-test.</p>
+<p><strong>Table 3 — The &ldquo;67% rural&rdquo; stress-test: facility count vs capacity/spend</strong></p>
+<table>
+<thead>
+<tr>
+<th>Claim / counter</th>
+<th>What it actually measures</th>
+<th>Value</th>
+<th>Marker</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ribbon: &ldquo;67% of US DCI growth is in rural areas&rdquo;</td>
+<td>DCI <em>growth/spend</em> (as marketed)</td>
+<td>67%</td>
+<td><sup id="fnref4:fn-66"><a class="footnote-ref" href="#fn:fn-66">66</a></sup></td>
+</tr>
+<tr>
+<td>Pew (the cited basis)</td>
+<td>Planned data-center <em>facilities</em> by COUNT in rural areas</td>
+<td>67%</td>
+<td><sup id="fnref5:fn-67"><a class="footnote-ref" href="#fn:fn-67">67</a></sup></td>
+</tr>
+<tr>
+<td>CBRE capacity counter</td>
+<td>Northern Virginia capacity vs all secondary US markets combined</td>
+<td>~3.5x</td>
+<td><sup id="fnref4:fn-68"><a class="footnote-ref" href="#fn:fn-68">68</a></sup></td>
+</tr>
+<tr>
+<td>Synergy capacity counter</td>
+<td>Share of global hyperscale capacity in the top 20 metros</td>
+<td>62%</td>
+<td><sup id="fnref4:fn-69"><a class="footnote-ref" href="#fn:fn-69">69</a></sup></td>
+</tr>
+<tr>
+<td>Bloom Energy (forecast)</td>
+<td>Texas share of US data-center power demand by 2028</td>
+<td>~30%</td>
+<td><sup id="fnref3:fn-70"><a class="footnote-ref" href="#fn:fn-70">70</a></sup></td>
+</tr>
+<tr>
+<td>CBRE (direction, confirmed)</td>
+<td>Tertiary pipelines (Reno, Abilene) could outpace some primary metros in 2026</td>
+<td>qualitative</td>
+<td><sup id="fnref6:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup></td>
+</tr>
+</tbody>
+</table>
+<p>Capacity-weighted data refutes the spend implication decisively: Northern Virginia alone holds nearly 3.5x more data-center capacity than all secondary US markets combined <sup id="fnref:fn-68"><a class="footnote-ref" href="#fn:fn-68">68</a></sup>, the top 20 metros hold 62% of global hyperscale capacity <sup id="fnref:fn-69"><a class="footnote-ref" href="#fn:fn-69">69</a></sup>, and growth concentrates in a handful of hubs (Texas heading to ~30% of US demand by 2028, forecast) <sup id="fnref:fn-70"><a class="footnote-ref" href="#fn:fn-70">70</a></sup>. Hyperscale capacity is where the bulk of DCI bandwidth and spend originates, so a rural <em>facility-count</em> share does not translate into a rural <em>DCI-dollar</em> share. At the same time, the <em>direction</em> is genuine: CBRE confirms the training-to-inference shift is accelerating secondary/tertiary pipelines, with Reno and Abilene able to outpace some primary markets in 2026 <sup id="fnref2:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The verdict for the reader: never print &ldquo;67% of DCI growth is rural&rdquo; as fact — the facility count tilts rural, the DCI dollars stay metro-concentrated, and the regional opportunity is real but small relative to the hubs.</p>
+<hr>
+<h2 id="5-the-private-map-the-noldor-exa-private-company-sweep">5. The private map — the Noldor + Exa private-company sweep</h2>
+<p><em>The private universe splits into three groups — the edge-DC developers and metro fiber operators that are the literal demand origin and transport layer, the neoclouds and edge-cloud providers that distribute the inference footprint, and the photonics/CPO startups that are deeper-tail optionality on an optics-replaces-copper transition — and the most theme-relevant names sit in the first group.</em></p>
+<p><strong>Table 4 — Private-company sweep, grouped by category, with the theme angle each</strong></p>
+<table>
+<thead>
+<tr>
+<th>Company</th>
+<th>Category</th>
+<th>Marker</th>
+<th>Theme angle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Crusoe</td>
+<td>Edge-DC developer</td>
+<td><sup id="fnref3:fn-71"><a class="footnote-ref" href="#fn:fn-71">71</a></sup></td>
+<td>1.2GW Abilene Stargate campus, $11.6B financed — greenfield secondary-metro demand origin needing long-haul + metro DCI</td>
+</tr>
+<tr>
+<td>Lancium</td>
+<td>Campus owner</td>
+<td><sup id="fnref3:fn-72"><a class="footnote-ref" href="#fn:fn-72">72</a></sup></td>
+<td>Owns the Abilene secondary-metro land+power the AI-DC sits on</td>
+</tr>
+<tr>
+<td>EdgeConneX</td>
+<td>Edge-DC platform</td>
+<td><sup id="fnref3:fn-73"><a class="footnote-ref" href="#fn:fn-73">73</a></sup></td>
+<td>80+ DCs across 50+ markets, 4 continents — one of the largest pure-play hyperlocal-to-hyperscale edge developers</td>
+</tr>
+<tr>
+<td>DataBank</td>
+<td>Edge colo + interconnection</td>
+<td><sup id="fnref3:fn-74"><a class="footnote-ref" href="#fn:fn-74">74</a></sup></td>
+<td>65+ HPC-ready DCs across 27+ secondary metros, 20 interconnection hubs</td>
+</tr>
+<tr>
+<td>Vapor IO</td>
+<td>Edge micro-DC + interconnect</td>
+<td><sup id="fnref3:fn-75"><a class="footnote-ref" href="#fn:fn-75">75</a></sup></td>
+<td>Metro micro-DCs + software-defined interconnection + Zayo fiber partnership — most theme-relevant new edge name</td>
+</tr>
+<tr>
+<td>Everstream</td>
+<td>Super-regional fiber</td>
+<td><sup id="fnref3:fn-76"><a class="footnote-ref" href="#fn:fn-76">76</a></sup></td>
+<td>~30k route miles, Midwest/Mid-Atlantic secondary metros — the literal metro/DCI fiber layer</td>
+</tr>
+<tr>
+<td>Segra</td>
+<td>Regional fiber</td>
+<td><sup id="fnref3:fn-77"><a class="footnote-ref" href="#fn:fn-77">77</a></sup></td>
+<td>~44k route miles, 400G/800G waves, Southeast/Mid-Atlantic — dark fiber + wavelengths interconnecting regional DCs</td>
+</tr>
+<tr>
+<td>Zayo (private)</td>
+<td>Metro + long-haul fiber</td>
+<td><sup id="fnref3:fn-78"><a class="footnote-ref" href="#fn:fn-78">78</a></sup></td>
+<td>Canonical private middle-mile/metro DCI builder capturing the outward-push transport spend</td>
+</tr>
+<tr>
+<td>Flexential</td>
+<td>Regional colo</td>
+<td><sup id="fnref3:fn-79"><a class="footnote-ref" href="#fn:fn-79">79</a></sup></td>
+<td>42 DCs across 19 markets on 100Gbps backbone; interconnect-adjacent platform</td>
+</tr>
+<tr>
+<td>Compass Datacenters</td>
+<td>Regional campus developer</td>
+<td><sup id="fnref3:fn-80"><a class="footnote-ref" href="#fn:fn-80">80</a></sup></td>
+<td>~$10B Chicago campus + Columbus/Phoenix sites — secondary-metro hyperscale builds</td>
+</tr>
+<tr>
+<td>Gcore</td>
+<td>Edge-AI cloud</td>
+<td><sup id="fnref3:fn-81"><a class="footnote-ref" href="#fn:fn-81">81</a></sup></td>
+<td>180+ edge PoPs running edge training + inference — inter-PoP/metro transport pull</td>
+</tr>
+<tr>
+<td>Vultr</td>
+<td>GPU cloud</td>
+<td><sup id="fnref3:fn-82"><a class="footnote-ref" href="#fn:fn-82">82</a></sup></td>
+<td>32 globally-distributed GPU DCs (mostly ex-NA) pushing AI to the edge</td>
+</tr>
+<tr>
+<td>Runsun</td>
+<td>Multi-region neocloud</td>
+<td><sup id="fnref3:fn-83"><a class="footnote-ref" href="#fn:fn-83">83</a></sup></td>
+<td>Singapore HQ, multi-region, 10k+ GPUs — cross-region inference needs inter-region optical</td>
+</tr>
+<tr>
+<td>FPT Cloud</td>
+<td>Regional (SEA) neocloud</td>
+<td><sup id="fnref3:fn-84"><a class="footnote-ref" href="#fn:fn-84">84</a></sup></td>
+<td>Vietnam/Japan capacity — intra-region DCI demand</td>
+</tr>
+<tr>
+<td>Cirrascale</td>
+<td>Neocloud/colo hybrid</td>
+<td><sup id="fnref3:fn-85"><a class="footnote-ref" href="#fn:fn-85">85</a></sup></td>
+<td>Distributed GPU hosting drives metro interconnect/transit</td>
+</tr>
+<tr>
+<td>Ranovus</td>
+<td>CPO/optical engine</td>
+<td><sup id="fnref3:fn-86"><a class="footnote-ref" href="#fn:fn-86">86</a></sup></td>
+<td>~2027 IPO; every incremental optical port at edge/regional DCs is TAM</td>
+</tr>
+<tr>
+<td>Celestial AI</td>
+<td>Optical interconnect</td>
+<td><sup id="fnref3:fn-87"><a class="footnote-ref" href="#fn:fn-87">87</a></sup></td>
+<td>$515M raised; Photonic Fabric enables distributed/regional clusters</td>
+</tr>
+<tr>
+<td>Lightmatter</td>
+<td>Photonic interconnect</td>
+<td><sup id="fnref3:fn-88"><a class="footnote-ref" href="#fn:fn-88">88</a></sup></td>
+<td>$400M Series D, $4.4B val; intra-DC scale-up fabric, regional link speculative</td>
+</tr>
+<tr>
+<td>Xscape Photonics</td>
+<td>Silicon photonics</td>
+<td><sup id="fnref3:fn-89"><a class="footnote-ref" href="#fn:fn-89">89</a></sup></td>
+<td>$44M Series A (Cisco/NVIDIA); multi-wavelength fiber economics</td>
+</tr>
+<tr>
+<td>Nubis</td>
+<td>Optical interconnect</td>
+<td><sup id="fnref4:fn-90"><a class="footnote-ref" href="#fn:fn-90">90</a></sup></td>
+<td>Acquired by Ciena $270M — incumbent buying into rack-to-rack optics</td>
+</tr>
+<tr>
+<td>Avicena</td>
+<td>microLED interconnect</td>
+<td><sup id="fnref3:fn-91"><a class="footnote-ref" href="#fn:fn-91">91</a></sup></td>
+<td>$65M Series B; memory fabrics + 5G touch edge/distributed compute</td>
+</tr>
+<tr>
+<td>Quintessent</td>
+<td>Comb-laser photonics</td>
+<td><sup id="fnref3:fn-92"><a class="footnote-ref" href="#fn:fn-92">92</a></sup></td>
+<td>$11.5M seed; same DWDM physics, intra-DC today</td>
+</tr>
+<tr>
+<td>Armada</td>
+<td>Edge-DC (inverse case)</td>
+<td><sup id="fnref3:fn-93"><a class="footnote-ref" href="#fn:fn-93">93</a></sup></td>
+<td>Starlink-connected modular DCs route AROUND terrestrial fiber — negative link to regional optical</td>
+</tr>
+</tbody>
+</table>
+<p>The first group is the heart of the private map. Crusoe&rsquo;s 1.2GW Abilene Stargate campus ($11.6B financed) <sup id="fnref:fn-71"><a class="footnote-ref" href="#fn:fn-71">71</a></sup>, sited on Lancium&rsquo;s land <sup id="fnref:fn-72"><a class="footnote-ref" href="#fn:fn-72">72</a></sup>, is exactly the outward push the thesis describes — a greenfield secondary-metro campus that <em>needs</em> massive long-haul and metro DCI to backhaul to users and other regions. EdgeConneX (80+ DCs) <sup id="fnref:fn-73"><a class="footnote-ref" href="#fn:fn-73">73</a></sup>, DataBank (65+ HPC-ready DCs, 20 interconnection hubs) <sup id="fnref:fn-74"><a class="footnote-ref" href="#fn:fn-74">74</a></sup> and Vapor IO (metro micro-DCs plus a Zayo fiber partnership to bridge the middle-mile) <sup id="fnref:fn-75"><a class="footnote-ref" href="#fn:fn-75">75</a></sup> are the edge developers; Everstream (~30k route miles) <sup id="fnref:fn-76"><a class="footnote-ref" href="#fn:fn-76">76</a></sup>, Segra (~44k route miles, 400G/800G waves) <sup id="fnref:fn-77"><a class="footnote-ref" href="#fn:fn-77">77</a></sup> and private Zayo <sup id="fnref:fn-78"><a class="footnote-ref" href="#fn:fn-78">78</a></sup> are the literal metro/DCI fiber layer that connects them, with Compass <sup id="fnref:fn-80"><a class="footnote-ref" href="#fn:fn-80">80</a></sup> and Flexential <sup id="fnref:fn-79"><a class="footnote-ref" href="#fn:fn-79">79</a></sup> filling out the secondary-metro campus and colo layer. These are the demand origins and the transport plumbing of the regional knock-on.</p>
+<p>The second group — neoclouds and edge-cloud providers — creates the distributed inference footprint that <em>pulls</em> metro interconnect: Gcore&rsquo;s 180+ edge PoPs <sup id="fnref:fn-81"><a class="footnote-ref" href="#fn:fn-81">81</a></sup>, Vultr&rsquo;s 32 globally-distributed GPU DCs <sup id="fnref:fn-82"><a class="footnote-ref" href="#fn:fn-82">82</a></sup>, Runsun&rsquo;s multi-region 10k+ GPUs <sup id="fnref:fn-83"><a class="footnote-ref" href="#fn:fn-83">83</a></sup>, FPT Cloud <sup id="fnref:fn-84"><a class="footnote-ref" href="#fn:fn-84">84</a></sup> and Cirrascale <sup id="fnref:fn-85"><a class="footnote-ref" href="#fn:fn-85">85</a></sup> — each distributes inference across regions, which requires inter-region/metro optical connectivity. (The corpus also flags miner-to-AI names siting on stranded rural power that would need new fiber to be usable for inference; those are lower-confidence single-source flags and are noted here rather than developed.)</p>
+<p>The third group — photonics and CPO startups — is deeper-tail optionality, and the calibration is honest: Ranovus <sup id="fnref:fn-86"><a class="footnote-ref" href="#fn:fn-86">86</a></sup>, Celestial AI <sup id="fnref:fn-87"><a class="footnote-ref" href="#fn:fn-87">87</a></sup>, Lightmatter <sup id="fnref:fn-88"><a class="footnote-ref" href="#fn:fn-88">88</a></sup>, Xscape <sup id="fnref:fn-89"><a class="footnote-ref" href="#fn:fn-89">89</a></sup>, Nubis (now Ciena&rsquo;s) <sup id="fnref:fn-90"><a class="footnote-ref" href="#fn:fn-90">90</a></sup>, Avicena <sup id="fnref:fn-91"><a class="footnote-ref" href="#fn:fn-91">91</a></sup> and Quintessent <sup id="fnref:fn-92"><a class="footnote-ref" href="#fn:fn-92">92</a></sup> all attack the optical-interconnect bottleneck, but their concrete present-tense use is intra-DC scale-up fabric. Their link to <em>regional</em> DCI is the same DWDM physics played out over distance — real optionality, but speculative as a present-tense regional play (confidence: low-to-moderate, single-deployment-context). And one name cuts the other way: Armada&rsquo;s Starlink-connected ruggedized modular DCs route <em>around</em> terrestrial fiber, so its link to regional optical spend is negative, not positive — an honest reminder that not all &ldquo;edge&rdquo; is fiber-additive <sup id="fnref:fn-93"><a class="footnote-ref" href="#fn:fn-93">93</a></sup>.</p>
+<hr>
+<h2 id="6-synthesis-where-the-weight-of-evidence-lands">6. Synthesis — where the weight of evidence lands</h2>
+<p><em>The evidence-weighted verdict is that the edge-inference &ldquo;knock-on optical wave&rdquo; is real but tiered and largely not-yet-at-the-edge: the measured money is hyperscaler scale-across (campus plus long-haul, North-America-concentrated), captured by scale systems vendors and component players, while non-scale vendors reliably capture only the fragmented regional/metro/municipal tail.</em></p>
+<p>Three findings carry the verdict, and they compound. First, the demand is unsized at the edge granularity and, where it can be proxied, the edge tiers are flat-to-declining: no analyst publishes an edge-optical line <sup id="fnref4:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, WDM Metro declined for seven straight quarters <sup id="fnref3:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>, and the non-hyperscaler &ldquo;rest of market&rdquo; DWDM spend was flat 2017–2024 <sup id="fnref4:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>. Second, only one of five candidate mechanisms is operative today as an outward push, and even latency-sensitive inference rides existing fiber plus new GPUs rather than new optical orders <sup id="fnref3:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup><sup id="fnref3:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref4:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>; sovereignty as a sized optical driver and edge KV-caching are aspirational or intra-cluster <sup id="fnref2:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup><sup id="fnref2:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>. Third, capture splits cleanly by tier: the money tiers leak to scale systems (Ciena $3.25B optical, +22.8% <sup id="fnref3:fn-42"><a class="footnote-ref" href="#fn:fn-42">42</a></sup>) and components (Marvell $6.1B data-center, 74% of revenue <sup id="fnref2:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup>; Fabrinet DCI +90% <sup id="fnref2:fn-49"><a class="footnote-ref" href="#fn:fn-49">49</a></sup>), the fastest-growing emerging buyer (neoclouds) is captured by scale player Ciena <sup id="fnref3:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup>, and non-scale vendors win a repeatable but bounded regional/metro tail — eight named wins <sup id="fnref2:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup><sup id="fnref2:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup><sup id="fnref2:fn-35"><a class="footnote-ref" href="#fn:fn-35">35</a></sup><sup id="fnref2:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup><sup id="fnref2:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup><sup id="fnref2:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup><sup id="fnref2:fn-39"><a class="footnote-ref" href="#fn:fn-39">39</a></sup><sup id="fnref2:fn-40"><a class="footnote-ref" href="#fn:fn-40">40</a></sup> — with <strong>zero</strong> wins at the hyperscaler or marquee-neocloud tier <sup id="fnref4:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup><sup id="fnref5:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup>.</p>
+<p>The Ribbon &ldquo;67% rural DCI&rdquo; claim crystallizes the whole verdict in one number: the facility <em>count</em> genuinely tilts rural <sup id="fnref3:fn-67"><a class="footnote-ref" href="#fn:fn-67">67</a></sup>, but the DCI <em>dollars</em> stay metro-concentrated (Northern Virginia ~3.5x all secondary markets combined <sup id="fnref2:fn-68"><a class="footnote-ref" href="#fn:fn-68">68</a></sup>; top 20 metros = 62% of global hyperscale capacity <sup id="fnref2:fn-69"><a class="footnote-ref" href="#fn:fn-69">69</a></sup>). The regional opportunity is real and growing in direction <sup id="fnref3:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> but small in magnitude relative to the hubs. The honest one-sentence answer to &ldquo;is the edge-inference optical wave real, and who captures it?&rdquo; is: <em>a real optical wave exists, it is hyperscaler scale-across rather than edge dispersion, scale systems and components capture the money tiers, and the only reliable non-scale capture is the fragmented regional/metro/municipal tail — monetized today essentially by Smartoptics alone.</em></p>
+<hr>
+<h2 id="7-investment-lens-qualitative-tie-to-johns-aihpc-services-thesis">7. Investment lens (qualitative tie to John&rsquo;s AI/HPC-services thesis)</h2>
+<p><em>This primer maps the regional/edge slice of the optical knock-on onto John&rsquo;s AI/HPC-services thesis as a present-tense capture map, not a forecast — there is no model for this run and no cited model cells.</em></p>
+<p>For the AI/HPC-services thesis, the theme resolves into a simple routing rule for where the optical knock-on dollar lands. At the money tiers — hyperscaler, neocloud, long-haul — the dollar is captured overwhelmingly by scale systems vendors and component players: Ciena&rsquo;s $3.25B optical line (+22.8%) is an order of magnitude larger than any single sub-scale optical franchise — several times the entire sub-scale set combined — and growing faster <sup id="fnref4:fn-42"><a class="footnote-ref" href="#fn:fn-42">42</a></sup>, and the component layer (Marvell, Coherent, Lumentum, Fabrinet) captures the silicon tier-agnostically but concentrated at hyperscale <sup id="fnref3:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup><sup id="fnref2:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup><sup id="fnref3:fn-49"><a class="footnote-ref" href="#fn:fn-49">49</a></sup>. The non-scale tail is monetizable — but only by the names executing on open-DWDM against a flat rest-of-market <sup id="fnref5:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> and a structurally declining metro layer <sup id="fnref4:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>; in the present tense that is essentially Smartoptics (+35.6% on AI-DCI demand <sup id="fnref2:fn-41"><a class="footnote-ref" href="#fn:fn-41">41</a></sup>), with Ekinops&rsquo;s comparable opportunity still forward-loaded to end-2026 <sup id="fnref2:fn-52"><a class="footnote-ref" href="#fn:fn-52">52</a></sup>. The thesis read is that the regional/edge knock-on is a real but <em>thin and bounded</em> capture pool for non-scale vendors, sitting beneath a much larger scale-captured pool — and that the cleanest exposures to the edge-inference <em>demand</em> (Crusoe, EdgeConneX, DataBank, Vapor IO, Everstream, Segra) are private demand-origin and transport-layer names rather than the vendors that capture equipment margin. This is qualitative by design: with no model and no forecast permitted, the lens is a map of present-tense capture, not a sizing.</p>
+<p><em>Counter-thesis (the strongest bull read): the dispersion is simply early, and edge inference WILL push optical spend out to tier-3 by 2027–28 — at which point the non-scale tail thickens and the &ldquo;flat metro&rdquo; diagnosis inverts. The receipts the bull points to are forward-loaded but named: Ciena&rsquo;s first multi-rail hyperscaler award and its ~$50B-by-2029 TAM ramp from 2027 (forecast) <sup id="fnref4:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup><sup id="fnref5:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>, Dell&rsquo;Oro framing 100 km campus-cluster interconnect as the 2026 use case that normalizes regional coherent (forecast) <sup id="fnref:fn-94"><a class="footnote-ref" href="#fn:fn-94">94</a></sup>, Deloitte&rsquo;s expectation that smaller distributed inferencing data centers emerge <sup id="fnref2:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>, and CBRE&rsquo;s observation that tertiary pipelines (Reno, Abilene) could outpace some primary metros in 2026 <sup id="fnref4:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The falsifiers that would confirm the bull — and flip this primer&rsquo;s &ldquo;not-yet-at-the-edge&rdquo; verdict — are concrete and watchable: (1) a non-scale vendor printing a genuine hyperscaler or marquee-neocloud DCI win (today: zero); (2) an independent analyst house (Dell&rsquo;Oro, Cignal AI, LightCounting) publishing a standalone edge/regional-inference optical line item (today: none exists); (3) WDM Metro returning to sustained year-over-year growth after its seven-quarter decline <sup id="fnref5:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>; and (4) a single primary source attributing a specific metro-DWDM order to edge inference rather than campus DCI or generic capacity (the central evidentiary hole — even the cleanest tier-2/3 example, TKRZ, does not name AI as its driver <sup id="fnref3:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup>). Until one of those prints, the weight of evidence sits with the tiered, not-yet-at-the-edge verdict.</em></p>
+<hr>
+<h2 id="sources">Sources</h2>
+<p>Numbered, compact reference. Full three-component provenance (URL + local snapshot path + page) lives in the findings sidecar <code>2026-06-16-regional-edge-dci-knock-on.md.findings.jsonl</code>; markers <code>[S###]</code> in the body resolve there.</p>
+<ul>
+<li><strong>Sizing / analyst houses:</strong> Dell&rsquo;Oro optical transport $16B 2025, DCI +40%, cloud +50% <sup id="fnref7:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref8:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref2:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup><sup id="fnref:fn-95"><a class="footnote-ref" href="#fn:fn-95">95</a></sup> (S010 corroborates the same DCI +40% / cloud +50% datapoint and is not re-asserted in prose); Dell&rsquo;Oro/RCR DCI-growth corroboration <sup id="fnref2:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>; Nokia inter-/intra-facility traffic growth <sup id="fnref2:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>; WDM Metro −7 quarters, NA +24% 1Q25 <sup id="fnref6:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>; 2026 framing 100km campus interconnect <sup id="fnref2:fn-94"><a class="footnote-ref" href="#fn:fn-94">94</a></sup>; neoclouds emerging, unsized <sup id="fnref5:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>; hyperscaler DWDM ~$2B 2024, rest-of-market flat <sup id="fnref6:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>; Cignal optical components ~$25B, coherent ~$6B <sup id="fnref4:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>, telecom coherent +40% / pluggable coherent &gt;60% by 2026 <sup id="fnref5:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup><sup id="fnref:fn-96"><a class="footnote-ref" href="#fn:fn-96">96</a></sup> (S011 corroborates the coherent-bandwidth datapoint, not separately developed); long-haul wavelengths ~$2B, Lumen+Zayo ~90% <sup id="fnref2:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup>.</li>
+<li><strong>Mechanisms:</strong> Akamai Inference Cloud 20 sites <sup id="fnref4:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>, AI Grid 4,400 / DPUs <sup id="fnref5:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref2:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup>, $200M GPU agreement <sup id="fnref6:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>, 10-K 4,300 POPs <sup id="fnref3:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>, compute into metros + Fermyon <sup id="fnref4:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>; Cloudflare edge inference 330 cities <sup id="fnref4:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref2:fn-63"><a class="footnote-ref" href="#fn:fn-63">63</a></sup>; Charter/Spectrum 1,000 edge DCs <sup id="fnref2:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>; underserved-metros 10-K <sup id="fnref3:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>; KV-cache intra-cluster <sup id="fnref3:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>; Deloitte distributed compute (forecast) <sup id="fnref3:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>; Equinix interconnect 29% CAGR <sup id="fnref5:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref6:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>.</li>
+<li><strong>Knock-on chain / carriers:</strong> Lumen ~$13B PCF <sup id="fnref2:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup><sup id="fnref3:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup>, Grow $4.38B <sup id="fnref2:fn-60"><a class="footnote-ref" href="#fn:fn-60">60</a></sup>; Zayo AI long-haul <sup id="fnref2:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup><sup id="fnref4:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup><sup id="fnref:fn-97"><a class="footnote-ref" href="#fn:fn-97">97</a></sup><sup id="fnref2:fn-78"><a class="footnote-ref" href="#fn:fn-78">78</a></sup>, AI corridors 8,000 mi <sup id="fnref2:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup>; Midco/Switch 500x400G <sup id="fnref2:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>; Cogent wavelength $38.5M, edge DCs <sup id="fnref3:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup><sup id="fnref4:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup><sup id="fnref5:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup>; Uniti <sup id="fnref2:fn-61"><a class="footnote-ref" href="#fn:fn-61">61</a></sup>; Digital Realty <sup id="fnref2:fn-62"><a class="footnote-ref" href="#fn:fn-62">62</a></sup>; Fastly <sup id="fnref2:fn-64"><a class="footnote-ref" href="#fn:fn-64">64</a></sup>; TD Cowen knock-on framing <sup id="fnref:fn-98"><a class="footnote-ref" href="#fn:fn-98">98</a></sup>; Ciena Waveserver/metro-edge <sup id="fnref6:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup><sup id="fnref7:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup><sup id="fnref8:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup><sup id="fnref9:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup>; AOI <sup id="fnref:fn-65"><a class="footnote-ref" href="#fn:fn-65">65</a></sup>.</li>
+<li><strong>Capture — scale + components:</strong> Ciena optical $3.25B <sup id="fnref5:fn-42"><a class="footnote-ref" href="#fn:fn-42">42</a></sup>, cloud concentration <sup id="fnref6:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>, Hyper-Rail/TAM (forecast) <sup id="fnref7:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup><sup id="fnref8:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>, two-dozen neoscalers <sup id="fnref5:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup>, Nubis <sup id="fnref2:fn-90"><a class="footnote-ref" href="#fn:fn-90">90</a></sup>; Nokia/Infinera <sup id="fnref2:fn-44"><a class="footnote-ref" href="#fn:fn-44">44</a></sup>; Cisco RON <sup id="fnref2:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup>; top-3 DCI <sup id="fnref3:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup>; Marvell <sup id="fnref4:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup><sup id="fnref5:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup><sup id="fnref3:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup>; Coherent <sup id="fnref2:fn-47"><a class="footnote-ref" href="#fn:fn-47">47</a></sup>; Lumentum <sup id="fnref2:fn-48"><a class="footnote-ref" href="#fn:fn-48">48</a></sup>; Fabrinet <sup id="fnref4:fn-49"><a class="footnote-ref" href="#fn:fn-49">49</a></sup>; Credo <sup id="fnref2:fn-50"><a class="footnote-ref" href="#fn:fn-50">50</a></sup>; Astera <sup id="fnref2:fn-51"><a class="footnote-ref" href="#fn:fn-51">51</a></sup>; Arista <sup id="fnref2:fn-53"><a class="footnote-ref" href="#fn:fn-53">53</a></sup><sup id="fnref2:fn-54"><a class="footnote-ref" href="#fn:fn-54">54</a></sup>; HPE/Juniper <sup id="fnref2:fn-55"><a class="footnote-ref" href="#fn:fn-55">55</a></sup><sup id="fnref2:fn-56"><a class="footnote-ref" href="#fn:fn-56">56</a></sup>.</li>
+<li><strong>Non-scale tail:</strong> Smartoptics <sup id="fnref3:fn-41"><a class="footnote-ref" href="#fn:fn-41">41</a></sup><sup id="fnref4:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup><sup id="fnref3:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup>; Ekinops <sup id="fnref3:fn-52"><a class="footnote-ref" href="#fn:fn-52">52</a></sup><sup id="fnref3:fn-35"><a class="footnote-ref" href="#fn:fn-35">35</a></sup><sup id="fnref3:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup>; ADTRAN <sup id="fnref:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup><sup id="fnref2:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup><sup id="fnref3:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup><sup id="fnref3:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup><sup id="fnref3:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup>; Ribbon <sup id="fnref:fn-57"><a class="footnote-ref" href="#fn:fn-57">57</a></sup><sup id="fnref2:fn-66"><a class="footnote-ref" href="#fn:fn-66">66</a></sup><sup id="fnref3:fn-39"><a class="footnote-ref" href="#fn:fn-39">39</a></sup>; PacketLight <sup id="fnref3:fn-40"><a class="footnote-ref" href="#fn:fn-40">40</a></sup>.</li>
+<li><strong>Ribbon-67% stress-test:</strong> Ribbon claim <sup id="fnref3:fn-66"><a class="footnote-ref" href="#fn:fn-66">66</a></sup>; Pew facility count <sup id="fnref4:fn-67"><a class="footnote-ref" href="#fn:fn-67">67</a></sup>; CBRE NoVA capacity <sup id="fnref3:fn-68"><a class="footnote-ref" href="#fn:fn-68">68</a></sup>; Synergy 20-metro 62% <sup id="fnref3:fn-69"><a class="footnote-ref" href="#fn:fn-69">69</a></sup>; Bloom Energy Texas (forecast) <sup id="fnref2:fn-70"><a class="footnote-ref" href="#fn:fn-70">70</a></sup>; CBRE secondary direction <sup id="fnref5:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>.</li>
+<li><strong>Buyer universe:</strong> neoclouds ~190–200 <sup id="fnref2:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>, revenue &gt;$5B Q2-25 <sup id="fnref2:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup>; US colo ~2,226 <sup id="fnref2:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup>; US fiber 1,561 <sup id="fnref2:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup>; US telecom capex ~$96B <sup id="fnref:fn-99"><a class="footnote-ref" href="#fn:fn-99">99</a></sup>; CDN fleets <sup id="fnref2:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup>.</li>
+<li><strong>Private sweep:</strong> Crusoe <sup id="fnref2:fn-71"><a class="footnote-ref" href="#fn:fn-71">71</a></sup>, Lancium <sup id="fnref2:fn-72"><a class="footnote-ref" href="#fn:fn-72">72</a></sup>, EdgeConneX <sup id="fnref2:fn-73"><a class="footnote-ref" href="#fn:fn-73">73</a></sup>, DataBank <sup id="fnref2:fn-74"><a class="footnote-ref" href="#fn:fn-74">74</a></sup>, Vapor IO <sup id="fnref2:fn-75"><a class="footnote-ref" href="#fn:fn-75">75</a></sup>, Everstream <sup id="fnref2:fn-76"><a class="footnote-ref" href="#fn:fn-76">76</a></sup>, Segra <sup id="fnref2:fn-77"><a class="footnote-ref" href="#fn:fn-77">77</a></sup>, Flexential <sup id="fnref2:fn-79"><a class="footnote-ref" href="#fn:fn-79">79</a></sup>, Compass <sup id="fnref2:fn-80"><a class="footnote-ref" href="#fn:fn-80">80</a></sup>; Gcore <sup id="fnref2:fn-81"><a class="footnote-ref" href="#fn:fn-81">81</a></sup>, Vultr <sup id="fnref2:fn-82"><a class="footnote-ref" href="#fn:fn-82">82</a></sup>, Runsun <sup id="fnref2:fn-83"><a class="footnote-ref" href="#fn:fn-83">83</a></sup>, FPT Cloud <sup id="fnref2:fn-84"><a class="footnote-ref" href="#fn:fn-84">84</a></sup>, Cirrascale <sup id="fnref2:fn-85"><a class="footnote-ref" href="#fn:fn-85">85</a></sup>; Ranovus <sup id="fnref2:fn-86"><a class="footnote-ref" href="#fn:fn-86">86</a></sup>, Celestial AI <sup id="fnref2:fn-87"><a class="footnote-ref" href="#fn:fn-87">87</a></sup>, Lightmatter <sup id="fnref2:fn-88"><a class="footnote-ref" href="#fn:fn-88">88</a></sup>, Xscape <sup id="fnref2:fn-89"><a class="footnote-ref" href="#fn:fn-89">89</a></sup>, Nubis <sup id="fnref3:fn-90"><a class="footnote-ref" href="#fn:fn-90">90</a></sup>, Avicena <sup id="fnref2:fn-91"><a class="footnote-ref" href="#fn:fn-91">91</a></sup>, Quintessent <sup id="fnref2:fn-92"><a class="footnote-ref" href="#fn:fn-92">92</a></sup>; Armada (inverse) <sup id="fnref2:fn-93"><a class="footnote-ref" href="#fn:fn-93">93</a></sup>.</li>
+</ul>
+<p><em>Sister context (not cited as primary sources): scale-across DCI primer <code>vault/kb/outputs/primers/2026-06-11-dci-scale-across-enablement.md</code>; Ribbon/ADTRAN DC-networking report <code>vault/kb/outputs/primers/2026-06-16-rbbn-adtran-dc-networking.md</code>.</em></p>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:fn-1">
+<p>CBRE, North America Data Center Trends H2 2025 &ldquo;Partial confirmation of the DIRECTION (not magnitude): CBRE confirms AI inference is driving demand for regional/distributed data centers and that tertiary markets like Reno NV and Abilene TX have pipelines that could outpace some primary markets in 2026&rdquo;, 2026-02-01 · CBRE, North America Data Center Trends H2 2025 · local: 2025-h2-cbre-north-america-data-center-trends.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-2">
+<p>Noldor: EQUINIX INC 10-K (2026-02-11) &ldquo;Equinix estimates private interconnection capacity will grow at a 29% CAGR through 2027 to nearly 40,000 Tbps annually, citing AI, edge computing and distributed ecosystems — confirming signal that metro/regional interconnect demand is real and growing now&rdquo;, 2026-02-11 · Noldor: EQUINIX INC 10-K (2026-02-11) · local: 2026-02-11-noldor-equinix-10k-interconnection.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-3">
+<p>Dell&#x27;Oro Group, &#x27;Optical Transport Market Grew to $16 Billion in 2025&#x27;, 2026-02-18, https: &ldquo;MEASURED-TODAY: total Optical Transport equipment market reached $16B in 2025, +10% YoY, with the recovery driven by data center interconnect (DCI). This is the whole optical transport market, not an edge/regional line.&rdquo;, 2026-02-18 · Dell&#x27;Oro Group, &#x27;Optical Transport Market Grew to $16 Billion in 2025&#x27;, 2026-02-18, https://www.delloro.com/news/optical-transport-market-grew-to-16-billion-in-2025/ · local: 2026-02-18-delloro.com-optical-transport-16b-2025.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-4">
+<p>Cignal AI, &#x27;Optical Component Revenue Reaches Nearly $25B in 2025&#x27;, 2026-01, https: &ldquo;MEASURED-TODAY: total optical-component market revenue reached a record ~$25B in 2025 (datacom &gt;$18B, telecom coherent modules ~$6B). Telecom coherent bandwidth grew &gt;40% in 2025. Cignal does NOT publish a separate edge/metro-DWDM equipment line; these are total datacom + telecom coherent figures.&rdquo;, 2026-01-15 · Cignal AI, &#x27;Optical Component Revenue Reaches Nearly $25B in 2025&#x27;, 2026-01, https://cignal.ai/2026/01/optical-component-revenue-reaches-nearly-25b-in-2025/ · local: 2026-01-cignal.ai-optical-component-25b-2025.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-5">
+<p>www.fierce-network.com &ldquo;Total optical transport equipment revenue reached $16B in 2025 fueled by cloud DCI spend, with hyperscalers the bulk of purchasing; Dell&#x27;Oro VP Jimmy Yu calls neoclouds an &#x27;emerging customer base&#x27; that he does NOT expect to overtake hyperscalers on equipment purchasing anytime soon &ndash; and provides no standalone neocloud or tier-2/3 colo optical-spend figure&rdquo;, 2026-02-18 · https://www.fierce-network.com/broadband/delloro-optical-transport-revenue-hit-16b-2025-fueled-hyperscalers-neoclouds · local: 2026-02-18-fierce-delloro-optical-16b-neoclouds.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-6">
+<p>Dell&#x27;Oro Group, &#x27;Optical Transport Demand Increased by 24 Percent in North America During 1Q 2025&#x27;, https: &ldquo;MEASURED-TODAY (counter-narrative): WDM Metro — the optical segment geographically closest to edge/regional inference build — DECLINED for a seventh consecutive quarter in 1Q 2025, headwinded by IPoDWDM adoption, inventory glut and macro. Global optical transport was -1% YoY in 1Q25 even as North America grew +24% and DCI grew &gt;40%. Edge/regional is NOT yet pulling metro optical up.&rdquo;, 2025-05-15 · Dell&#x27;Oro Group, &#x27;Optical Transport Demand Increased by 24 Percent in North America During 1Q 2025&#x27;, https://www.delloro.com/news/optical-transport-demand-increased-by-24-percent-in-north-america-during-1q-2025/ · local: 2026-05-delloro.com-optical-transport-1q25-na-24pct.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-7">
+<p>www.fierce-network.com &ldquo;Cloud providers (hyperscalers) spent ~$2 billion on DWDM systems for their own network builds in 2024, expected to surpass $3 billion by 2029, while DWDM spending by &#x27;the rest of the market&#x27; (non-hyperscaler, including telecom/regional carriers) was FLAT from 2017-2024 even as hyperscaler direct purchases grew at a 12% CAGR&rdquo;, 2025-02-06 · https://www.fierce-network.com/cloud/cloud-hyperscalers-arent-leaving-network-capacity-chance · local: 2025-02-06-fierce-network-delloro-dwdm-spend.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-8">
+<p>Dell&#x27;Oro Group (Jimmy Yu, VP) via RCR Wireless webinar recap 2026-06-09, AI boom reshapes optical networking, https: &ldquo;Spending on data center interconnect (DCI) optical equipment grew 40% in 2025 and is expected to rise another 40% in 2026; DCI is now roughly one-third of global optical transport spending and ~60% of North American spending. The growth is driven by hyperscaler &#x27;scale-across&#x27; connectivity linking AI clusters across data centers, not by regional/edge outward push.&rdquo;, 2026-06-09 · Dell&#x27;Oro Group (Jimmy Yu, VP) via RCR Wireless webinar recap 2026-06-09, AI boom reshapes optical networking, https://www.rcrwireless.com/20260609/networks/ai-boom-optical · local: 2026-06-09-rcrwireless.com-ai-boom-optical-delloro.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-9">
+<p>Nokia (Rob Shore, head of optical network solution marketing) via RCR Wireless webinar recap 2026-06-09, https: &ldquo;Inter-facility (between-data-center) traffic is growing ~23% annually while traffic INSIDE data centers is growing ~65% per year; AI deployments are shifting some inter-site links from hundreds of fibers to thousands, with examples cited of up to 13,000 fibers between sites.&rdquo;, 2026-06-09 · Nokia (Rob Shore, head of optical network solution marketing) via RCR Wireless webinar recap 2026-06-09, https://www.rcrwireless.com/20260609/networks/ai-boom-optical · local: 2026-06-09-rcrwireless.com-ai-boom-optical-delloro.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-10">
+<p>Akamai press release 2025-10-28, Akamai Inference Cloud Transforms AI from Core to Edge with NVIDIA, https: &ldquo;Akamai launched Akamai Inference Cloud (Oct 28, 2025), a GA platform extending AI inference from core data centers to the edge using NVIDIA RTX PRO 6000 Blackwell GPUs + BlueField-3 DPUs across its global edge network, targeting 20 initial locations with expanded rollout planned. This is the most concrete operative-today instance of latency-sensitive inference being pushed outward to the edge.&rdquo;, 2025-10-28 · Akamai press release 2025-10-28, Akamai Inference Cloud Transforms AI from Core to Edge with NVIDIA, https://www.akamai.com/newsroom/press-release/akamai-inference-cloud-transforms-ai-from-core-to-edge-with-nvidia · local: 2025-10-28-akamai.com-inference-cloud-nvidia.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-11">
+<p>Cloudflare blog AI Platform 2026-04-16 + GogoAI 2026-05-06 &ldquo;CONFIRMING (strongest 2026-real edge-inference launch): Cloudflare launched a unified edge AI inference layer running LLMs directly across its network of 330 cities with sub-50ms latency on NVIDIA L4/T4 GPUs, explicitly positioned to process inference at a nearby edge DC rather than a distant cloud region&rdquo;, 2026-04-16 · Cloudflare blog AI Platform 2026-04-16 + GogoAI 2026-05-06 · local: 2026-04-16-cloudflare-edge-inference-platform.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-12">
+<p>www.akamai.com &ldquo;Akamai operationalized NVIDIA AI Grid for distributed inference across more than 4,400 edge locations using thousands of NVIDIA RTX PRO 6000 Blackwell GPUs, routing workloads across edge, regional and core to balance latency/cost; networking handled via NVIDIA BlueField DPUs rather than new optical transport.&rdquo;, 2026-03-16 · https://www.akamai.com/newsroom/press-release/akamai-launches-ai-grid-intelligent-orchestration-for-distributed-inference-across-4400-edge-locations · local: 2026-03-16-akamai-com-ai-grid-4400-edge-locations.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-13">
+<p>corporate.charter.com &ldquo;Spectrum&#x27;s Edge Compute Infrastructure positions hundreds of megawatts of power across over 1,000 edge data centers and hubs, less than 10 milliseconds from 500 million devices, and is deploying NVIDIA RTX PRO 6000 Blackwell GPUs at the edge over its own 100 Gbps low-latency fiber broadband network using the NVIDIA AI Grid reference design.&rdquo;, 2026-03-31 · https://corporate.charter.com/newsroom/spectrum-deploys-ai-infrastructure-at-network-edge-using-nvidia-ai-grid · local: 2026-03-charter-spectrum-edge-ai-nvidia-grid.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-14">
+<p>Akamai Technologies Inc 10-K, filed 2026-02-20 (Noldor corpus: &#x27;akamai 10k 2025&#x27; &ldquo;Akamai&#x27;s 10-K (filed 2026-02-20) states it expanded its compute platform in 2025 to add data centers &#x27;in major metros that lack cloud computing options&#x27; and notes US DOJ data-localization rules (Jan 8 2025 &#x27;Countries of Concern&#x27; rule) restricting cross-border data transfers — evidence that data-localization regulation is a live operating factor for distributed edge/regional compute.&rdquo;, 2026-02-20 · Akamai Technologies Inc 10-K, filed 2026-02-20 (Noldor corpus: &#x27;akamai 10k 2025&#x27; / &#x27;AKAMAI TECHNOLOGIES INC 10-K (2026-02-20)&#x27;) · local: 2026-02-20-noldor-akamai-10k-fy2025.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-15">
+<p>NVIDIA Technical Blog &#x27;Introducing NVIDIA Dynamo&#x27; (NIXL: KV cache transfer between prefill &ldquo;KV-cache transfer and edge model caching in current AI inference systems occur INTRA-cluster over RDMA/InfiniBand/NVLink (NIXL, Mooncake Transfer Engine) between prefill and decode nodes, not across regional/edge optical transport. There is no primary evidence that KV/model caching is driving regional or edge optical purchasing today.&rdquo;, 2026-05-15 · NVIDIA Technical Blog &#x27;Introducing NVIDIA Dynamo&#x27; (NIXL: KV cache transfer between prefill/decode GPU workers over NVLink/InfiniBand/RoCE) + Mooncake arXiv 2407.00079 (intra-cluster KVCache transfer) · local: 2026-06-16-nvidia-nixl-kvcache-intracluster.md · other&#160;<a class="footnote-backref" href="#fnref:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-16">
+<p>Noldor: Say Hello to the Internet of AI &ldquo;Akamai is deploying NVIDIA Blackwell-edition GPUs into more than 4,400 edge locations to build an Inference Delivery Network bringing inference closer to users — a confirming signal that inference is pushing outward to edge today&rdquo;, 2026-05-04 · Noldor: Say Hello to the Internet of AI · local: 2026-05-04-noldor-internet-of-ai.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-17">
+<p>Noldor: AKAMAI TECHNOLOGIES INC 10-K (2026-02-20) &ldquo;As of Dec 31 2025 Akamai operated more than 4,300 edge points-of-presence in over 130 countries and approximately 700 cities, plus core and distributed compute sites&rdquo;, 2026-02-20 · Noldor: AKAMAI TECHNOLOGIES INC 10-K (2026-02-20) · local: 2026-02-20-noldor-akamai-10k-fy2025.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-18">
+<p>www.sec.gov &ldquo;Lumen closed nearly $13 billion in Private Connectivity Fabric deals with hyperscalers, neoclouds, social platforms and AI companies (from an initial $8.5B of AI-driven hyperscaler networking contracts), and plans to scale to 47 million intercity fiber miles by 2028 via RapidRoutes long-haul paths and MetRON metro modernization.&rdquo;, 2025-11-04 · https://www.sec.gov/Archives/edgar/data/0000018926/000001892625000110/lumnq320258-kexhibit991.htm · local: 2025-lumen-pcf-intercity-fiber-ai-deals.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-19">
+<p>Say Hello to the Internet of AI (Noldor corpus research_article, 2026-05-04) citing Zayo; corroborated by Zayo press release &#x27;Zayo to Acquire Crown Castle Fiber Solutions&#x27; 2025-03-13 (Noldor: zayo crown castle acquisition) &ldquo;Zayo booked more than $1B in AI-related long-haul deals in 2024 with another $3B in pipeline; hyperscalers now order 12-48 fiber pairs per route (some 144-432) vs 8-12 pre-AI; Zayo tripled its build target from 5,000 to over 15,000 route miles by 2030 and acquired Crown Castle&#x27;s Fiber Solutions business (announced 2025-03-13) to add scale in key US metros for AI/hyperscaler bandwidth.&rdquo;, 2026-05-04 · Say Hello to the Internet of AI (Noldor corpus research_article, 2026-05-04) citing Zayo; corroborated by Zayo press release &#x27;Zayo to Acquire Crown Castle Fiber Solutions&#x27; 2025-03-13 (Noldor: zayo crown castle acquisition) · local: 2026-05-04-noldor-say-hello-internet-of-ai.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-20">
+<p>Zayo PR: Anchor Customer AI Corridors 2026-04-16 &ldquo;FALSIFIER (geography): Zayo&#x27;s $-scale AI buildout (8,000 route miles, anchored by a hyperscale AI partner) concentrates in a defined set of high-value corridors connecting power-rich data centers to ADJACENT METROS — confirming a real 2026 regional transport wave but one that flows hub-to-metro long-haul, captured by a scale carrier, not inference dispersing to tier-3 edge&rdquo;, 2026-04-16 · Zayo PR: Anchor Customer AI Corridors 2026-04-16 · local: 2026-04-16-zayo-anchor-ai-corridors.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-21">
+<p>Midco &ldquo;CONFIRMING (regional carrier capture, but long-haul): a five-year multistate deal delivers 500+ individual 400Gbps circuits (200 Tb capacity) on diverse routes Ellendale ND to Chicago supporting AI infra — real 2026 spend reaching a regional carrier (Midco), but it is long-haul DCI from a remote power-sited DC to a hub metro, not edge inference&rdquo;, 2026-05-18 · Midco/Switch 400G deal, BusinessWire via Morningstar 2026-05-18 · local: 2026-05-13-aureon-midco-100tb-route.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-22">
+<p>Noldor: Deloitte TMT Predictions 2026 Compute &ldquo;FALSIFIER: foundational-model pre-training remains co-located in a single building/campus today; distributed multi-DC and smaller inferencing data centers are framed as &#x27;increasingly able&#x27; and &#x27;will likely&#x27; emerge — forward-looking, supporting the bear read that edge inference is a 2028+ narrative not a 2026 reality&rdquo;, 2025-11-17 · Noldor: Deloitte TMT Predictions 2026 Compute · local: 2025-11-17-noldor-deloitte-tmt-compute-centralization.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-23">
+<p>GlobalData &ldquo;The global neocloud (GPU-as-a-service) buyer pool numbers ~190-200 distinct operators worldwide, with only ~10-15 at meaningful scale in the US; these are a distinct buyer category for regional optical/transport because they site for power not latency and need DCI between dispersed GPU campuses&rdquo;, 2025-12-05 · GlobalData / JLL / RCR Tech neocloud counts · local: 2025-12-05-globaldata-neoclouds-count.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-24">
+<p>Synergy Research Group via AI Business &ldquo;Neocloud vendor revenue surpassed $5B in Q2 2025 (+205% YoY) and is tracking &gt;$23B for full-year 2025, a fast-growing buyer base whose GPU-campus buildouts pull regional DCI/optical spend (FORECAST for full-year)&rdquo;, 2025-10-13 · Synergy Research Group via AI Business · local: 2025-12-05-globaldata-neoclouds-count.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-25">
+<p>IBISWorld + Research&amp;Markets US colocation portfolio &ldquo;The US colocation market is highly fragmented: ~2,226 colocation businesses (IBISWorld 2025) and a portfolio of 1,135 existing facilities run by 312 operators (R&amp;M 2026); Equinix+Digital Realty held only ~10.3%+10.0% of 2024 revenue, leaving ~80% with a long tail of regional/tier-2/3 colos (Cologix, Flexential, DataBank, TierPoint, DC BLOX, Netrality, Novva, etc.) that buy optical/interconnect gear&rdquo;, 2026-02-20 · IBISWorld + Research&amp;Markets US colocation portfolio · local: 2026-02-colo-cdn-buyer-counts.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-26">
+<p>CostQuest Broadband in America - Fiber Market Focus Mar 2026 &ldquo;As of FCC BDC Version 7 there are 1,561 active fiber providers operating across the US (incl. 42 new entrants), a deep long-tail buyer pool for optical/transport gear beyond the national carriers; IBISWorld separately counts ~1,345 US ISP businesses (2024)&rdquo;, 2026-03-01 · CostQuest Broadband in America - Fiber Market Focus Mar 2026 · local: 2026-03-costquest-fiber-providers-count.md · other&#160;<a class="footnote-backref" href="#fnref:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-27">
+<p>Analysys Mason Akamai + Cloudflare 500Tbps + blazingcdn &ldquo;CDN/edge operators run large dispersed node fleets that consume optical/interconnect: Akamai &gt;4,000 CDN nodes (~1,500 PoPs, ~31% share); Cloudflare 330+ cities, 500 Tbps external capacity, 13,000+ peering networks; Amazon CloudFront &gt;600 ISP-embedded PoPs; Fastly ~90-129 PoPs at 532 Tbps&rdquo;, 2026-04-10 · Analysys Mason Akamai + Cloudflare 500Tbps + blazingcdn · local: 2026-02-colo-cdn-buyer-counts.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-28">
+<p>recurvecap.com &ldquo;Cogent estimates the long-haul optical transport (wavelength) market at ~$2 billion annual spend with Lumen and Zayo controlling ~90% of it, plus a further &gt;$2 billion of metro/intra-city wavelength spend &ndash; a &gt;$4 billion wavelength market dominated by scale incumbents in long-haul&rdquo;, 2023-10-09 · https://recurvecap.com/insights/cogent-communications-the-wavelength-opportunity · local: 2023-10-09-recurve-cogent-wavelength-tam.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-29">
+<p>aibusiness.com &ldquo;Ciena (a scale optical player) reported it is engaged with a group of about two dozen neoscalers (neoclouds such as CoreWeave, Nebius, Lambda) that have &#x27;already decided that they need to build out their own optical network infrastructure&#x27; &ndash; evidence that emerging neocloud DCI optical spend is being captured by a SCALE vendor, not non-scale players&rdquo;, 2025-12-15 · https://aibusiness.com/data-centers/neocloud-providers-network-ai-data-centers · local: 2025-12-15-aibusiness-ciena-neoscalers-own-optical.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-30">
+<p>Ciena (CIEN) Q2 2026 Earnings Transcript, Motley Fool 2026-06-04 &ldquo;Ciena sizes the AI-driven optical TAM doubling to ~$50B by 2029, of which $8-10B is in-and-around-the-data-center &#x27;scale across&#x27; and in excess of $20B is long-haul/metro optical transport WAN — i.e. the bulk of incremental optical spend is forecast to accrue to long-haul + metro DCI, not edge/tier-3&rdquo;, 2026-06-04 · Ciena (CIEN) Q2 2026 Earnings Transcript, Motley Fool 2026-06-04 · local: 2026-06-04-fool-ciena-q2-2026-transcript.json · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-31">
+<p>www.delloro.com &ldquo;In the DCI segment specifically, the top three optical-transport suppliers by revenue share in 2025 were Ciena, Nokia, and Cisco, with a high concentration of revenue coming from North America; neoclouds (beyond hyperscalers) are now also buying optical transport equipment.&rdquo;, 2026-02-18 · https://www.delloro.com/news/optical-transport-market-grew-to-16-billion-in-2025/ · local: 2026-02-18-delloro-com-optical-transport-16b-2025.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-32">
+<p>Marvell FY2026 annual report + Q1 FY27 8-K, sec.gov 2026-05-27 &ldquo;FALSIFIER (strongest, demand-capture): AI optical/interconnect spend is concentrating in a scale silicon player — in FY2026 data center was ~three-quarters of Marvell&#x27;s $8.195B revenue, optical interconnect is ~half of data-center revenue (≈50% CAGR for five years), and Marvell expects to supply DCI modules to ALL FIVE major hyperscalers in FY27&rdquo;, 2026-05-27 · Marvell FY2026 annual report + Q1 FY27 8-K, sec.gov 2026-05-27 · local: 2026-05-27-marvell-fy26-fy27q1-dci-concentration.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-33">
+<p>Smartoptics PR: TKRZ regional backbone open DWDM 2026-02-03 &ldquo;CONFIRMING (tier-2/3): regional German ISP+colo operator TKRZ upgraded its entire backbone from 10G CWDM to active 100G/400G open DWDM (Smartoptics) in 2026 to extend edge reach and anchor a new regional connectivity-hub DC — a genuine tier-2/3 optical refresh captured by a NON-scale vendor (open DWDM, breaks vendor lock-in)&rdquo;, 2026-02-03 · Smartoptics PR: TKRZ regional backbone open DWDM 2026-02-03 · local: 2026-02-03-smartoptics-tkrz-regional-dwdm.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-34">
+<p>smartoptics.com &ldquo;Geneseo Communications, a rural Illinois CSP, deployed non-scale vendor Smartoptics 400G open Layer-1 transport (DCP-404 muxponders) to replace an aging 10G core connecting a dozen community sites, scaling toward Chicago internet backbones&rdquo;, 2026-01-15 · https://smartoptics.com/case/geneseo-strengthens-regional-connectivity-with-resilient-cost-efficient-core/ · local: 2026-01-15-smartoptics-geneseo-400g.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-35">
+<p>www.prnewswire.com &ldquo;MuniNet, a publicly owned regional fiber operator serving Western Kentucky communities, adopted non-scale vendor Ekinops&#x27; 400G coherent optical transport (Ekinops360 / PM_400G transponders) to upgrade capacity on existing fiber for broadband, 5G backhaul and cloud services&rdquo;, 2026-01-06 · https://www.prnewswire.com/news-releases/ekinops-400g-transport-technology-to-boost-muninets-network-capacity-and-innovation-302653731.html · local: 2026-01-06-prnewswire-ekinops-muninet-400g.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-35" title="Jump back to footnote 35 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-35" title="Jump back to footnote 35 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-35" title="Jump back to footnote 35 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-35" title="Jump back to footnote 35 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-35" title="Jump back to footnote 35 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-36">
+<p>www.ekinops.com &ldquo;Project THOR, a regional open-access middle-mile fiber network serving remote NW Colorado mountain communities along the I-70 corridor, upgraded with non-scale vendor Ekinops ROADM-based redundant rings and FlexRate coherent technology to connect governments, schools, hospitals and broadband providers to cloud services&rdquo;, 2026-01-27 · https://www.ekinops.com/news/customers/ekinops-powers-project-thor-to-deliver-resilient-middle-mile-connectivity-across-northwest-colorado · local: 2026-01-27-ekinops-project-thor-nwccog-middle-mile.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-37">
+<p>www.adtran.com &ldquo;Cegeka, a regional IT/cloud provider across Belgium and the Netherlands, deployed non-scale vendor Adtran&#x27;s FSP 3000 open optical transport for explicit data center interconnect (DCI) to its new Brussels data center, with ConnectGuard encryption over eight diverse low-latency routes carrying Fibre Channel and Ethernet&rdquo;, 2025-06-24 · https://www.adtran.com/en/newsroom/press-releases/20250624-cegeka-boosts-belgiums-digital-services-with-adtrans-open-optical-transport-technology · local: 2025-06-24-adtran-cegeka-dci-fsp3000.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-38">
+<p>investors.adtran.com &ldquo;FiberCop, Italy&#x27;s leading wholesale-only fiber operator, selected non-scale vendor Adtran FSP 3000 open optical transport with coherent 100ZR pluggables for a nationwide metro rollout delivering 100G and 400G DWDM connectivity across Italian cities&rdquo;, 2026-01-20 · https://investors.adtran.com/news/news-details/2026/FiberCop-selects-Adtran-to-support-high-speed-metro-transport-network-across-Italy/default.aspx · local: 2026-01-20-adtran-fibercop-metro-italy.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-39">
+<p>www.prnewswire.com &ldquo;Planters Broadband, a regional broadband operator in Georgia, selected non-scale vendor Ribbon (Nasdaq: RBBN) Apollo 9608 to light a new 400G/800G-ready coherent optical route and begin transport modernization, moving from fixed optics to coherent services&rdquo;, 2026-04-22 · https://www.prnewswire.com/news-releases/planters-broadband-selects-ribbon-to-launch-new-400g800g&ndash;ready-optical-route-302749277.html · local: 2026-04-22-prnewswire-ribbon-planters-broadband-400g.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-39" title="Jump back to footnote 39 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-39" title="Jump back to footnote 39 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-39" title="Jump back to footnote 39 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-39" title="Jump back to footnote 39 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-39" title="Jump back to footnote 39 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-40">
+<p>www.packetlight.com &ldquo;A regional managed high-capacity services provider in ASEAN deployed non-scale vendor PacketLight open DWDM/OTN (PL-4000G transponders with ZR+ coherent pluggables) to interconnect five data centers across Singapore and Indonesia over a 1,200 km network, explicitly to avoid Tier-1 vendor lock-in&rdquo;, 2026-06-16 · https://www.packetlight.com/resources/success-stories/ultra-long-haul-network-for-a-leading-service-provider · local: packetlight-asean-ulh-dci-5dc.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-40" title="Jump back to footnote 40 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-40" title="Jump back to footnote 40 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-40" title="Jump back to footnote 40 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-40" title="Jump back to footnote 40 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-41">
+<p>Smartoptics FY2025 Annual Report + Q4 2025 results (smartoptics.com) &ldquo;Oslo-based open-DWDM / open-line-system pure-play that is actively capturing the AI-driven tier-2/3 DCI opportunity today: FY2025 revenue USD 75.3M, up 35.6% YoY (EBITDA USD 9.7M / 12.9% margin), with Q4 2025 a record USD 23.2M (+37.7%). Its Dynamic Connectivity Platform (DCP) open line system / transponders target IP-over-DWDM DCI for enterprises, cloud providers and CSPs across metro/regional networks, with growth driven by &#x27;cloud, data center connectivity and AI-related infrastructure&#x27; and new orders from neo-scalers and ICPs in the Americas.&rdquo;, 2026-04-10 · Smartoptics FY2025 Annual Report + Q4 2025 results (smartoptics.com) · local: 2026-04-10-smartoptics-fy2025-ar-dcp-dci.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-41" title="Jump back to footnote 41 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-41" title="Jump back to footnote 41 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-41" title="Jump back to footnote 41 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-41" title="Jump back to footnote 41 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-41" title="Jump back to footnote 41 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-42">
+<p>SEC EDGAR: Ciena Corp 10-K FY2025 (filed 2025-12-12), https: &ldquo;Ciena&#x27;s Optical Networking product-line revenue was $3,246,239K in FY2025 (68.1% of total), up 22.8% YoY from $2,642,563K; total Networking Platforms $3,676,377K (77.1% of revenue)&rdquo;, 2025-12-12 · SEC EDGAR: Ciena Corp 10-K FY2025 (filed 2025-12-12), https://www.sec.gov/Archives/edgar/data/0000936395/000162828025056698/cien-20251101.htm · local: 2025-12-12-sec-ciena-10k-fy2025-optical-segment.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-42" title="Jump back to footnote 42 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-42" title="Jump back to footnote 42 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-42" title="Jump back to footnote 42 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-42" title="Jump back to footnote 42 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-42" title="Jump back to footnote 42 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-42" title="Jump back to footnote 42 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-43">
+<p>Noldor: CIENA CORP 10-K (2025-12-12) &ldquo;Ciena&#x27;s Waveserver is a compact modular interconnect platform for high-bandwidth interconnect including encrypted data transfer between data centers; revenue growth is driven primarily by increased sales to cloud providers and communications service providers&rdquo;, 2025-12-12 · Noldor: CIENA CORP 10-K (2025-12-12) · local: 2025-12-12-noldor-ciena-10k-fy2025.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-44">
+<p>Nokia Annual Report 2024 + Nokia &ldquo;Nokia completed its ~$2.3B acquisition of Infinera in February 2025, boosting its Optical Networks business by 75%; Infinera serves long-haul, submarine, DCI and metro transport, with internet content providers (webscale) making up over 30% of Infinera sales&rdquo;, 2025-03-13 · Nokia Annual Report 2024 + Nokia/Infinera acquisition disclosures · local: 2025-noklia-infinera-public.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-44" title="Jump back to footnote 44 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-44" title="Jump back to footnote 44 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-44" title="Jump back to footnote 44 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-45">
+<p>Cisco DCI Coherent Pluggable Optics Solution Overview + Cisco Live 2025 decks &ldquo;Cisco&#x27;s Routed Optical Networking collapses standalone optical transponders into 400G coherent pluggable optics plugged directly into data-center switches/routers for DCI; Cisco/Acacia is the coherent-pluggable market leader, with over 70% of coherent ports now pluggable&rdquo;, 2025-06-01 · Cisco DCI Coherent Pluggable Optics Solution Overview + Cisco Live 2025 decks · local: 2025-cisco-acacia-ron-dci-public.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-46">
+<p>Noldor: Marvell Technology, Inc. 10-K (2026-03-11) &ldquo;Marvell&#x27;s data center end market generated $6,100.3M (74% of total $8,194.6M revenue) in FY ended Jan 31 2026, up from $4,164.2M (72%) the prior year; Marvell describes itself as spanning the data center core to network edge&rdquo;, 2026-03-11 · Noldor: Marvell Technology, Inc. 10-K (2026-03-11) · local: 2026-03-11-noldor-marvell-10k-fy2026.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-47">
+<p>Noldor: COHERENT CORP. 10-K (2025-08-15) &ldquo;Coherent&#x27;s Networking segment profit increased 82% to $644M in FY2025 (ended Jun 30 2025), driven by AI-datacenter datacom volumes and telecom-vertical growth from increased demand in data center interconnect and telecom transport&rdquo;, 2025-08-15 · Noldor: COHERENT CORP. 10-K (2025-08-15) · local: 2025-08-15-noldor-coherent-credo-astera.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-47" title="Jump back to footnote 47 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-47" title="Jump back to footnote 47 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-47" title="Jump back to footnote 47 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-48">
+<p>Noldor: LUMENTUM HOLDINGS INC. 10-K &ldquo;Lumentum is a leading provider of high-speed optical transceivers and optical components; within communication-service-provider applications its products are used in high-capacity access (local), metro (intracity), long-haul and submarine optical networks, and it sells primarily to network equipment manufacturers (NEMs)&rdquo;, 2025-08-01 · Noldor: LUMENTUM HOLDINGS INC. 10-K · local: 2025-noldor-lumentum-10k.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-48" title="Jump back to footnote 48 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-48" title="Jump back to footnote 48 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-48" title="Jump back to footnote 48 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-49">
+<p>Noldor: fiber optics category digest &ldquo;Fabrinet&#x27;s Data Center Interconnect (DCI) revenue reached $197M in Q3 FY2026, up 90% YoY and 38% QoQ &ndash; its biggest growth driver; total revenue was $1.214B (+39% YoY), with Optical Communications $889M&rdquo;, 2026-05-05 · Noldor: fiber optics category digest / Fabrinet (FN) Q3 FY2026 Earnings (Motley Fool) · local: 2026-05-noldor-fabrinet-q3fy26.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-49" title="Jump back to footnote 49 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-49" title="Jump back to footnote 49 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-49" title="Jump back to footnote 49 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-49" title="Jump back to footnote 49 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-49" title="Jump back to footnote 49 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-50">
+<p>Noldor: Credo Technology Group Holding Ltd 10-K (2025-07-02) &ldquo;Credo&#x27;s HiWire Active Electrical Cables (AECs) are copper interconnect cables for 100G-1.6T data-center compute and AI, categorized into Servers-TOR Racks and Leaf-Spine-Router Racks; it also ships an 800G DSP for linear receive optics targeting hyperscale and AI data centers&rdquo;, 2025-07-02 · Noldor: Credo Technology Group Holding Ltd 10-K (2025-07-02) · local: 2025-08-15-noldor-coherent-credo-astera.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-50" title="Jump back to footnote 50 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-50" title="Jump back to footnote 50 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-51">
+<p>Noldor: Astera Labs, Inc. 10-K (2026-02-20) and Q1 2026 results &ldquo;Astera Labs posted record Q1 2026 revenue of $308.4M (up 93% YoY) from PCIe/CXL retimers, smart cable modules, CXL memory controllers and Scorpio smart fabric switches that connect within and between servers for rack-scale AI infrastructure&rdquo;, 2026-02-20 · Noldor: Astera Labs, Inc. 10-K (2026-02-20) and Q1 2026 results · local: 2025-08-15-noldor-coherent-credo-astera.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-51" title="Jump back to footnote 51 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-51" title="Jump back to footnote 51 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-52">
+<p>Ekinops FY2025 results + URD 2025 (ekinops.com) &ldquo;Sub-scale European optical/access vendor (FY2025 revenue 105 m euro, down 11% YoY) explicitly pivoting its growth narrative to AI/sovereignty-driven DCI under the Bridge plan: its EKINOPS360 WDM serves metro/regional/long-haul + DCI, it launched the C700HC hybrid WDM/DCI chassis in 2025, and is building a dedicated DCI product line (PTM, Photonic Transport Modular) with the first transponder commercializing end-2026 — targeting a DCI market it forecasts to grow 13-20% annually. Ekinops names ADTRAN and HPE (Juniper) as competitors.&rdquo;, 2026-03-11 · Ekinops FY2025 results + URD 2025 (ekinops.com) · local: 2026-03-11-ekinops-fy2025-results-dci-ptm.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-52" title="Jump back to footnote 52 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-52" title="Jump back to footnote 52 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-52" title="Jump back to footnote 52 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-52" title="Jump back to footnote 52 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-53">
+<p>Arista 7280R3A Datasheet (arista.com) &ldquo;Arista does have a real metro DCI product: the 7280R3/7280R3A supports 400G-ZR/ZR+ coherent DWDM optics plus Arista&#x27;s own ZR Line System (AMP-ZR amplifier + CAB-CS splitter), multiplexing up to 8x 400ZR modules to carry 3.2 Tb/s over a single fiber pair at up to 120 km, turning DCI links up without external transponders.&rdquo;, 2026-06-16 · Arista 7280R3A Datasheet (arista.com) · local: 2026-06-16-arista-7280r3-dci-400gzr-line-system.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-53" title="Jump back to footnote 53 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-53" title="Jump back to footnote 53 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-53" title="Jump back to footnote 53 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-54">
+<p>Noldor: Arista Networks, Inc. 10-K (2026-02-17) + 10-Q (2025-08-06) &ldquo;Arista&#x27;s franchise is intra-DC AI fabric, not regional/metro DCI: its 10-K organizes the business as Core (AI, Cloud, and Data Center Networking) vs Cognitive Adjacencies (Campus and Routing) vs Cognitive Networks (Software and Services) — routing/DCI lives in the adjacency bucket, while the Core fabric platforms (7800R AI Spine, 7060 AI Leaf, 7700R4 DES) target AI Scale Out/Up/Across. Revenue is cloud-titan concentrated (Meta alone was 15%/21%/26% of total revenue in FY2024/2023/2022).&rdquo;, 2026-02-17 · Noldor: Arista Networks, Inc. 10-K (2026-02-17) + 10-Q (2025-08-06) · local: 2026-02-17-noldor-arista-10k-routing-segments.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-54" title="Jump back to footnote 54 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-54" title="Jump back to footnote 54 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-54" title="Jump back to footnote 54 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-55">
+<p>Noldor: Hewlett Packard Enterprise Co 10-K (2025-12-18) &ldquo;HPE closed its acquisition of Juniper Networks on July 2, 2025 at $40.00/share cash, and from FY2026 reports a re-aligned Networking segment that houses Juniper&#x27;s full routed-optical/metro franchise — QFX/EX/CX switches, MX and PTX routers, and SD-WAN — the platforms that carry coherent DCI/metro transport.&rdquo;, 2025-12-18 · Noldor: Hewlett Packard Enterprise Co 10-K (2025-12-18) · local: 2025-12-18-noldor-hpe-10k-juniper-networking.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-55" title="Jump back to footnote 55 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-55" title="Jump back to footnote 55 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-55" title="Jump back to footnote 55 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-56">
+<p>Juniper ACX7000 &ldquo;Juniper (now HPE) has a direct, productized regional/edge DCI + routed-optical franchise: the ACX7000 Cloud Metro routers (ACX7100 delivers 4.8 Tbps in 1U, port-by-port 400ZR/ZR+ coherent DWDM) plus JCO400 coherent ZR/ZR+ pluggables, unified under the CORA (Converged Optical Routing Architecture) IP-over-DWDM strategy spanning access, metro, regional, core, DCI and cloud — and the optics interoperate into third-party open line systems.&rdquo;, 2026-06-16 · Juniper ACX7000 / JCO400 / Coherent Optics Cables Guide (juniper.net) · local: 2026-06-16-juniper-net-acx7000-jco400-coherent-dci.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-56" title="Jump back to footnote 56 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-56" title="Jump back to footnote 56 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-56" title="Jump back to footnote 56 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-57">
+<p>Ribbon Communications FY2025 10-K (SEC + TradingView summary) &ldquo;Ribbon reported FY2025 total revenue of $844.6M (+1.3% YoY) across two segments, Cloud and Edge and IP Optical Networks; its IP Optical Networks segment sells switching and optical connectivity (including DCI/transport) to service-provider and enterprise/critical-infrastructure customers, concentrated in North America&rdquo;, 2026-02-26 · Ribbon Communications FY2025 10-K (SEC + TradingView summary) · local: 2026-02-26-ribbon-rbbn-10k-fy2025.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-57" title="Jump back to footnote 57 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-57" title="Jump back to footnote 57 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-58">
+<p>Noldor: ADTRAN Holdings, Inc. 10-K (2026-02-26) &ldquo;ADTRAN describes itself as a global networking and communications provider focused on the metro optical transport, data center interconnect, and broadband access market, serving large, medium and small Service Providers plus alternative Service Providers such as utilities, municipalities and fiber overbuilders&rdquo;, 2026-02-26 · Noldor: ADTRAN Holdings, Inc. 10-K (2026-02-26) · local: 2026-02-26-noldor-adtran-10k-fy2025.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-59">
+<p>Noldor: COGENT COMMUNICATIONS HOLDINGS, INC. 10-K (2026-02-20) &ldquo;Cogent&#x27;s wavelength (optical wave) service revenue more than doubled to $38.453M in FY2025 from $19.196M in FY2024, the only growing line in its revenue-by-connection-type mix (on-net, off-net and non-core all declined)&rdquo;, 2026-02-20 · Noldor: COGENT COMMUNICATIONS HOLDINGS, INC. 10-K (2026-02-20) · local: 2026-02-20-noldor-cogent-10k-fy2025.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-60">
+<p>Noldor: Lumen Technologies, Inc. 10-K (2026-02-20) &ldquo;Lumen&#x27;s Business Segment Grow product category generated $4,376M of FY2025 revenue (largest of its Grow/Nurture/Harvest mix), as distributed business models drive demand for high-capacity low-latency networks and Lumen expands network capacity to capture growth&rdquo;, 2026-02-20 · Noldor: Lumen Technologies, Inc. 10-K (2026-02-20) · local: 2026-02-20-noldor-lumen-10k-fy2025.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-60" title="Jump back to footnote 60 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-60" title="Jump back to footnote 60 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-60" title="Jump back to footnote 60 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-61">
+<p>Noldor: Uniti Group Inc. 10-K (2026-03-02) &ldquo;Uniti provides high-capacity bandwidth and transport services to wholesale customers including hyperscalers, content providers, cable and other network operators, plus fiber-to-the-tower to carriers, over its extensive fiber footprint (post Windstream re-merger)&rdquo;, 2026-03-02 · Noldor: Uniti Group Inc. 10-K (2026-03-02) · local: 2026-02-noldor-cloudflare-fastly-uniti.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-61" title="Jump back to footnote 61 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-61" title="Jump back to footnote 61 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-61" title="Jump back to footnote 61 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-62">
+<p>Noldor: DIGITAL REALTY TRUST, INC. 10-K (2026-02-13) &ldquo;Digital Realty&#x27;s PlatformDIGITAL colocation/interconnection platform serves enterprises and cloud providers who exchange data within its connected data communities; cloud, AI and digital transformation are named as significant demand drivers&rdquo;, 2026-02-13 · Noldor: DIGITAL REALTY TRUST, INC. 10-K (2026-02-13) · local: 2026-02-noldor-equinix-dlr-delloro.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-62" title="Jump back to footnote 62 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-62" title="Jump back to footnote 62 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-62" title="Jump back to footnote 62 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-63">
+<p>Noldor: Cloudflare, Inc. 10-K (2026-02-26) &ldquo;Cloudflare&#x27;s global network spanned co-location facilities in more than 330 cities and over 125 countries as of Dec 31 2025; it depends on ISP/co-location partners (some hosting its equipment at a discount) to maintain and expand its distributed edge network&rdquo;, 2026-02-26 · Noldor: Cloudflare, Inc. 10-K (2026-02-26) · local: 2026-02-noldor-cloudflare-fastly-uniti.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-63" title="Jump back to footnote 63 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-63" title="Jump back to footnote 63 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-63" title="Jump back to footnote 63 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-64">
+<p>Noldor: Fastly, Inc. 10-K (2026-02-25) &ldquo;Fastly&#x27;s network is comprised of high-density points-of-presence (POPs) designed to minimize footprint and colocation costs while delivering content closer to end users, strategically located near major cloud providers&rdquo;, 2026-02-25 · Noldor: Fastly, Inc. 10-K (2026-02-25) · local: 2026-02-noldor-cloudflare-fastly-uniti.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-64" title="Jump back to footnote 64 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-64" title="Jump back to footnote 64 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-64" title="Jump back to footnote 64 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-65">
+<p>Noldor: APPLIED OPTOELECTRONICS, INC. 10-K (2026-02-26) &ldquo;AOI&#x27;s data center market produced $195,651K (42.9% of FY2025 revenue) with Microsoft alone accounting for 28.8% of total revenue; AOI is a vertically integrated fiber-optic transceiver maker for internet data center, CATV, telecom and FTTH&rdquo;, 2026-02-26 · Noldor: APPLIED OPTOELECTRONICS, INC. 10-K (2026-02-26) · local: 2026-02-26-noldor-aoi-10k-fy2025.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-65" title="Jump back to footnote 65 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-65" title="Jump back to footnote 65 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-66">
+<p>Ribbon Communications First Quarter 2026 Results, April 28 2026, slide &#x27;Ribbon Positioned to Win Rural DCI&#x27; &ldquo;Ribbon&#x27;s Q1 2026 earnings presentation markets a &#x27;Rural DCI&#x27; thesis, asserting that 67% of US DCI growth is in rural areas (company marketing claim; the cited basis is a facility-COUNT statistic, not a DCI spend/bandwidth figure)&rdquo;, 2026-04-28 · Ribbon Communications First Quarter 2026 Results, April 28 2026, slide &#x27;Ribbon Positioned to Win Rural DCI&#x27; · local: 2026-04-28-investors.ribboncommunications.com-q1-2026-earnings-rural-dci.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-66" title="Jump back to footnote 66 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-66" title="Jump back to footnote 66 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-66" title="Jump back to footnote 66 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-66" title="Jump back to footnote 66 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-67">
+<p>Pew Research Center, &#x27;Most new data centers in the U.S. are coming to rural areas&#x27;, Skyler Seets, April 13 2026 &ldquo;The original source Ribbon cites: Pew Research Center analysis of Data Center Map data found 67% of PLANNED US data centers are in rural areas (a count-of-facilities share), vs 87% of currently-operating data centers being in urban areas&rdquo;, 2026-04-13 · Pew Research Center, &#x27;Most new data centers in the U.S. are coming to rural areas&#x27;, Skyler Seets, April 13 2026 · local: 2026-04-13-pewresearch.org-most-new-data-centers-rural.md · other&#160;<a class="footnote-backref" href="#fnref:fn-67" title="Jump back to footnote 67 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-67" title="Jump back to footnote 67 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-67" title="Jump back to footnote 67 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-67" title="Jump back to footnote 67 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-67" title="Jump back to footnote 67 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-68">
+<p>CBRE, North America Data Center Trends H2 2025 + press release &#x27;Northern Virginia Extends Lead as Largest U.S. Data Center Market in 2025&#x27; &ldquo;Capacity-weighted counter to the rural framing: Northern Virginia alone holds nearly 3.5x more data-center capacity than all eight secondary US markets combined; NoVA total inventory reached 4,039.6 MW in H2 2025 (+37% YoY) and led net absorption at 1,102 MW&rdquo;, 2026-02-01 · CBRE, North America Data Center Trends H2 2025 + press release &#x27;Northern Virginia Extends Lead as Largest U.S. Data Center Market in 2025&#x27; · local: 2025-h2-cbre-north-america-data-center-trends.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-68" title="Jump back to footnote 68 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-68" title="Jump back to footnote 68 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-68" title="Jump back to footnote 68 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-68" title="Jump back to footnote 68 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-69">
+<p>Synergy Research Group, via Data Center Knowledge &#x27;Northern Virginia, Beijing Lead Global Hyperscale Data Center Growth&#x27;, July 18 2025 &ldquo;Capacity-concentration counter: just 20 metro areas account for 62% of the world&#x27;s hyperscale data-center capacity, with Northern Virginia + Greater Beijing alone ~20%; second-tier markets (ranks 21-40) add only ~17%&rdquo;, 2025-07-18 · Synergy Research Group, via Data Center Knowledge &#x27;Northern Virginia, Beijing Lead Global Hyperscale Data Center Growth&#x27;, July 18 2025 · local: 2025-07-synergy-research-hyperscale-metro-concentration.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-69" title="Jump back to footnote 69 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-69" title="Jump back to footnote 69 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-69" title="Jump back to footnote 69 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-69" title="Jump back to footnote 69 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-70">
+<p>Bloom Energy, 2026 Data Center Power Report &ldquo;Contextualizing forecast: growth in CAPACITY terms remains concentrated in a small number of top hubs as developers expand existing campuses; Texas projected to reach ~30% of total US data-center demand by 2028 (FORECAST)&rdquo;, 2026-02-01 · Bloom Energy, 2026 Data Center Power Report · local: 2026-06-16-datacentermap.com-usa-facility-database.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-70" title="Jump back to footnote 70 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-70" title="Jump back to footnote 70 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-70" title="Jump back to footnote 70 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-71">
+<p>DataCenterDynamics &#x27;Crusoe secures $11.6bn in debt and equity for OpenAI&#x27;s Stargate data center campus in Abilene, Texas&#x27; + ConstructionReviewOnline (May 2025 Abilene $11.6B financing) &ldquo;Denver-based vertically-integrated AI data-center developer/operator; building 1.2GW Abilene TX campus (OpenAI Stargate flagship) via $15B JV w/ Blue Owl + Primary Digital Infrastructure; secured $11.6B debt+equity for that site (May 2025); also raised $1.4B equity (Oct 2025); ~$1.6B venture to date (Founders Fund, Bain Capital Ventures, G2).&rdquo;, 2025-10-23 · DataCenterDynamics &#x27;Crusoe secures $11.6bn in debt and equity for OpenAI&#x27;s Stargate data center campus in Abilene, Texas&#x27; + ConstructionReviewOnline (May 2025 Abilene $11.6B financing) · local: 2025-05-crusoe-abilene-11_6b-financing.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-71" title="Jump back to footnote 71 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-71" title="Jump back to footnote 71 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-71" title="Jump back to footnote 71 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-72">
+<p>JSA &#x27;Lancium Powering the AI Future With $600M for Clean Campus Development&#x27; + Lancium site + DataCenterMap (Abilene Clean Campus &ldquo;Owner/operator of the Lancium Clean Campus in Abilene TX hosting the Crusoe/OpenAI Stargate buildout — secondary-metro greenfield campus developer.&rdquo;, 2025-05-21 · JSA &#x27;Lancium Powering the AI Future With $600M for Clean Campus Development&#x27; + Lancium site + DataCenterMap (Abilene Clean Campus / Crusoe Stargate) · local: 2026-06-16-lancium-abilene-clean-campus.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-72" title="Jump back to footnote 72 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-72" title="Jump back to footnote 72 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-72" title="Jump back to footnote 72 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-73">
+<p>EdgeConneX &ldquo;Private hyperlocal-to-hyperscale data-center operator owned by EQT Infrastructure (since 2020), with Sixth Street acquiring a minority stake in Sept 2024; footprint of 80+ data centers in operation or development across 50+ markets and 4 continents.&rdquo;, 2024-09-24 · EdgeConneX/EQT press release, EQT welcomes Sixth Street as strategic investor, 2024-09-24 · local: 2026-06-16-edgeconnex-eqt-sixth-street.md · other&#160;<a class="footnote-backref" href="#fnref:fn-73" title="Jump back to footnote 73 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-73" title="Jump back to footnote 73 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-73" title="Jump back to footnote 73 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-74">
+<p>DataBank press release, ~$2.0B equity raise led by AustralianSuper, 2024-10-15; TJC $250M + $600M secondary, 2025-01-30 &ldquo;Private edge-colocation and interconnection operator (Dallas, DigitalBridge-led ownership) raised ~$2.0B equity in Oct 2024 led by AustralianSuper ($1.5B), plus $250M from TJC and a $600M secondary in Jan 2025; ~$5B debt+equity raised in ~18 months; footprint of 65+ HPC-ready data centers in 27+ markets and 20 interconnection hubs.&rdquo;, 2025-01-30 · DataBank press release, ~$2.0B equity raise led by AustralianSuper, 2024-10-15; TJC $250M + $600M secondary, 2025-01-30 · local: 2026-06-16-databank-australiansuper-tjc.md · other&#160;<a class="footnote-backref" href="#fnref:fn-74" title="Jump back to footnote 74 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-74" title="Jump back to footnote 74 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-74" title="Jump back to footnote 74 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-75">
+<p>Vapor IO press release &ldquo;Private Austin edge company building the Kinetic Grid, a network of metro micro data centers (20kW/160kW/180kW) with software-defined interconnection live in 6 metros and available in 36 US markets; has raised $100M+ and partners with Zayo for fiber to bridge the middle-mile gap between regional cloud zones and customers.&rdquo;, 2022-08-18 · Vapor IO press release / Fierce Network / DCD, Kinetic Grid in 32-36 US markets, 2022-08-18 · local: 2026-06-16-flexential-vapor-io-quintessent.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-75" title="Jump back to footnote 75 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-75" title="Jump back to footnote 75 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-75" title="Jump back to footnote 75 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-76">
+<p>Light Reading &ldquo;Super-regional business-only fiber operator (Cleveland OH, majority-owned by AMP Capital) with 27,000+ (now 30k+) route miles across ~10 Midwest/Mid-Atlantic states and 3,800+ on-net locations including 47 data centers; received a $220M DigitalBridge Credit + CPP HoldCo term loan within $1B+ debt financing in 2022.&rdquo;, 2022-04-01 · Light Reading / dgtlinfra, DigitalBridge invests $220M in Everstream, 2022-04-01 · local: 2026-06-16-everstream-segra-fiber.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-76" title="Jump back to footnote 76 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-76" title="Jump back to footnote 76 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-76" title="Jump back to footnote 76 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-77">
+<p>Segra press release, Invests in Next-Generation Network Upgrades, 2025-05-05; segra.com solutions PDF &ldquo;Independent regional fiber operator owned by Cox Communications with ~44,000 fiber route miles across 24 states and 26+ markets (Mid-Atlantic/Southeast focus), offering dark fiber, wavelengths (400G core, up to 800G), metro plus long-haul transport, and colocation; announced a next-generation network upgrade in May 2025.&rdquo;, 2025-05-05 · Segra press release, Invests in Next-Generation Network Upgrades, 2025-05-05; segra.com solutions PDF · local: 2026-06-16-everstream-segra-fiber.md · other&#160;<a class="footnote-backref" href="#fnref:fn-77" title="Jump back to footnote 77 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-77" title="Jump back to footnote 77 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-77" title="Jump back to footnote 77 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-78">
+<p>Noldor: Say Hello to the Internet of AI + om internet of ai &ldquo;Privately held (DigitalBridge/EQT-owned) US/EU metro + long-haul dark-fiber builder; booked &gt;$1B AI-related long-haul deals in 2024 with $3B pipeline; tripled its new-build target from 5,000 to &gt;15,000 route-miles (~20M fiber-miles) by 2030; expects AI bandwidth demand 2-6x by 2030; hyperscaler orders shifted from 8-12 fibers to 12-48 pairs (some 144-432) per route.&rdquo;, 2026-05-04 · Noldor: Say Hello to the Internet of AI + om internet of ai · local: 2026-05-04-noldor-say-hello-internet-of-ai.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-78" title="Jump back to footnote 78 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-78" title="Jump back to footnote 78 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-78" title="Jump back to footnote 78 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-79">
+<p>Flexential press release &ldquo;Private US colocation/interconnection operator (Charlotte NC) owned by GI Partners with Morgan Stanley Infrastructure Partners joining as co-control investor in Oct 2024; operates 40-42 highly connected data centers across 19 markets with 325MW+ built/under-development on a 100Gbps private network backbone (FlexAnywhere).&rdquo;, 2024-10-21 · Flexential press release / DCD, MSIP strategic investment, 2024-10-21 · local: 2026-06-16-flexential-vapor-io-quintessent.md · other&#160;<a class="footnote-backref" href="#fnref:fn-79" title="Jump back to footnote 79 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-79" title="Jump back to footnote 79 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-79" title="Jump back to footnote 79 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-80">
+<p>Compass Datacenters press release, Brookfield &ldquo;Private Dallas campus-scale data-center developer acquired in June 2023 by Brookfield Infrastructure and Ontario Teachers&#x27; Pension Plan; develops hyperscale campuses across regional US metros including a ~$10B five-building campus near Chicago and sites near Columbus OH and Phoenix.&rdquo;, 2024-06-10 · Compass Datacenters press release, Brookfield/Ontario Teachers acquisition, 2023-06-20; Bisnow 2024-06-10 · local: 2026-06-16-compass-armada-edge-dc.md · other&#160;<a class="footnote-backref" href="#fnref:fn-80" title="Jump back to footnote 80 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-80" title="Jump back to footnote 80 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-80" title="Jump back to footnote 80 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-81">
+<p>Gcore &ldquo;Luxembourg-based private edge-AI cloud provider raised its first external capital, a $60M Series A in July 2024 led by Wargaming, to fund NVIDIA-GPU edge AI servers; operates 180+ edge points of presence across 6 continents with &gt;200 Tbps capacity for edge AI training and inference.&rdquo;, 2024-07-23 · Gcore / BusinessWire, Raises $60M Series A, 2024-07-23 · local: 2026-06-16-gcore-vultr-edge-cloud.md · other&#160;<a class="footnote-backref" href="#fnref:fn-81" title="Jump back to footnote 81 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-81" title="Jump back to footnote 81 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-81" title="Jump back to footnote 81 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-82">
+<p>CNBC &ldquo;Private West Palm Beach GPU-cloud provider (founded 2014, self-funded for a decade) raised $333M in Dec 2024 at a $3.5B valuation co-led by AMD Ventures and LuminArx, its first outside equity; operates 32 data center locations (mostly outside North America) and is pushing AI from training toward the edge.&rdquo;, 2024-12-18 · CNBC / Crunchbase News, AMD invests in Vultr at $3.5B valuation, 2024-12-18 · local: 2026-06-16-gcore-vultr-edge-cloud.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-82" title="Jump back to footnote 82 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-82" title="Jump back to footnote 82 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-82" title="Jump back to footnote 82 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-83">
+<p>RunSun Cloud site (runsuncloud.com) + CB Insights (Singapore-based, 10,000+ GPUs); Noldor: semianalysis clustermax 2 unlocked &ldquo;Singapore-based GPU bare-metal neocloud with GPUs deployed in Japan and the US, expanding to South Korea/Australia/Europe; claims 10,000+ GPUs deployed (SemiAnalysis ClusterMAX).&rdquo;, 2026-05-01 · RunSun Cloud site (runsuncloud.com) + CB Insights (Singapore-based, 10,000+ GPUs); Noldor: semianalysis clustermax 2 unlocked · local: 2026-06-16-runsun-neocloud-10k-gpus.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-83" title="Jump back to footnote 83 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-83" title="Jump back to footnote 83 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-83" title="Jump back to footnote 83 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-84">
+<p>FPT Smart Cloud &ldquo;Large regional GPU-cloud provider in Southeast Asia with significant capacity in Vietnam and Japan and regional partnerships (SemiAnalysis ClusterMAX).&rdquo;, 2026-05-01 · FPT Smart Cloud / Business Wire &#x27;FPT AI Factory Accelerates AI Reasoning Capabilities across Southeast Asia and Japan with NVIDIA&#x27; (2026-03-26); Noldor: semianalysis clustermax 2 unlocked · local: 2026-06-16-fpt-cloud-neocloud-sea-japan.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-84" title="Jump back to footnote 84 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-84" title="Jump back to footnote 84 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-84" title="Jump back to footnote 84 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-85">
+<p>Cirrascale Cloud Services site (cirrascale.com) + SemiAnalysis ClusterMAX 2.0 (clustermax.ai &ldquo;Neocloud/GPU-cloud rated Silver by SemiAnalysis ClusterMAX 2.0; build-to-order model resembling high-touch colo / systems integration (rent-to-own, server procurement + hosting).&rdquo;, 2026-05-01 · Cirrascale Cloud Services site (cirrascale.com) + SemiAnalysis ClusterMAX 2.0 (clustermax.ai/v2, 2025-11-06); Noldor: semianalysis clustermax 2 unlocked · local: 2026-06-16-cirrascale-neocloud.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-85" title="Jump back to footnote 85 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-85" title="Jump back to footnote 85 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-85" title="Jump back to footnote 85 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-86">
+<p>Noldor: ranovus cerebras darpa + The Logic &ldquo;Ottawa-based co-packaged/near-packaged optics (CPO/NPO) startup; Quantum-Dot/Quantum-Well lasers + RAMZI modulators + monolithic silicon photonics (Odin platform); raised ~US$77M equity (~US$170M total incl. govt + customer/supplier capital), targeting 2027 IPO; DARPA wafer-scale CPO platform with Cerebras.&rdquo;, 2025-01-23 · Noldor: ranovus cerebras darpa + The Logic / CB Insights / Tracxn · local: 2026-06-16-cbinsights-ranovus.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-86" title="Jump back to footnote 86 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-86" title="Jump back to footnote 86 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-86" title="Jump back to footnote 86 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-87">
+<p>Noldor: semianalysis cpo scaling with light PAID + BusinessWire &ldquo;Santa Clara optical-interconnect startup; &#x27;Photonic Fabric&#x27; photonic interposer for AI scale-up networks; raised $250M Series C1 (Mar 2025) at $2.5B valuation, total raised &gt;$515M; mass production targeted 2027.&rdquo;, 2025-03-11 · Noldor: semianalysis cpo scaling with light PAID + BusinessWire/SiliconANGLE · local: 2026-06-16-businesswire-celestial-ai.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-87" title="Jump back to footnote 87 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-87" title="Jump back to footnote 87 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-87" title="Jump back to footnote 87 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-88">
+<p>Lightmatter &ldquo;Private photonic-interconnect company raised a $400M Series D in Oct 2024 led by T. Rowe Price at a $4.4B valuation (total raised $850M); its Passage 3D-stacked co-packaged-optics platform delivers up to 100+ Tbps aggregate optical interconnect for AI clusters.&rdquo;, 2024-10-16 · Lightmatter / BusinessWire, Raises $400M Series D, valuation $4.4B, 2024-10-16; TechCrunch 2024-10-16 · local: 2026-06-16-lightmatter-xscape-photonics.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-88" title="Jump back to footnote 88 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-88" title="Jump back to footnote 88 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-88" title="Jump back to footnote 88 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-89">
+<p>Xscape Photonics &ldquo;Private NY/Santa Clara silicon-photonics startup raised a $44M Series A in Oct 2024 (total $57M) led by IAG Capital with Cisco Investments and NVIDIA participating; its ChromX multi-wavelength platform can carry hundreds of colors per fiber to expand GPU escape bandwidth ~10x.&rdquo;, 2024-10-15 · Xscape Photonics / BusinessWire, Raises $44M Series A, 2024-10-15; TechCrunch 2024-10-15 · local: 2026-06-16-lightmatter-xscape-photonics.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-89" title="Jump back to footnote 89 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-89" title="Jump back to footnote 89 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-89" title="Jump back to footnote 89 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-90">
+<p>CB Insights &ldquo;Optical-interconnect startup (New Providence NJ, founded 2020 by Bell Labs veteran Peter Winzer) that raised ~$50M and was acquired by Ciena for $270M in Sept 2025; its XT1600 linear-drive silicon-photonics optical engine delivers 1.6 Tbps full-duplex targeting rack-to-rack interconnect.&rdquo;, 2025-09-22 · CB Insights / Cignal AI, Nubis acquired by Ciena for $270M, 2025-09-22; TDK Ventures 2023-11-13 · local: 2026-06-16-nubis-avicena-interconnect.md · other&#160;<a class="footnote-backref" href="#fnref:fn-90" title="Jump back to footnote 90 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-90" title="Jump back to footnote 90 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-90" title="Jump back to footnote 90 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-90" title="Jump back to footnote 90 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-91">
+<p>Avicena press release &ldquo;Private Sunnyvale optical-interconnect startup raised a $65M Series B in May 2025 led by Tiger Global (total raised $120M), with SK hynix and Lam Research participating; its LightBundle microLED-based interconnect delivers multi-Tbps/mm shoreline density at sub-pJ/bit over up to 10m, targeting AI/HPC memory fabrics.&rdquo;, 2025-05-14 · Avicena press release / optics.org, $65M Series B led by Tiger Global, 2025-05-14 · local: 2026-06-16-nubis-avicena-interconnect.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-91" title="Jump back to footnote 91 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-91" title="Jump back to footnote 91 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-91" title="Jump back to footnote 91 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-92">
+<p>Quintessent &ldquo;Private Santa Barbara silicon-photonics startup (UCSB / John Bowers spin-out) raised a $11.5M oversubscribed seed in March 2024 led by Osage University Partners; developing multi-wavelength quantum-dot comb lasers and heterogeneous silicon photonics for optical interconnects in accelerated computing, with foundry partner Tower Semiconductor.&rdquo;, 2024-03-14 · Quintessent / BusinessWire + optics.org, raises $11.5M seed, 2024-03-14 · local: 2026-06-16-flexential-vapor-io-quintessent.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-92" title="Jump back to footnote 92 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-92" title="Jump back to footnote 92 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-92" title="Jump back to footnote 92 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-93">
+<p>BusinessWire &ldquo;Private Washington-state edge-compute company building Galleon ruggedized modular/containerized data centers (Starlink-connected, up to MW-scale liquid-cooled) for remote/off-grid AI; raised ~$239M total across rounds including $40M led by Microsoft&#x27;s M12 (July 2024) and $131M (July 2025).&rdquo;, 2024-07-11 · BusinessWire / Contrary Research / SDxCentral, Armada $40M M12 round 2024-07-11, $131M July 2025, total ~$239M · local: 2026-06-16-compass-armada-edge-dc.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-93" title="Jump back to footnote 93 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-93" title="Jump back to footnote 93 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-93" title="Jump back to footnote 93 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-94">
+<p>Dell&#x27;Oro Group, &#x27;Optical Transport — Looking Forward to 2026&#x27;, https: &ldquo;FORECAST: Dell&#x27;Oro frames the new 2026 DCI optical use case as cloud providers expanding &#x27;AI data centers across multiple buildings about 100 km apart, requiring 800 ZR+ optics and optical line systems&#x27; — i.e. hyperscale campus-cluster interconnect, NOT edge inference at tier-2/3 metros. No edge-inference optical line item appears in Dell&#x27;Oro&#x27;s optical transport coverage.&rdquo;, 2025-12-15 · Dell&#x27;Oro Group, &#x27;Optical Transport — Looking Forward to 2026&#x27;, https://www.delloro.com/2026-predictions-optical-transport-market/ · local: 2026-delloro.com-2026-predictions-optical-transport.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-94" title="Jump back to footnote 94 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-94" title="Jump back to footnote 94 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-95">
+<p>Noldor: Optical Transport Market Grew to $16 Billion in 2025, According to Dell&#x27;Oro Group &ldquo;The optical transport market grew to $16 billion in 2025, with Data Center Interconnect driving the recovery at 40 percent growth, per Dell&#x27;Oro Group&rdquo;, 2026-02-18 · Noldor: Optical Transport Market Grew to $16 Billion in 2025, According to Dell&#x27;Oro Group · local: 2026-02-noldor-equinix-dlr-delloro.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-95" title="Jump back to footnote 95 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-96">
+<p>Noldor: fiber optics category digest (Cignal AI Jan 2026) &ldquo;Telecom coherent bandwidth grew 40% in 2025 and pluggable coherent is set to exceed 60% of telecom bandwidth by 2026 — a real-today demand signal, but it accrues to metro/long-haul coherent (the scale players) not specifically tier-2/3 edge&rdquo;, 2026-05-01 · Noldor: fiber optics category digest (Cignal AI Jan 2026) · local: 2026-05-01-noldor-fiber-optics-digest-bearcase.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-96" title="Jump back to footnote 96 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-97">
+<p>Noldor: Say Hello to the Internet of AI + Zayo &ldquo;Zayo tripled its planned new-build target from 5,000 (Jan 2025) to &gt;15,000 route miles / ~20M fiber miles in &lt;18 months and expects AI-related bandwidth demand to grow 2-6x by 2030; Zayo&#x27;s customer base is itself the buyer universe (carriers, cloud providers, data centers, schools, enterprises) connecting 400 global markets over 18.7M fiber miles after the Crown Castle Fiber acquisition&rdquo;, 2026-05-04 · Noldor: Say Hello to the Internet of AI + Zayo/Crown Castle release · local: 2026-05-04-noldor-say-hello-internet-of-ai.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-97" title="Jump back to footnote 97 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-98">
+<p>Noldor: TDCowen_InitiateatBuyNoDatacenterIsAnIsland_Mar_11_2026 &ldquo;TD Cowen frames the AI knock-on chain as a multi-year optical transport investment cycle in which coherent upgrades, ROADM/WSS expansion and DCI capacity adds are structural prerequisites (not discretionary refresh) so that AI-generated value can exit the data center and propagate across the network without bottlenecking; spend expresses as added wavelengths and higher per-wavelength capacity across long-haul, metro/regional and metro-DCI layers.&rdquo;, 2026-03-11 · Noldor: TDCowen_InitiateatBuyNoDatacenterIsAnIsland_Mar_11_2026 · local: 2026-03-11-tdcowen-ciena-no-datacenter-is-an-island.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-98" title="Jump back to footnote 98 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-99">
+<p>RVA &ldquo;US Telecom reports an average of ~$96B annual telecom capex from large public telecom companies alone over the past two years; PE has committed ~$80B cumulative to telecom (mostly fiber) over five years, sizing the carrier/ISP transport-capex pool that optical vendors sell into&rdquo;, 2025-01-14 · RVA/Fiber Broadband Association deployment report 2025 · local: 2026-03-costquest-fiber-providers-count.md · other&#160;<a class="footnote-backref" href="#fnref:fn-99" title="Jump back to footnote 99 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<script src="../assets/vega-embed-bundle.js"></script>
+<script src="../assets/chart-embed.js"></script>
+</body>
+</html>
