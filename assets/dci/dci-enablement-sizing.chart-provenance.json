@@ -1,0 +1,70 @@
+{
+  "chart_id": "dci-enablement-sizing",
+  "title": "The inter-datacenter layer the $154bn optical TAM leaves out",
+  "chart_type": "bar",
+  "model_path": "/Users/johnhendren/Desktop/Projects/vault/raw/research-2026-06-08-dci-scale-across-enablement/2026-06-08-dci-sizing.xlsx",
+  "model_sha": "6efbae6d019aaa67",
+  "series": [
+    {
+      "name": "Indicative size (US$bn)",
+      "cells": [
+        "Sizing!B2",
+        "Sizing!B3",
+        "Sizing!B4",
+        "Sizing!B5"
+      ],
+      "values": [
+        20,
+        16,
+        11,
+        6
+      ]
+    }
+  ],
+  "reference": null,
+  "annotations": [],
+  "png": "dci-enablement-sizing.png",
+  "png_sha": "0dbf4e460d2060d2",
+  "svg": "dci-enablement-sizing.svg",
+  "svg_sha": "a172a68731176fb3",
+  "spec": {
+    "chart_id": "dci-enablement-sizing",
+    "chart_type": "bar",
+    "title": "The inter-datacenter layer the $154bn optical TAM leaves out",
+    "subtitle": "Indicative scale by leg \u2014 different bases and time horizons; not additive",
+    "x_label": null,
+    "y_label": "US$bn",
+    "series": [
+      {
+        "name": "Indicative size (US$bn)",
+        "cells": [
+          "Sizing!B2",
+          "Sizing!B3",
+          "Sizing!B4",
+          "Sizing!B5"
+        ],
+        "scenario": null
+      }
+    ],
+    "categories": [
+      "Outside-plant build",
+      "DCI transport systems",
+      "Carrier dark fiber / E-W",
+      "Coherent optics"
+    ],
+    "caption": null,
+    "notes": null,
+    "sort": "value-desc",
+    "highlight": null,
+    "reference": null,
+    "value_format": ",.0f",
+    "eyebrow": "Exhibit \u00b7 Market sizing",
+    "source": "Dycom (fwd addressable), Dell'Oro, Lumen (served), Cignal AI",
+    "as_of": null,
+    "value_prefix": "$",
+    "value_suffix": "bn",
+    "value_scale": 1.0,
+    "annotations": []
+  },
+  "rendered_at": "2026-06-08T19:14:38.921329+00:00"
+}
