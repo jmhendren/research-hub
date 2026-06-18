@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Where value accrues in the AI / regional-metro optical value chain — and where the investible pockets are</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* ===== Page templates ===== */
+
+@page {
+    size: Letter;
+    margin: 0.7in 0.75in 0.8in 0.75in;
+    @top-left {
+        content: "Hendren HQ Research";
+        font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        font-weight: 600;
+        color: #1A1A1A;
+        letter-spacing: 0.04em;
+    }
+    @top-right {
+        content: string(running-title);
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6B6B6B;
+    }
+    @bottom-center {
+        content: "Hendren HQ Research  ·  Page " counter(page) " of " counter(pages);
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6B6B6B;
+    }
+}
+
+@page cover {
+    margin: 0;
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-center { content: none; }
+}
+
+/* ===== Cover page ===== */
+
+.cover-page {
+    page: cover;
+    page-break-after: always;
+    width: 100%;
+    min-height: 9.5in;
+    padding: 1.8in 1in 0.9in 1in;
+    text-align: center;
+    box-sizing: border-box;
+}
+.cover-wordmark {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: #1A1A1A;
+    text-transform: uppercase;
+    margin-bottom: 8pt;
+}
+.cover-wordmark-rule {
+    width: 36pt;
+    height: 1.5pt;
+    background: #8B2332;
+    margin: 0 auto 64pt auto;
+}
+.cover-title {
+    string-set: running-title content();
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.25;
+    margin: 0 0 12pt 0;
+    letter-spacing: -0.005em;
+}
+.cover-subtitle {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 14pt;
+    color: #3D3D3D;
+    font-style: italic;
+    font-weight: 400;
+    margin: 0 0 64pt 0;
+}
+.cover-meta {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    color: #3D3D3D;
+    letter-spacing: 0.04em;
+    margin: 4pt 0;
+}
+.cover-meta strong {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+.cover-divider {
+    width: 80pt;
+    height: 0.5pt;
+    background: #D9D9D6;
+    margin: 40pt auto;
+}
+.cover-stats {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-top: 24pt;
+    font-size: 10pt;
+    color: #3D3D3D;
+}
+.cover-stats .stat {
+    margin: 0 14pt;
+}
+.cover-stats strong {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+.cover-footer {
+    margin-top: 80pt;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    font-style: italic;
+}
+
+/* ===== Masthead (uniform across published surfaces — mirrors hub-masthead.css) ===== */
+
+.masthead {
+    border-bottom: 1px solid #1A1A1A;
+    padding: 6pt 0 14pt 0;
+    margin-bottom: 22pt;
+}
+.masthead-top {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6B6B6B;
+    font-weight: 500;
+    padding-bottom: 10pt;
+    border-bottom: 1px solid #D9D9D6;
+    margin-bottom: 14pt;
+}
+.masthead-top .doctype { color: #0E2A47; font-weight: 600; }
+.masthead-top .date { color: #8B2332; font-weight: 600; }
+.masthead h1.title {
+    string-set: running-title content();
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 24pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.15;
+    letter-spacing: -0.012em;
+    margin: 0;
+}
+.masthead .subtitle {
+    display: block;
+    margin-top: 6pt;
+    font-size: 0.5em;
+    font-weight: 400;
+    color: #6B6B6B;
+    letter-spacing: 0;
+    font-style: italic;
+    line-height: 1.3;
+}
+
+/* ===== Body ===== */
+
+html { font-size: 11pt; }
+
+body {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    line-height: 1.6;
+    color: #1A1A1A;
+    max-width: 100%;
+}
+
+/* Page break marker for section transitions (briefs in a packet) */
+.page-break {
+    page-break-before: always;
+    height: 0;
+}
+
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+}
+
+h1 {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 22pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.3;
+    margin: 0 0 6pt 0;
+    letter-spacing: -0.005em;
+    string-set: running-title content();
+}
+
+h2 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 24pt 0 8pt 0;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+}
+
+h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin: 14pt 0 4pt 0;
+}
+
+h4 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 12pt 0 4pt 0;
+    letter-spacing: 0.04em;
+}
+
+h5, h6 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    margin: 10pt 0 4pt 0;
+    color: #1A1A1A;
+}
+
+/* Paragraphs */
+
+p {
+    margin: 0 0 10pt 0;
+    orphans: 2;
+    widows: 2;
+}
+
+/* Links */
+
+a {
+    color: #0E2A47;
+    text-decoration: none;
+    border-bottom: 0.5pt solid #0E2A47;
+    word-break: break-word;
+}
+
+/* Lists */
+
+ul, ol {
+    margin: 8pt 0;
+    padding-left: 22pt;
+}
+li {
+    margin: 5pt 0;
+}
+li > ul, li > ol {
+    margin: 4pt 0;
+}
+
+/* Blockquotes — large opening quotation mark, italic serif */
+
+blockquote {
+    margin: 14pt 0 4pt 14pt;
+    padding: 0;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    color: #1A1A1A;
+    font-size: 11pt;
+    line-height: 1.55;
+    text-indent: 0;
+}
+blockquote::before {
+    content: "\201C";
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    color: #8B2332;
+    line-height: 0;
+    vertical-align: -0.35em;
+    margin-right: 4pt;
+    font-style: normal;
+}
+blockquote p { margin: 0 0 8pt 0; display: inline; }
+blockquote p:last-child { margin-bottom: 0; }
+
+/* Citation line that follows a blockquote (italic em-dashed source) */
+
+.citation {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    margin: 4pt 0 14pt 18pt;
+    font-style: normal;
+}
+
+/* BLUF callout — italic serif with accent left rule, no fill */
+
+.bluf {
+    border-left: 2pt solid #8B2332;
+    padding: 4pt 0 4pt 18pt;
+    margin: 4pt 0 18pt 0;
+    font-style: italic;
+    font-size: 11pt;
+    color: #1A1A1A;
+    page-break-inside: avoid;
+}
+.bluf h2, .bluf h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #8B2332;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 4pt 0;
+    font-style: normal;
+}
+.bluf p { margin: 0 0 8pt 0; font-style: italic; }
+.bluf p:last-child { margin-bottom: 0; }
+.bluf strong { font-style: italic; }
+
+/* "What to ask" — distinguished section (optional class wrap) */
+
+.ask {
+    border-top: 0.5pt solid #D9D9D6;
+    border-bottom: 0.5pt solid #D9D9D6;
+    padding: 12pt 0 4pt 0;
+    margin: 22pt 0;
+}
+
+/* Code (rare in briefs but supported) */
+
+code {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9.5pt;
+    background: #f3f3f0;
+    padding: 1pt 4pt;
+    border-radius: 2pt;
+}
+pre {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9pt;
+    background: #f7f5f2;
+    padding: 10pt 12pt;
+    border-radius: 3pt;
+    line-height: 1.4;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code { background: transparent; padding: 0; }
+
+/* Tables — minimal lines, no fills (editorial restraint) */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 14pt 0;
+    font-size: 10pt;
+    page-break-inside: auto;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+th, td {
+    border-bottom: 0.5pt solid #D9D9D6;
+    padding: 6pt 8pt 6pt 0;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    font-weight: 700;
+    color: #1A1A1A;
+    border-bottom: 1pt solid #1A1A1A;
+    letter-spacing: 0.02em;
+    font-size: 9.5pt;
+}
+
+/* Horizontal rule — visible separator inside a section (NOT a page break) */
+
+hr {
+    border: 0;
+    border-top: 0.5pt solid #D9D9D6;
+    margin: 18pt 0;
+}
+
+/* Images */
+
+img { max-width: 100%; height: auto; }
+
+/* Emphasis */
+
+strong { font-weight: 700; color: #1A1A1A; }
+em { font-style: italic; }
+
+/* Topic tag / meta line at top of each brief */
+
+.brief-meta-line {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    letter-spacing: 0.04em;
+    margin: 0 0 22pt 0;
+    padding-bottom: 12pt;
+    border-bottom: 0.5pt solid #D9D9D6;
+}
+.brief-meta-line .tag {
+    color: #8B2332;
+    font-style: italic;
+}
+
+/* Source list at the bottom of each brief */
+
+.sources-block {
+    margin-top: 28pt;
+    padding-top: 14pt;
+    border-top: 0.5pt solid #D9D9D6;
+    font-size: 9.5pt;
+    color: #3D3D3D;
+}
+.sources-block h2,
+.sources-block h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #1A1A1A;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 8pt 0;
+    font-weight: 700;
+}
+.sources-block ul { padding-left: 18pt; margin: 0; }
+.sources-block li { margin: 3pt 0; }
+</style>
+</head>
+<body>
+<header class="masthead">
+<div class="masthead-top"><span class="doctype">Research note</span><span class="date">Drafted 2026-06-17</span></div>
+<h1 class="title">Where value accrues in the AI / regional-metro optical value chain — and where the investible pockets are</h1>
+</header>
+<p><strong>Type:</strong> market deep-dive (descriptive-diagnostic, with a valuation / expectations lens). <strong>Audience:</strong> a smart finance professional (PM/analyst) doing AI-infrastructure research, oriented to nothing specific in optical networking; every technical term is defined parenthetically on first use. <strong>What you&rsquo;ll be able to do after reading:</strong> trace, layer by layer, where the optical dollar actually accrues as AI traffic evolves; tell which public and private names sit in a reasonably-valued pocket versus a crowd priced for perfection; and separate the part of the &ldquo;agentic-traffic metro inflection&rdquo; that is real from the part that is misattributed.</p>
+<p>This report is descriptive and diagnostic: it maps where value lands today and reads the current expectations baked into prices. It carries <strong>no forward financial model, no DCF, no projections or scenarios, and no per-name buy/sell call</strong> — the verdict is &ldquo;crowded versus overlooked,&rdquo; a value-accrual map plus an expectations read, not an IC recommendation. Where a source offers a forward number it is tagged &ldquo;(forecast)&rdquo; and never built upon. It is the value-accrual and valuation successor to the regional-edge DCI knock-on report (<code>vault/kb/outputs/primers/2026-06-16-regional-edge-dci-knock-on.md</code>), which the reader should treat as already-read context; this report builds <strong>on</strong> that report&rsquo;s &ldquo;who captures the regional socket&rdquo; answer (scale players, not sub-scale vendors) rather than re-deriving it.</p>
+<p>Defined terms used throughout: <strong>DWDM</strong> = dense wavelength-division multiplexing (carrying many &ldquo;colors&rdquo; of light on one fiber to multiply capacity); <strong>DCI</strong> = data-center interconnect (the optical links between data centers); <strong>coherent pluggable</strong> = a small modular coherent optical transceiver that plugs directly into a switch or router port; <strong>transponder</strong> = the box that converts a client signal into a long-distance wavelength (historically a standalone shelf); <strong>IPoDWDM</strong> = IP-over-DWDM, terminating the wavelength inside the router instead of a separate transponder box; <strong>RON</strong> = Routed Optical Networking, the vendor name for that collapse; <strong>line system / OLS</strong> = the optical line system (open line system), the chain of amplifiers, filters and switches between the two endpoints; <strong>EDFA</strong> = erbium-doped fiber amplifier; <strong>Raman</strong> = a distributed in-fiber amplification technique; <strong>ROADM</strong> = reconfigurable optical add-drop multiplexer (routes wavelengths in a mesh network); <strong>WSS</strong> = wavelength-selective switch (the steering element inside a ROADM); <strong>scale-across</strong> = linking geographically dispersed AI training clusters across metros into one logical GPU fabric; <strong>EV/Sales, EV/EBITDA, P/E</strong> = standard valuation multiples; <strong>TTM</strong> = trailing twelve months; <strong>forward</strong> = on next-full-fiscal-year consensus estimates.</p>
+<hr>
+<h2 id="1-the-question-and-why-it-matters">1. The question, and why it matters</h2>
+<p><em>The optical transport market has unambiguously turned on AI demand, so the live analytical question is no longer &ldquo;is the wave real&rdquo; but where along the chain the dollar accrues — and which nodes are not already priced for perfection.</em></p>
+<p>The market has turned, and the numbers are not subtle. The total optical transport equipment market — the pool that pays for transponders, line systems, amplifiers and ROADMs — reached $16B in 2025, up 10% year-over-year, and Dell&rsquo;Oro forecasts ~$18B in 2026 <sup id="fnref:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref2:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The single driver is data-center interconnect: direct purchases of WDM equipment for DCI grew nearly 40% in 2025, and the recovery accelerated into 1Q 2026 at an estimated +20% year-over-year on the total market with DCI again +40% <sup id="fnref:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>. When a market this large inflects this fast, the interesting question for an allocator is not whether to be exposed but <em>where</em> exposure pays — because the answer routes capital to entirely different businesses depending on the layer.</p>
+<p>That is the question this report answers: as AI traffic evolves, where along the optical / DCI / metro value chain does the dollar actually land, and which of the beneficiaries are not already valued for a flawless outcome? The chain has six layers worth separating — the carriers and fiber that own the physical routes; the optical line system that amplifies and switches the light mid-span; the scale systems vendor that integrates and sells the box-plus-software; the coherent pluggables that terminate the wavelength; the merchant components inside everything; and the services contractors that physically install and maintain it. The dollar does not spread evenly across those six. It concentrates — and the concentration pattern is the report&rsquo;s spine.</p>
+<p>The reusable lens for everything that follows is the <strong>two-ends-and-a-pool</strong> framing: value accrues at the two <em>ends</em> of the chain (the scale system on one end, the merchant components on the other), in the durable <em>transport pool</em> (the line system), and <strong>away from</strong> the disaggregating <em>middle</em> (the standalone transponder box). Hold those four reference points — two ends, one pool, one collapsing middle — and the rest of the chain becomes legible without re-loading the model at each section.</p>
+<hr>
+<h2 id="2-the-value-accrual-map-value-sits-at-the-two-ends-and-in-the-transport-pool-not-the-disaggregating-middle">2. The value-accrual map: value sits at the two ends and in the transport pool, not the disaggregating middle</h2>
+<p><em>Value accrues at the two ends of the chain — the scale system and the merchant components — while IPoDWDM hollows out the standalone transponder box in the middle and leaves the optical line system standing as a durable pool.</em></p>
+<p>The cleanest structural anchor is the architecture collapse itself. Historically a metro or long-haul wavelength was lit by a standalone DWDM transponder: a dedicated shelf, chassis, power supplies and management plane sitting next to the router. IPoDWDM shrinks that transponder into a coherent pluggable seated directly in the router faceplate, and the shelf, chassis and management plane disappear <sup id="fnref:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. The dollar that used to buy a standalone box now splits: part of it migrates <em>into the router</em> (a coherent pluggable), and part of it stays <em>with the components</em> inside that pluggable. Ciena&rsquo;s own numbers register the migration — its coherent pluggable revenue surpassed $168M in FY2025, more than doubling FY2024 <sup id="fnref:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> — and the industry-wide pace is faster still: pluggable coherent is set to carry over 60% of telecom bandwidth by 2026 (forecast), and Cisco/Acacia, the pluggable-coherent leader, already reports more than 70% of coherent ports pluggable <sup id="fnref:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>. The standalone box, in other words, is being eaten from both sides.</p>
+<p>The map below is the framework. Read it as the six layers of the chain (left to right, carrier to installer) against where the dollar lands and why.</p>
+<p><img alt="The optical dollar accrues at the two ends of the chain — the scale system and the merchant components — and in the durable line-system pool, not the disaggregating standalone-transponder middle." src="value-chain-value-accrual-map.png"><br>
+<em>Source: Dell&rsquo;Oro, Cignal AI, Cisco, company filings, Hendren analysis.</em></p>
+<p>The crucial distinction the map encodes — and the one a hurried reader gets wrong — is that <strong>the box that disaggregates is not the same layer as the line system.</strong> IPoDWDM eliminates the transponder shelf, but the optical line system is explicitly not the layer that collapses <sup id="fnref2:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. The physics forces it: the −10 dBm launch power of a 400ZR coherent pluggable is low enough that it forces amplification on every span and constrains the add-path budget through a ROADM, so the signal still rides the same DWDM chain — EDFAs, Raman amplifiers, filters and ROADMs — that a transponder network used <sup id="fnref3:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. Separating these two layers is the analytical move that makes the durable-socket finding in Section 4 legible: disaggregation hits the box in the middle, not the amplification pool around it. The value-accrual verdict, then, is that there is no healthy &ldquo;middle&rdquo; to own — the standalone-box vendors are structurally squeezed — and the dollar pools at the two ends (scale system, components) and in the line system that survives intact.</p>
+<hr>
+<h2 id="3-why-ciena-names-the-regionalmetroedge-socket">3. Why Ciena names the regional/metro/edge socket</h2>
+<p><em>Ciena names metro and edge as an explicit growth pillar because its in-and-around-the-data-center opportunity tripled from 2024 to 2025 and is the named driver of 2026 growth — and because its scale lets it capture the fragmented regional socket the sub-scale vendors were supposed to own.</em></p>
+<p>The structural claim comes first: Ciena&rsquo;s growth is concentrated in the cloud/DCI sockets that a scale vendor with a record backlog can capture — which is exactly the regional/metro addressable market the sub-scale vendors were positioned to own, so the leak of that socket toward scale is a feature of the architecture, not an accident. The segment numbers are the evidence, not the aspiration. Management&rsquo;s framing is that Ciena&rsquo;s &ldquo;in and around the data center&rdquo; AI-driven opportunity grew threefold from 2024 to 2025 and is a major contributor to the 2026 expected growth rate <sup id="fnref2:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>; the segment data corroborates it — FQ2 FY2026 Optical Networking revenue rose ~42% year-over-year to $1,099.8M <sup id="fnref:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>, the Routing &amp; Switching line — carrying the DCOM (data-center out-of-band management) ramp that is the routing leg of the in-and-around-the-data-center build — rose ~88% to $174.2M <sup id="fnref2:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>, the company raised FY2026 revenue guidance to $6.3B <sup id="fnref3:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>, and order backlog reached a record ~$7.7B, supply-constrained <sup id="fnref:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>.</p>
+<p><strong>Old flow / new flow / what changed.</strong> <em>Old flow:</em> a regional carrier lit a metro DCI link by buying a dedicated transponder shelf from a mid-tier optical vendor, with the line system often from the same supplier. <em>New flow:</em> a coherent pluggable drops into the carrier&rsquo;s (or hyperscaler&rsquo;s) router under RON, the line system is an open multi-vendor socket, and the integrating scale vendor sells the line system plus the software plus, increasingly, the pluggable. <em>What changed (quantified):</em> Ciena&rsquo;s pluggable revenue more than doubled to over $168M in FY2025 <sup id="fnref3:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> while its WaveLogic 6 Extreme coherent-DSP installed base reached 110 customers, +20 in a single quarter <sup id="fnref:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup> — the endpoint disaggregated, but the scale vendor captured both the new pluggable dollar and the line-system dollar around it.</p>
+<p>Two honest bounds belong on this pillar. First, Ciena&rsquo;s growth is hyperscaler-concentrated: cloud providers were 46% of FQ2 FY2026 revenue, up 70% year-over-year, with two cloud customers each above 10% totaling 34% of revenue <sup id="fnref2:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup><sup id="fnref4:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>, versus a two-customer concentration of 28.4% in FY2025 <sup id="fnref:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>. That concentration both validates the DCI demand and <em>caps</em> the claim that Ciena&rsquo;s metro pillar equals a broad regional-telco recovery — the growth is cloud/DCI, not metro-access (a distinction Section 6 returns to). Second, Ciena&rsquo;s own TAM framing routes the dollar the same way: management sizes the addressable market roughly doubling to ~$50B over three years, ~70% (~$35B) optical <sup id="fnref2:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>, of which $8–10B is in-and-around-the-data-center scale-across and in excess of $20B is long-haul/metro WAN (forecast) <sup id="fnref:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>. Even the bull&rsquo;s own sizing puts the bulk of incremental optical spend in DCI and long-haul, not tier-3 edge — which is the seed of the misattribution finding in Section 6.</p>
+<hr>
+<h2 id="4-the-durable-socket-why-the-amplifierroadm-line-system-survives-ipodwdm">4. The durable socket: why the amplifier/ROADM line system survives IPoDWDM</h2>
+<p><em>The amplifier/ROADM line system is the durable, under-appreciated layer of the chain — the 2022-era fear that IPoDWDM would cannibalize it has simply not shown up at that layer, and the merchant suppliers that make its subsystems are valued for datacom rather than for the socket itself.</em></p>
+<p>Start with the conflict, because resolving it is the section&rsquo;s job. In 2022, framing 400ZR as the door-opener for IPoDWDM, Dell&rsquo;Oro stated that &ldquo;IPoDWDM is expected to lower the overall demand for DWDM systems&rdquo; <sup id="fnref:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup> — the cannibalization fear. The 2026 data refutes that fear <em>at the line-system layer specifically.</em> The disaggregated WDM segment — which bundles transponder units, open line systems and IPoDWDM ZR/ZR+ optics — grew ~50% year-over-year in 1Q 2026 and ~40% across FY2025, with demand strong across all three sub-categories simultaneously <sup id="fnref:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup><sup id="fnref3:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. The reason transponders, OLS and IPoDWDM can all grow at once is that they are not substitutes at the amplification layer: Cisco, the OEM <em>driving</em> disaggregation, is explicit that even under RON &ldquo;we still need a DWDM layer&rdquo; of multiplexers, amplifiers and ROADMs <sup id="fnref:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>, and that &ldquo;ROADMs are part of existing networks and can certainly remain in place&rdquo; as the open line system carries third-party wavelengths <sup id="fnref:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup>. The mechanism that makes IPoDWDM scale economically — optical bypass, where a transit wavelength expresses straight through the WSS without entering the router — <em>is itself a ROADM/WSS function</em>, so disaggregation anchors continued line-system demand rather than retiring it <sup id="fnref4:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. The conflict resolves cleanly by scope: cannibalization hit the standalone transponder <em>box</em>; the amplifier/ROADM <em>line system</em> did not collapse.</p>
+<p>The carve-outs reinforce, rather than undermine, the durability. Where an operator needs OTN (optical transport network) overhead, hard protection switching, or a clean optical demarcation between its IP and transport teams, a dedicated pluggable transponder costs roughly 25–50% more than hosting the pluggable directly in the router but restores those transport features <sup id="fnref:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>; and analysts caution that on a line system carrying many channels, the operational cost of running converged IP-plus-optical layers can exceed traditional transport <sup id="fnref5:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. The middle is squeezed, not abolished — both frictions preserve a slice of standalone transport-box demand in feature-rich use cases, which is the honest qualifier on the disaggregation thesis.</p>
+<p>The under-appreciation angle lives in who supplies the line system&rsquo;s subsystems. Lumentum is the merchant supplier of the ROADM and wavelength-selective-switch modules that sit inside the line systems sold by Ciena, Nokia and Cisco <sup id="fnref:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup>, and Coherent is the merchant supplier of the pump lasers and EDFA amplifier components <sup id="fnref:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>. But these line-system components are the smaller, telecom-skewed slice of the ~$25B optical-component market; datacom transceivers are the dominant portion at &gt;$18B <sup id="fnref2:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>. The consequence for valuation is a plausible but unsized upside: the market prices Lumentum and Coherent for AI datacom transceivers, so their ROADM/WSS and amplifier exposure reads as optionality inside the multiple — but this report does not quantify the line-system share of Lumentum&rsquo;s or Coherent&rsquo;s revenue, so treat it as optionality, not an underwritten valuation leg. Finally, the socket is not just durable but concentrated: the top five optical-transport vendors in 2025 were Huawei, Ciena, Nokia, ZTE and Cisco <sup id="fnref4:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, and in DCI specifically the top three were Ciena, Nokia and Cisco <sup id="fnref5:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, with Ciena gaining 3 points of share and Nokia&rsquo;s $2.3B Infinera acquisition adding ~2 points <sup id="fnref:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup><sup id="fnref2:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup><sup id="fnref3:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup>. Durability plus concentration means the line-system dollar accrues to a handful of scale names — reinforcing the &ldquo;two ends and a pool&rdquo; map.</p>
+<hr>
+<h2 id="5-the-investible-pockets-shortlist-crowded-versus-overlooked">5. The investible-pockets shortlist: crowded versus overlooked</h2>
+<p><em>The shortlist is specific and nameable: most of the obvious AI-optical longs are priced for perfection, and the reasonably-valued pockets are Coherent and Fabrinet in components, Ciena as the reasonable scale system, Dycom in services, the carriers only with a leverage caveat, and a thin private install-maintain layer. Every multiple below is basis-labeled, and the cheapness rank holds within a layer only — never compare a forward component multiple to a TTM services or carrier multiple.</em></p>
+<p>A note on basis discipline before any number: component multiples in this section are <strong>forward</strong> (FMP consensus on the next full fiscal year), while services and carrier multiples are <strong>TTM</strong>. A forward multiple on a growing company is structurally lower than its TTM multiple, so a cross-layer comparison is apples-to-oranges <sup id="fnref:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref2:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref2:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>. The cheapness screen is therefore a within-layer filter, not a cross-layer ranking.</p>
+<h3 id="5a-components-priced-for-perfection-with-two-durable-exceptions">5a — Components: priced for perfection, with two durable exceptions</h3>
+<p>Most AI-optical components are priced for a flawless outcome. On a within-layer forward basis, Marvell trades ~22.9x forward EV/Sales <sup id="fnref3:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>, Credo ~19.0x forward EV/Sales <sup id="fnref4:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>, and Astera Labs ~29.4x forward EV/Sales and ~88.1x forward P/E <sup id="fnref5:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref6:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup> — multiples that re-rate violently on any AI-capex pause. The two durable exceptions are Coherent and Fabrinet. <strong>Coherent (COHR)</strong> is the most reasonable optical pure-play at ~6.5x forward EV/Sales for ~36.8% revenue growth <sup id="fnref7:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref8:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>. Its 800G/1.6T transceiver mix-shift and balance-sheet deleveraging are, in our read, upside the multiple does not yet price. <strong>Fabrinet (FN)</strong> has the lowest EV/Sales in the set (and is lowest on most metrics) — ~3.7x forward EV/Sales, ~34.4x forward P/E <sup id="fnref9:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref10:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>. Its contract-manufacturing margin cap reads, in our view, as a structural discount rather than a mispricing. (Keysight&rsquo;s ~29.6x forward P/E sits below Fabrinet&rsquo;s ~34.4x, so the &ldquo;lowest on every metric&rdquo; claim does not hold.)</p>
+<p>This is where the cheapness screen and the durability read must be reconciled honestly. The model&rsquo;s within-layer screen (forward EV/Sales divided by growth, lower being cheaper) ranks the set ascending as LITE 0.135 (cheapest-for-growth) → FN 0.159 → COHR 0.177 → CRDO 0.232 → GLW 0.410 → MRVL 0.567 → ALAB 0.687 → KEYS 0.725 — so Lumentum and Fabrinet screen ahead of Coherent, while Credo screens <em>worse</em> (less cheap) than Coherent. But the top of that rank flatters a transient: Lumentum&rsquo;s ~89.3% forward revenue growth <sup id="fnref11:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup> and Credo&rsquo;s ~81.9% <sup id="fnref12:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup> read, in our view, as one-off datacom-transceiver and active-electrical-cable ramps rather than durable franchises. Dividing a rich multiple by a cyclical growth spike makes the name <em>screen</em> cheap without <em>being</em> cheap. Coherent and Fabrinet screen where they do on lower, steadier growth; on durability they are the pockets. The screen is the starting filter; the durability caveat is the verdict — and it is a momentum-sensitive screen: if the growth denominator normalizes after the one-off ramp, the rank should be recomputed; until then it flags candidates, it is not a valuation conclusion.</p>
+<p><img alt="Most AI-optical components are priced for perfection on forward EV/Sales versus growth — Coherent and Fabrinet are the reasonably-valued exceptions, while Astera, Marvell and Credo demand a flawless AI ramp." src="components-valuation-vs-growth.png"><br>
+<em>Source: FMP consensus (forward, next full FY), Hendren analysis.</em></p>
+<h3 id="5b-ciena-the-reasonable-scale-system-once-the-distortion-is-stripped">5b — Ciena: the reasonable scale system, once the distortion is stripped</h3>
+<p>Ciena sits between the component pure-plays and the broad market. Its headline 94.3x TTM EV/EBITDA is a one-time-charge artifact of FQ4 FY2025 abandoned in-process-R&amp;D and impairment, and must not be presented as the valuation <sup id="fnref:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>. The operative read is ~9.9x forward EV/Sales and ~67.2x forward P/E on 32.5% FY2026E revenue growth <sup id="fnref:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup><sup id="fnref:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup><sup id="fnref:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup>, with the stock ~43% above its 200-day average after a roughly 6x move off its 52-week low <sup id="fnref:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup>. Ciena is no longer a value name, but on EV/Sales it sits below the components-layer median multiple while growing ~32% — the reasonable way to own the scale-system end of the chain, with the durable line-system socket (Section 4) bundled in.</p>
+<h3 id="5c-services-on-the-blended-screen-mastec-edges-cheapest-but-dycom-is-the-cleanest-fiber-osp-pure-play">5c — Services: on the blended screen MasTec edges cheapest, but Dycom is the cleanest fiber-OSP pure-play</h3>
+<p>The services layer is John&rsquo;s explicit interest, and within it the durable pockets are the fiber/OSP and data-center-install contractors, not the megacap energy-EPC or the test/tooling names. On the model&rsquo;s blended EV/Sales-to-growth screen, MasTec (MTZ) edges Dycom as the cheapest-for-growth name — its +16.2% revenue growth <sup id="fnref:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup> on a low-2x EV/Sales just clears Dycom&rsquo;s screen. But MasTec is a diversified infrastructure contractor — its Communications segment is only ~29% of backlog, and that includes wireless, so true fiber is less <sup id="fnref:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup> — whereas <strong>Dycom (DY)</strong> is the most fiber-focused of the services names — Communications is ~93% of revenue (Q4 FY2026) <sup id="fnref:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup> — and the best-fit optical install-maintain name: Communications / fiber outside-plant (OSP) install-maintain is the vast majority of revenue, with a record $9.54B backlog at FY2026 year-end <sup id="fnref2:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>, FY2026 contract revenue of $5.55B <sup id="fnref3:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup> up 17.9% year-over-year <sup id="fnref4:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>, at the lowest EV/EBITDA (~15.3x TTM) of the high-growth construction names <sup id="fnref:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup> and 2.6x EV/Sales TTM <sup id="fnref5:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>. On purity grounds it owns the physical fiber install-maintain socket the entire buildout rides on; the screen superlative goes to MTZ.</p>
+<p><img alt="On the blended screen MasTec edges cheapest, but Dycom is the cleanest fiber-OSP pure-play." src="services-cheapness-rank.png"><br>
+<em>Source: FMP (TTM), company filings, Hendren analysis.</em></p>
+<p>The honest cross-name read keeps the &ldquo;less crowded is relative&rdquo; caveat front and center. <strong>IES Holdings (IESC)</strong> is the highest-quality adjacency — Communications revenue $1.14B FY2025, +47% year-over-year <sup id="fnref:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup>, from data-center structured cabling, power and connectivity <em>inside</em> DCs <sup id="fnref2:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup>, with the lowest P/E (~36x TTM) of the high-growth set, roughly net-neutral leverage (~0.1x net-debt/EBITDA) and 41% ROE <sup id="fnref3:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup> — but its DC work is electrical/structured-cabling, not metro fiber, so it earns a place scoped honestly. Against these, Quanta (PWR ~47x EV/EBITDA TTM) is a grid/electric-power EPC megacap, the over-owned benchmark not the pocket <sup id="fnref6:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>; Viavi (VIAV ~9.3x EV/Sales TTM) is a test/monitoring tooling play, not a field installer <sup id="fnref7:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>; and the screen-cheap names are cheap for cause — Centuri (CTRI ~1.3x EV/Sales TTM) is a levered gas-utility turnaround <sup id="fnref8:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup> and MasTec&rsquo;s ~2.1x EV/Sales TTM reflects an ~8% EBITDA margin rather than value, with its Communications segment (~29% of backlog, which also includes wireless, so true fiber is less) <sup id="fnref2:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup>. The layer-level finding: the lower-multiple, less-crowded pockets are DY (~15x EV/EBITDA TTM) and IESC (~36x P/E TTM, net-neutral leverage) <sup id="fnref9:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>. But every name in the layer has already re-rated sharply off its 52-week lows, so &ldquo;overlooked&rdquo; here is relative, not absolute-cheap.</p>
+<h3 id="5d-carriers-real-prefunded-demand-sitting-on-a-leverage-catch">5d — Carriers: real, prefunded demand sitting on a leverage catch</h3>
+<p>The AI-transport demand reaching carriers is genuine and increasingly prefunded. Lumen has secured ~$13B in Private Connectivity Fabric (PCF — purpose-built dedicated fiber contracts) deals <sup id="fnref:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup>, signed ~$2.5B of them in Q4 2025 <sup id="fnref:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup>, with named hyperscaler customers and the AI lab Anthropic <sup id="fnref:fn-35"><a class="footnote-ref" href="#fn:fn-35">35</a></sup> and ~$116M recognized in FY2025 <sup id="fnref:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup>. The order book is not the question for carriers — the balance sheet is.</p>
+<p>On Lumen, the deleveraging is already done, not pending. Lumen closed the $5.75B sale of its Mass Markets fiber-to-the-home business to AT&amp;T, completed in February 2026, taking total debt to under ~$13B and net leverage toward sub-4x — with ~$500M of annual interest savings, ~$1B of reduced capex, and debt upgrades from all three major ratings agencies; this is the live current balance-sheet status, not a contingency <sup id="fnref2:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup>. The pre-close, as-reported FMP screen — ~7.41x net-debt/EBITDA TTM, ~$17.7B total debt and <em>negative</em> book equity of ~−$1.1B <sup id="fnref:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup>, against still-declining FY2025 revenue of $12.40B <sup id="fnref:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup> — is the trailing snapshot taken before the AT&amp;T close, so read it as where Lumen <em>was</em>, with the post-close sub-4x / sub-$13B figure as where it now <em>is</em> <sup id="fnref2:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup><sup id="fnref3:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup>. The equity has already re-rated roughly 8x off its ~$1 trough to ~12.8x TTM EV/EBITDA, so much of the AI-transport optionality is in the price <sup id="fnref:fn-39"><a class="footnote-ref" href="#fn:fn-39">39</a></sup>. The residual carrier risk is no longer the divestiture — it is the conversion pace of the contracted PCF book against a deleveraged-but-still-levered balance sheet: only ~$116M of the ~$13B in signed PCF deals was recognized in FY2025 <sup id="fnref2:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup>.</p>
+<p>On Uniti, the truer leverage is the company-reported figure, not the screen — and that warrant controls the equity case. Uniti&rsquo;s post-merger net leverage was ~5.75x net-debt to second-quarter-annualized adjusted EBITDA, guided 5.5–6.0x at year-end 2025 <sup id="fnref:fn-40"><a class="footnote-ref" href="#fn:fn-40">40</a></sup>, on the ~$1.5B hyperscaler funnel created by the August-2025 Windstream merger <sup id="fnref:fn-41"><a class="footnote-ref" href="#fn:fn-41">41</a></sup>. FMP&rsquo;s TTM screen of ~3.8x understates it because it captures only about five months of consolidated Windstream EBITDA <sup id="fnref:fn-42"><a class="footnote-ref" href="#fn:fn-42">42</a></sup> — so the company-reported 5.75x <sup id="fnref2:fn-40"><a class="footnote-ref" href="#fn:fn-40">40</a></sup>, not the FMP-distorted 3.8x <sup id="fnref2:fn-42"><a class="footnote-ref" href="#fn:fn-42">42</a></sup>, is the operative number, and the lower screen should not be credited as a deleveraging Uniti has not achieved.</p>
+<p>The cleanest carrier asset, meanwhile, is private and not directly investable. Zayo booked &gt;$1B of AI long-haul in 2024 with a $3B pipeline <sup id="fnref:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup>, secured an 8,000-route-mile anchor in 2026 <sup id="fnref:fn-44"><a class="footnote-ref" href="#fn:fn-44">44</a></sup> and agreed to acquire Crown Castle&rsquo;s fiber business for ~$4.25B <sup id="fnref:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup> (the transaction closed in May 2026 <sup id="fnref:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup>) — but it is owned by EQT and DigitalBridge (a $14.3B 2019 take-private), so there is no direct claim on Zayo&rsquo;s fiber economics; the only listed proxy is the diluted manager DigitalBridge, manager-level exposure rather than the asset <sup id="fnref:fn-47"><a class="footnote-ref" href="#fn:fn-47">47</a></sup><sup id="fnref:fn-48"><a class="footnote-ref" href="#fn:fn-48">48</a></sup>. Crown Castle exited fiber entirely in the same transaction <sup id="fnref2:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup>. The carrier pocket is a leveraged-deleveraging pool where the debt stack, not the order book, is the binding constraint.</p>
+<h3 id="5e-the-private-map-photonics-optionality-the-scale-players-are-buying-and-a-thin-install-maintain-layer">5e — The private map: photonics optionality the scale players are buying, and a thin install-maintain layer</h3>
+<p>The defining feature of the private photonics layer is that it feeds the two <em>ends</em> of the chain rather than becoming a third independent one — the scale players are pulling it in via M&amp;A faster than it can scale independently, so the private names prove demand <em>pull</em>, not private-market availability at investable scale. The funding and exit datapoints follow that claim. Ayar Labs raised a $500M Series E at a $3.75B valuation (co-packaged optics for AI scale-up) <sup id="fnref:fn-49"><a class="footnote-ref" href="#fn:fn-49">49</a></sup><sup id="fnref2:fn-49"><a class="footnote-ref" href="#fn:fn-49">49</a></sup>, and Lightmatter a $400M Series D at a $4.4B valuation <sup id="fnref:fn-50"><a class="footnote-ref" href="#fn:fn-50">50</a></sup><sup id="fnref2:fn-50"><a class="footnote-ref" href="#fn:fn-50">50</a></sup> — though that Lightmatter mark is from October 2024 and is ~20 months stale, a caveat before use. The strategic pull is visible in two recent exits: Celestial AI was acquired by Marvell for ~$3.25B <sup id="fnref:fn-51"><a class="footnote-ref" href="#fn:fn-51">51</a></sup> and Nubis by Ciena for ~$270M <sup id="fnref:fn-52"><a class="footnote-ref" href="#fn:fn-52">52</a></sup>. Both are now off the independent-investible list — the pattern is that the photonics names mostly get acquired into the scale players (Celestial→Marvell, Nubis→Ciena) rather than reaching listed scale on their own.</p>
+<p>The private install-maintain layer John flagged is real but thinly covered. Congruex is the one clean private fiber-construction / OSP install-maintain name — a PE-owned (Crestview) contractor with a ~$1.3B record backlog <sup id="fnref:fn-53"><a class="footnote-ref" href="#fn:fn-53">53</a></sup> and a ~$2.5B opportunity funnel partly driven by AI builds <sup id="fnref2:fn-53"><a class="footnote-ref" href="#fn:fn-53">53</a></sup>. The demand origins that pull the install-maintain dollar are larger and better-mapped: Crusoe (a $1.375B Series E at a $10B valuation, reportedly targeting $30–40B pre-IPO) <sup id="fnref:fn-54"><a class="footnote-ref" href="#fn:fn-54">54</a></sup><sup id="fnref2:fn-54"><a class="footnote-ref" href="#fn:fn-54">54</a></sup><sup id="fnref:fn-55"><a class="footnote-ref" href="#fn:fn-55">55</a></sup> and Zayo&rsquo;s ~$4B AI-fiber capex commitment <sup id="fnref:fn-56"><a class="footnote-ref" href="#fn:fn-56">56</a></sup><sup id="fnref2:fn-48"><a class="footnote-ref" href="#fn:fn-48">48</a></sup>. The thinness here is an acknowledged gap (Section 8), not a finding — Congruex is the lone clean private name surfaced, and the long tail of regional fiber EPCs is under-mapped.</p>
+<hr>
+<h2 id="6-where-its-going-the-agentic-traffic-metro-inflection-is-real-but-misattributed">6. Where it&rsquo;s going: the agentic-traffic metro inflection is real but misattributed</h2>
+<p><em>The forward inflection is real but misattributed — and that distinction is the honest answer to &ldquo;where is it going.&rdquo; DCI / scale-across is unambiguously booming; the regional-telco metro-access layer the agentic-traffic bulls point to is not. The named skeptics are largely vindicated on metro-access while the bulls are vindicated on DCI — they are arguing about different layers, and both can be right.</em></p>
+<p>Resolve the inflection by layer, not by verdict. The optical-transport recovery is real: 1Q 2026 grew ~20% year-over-year, DCI +40%, disaggregated WDM ~50% <sup id="fnref2:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref2:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref2:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>, and IPoDWDM ZR/ZR+ pluggables grew over 30% year-over-year and are forecast at a 27% five-year CAGR toward &gt;$7B by 2030 <sup id="fnref3:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>, with pluggable coherent in IP-over-DWDM already a ~$2B market in 2025 (forecast ~$5B by 2029) <sup id="fnref:fn-57"><a class="footnote-ref" href="#fn:fn-57">57</a></sup>. That spend is bought by hyperscalers and neoclouds as scale-across — the mechanism Dell&rsquo;Oro names as the next demand driver <sup id="fnref:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup>, and the one Cisco&rsquo;s CEO articulates when he argues agentic AI will push network traffic to persistently high levels as agents engage continuously rather than in spikes <sup id="fnref:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup>. (Equinix advances a parallel bull argument that inference localizes at the metro edge for latency, egress and sovereignty reasons; that view is a colo-vendor mechanism the corpus carries at low confidence, so it is noted but not leaned on.) But the layer the agentic-traffic <em>metro-access</em> thesis depends on is the weakest part of the market: WDM Metro — the regional-access optical segment — declined for a seventh consecutive quarter through 1Q 2025, cannibalized by the very IPoDWDM pluggables now &ldquo;upgrading&rdquo; the metro <sup id="fnref:fn-60"><a class="footnote-ref" href="#fn:fn-60">60</a></sup><sup id="fnref:fn-61"><a class="footnote-ref" href="#fn:fn-61">61</a></sup>.</p>
+<p>The named skeptics resolve the conflict precisely because they are talking about the access layer, not DCI. Dean Bubley (Disruptive Analysis) argues that while many in the industry try to talk up AI as driving future access-network traffic, &ldquo;there is no evidence of this at present&rdquo; — AI agents drive traffic inside corporate networks and inside and between data centers, not on access/metro networks to homes and businesses <sup id="fnref2:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup> — and estimates the access-to-intra-cloud traffic ratio is widening toward 1:20 or 1:100 as agentic computer-to-computer connections grow <sup id="fnref:fn-62"><a class="footnote-ref" href="#fn:fn-62">62</a></sup>. Tom Nolle (Andover Intel) is blunter still: AI&rsquo;s network impact, he argues, is largely confined to the data center, not the WAN <sup id="fnref:fn-63"><a class="footnote-ref" href="#fn:fn-63">63</a></sup>, and states: &ldquo;I don&rsquo;t think AI is going to revolutionize the WAN. The data center network, yes.&rdquo; <sup id="fnref:fn-64"><a class="footnote-ref" href="#fn:fn-64">64</a></sup>. They are vindicated on metro-<em>access</em>; the bulls are vindicated on <em>DCI</em>. The honest answer to &ldquo;where is it going&rdquo; is <strong>real-for-DCI, not-yet-for-metro-access</strong> — a layer distinction, not a coin flip.</p>
+<p>What would a <em>true</em> metro-access turn look like? The leading indicators are concrete and watchable, and none has yet printed convincingly. A genuine turn would show WDM Metro returning to sustained year-over-year growth after its seven-quarter decline <sup id="fnref2:fn-60"><a class="footnote-ref" href="#fn:fn-60">60</a></sup>, and non-DCI / carrier DWDM accelerating durably beyond the 3Q 2025 +7% bounce that Dell&rsquo;Oro reads as an inventory-correction completion rather than a structural acceleration (non-DCI long-haul +14%, capacity growth re-crossing the historical 25% threshold mid-2025) <sup id="fnref:fn-65"><a class="footnote-ref" href="#fn:fn-65">65</a></sup><sup id="fnref2:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup>. The middle-ground views set the realistic ceiling: Bubley concedes some edge inferencing at aggregation points and metro sites but calls &ldquo;GPUs everywhere&rdquo; much less credible <sup id="fnref:fn-66"><a class="footnote-ref" href="#fn:fn-66">66</a></sup>, and Azita Arvani argues agent traffic is steadier-but-not-video-scale and will require capex and upgrades without being a metro-access flood <sup id="fnref3:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup>. Naming the falsifiers lets the reader monitor the thesis rather than take it on faith.</p>
+<p><em>Counter-thesis (the strongest bull read): the metro-access turn is simply early, and a sustained agentic east-west baseline WILL pull the regional-telco metro layer back to growth — at which point the &ldquo;misattributed&rdquo; diagnosis inverts and the regional optical socket the prior report found thin begins to thicken. The receipts the bull points to are real but forward-loaded: scale-across DCI as the named next driver <sup id="fnref3:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup>, persistent agentic traffic <sup id="fnref4:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup>, an IPoDWDM market compounding at a 27% five-year CAGR <sup id="fnref4:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>, and the steadier-traffic concession that it will require capex and upgrades <sup id="fnref5:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup>. The falsifiers that would confirm the bull — and flip this report&rsquo;s verdict — are the same watch-items above: WDM Metro printing sustained YoY growth after its seven-quarter decline <sup id="fnref3:fn-60"><a class="footnote-ref" href="#fn:fn-60">60</a></sup>, and non-DCI/CSP DWDM accelerating durably past the inventory-correction bounce <sup id="fnref2:fn-65"><a class="footnote-ref" href="#fn:fn-65">65</a></sup><sup id="fnref4:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup>. Until one prints, the weight of evidence sits with real-for-DCI, not-yet-for-metro-access <sup id="fnref2:fn-61"><a class="footnote-ref" href="#fn:fn-61">61</a></sup>.</em></p>
+<hr>
+<h2 id="7-risks-and-falsifiers">7. Risks and falsifiers</h2>
+<p><em>The thesis&rsquo;s central risks map one-to-one onto the named pockets: an AI-capex pause re-rates the priced-for-perfection component names, an oversupply cycle compresses the component end, and the carrier balance sheets are the binding constraint on the transport pockets.</em></p>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Category</th>
+<th>Tied to</th>
+<th>What would trigger re-underwriting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI-capex pause</td>
+<td>Market</td>
+<td>The stretched names re-rate violently — Astera ~29x fwd EV/Sales, ~88x fwd P/E <sup id="fnref48:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref49:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup></td>
+<td>Two consecutive quarters of hyperscaler capex-guide cuts; the priced-for-perfection multiples have no margin for a pause</td>
+</tr>
+<tr>
+<td>Component oversupply / ASP compression</td>
+<td>Operational</td>
+<td>A demand-bear case in which AI-attributable optical/fiber spend grows more slowly — roughly $22B in 2026 rising toward ~$48B by 2029 — as pluggable ASP compression and InP (indium-phosphide) oversupply (emerging 2027–28) weigh on pricing <sup id="fnref2:fn-67"><a class="footnote-ref" href="#fn:fn-67">67</a></sup></td>
+<td>Evidence of InP wafer oversupply or pluggable price declines steeper than volume growth — would hit the merchant-component end even if demand holds</td>
+</tr>
+<tr>
+<td>Carrier leverage / PCF conversion pace</td>
+<td>Financial</td>
+<td>LUMN post-close sub-4x / sub-$13B debt after the Feb-2026 AT&amp;T sale <sup id="fnref6:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup>, but only ~$116M of the ~$13B PCF book recognized in FY2025 <sup id="fnref4:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup>; UNIT ~5.75x company-reported <sup id="fnref4:fn-40"><a class="footnote-ref" href="#fn:fn-40">40</a></sup></td>
+<td>PCF contracted demand converting to recognized revenue too slowly against a deleveraged-but-still-levered Lumen balance sheet; Uniti leverage failing to trend toward the 5.5–6.0x guide as Windstream consolidates</td>
+</tr>
+<tr>
+<td>Misattributed metro inflection inverts late</td>
+<td>Market</td>
+<td>A real metro-access turn would thicken the regional pocket the prior report found thin <sup id="fnref5:fn-60"><a class="footnote-ref" href="#fn:fn-60">60</a></sup><sup id="fnref4:fn-61"><a class="footnote-ref" href="#fn:fn-61">61</a></sup></td>
+<td>WDM Metro printing sustained YoY growth after its 7-quarter decline; an independent house publishing a standalone metro-access optical line</td>
+</tr>
+<tr>
+<td>Line-system disaggregation accelerates past the carve-outs</td>
+<td>Operational</td>
+<td>The pluggable-transponder carve-out (~25–50% premium) and converged-opex friction preserve box demand <sup id="fnref12:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup><sup id="fnref3:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup></td>
+<td>Operators broadly accepting router-hosted optics without OTN/protection carve-outs — would erode the standalone-transport residual faster than modeled</td>
+</tr>
+</tbody>
+</table>
+<p>Each risk maps to a named pocket, so the reader knows which leg fails under which scenario rather than facing a generic laundry list.</p>
+<hr>
+<h2 id="8-open-questions-what-we-couldnt-source">8. Open questions / what we couldn&rsquo;t source</h2>
+<p>Carried forward honestly from the research synthesis — the holes the reader should see:</p>
+<ul>
+<li><strong>The private fiber-EPC / install-maintain layer is thinly covered.</strong> Our private-company sweep surfaced Congruex as the one clean private fiber-construction name <sup id="fnref3:fn-53"><a class="footnote-ref" href="#fn:fn-53">53</a></sup><sup id="fnref4:fn-53"><a class="footnote-ref" href="#fn:fn-53">53</a></sup>; we did not find a comparable public-or-private peer set, so the regional fiber-EPC long tail (IQ Fiber, Ezee Fiber, Crosstown Fiber and peers) is under-mapped here. The public proxy (Dycom) is well-covered; the private tail is not.</li>
+<li><strong>No public single-line number for the latest WDM Metro quarter.</strong> We could not source a public single-line figure for the latest WDM Metro quarter, so whether the 1Q 2026 &ldquo;WDM Systems&rdquo; growth <sup id="fnref3:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> includes a <em>metro-access</em> turn (as opposed to DCI/long-haul) cannot be confirmed here — the single most load-bearing missing datum for the inflection question.</li>
+<li><strong>The skeptic case is sourced from trade press, not the warehouse.</strong> Bubley and Nolle are not in the Noldor corpus; their views <sup id="fnref6:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup><sup id="fnref2:fn-62"><a class="footnote-ref" href="#fn:fn-62">62</a></sup><sup id="fnref2:fn-66"><a class="footnote-ref" href="#fn:fn-66">66</a></sup><sup id="fnref2:fn-64"><a class="footnote-ref" href="#fn:fn-64">64</a></sup><sup id="fnref2:fn-63"><a class="footnote-ref" href="#fn:fn-63">63</a></sup> come from live web/trade-press primaries.</li>
+<li><strong>No independent analyst has quantified a metro-edge-inference optical capex line.</strong> We found no independent analyst quantifying a metro-edge-inference optical capex line; the citable bull sources (Cisco, Dell&rsquo;Oro scale-across <sup id="fnref7:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup><sup id="fnref5:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup>) describe persistent traffic and DCI, not a sized metro-access line.</li>
+<li><strong>Lightmatter&rsquo;s $4.4B valuation is ~20 months old</strong> (October 2024) <sup id="fnref3:fn-50"><a class="footnote-ref" href="#fn:fn-50">50</a></sup> — treated as stale.</li>
+</ul>
+<hr>
+<h2 id="sources">Sources</h2>
+<p>Numbered, compact reference. Full three-component provenance (URL + local snapshot path + page) lives in the findings sidecar <code>2026-06-17-optical-value-chain-investible-pockets.md.findings.jsonl</code>; markers <code>[S###]</code> in the body resolve there.</p>
+<ul>
+<li><strong>Market sizing / analyst houses:</strong> Dell&rsquo;Oro optical transport $16B 2025 / ~$18B 2026 <sup id="fnref6:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref7:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, DCI +40% <sup id="fnref:fn-68"><a class="footnote-ref" href="#fn:fn-68">68</a></sup><sup id="fnref8:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref3:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, 1Q2026 +20% <sup id="fnref4:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, disaggregated WDM ~50% <sup id="fnref9:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref5:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>, IPoDWDM 27% CAGR <sup id="fnref6:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>; Cignal AI optical components ~$25B, datacom &gt;$18B <sup id="fnref:fn-69"><a class="footnote-ref" href="#fn:fn-69">69</a></sup><sup id="fnref3:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>, pluggable coherent &gt;60% telecom bandwidth by 2026 <sup id="fnref2:fn-69"><a class="footnote-ref" href="#fn:fn-69">69</a></sup><sup id="fnref4:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>, IPoDWDM ~$2B→~$5B <sup id="fnref2:fn-57"><a class="footnote-ref" href="#fn:fn-57">57</a></sup>; LightCounting transceivers $26.8B <sup id="fnref:fn-70"><a class="footnote-ref" href="#fn:fn-70">70</a></sup>; ZR optics &gt;$600M by 2026 <sup id="fnref2:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>; vendor share top-5/top-3 <sup id="fnref10:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup><sup id="fnref11:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>, Ciena/Nokia/Cisco share gains <sup id="fnref4:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup><sup id="fnref5:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup><sup id="fnref6:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup><sup id="fnref7:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup>.</li>
+<li><strong>Architecture / line-system durability:</strong> IPoDWDM collapses the transponder not the line system <sup id="fnref6:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup><sup id="fnref7:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>; −10 dBm launch power forces amplification <sup id="fnref8:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>; ROADM/WSS optical bypass <sup id="fnref9:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>; Cisco &ldquo;still need a DWDM layer&rdquo; / ROADMs remain <sup id="fnref2:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup><sup id="fnref2:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup>; Cisco RON / pluggable share <sup id="fnref2:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>; operator-vs-supplier split <sup id="fnref10:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>; converged-opex caution <sup id="fnref11:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>; pluggable-transponder premium <sup id="fnref2:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>; Dell&rsquo;Oro 2022 cannibalization framing <sup id="fnref3:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>; merchant suppliers Lumentum ROADM/WSS <sup id="fnref2:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup>, Coherent pump/EDFA <sup id="fnref2:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>.</li>
+<li><strong>Ciena:</strong> Optical Networking revenue <sup id="fnref2:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref:fn-71"><a class="footnote-ref" href="#fn:fn-71">71</a></sup> and FY2025 detail <sup id="fnref3:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref4:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref5:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref6:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref7:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>; pluggable &gt;$168M <sup id="fnref4:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>; in-and-around-DC 3x <sup id="fnref5:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>; FQ2 FY2026 segments <sup id="fnref5:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref6:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref7:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref3:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>; cloud mix / concentration <sup id="fnref8:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref8:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>; guidance / backlog <sup id="fnref9:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref3:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>; TAM <sup id="fnref4:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup><sup id="fnref2:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>; WL6e base <sup id="fnref4:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>; share #1 positions <sup id="fnref5:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>; Nubis <sup id="fnref9:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref2:fn-52"><a class="footnote-ref" href="#fn:fn-52">52</a></sup>; metro/edge RON strategy <sup id="fnref:fn-72"><a class="footnote-ref" href="#fn:fn-72">72</a></sup>; valuation TTM <sup id="fnref2:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup><sup id="fnref3:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup><sup id="fnref:fn-73"><a class="footnote-ref" href="#fn:fn-73">73</a></sup><sup id="fnref:fn-74"><a class="footnote-ref" href="#fn:fn-74">74</a></sup> and forward <sup id="fnref2:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup><sup id="fnref2:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup><sup id="fnref2:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup><sup id="fnref:fn-75"><a class="footnote-ref" href="#fn:fn-75">75</a></sup><sup id="fnref2:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup>; capital raise <sup id="fnref:fn-76"><a class="footnote-ref" href="#fn:fn-76">76</a></sup>.</li>
+<li><strong>Components valuation (forward, FMP consensus):</strong> Marvell <sup id="fnref13:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref14:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref15:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref16:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref17:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>; Coherent <sup id="fnref18:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref19:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref20:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref21:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref22:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>; Lumentum <sup id="fnref23:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref24:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref25:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref26:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>; Fabrinet <sup id="fnref27:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref28:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref29:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref30:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref31:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>; Credo <sup id="fnref32:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref33:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref34:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref35:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>; Astera <sup id="fnref36:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref37:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref38:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref39:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref40:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>; Corning <sup id="fnref41:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref42:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref43:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>; Keysight <sup id="fnref44:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref45:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref46:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup><sup id="fnref47:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>.</li>
+<li><strong>Services / install-maintain (TTM):</strong> Dycom <sup id="fnref3:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup><sup id="fnref4:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup><sup id="fnref10:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref11:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref12:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref2:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup><sup id="fnref5:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>; IES Holdings <sup id="fnref4:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup><sup id="fnref5:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup><sup id="fnref13:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref6:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup>; MasTec <sup id="fnref2:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup><sup id="fnref14:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref3:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup>; Quanta <sup id="fnref15:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref16:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>; MYR Group <sup id="fnref17:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref18:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>; Centuri <sup id="fnref19:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref20:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>; Bel Fuse <sup id="fnref21:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref22:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>; Viavi <sup id="fnref23:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup><sup id="fnref24:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>; layer cross-cut <sup id="fnref25:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>.</li>
+<li><strong>Carriers (TTM + company-reported leverage):</strong> Lumen PCF / financials / leverage <sup id="fnref4:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup><sup id="fnref2:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup><sup id="fnref2:fn-35"><a class="footnote-ref" href="#fn:fn-35">35</a></sup><sup id="fnref3:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup><sup id="fnref2:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup><sup id="fnref3:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup><sup id="fnref2:fn-39"><a class="footnote-ref" href="#fn:fn-39">39</a></sup>; Lumen AT&amp;T Mass Markets sale closed February 2026 <sup id="fnref5:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup>; Uniti <sup id="fnref2:fn-41"><a class="footnote-ref" href="#fn:fn-41">41</a></sup><sup id="fnref3:fn-40"><a class="footnote-ref" href="#fn:fn-40">40</a></sup><sup id="fnref3:fn-42"><a class="footnote-ref" href="#fn:fn-42">42</a></sup><sup id="fnref:fn-77"><a class="footnote-ref" href="#fn:fn-77">77</a></sup>; Zayo <sup id="fnref2:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup><sup id="fnref2:fn-44"><a class="footnote-ref" href="#fn:fn-44">44</a></sup><sup id="fnref2:fn-47"><a class="footnote-ref" href="#fn:fn-47">47</a></sup><sup id="fnref2:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup><sup id="fnref2:fn-56"><a class="footnote-ref" href="#fn:fn-56">56</a></sup><sup id="fnref3:fn-48"><a class="footnote-ref" href="#fn:fn-48">48</a></sup>; Crown Castle exit <sup id="fnref3:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup>; DigitalBridge proxy <sup id="fnref4:fn-48"><a class="footnote-ref" href="#fn:fn-48">48</a></sup>; carrier synthesis <sup id="fnref:fn-78"><a class="footnote-ref" href="#fn:fn-78">78</a></sup><sup id="fnref:fn-79"><a class="footnote-ref" href="#fn:fn-79">79</a></sup>.</li>
+<li><strong>Private map:</strong> Ayar Labs <sup id="fnref3:fn-49"><a class="footnote-ref" href="#fn:fn-49">49</a></sup><sup id="fnref4:fn-49"><a class="footnote-ref" href="#fn:fn-49">49</a></sup><sup id="fnref5:fn-49"><a class="footnote-ref" href="#fn:fn-49">49</a></sup>; Lightmatter <sup id="fnref4:fn-50"><a class="footnote-ref" href="#fn:fn-50">50</a></sup><sup id="fnref5:fn-50"><a class="footnote-ref" href="#fn:fn-50">50</a></sup>; Celestial AI / Marvell exit <sup id="fnref2:fn-51"><a class="footnote-ref" href="#fn:fn-51">51</a></sup><sup id="fnref3:fn-51"><a class="footnote-ref" href="#fn:fn-51">51</a></sup>; Nubis / Ciena exit <sup id="fnref3:fn-52"><a class="footnote-ref" href="#fn:fn-52">52</a></sup>; Crusoe <sup id="fnref3:fn-54"><a class="footnote-ref" href="#fn:fn-54">54</a></sup><sup id="fnref4:fn-54"><a class="footnote-ref" href="#fn:fn-54">54</a></sup><sup id="fnref2:fn-55"><a class="footnote-ref" href="#fn:fn-55">55</a></sup>; Congruex <sup id="fnref5:fn-53"><a class="footnote-ref" href="#fn:fn-53">53</a></sup><sup id="fnref6:fn-53"><a class="footnote-ref" href="#fn:fn-53">53</a></sup><sup id="fnref7:fn-53"><a class="footnote-ref" href="#fn:fn-53">53</a></sup>; Xscape <sup id="fnref:fn-80"><a class="footnote-ref" href="#fn:fn-80">80</a></sup>; Ranovus <sup id="fnref:fn-81"><a class="footnote-ref" href="#fn:fn-81">81</a></sup><sup id="fnref:fn-82"><a class="footnote-ref" href="#fn:fn-82">82</a></sup><sup id="fnref:fn-83"><a class="footnote-ref" href="#fn:fn-83">83</a></sup>; Avicena <sup id="fnref:fn-84"><a class="footnote-ref" href="#fn:fn-84">84</a></sup><sup id="fnref2:fn-84"><a class="footnote-ref" href="#fn:fn-84">84</a></sup>.</li>
+<li><strong>Inflection bull/bear:</strong> Dell&rsquo;Oro scale-across <sup id="fnref6:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup> and metro decline <sup id="fnref4:fn-60"><a class="footnote-ref" href="#fn:fn-60">60</a></sup><sup id="fnref:fn-85"><a class="footnote-ref" href="#fn:fn-85">85</a></sup>; Dell&rsquo;Oro 1Q2026 / non-DCI <sup id="fnref5:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref4:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref3:fn-65"><a class="footnote-ref" href="#fn:fn-65">65</a></sup><sup id="fnref7:fn-58"><a class="footnote-ref" href="#fn:fn-58">58</a></sup>; Cignal coherent <sup id="fnref:fn-86"><a class="footnote-ref" href="#fn:fn-86">86</a></sup><sup id="fnref3:fn-57"><a class="footnote-ref" href="#fn:fn-57">57</a></sup>; LightCounting AI-cluster optics <sup id="fnref:fn-87"><a class="footnote-ref" href="#fn:fn-87">87</a></sup>; Cisco bull <sup id="fnref8:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup>; Bubley <sup id="fnref9:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup><sup id="fnref3:fn-62"><a class="footnote-ref" href="#fn:fn-62">62</a></sup><sup id="fnref3:fn-66"><a class="footnote-ref" href="#fn:fn-66">66</a></sup>; Nolle <sup id="fnref3:fn-64"><a class="footnote-ref" href="#fn:fn-64">64</a></sup><sup id="fnref3:fn-63"><a class="footnote-ref" href="#fn:fn-63">63</a></sup>; Arvani <sup id="fnref10:fn-59"><a class="footnote-ref" href="#fn:fn-59">59</a></sup>; balanced verdict <sup id="fnref3:fn-61"><a class="footnote-ref" href="#fn:fn-61">61</a></sup>; bear falsifier scenario <sup id="fnref:fn-67"><a class="footnote-ref" href="#fn:fn-67">67</a></sup>.</li>
+</ul>
+<p><em>Sister context (not cited as primary sources): regional-edge DCI knock-on report <code>/Users/johnhendren/Desktop/Projects/vault/kb/outputs/primers/2026-06-16-regional-edge-dci-knock-on.md</code>; comps + value-accrual model <code>/Users/johnhendren/Desktop/Projects/vault/kb/outputs/models/2026-06-17-optical-value-chain-investible-pockets.xlsx</code> (components median 10.0x fwd EV/Sales Outputs!C36; services median 3.19x TTM EV/Sales Outputs!C37; within-layer cheapness screen Outputs!F6:F30 / rank Outputs!G6:G30; CIEN forward EV/Sales 9.9x Inputs!C6 and forward P/E 67.2x Inputs!G6; LUMN/UNIT leverage Inputs!L29/L30).</em></p>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:fn-1">
+<p>www.delloro.com &ldquo;Global optical transport equipment market grew 10% in 2025 to $16B, driven by data-center-interconnect demand; this is the total addressable revenue pool for line systems, transponders, OLS, ROADMs and amplifiers — the physical-layer transport box market&rdquo;, 2026-02-18 · https://www.delloro.com/news/optical-transport-market-grew-to-16-billion-in-2025/ · local: 2026-02-18-delloro-com-optical-transport-16b-2025-vendor-share.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-2">
+<p>Dell&#x27;Oro Group, Optical Transport Equipment Market Forecast to Grow 16 Percent in 2026 | https: &ldquo;In 1Q 2026 the optical transport market grew an estimated 20% YoY, with double-digit revenue increases in BOTH WDM Systems and IPoDWDM ZR/ZR+ pluggables; Dell&#x27;Oro raised the full-year 2026 forecast from 10% to 16%&rdquo;, 2026-05-19 · Dell&#x27;Oro Group, Optical Transport Equipment Market Forecast to Grow 16 Percent in 2026 | https://www.delloro.com/news/optical-transport-equipment-market-forecast-to-grow-16-percent-in-2026/ · local: 2026-05-19-delloro-com-optical-transport-forecast-16pct-2026.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-3">
+<p>Dell&#x27;Oro Group, Optical Transport Market Grew to $16 Billion in 2025 | https: &ldquo;DCI direct-purchase revenue grew an estimated 40% YoY in 1Q 2026, and grew nearly 40% across full-year 2025; DCI is the single driver of the optical transport recovery&rdquo;, 2026-02-18 · Dell&#x27;Oro Group, Optical Transport Market Grew to $16 Billion in 2025 | https://www.delloro.com/news/optical-transport-market-grew-to-16-billion-in-2025/ · local: 2026-02-18-delloro-com-optical-transport-16b-2025-dci-40pct.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-4">
+<p>mapyourtech.com &ldquo;IPoDWDM removes the MIDDLE layer (the standalone coherent transponder shelf) by shrinking the transponder into a QSFP-DD/OSFP pluggable seated in the router faceplate; the transponder shelf, chassis, power supplies and management plane disappear — but the optical line system is explicitly NOT the layer that collapses&rdquo;, 2026-05-21 · https://mapyourtech.com/ip-over-dwdm-a-complete-architecture-walkthrough/ · local: 2026-05-21-mapyourtech-ipodwdm-architecture-line-system-durable.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-5">
+<p>www.fool.com &ldquo;Ciena FY2025 coherent pluggable revenue, surpassing its target of more than doubling FY2024 pluggable revenue (the IPoDWDM/coherent-pluggable demand mechanism)&rdquo;, 2025-12-11 · https://www.fool.com/earnings/call-transcripts/2025/12/11/ciena-cien-q4-2025-earnings-call-transcript/ · local: 2025-12-11-ciena-fq4-fy2025-earnings-call-transcript-mechanism.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-6">
+<p>cignal.ai &ldquo;Cignal AI: pluggable coherent will exceed 60% of telecom coherent bandwidth by 2026, and telecom coherent bandwidth grew +40% in 2025 — quantifying the speed at which coherent endpoints are disaggregating into pluggables (in routers or transponder shelves) while total transported bandwidth (which the line system must amplify/route) keeps rising&rdquo;, 2026-01-07 · https://cignal.ai/2026/01/optical-component-revenue-reaches-nearly-25b-in-2025/ · local: 2026-01-07-cignal-ai-optical-component-revenue-25b-2025.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-7">
+<p>Cisco DCI Coherent Pluggable Optics Solution Overview + Cisco Live 2025 decks &ldquo;Cisco&#x27;s Routed Optical Networking collapses standalone optical transponders into 400G coherent pluggable optics plugged directly into data-center switches/routers for DCI; Cisco/Acacia is the coherent-pluggable market leader, with over 70% of coherent ports now pluggable&rdquo;, 2025-06-01 · Cisco DCI Coherent Pluggable Optics Solution Overview + Cisco Live 2025 decks · local: 2025-cisco-acacia-ron-dci-public.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-8">
+<p>www.sec.gov &ldquo;Ciena FQ2 FY2026 Optical Networking revenue, 70.0% of total, up ~42% YoY from $773.6M — optical accelerating into 2026&rdquo;, 2026-06-04 · https://www.sec.gov/Archives/edgar/data/936395/000162828026040614/ex9912026q2earningspressre.htm · local: 2026-06-04-ciena-fq2-fy2026-results-and-deck.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-9">
+<p>www.fierce-network.com &ldquo;Ciena FQ2 FY2026 order backlog reached a record, supply-constrained (would take more product if supply allowed) — strong forward booking signal&rdquo;, 2026-06-04 · https://www.fierce-network.com/broadband/ciena-reports-q2-2026-revenue-157b-40-yoy · local: 2026-06-04-ciena-fq2-fy2026-results-and-deck.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-10">
+<p>s25.q4cdn.com &ldquo;Ciena WaveLogic 6 Extreme installed base reached 110 customers (+20 new in FQ2 FY2026); WL6e base expanded by 68 in FY2025, strengthening a &gt;1-year market lead — coherent DSP/WaveLogic 5/6 generation driving 800G-&gt;1.6T metro&rdquo;, 2026-06-04 · https://s25.q4cdn.com/550667411/files/doc_financials/2026/q2/2026-Q2-Earnings-Presentation_FINAL.pdf · local: 2026-06-04-ciena-fq2-fy2026-results-and-deck.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-11">
+<p>www.businesswire.com &ldquo;Ciena FY2025 customer concentration: two customers each represented 10%-plus of revenue, totaling this share of FY2025 revenue (in FQ4 FY2025, three customers &gt;10% totaled 43.6%)&rdquo;, 2025-12-11 · https://www.businesswire.com/news/home/20251210284278/en/Ciena-Reports-Fiscal-Fourth-Quarter-2025-and-Year-End-Financial-Results · local: 2025-12-11-businesswire-ciena-fq4-fy2025-yearend-results.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-12">
+<p>Ciena (CIEN) Q2 2026 Earnings Transcript, Motley Fool 2026-06-04 &ldquo;Ciena sizes the AI-driven optical TAM doubling to ~$50B by 2029, of which $8-10B is in-and-around-the-data-center &#x27;scale across&#x27; and in excess of $20B is long-haul/metro optical transport WAN — i.e. the bulk of incremental optical spend is forecast to accrue to long-haul + metro DCI, not edge/tier-3&rdquo;, 2026-06-04 · Ciena (CIEN) Q2 2026 Earnings Transcript, Motley Fool 2026-06-04 · local: 2026-06-04-fool-ciena-q2-2026-transcript.json · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-13">
+<p>www.delloro.com &ldquo;Dell&#x27;Oro framed 400ZR as opening the door for IPoDWDM and stated &#x27;IPoDWDM is expected to lower the overall demand for DWDM systems&#x27; — the bear case for the transponder/transport-box layer; this is the demand-side risk to standalone DWDM-system revenue (distinct from the amplifier/ROADM line-system layer)&rdquo;, 2022-01-20 · https://www.delloro.com/news/optical-transport-equipment-market-to-reach-18-billion-by-2026/ · local: 2026-01-20-delloro-zr-optics-600m-by-2026.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-14">
+<p>Dell&#x27;Oro Group, IPoDWDM Market Forecast to Grow at 27 Percent CAGR | https: &ldquo;Disaggregated WDM (transponder units, optical line systems, IPoDWDM ZR/ZR+) grew ~50% YoY in 1Q 2026 (~40% FY2025) and is forecast to grow at a 17% five-year CAGR, approaching $13B by 2030; Ciena holds ~40% share&rdquo;, 2026-06-16 · Dell&#x27;Oro Group, IPoDWDM Market Forecast to Grow at 27 Percent CAGR | https://www.delloro.com/news/ipodwdm-market-forecast-to-grow-at-27-percent-cagr/ · local: 2026-06-16-delloro-com-ipodwdm-27pct-cagr-disagg-wdm.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-15">
+<p>xrdocs.io &ldquo;Cisco&#x27;s Routed Optical Networking shifts the redundant transponder function into a pluggable, but explicitly &#x27;we still need a DWDM layer&#x27;; Cisco multiplexers, amplifiers and ROADMs satisfy point-to-point or ROADM-based networks — the OEM driving disaggregation confirms the amplifier/ROADM line-system socket persists&rdquo;, 2023-08-24 · https://xrdocs.io/design/blogs/2023-08-24-cst-routed-optical-2_1 · local: 2026-05-21-mapyourtech-ipodwdm-architecture-line-system-durable.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-16">
+<p>blogs.cisco.com &ldquo;Cisco (2021): Open Line Systems allow third-party DWDM wavelengths to be carried over line systems which may include muxes/demuxes, ROADMs and amplifiers; &#x27;ROADMs are part of existing networks and can certainly remain in place&#x27; — disaggregation decouples the wavelength endpoint from the line system, which stays as a multi-vendor socket&rdquo;, 2021-11-09 · https://blogs.cisco.com/sp/routed-optical-networking-its-about-the-architecture · local: 2026-05-21-mapyourtech-ipodwdm-architecture-line-system-durable.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-17">
+<p>mapyourtech.com &ldquo;Where an operator needs OTN overhead, hard protection switching or a clean optical demarcation between IP and transport teams, a pluggable transponder (dedicated chassis hosting MSA pluggables) carries roughly 25-50% more cost than direct router hosting but restores those transport features — a durable carve-out preserving transponder/transport-box revenue&rdquo;, 2026-05-21 · https://mapyourtech.com/the-power-per-bit-case-for-router-optics/ · local: 2026-06-17-mapyourtech-power-per-bit-router-optics.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-18">
+<p>Lumentum FY2025 10-K (Item 1; fiscal year ended 2025-06-28) https: &ldquo;Lumentum is a leading provider of optical components used in communication-service-provider access/metro/long-haul/submarine networks, including ROADM/transmission modules and wavelength-selective-switch product lines — the merchant supplier of the ROADM/WSS subsystem inside the line systems sold by Ciena/Nokia/Cisco&rdquo;, 2025-08-19 · Lumentum FY2025 10-K (Item 1; fiscal year ended 2025-06-28) https://companiesmarketcap.com/lumentum/sec-reports-10k/0001628280-25-040830/ · local: 2026-06-17-lumentum-10k-fy2025-roadm-wss-products.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-19">
+<p>Coherent Corp. FY2024 10-K (Item 1; fiscal year ended 2024-06-30) https: &ldquo;Coherent (II-VI) supplies pump lasers, optical amplifiers (EDFA) and the components that go inside line-system amplifiers and ROADMs, alongside its larger datacom-transceiver business; it is the key merchant supplier of the amplification-layer components even as it is valued primarily for AI datacom&rdquo;, 2025-08-15 · Coherent Corp. FY2024 10-K (Item 1; fiscal year ended 2024-06-30) https://www.coherent.com/content/dam/coherent/site/en/documents/investors/annual-filings/2024/coherent-annual-report-2024.pdf · local: 2026-06-17-coherent-10k-fy2024-pump-laser-edfa-products.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-20">
+<p>www.fierce-network.com &ldquo;Ciena posted the highest optical-transport market-share gain in 2025, a 3-percentage-point increase, per Dell&#x27;Oro VP Jimmy Yu — the systems incumbent is taking share as DCI/AI demand accrues to the line-system + RON layer&rdquo;, 2026-02-18 · https://www.fierce-network.com/broadband/delloro-optical-transport-revenue-hit-16b-2025-fueled-hyperscalers-neoclouds · local: 2026-02-18-delloro-com-optical-transport-16b-2025-vendor-share.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-21">
+<p>FMP MCP analyst &ldquo;Expectations read (flag=PRICED_FOR_PERFECTION): priced for the custom-silicon/optical-DSP AI ramp; ~23x fwd sales demands the FY28 acceleration&rdquo;, 2026-06-17 · FMP MCP analyst/financial-estimates + statements/key-metrics-ttm + company/batch-market-cap + chart EOD, as-of 2026-06-17 · local: fmp-components-valuation-2026-06-17.md · other&#160;<a class="footnote-backref" href="#fnref:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref15:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref16:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref17:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref18:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref19:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref20:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref21:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref22:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref23:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref24:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref25:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref26:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref27:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref28:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref29:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref30:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref31:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref32:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref33:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref34:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref35:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref36:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref37:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref38:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref39:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref40:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref41:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref42:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref43:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref44:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref45:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref46:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref47:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref48:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref49:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-22">
+<p>site.financialmodelingprep.com &ldquo;EV/Sales TTM&rdquo;, 2026-06-17 · https://site.financialmodelingprep.com/ (FMP API; quote/key-metrics-ttm/ratios-ttm pulled 2026-06-17) · local: 2026-06-17-fmp-services-carriers-valuation.md · other&#160;<a class="footnote-backref" href="#fnref:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref15:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref16:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref17:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref18:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref19:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref20:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref21:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref22:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref23:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref24:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref25:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-23">
+<p>financialmodelingprep.com &ldquo;Ciena (CIEN) EV/EBITDA TTM multiple (pulled 2026-06-17) — optically extreme but distorted by FQ4 FY2025 one-time charges; FY2026E forward EV/EBITDA is ~86x on consensus EBITDA $0.724B&rdquo;, 2026-06-17 · https://financialmodelingprep.com/ (FMP API key-metrics-ttm) · local: 2026-06-17-fmp-cien-live-valuation.md · other&#160;<a class="footnote-backref" href="#fnref:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-24">
+<p>financialmodelingprep.com &ldquo;Ciena (CIEN) forward EV/Sales on FY2026E consensus revenue $6.319B (pulled 2026-06-17) — compresses from 11.2x trailing to ~9.9x forward given the 32% top-line growth&rdquo;, 2026-06-17 · https://financialmodelingprep.com/ (FMP API financial-estimates + key-metrics-ttm) · local: 2026-06-17-fmp-cien-live-valuation.md · other&#160;<a class="footnote-backref" href="#fnref:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-25">
+<p>financialmodelingprep.com &ldquo;Ciena (CIEN) forward P/E on FY2026E consensus EPS of $6.528 (12 analysts), at $438.33 share price (pulled 2026-06-17) — the multiple investors actually pay on next-year earnings&rdquo;, 2026-06-17 · https://financialmodelingprep.com/ (FMP API financial-estimates annual + quote) · local: 2026-06-17-fmp-cien-live-valuation.md · other&#160;<a class="footnote-backref" href="#fnref:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-26">
+<p>financialmodelingprep.com &ldquo;Ciena (CIEN) FY2026E consensus revenue growth implied by estimate vs FY2025 actual $4,769.5M — confirms the re-rate is growth-driven, not multiple-only&rdquo;, 2026-06-17 · https://financialmodelingprep.com/ (FMP API financial-estimates annual) · local: 2026-06-17-fmp-cien-live-valuation.md · other&#160;<a class="footnote-backref" href="#fnref:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-27">
+<p>financialmodelingprep.com &ldquo;CIEN re-rate magnitude: current price $438.33 sits ~43% above its 200-day average of $306.65 and ~6x its 52-week low of $73.23 — the stock has re-rated hard onto AI/optical multiples (now ~11x trailing / ~9.9x forward EV/Sales, ~67x forward P/E); no longer a value name, but cheaper on EV/Sales than typical AI-optical component pure-plays while growing 32%&rdquo;, 2026-06-17 · https://financialmodelingprep.com/ (FMP API quote + key-metrics-ttm + ratings-snapshot) · local: 2026-06-17-fmp-cien-live-valuation.md · other&#160;<a class="footnote-backref" href="#fnref:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-28">
+<p>investors.mastec.com &ldquo;Full year 2025 revenue&rdquo;, 2026-02-26 · https://investors.mastec.com/news-releases/news-release-details/mastec-reports-fourth-quarter-and-full-year-2025-financial · local: 2026-02-26-mastec.com-q4-fy2025-results.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-29">
+<p>www.fool.com &ldquo;Expectations read: heavily re-rated on the AI/energy-infra trade; rich EV/EBITDA ~28x (≈2x DY); Communications ~29% of backlog (segment includes wireless, so true fiber is less); cheap-looking 2.1x EV/Sales is a function of thin ~8% EBITDA margin, not value&rdquo;, 2026-06-17 · https://www.fool.com/earnings/call-transcripts/2026/02/27/mastec-mtz-q4-2025-earnings-call-transcript/ · local: 2026-02-26-mastec.com-q4-fy2025-results.md · other&#160;<a class="footnote-backref" href="#fnref:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-30">
+<p>dycomind.com &ldquo;Dycom Communications/OSP revenue was ~93.4% of total Q4 FY2026 contract revenue ($1.362B Communications of $1.458B total; quarter ended Jan 31, 2026) — the Q4-basis services-mix figure (distinct from the full-FY 10-K basis in S270).&rdquo;, 2026-03-04 · https://dycomind.com/wp-content/uploads/2026/03/Q4-2026-Results-Release.pdf · local: 2026-03-04-dycomind.com-q4-fy2026-results.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-31">
+<p>www.fool.com &ldquo;Expectations read: cheapest EV/EBITDA (~15x) of the high-growth construction names despite arguably the most direct fiber-OSP + AI long-haul + inside-the-fence + data-center-electrical exposure; re-rated but the most defensible multiple in the group&rdquo;, 2026-06-17 · https://www.fool.com/earnings/call-transcripts/2026/03/04/dycom-dy-q4-2026-earnings-call-transcript/ · local: 2026-06-17-fmp-services-carriers-valuation.md · other&#160;<a class="footnote-backref" href="#fnref:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-32">
+<p>investors.ies-corporate.com &ldquo;Communications segment revenue FY2025 (year ended Sep 30, 2025); +47% YoY&rdquo;, 2025-11-21 · https://investors.ies-corporate.com/news-releases/news-release-details/ies-holdings-reports-fiscal-2025-fourth-quarter-and-full-year · local: 2025-11-21-ies-corporate.com-fy2025-results.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-33">
+<p>ir.lumen.com &ldquo;Lumen has secured nearly $13 billion in total Private Connectivity Fabric (PCF) contracts to date, validating hyperscaler demand for its AI-ready network; the program began with a first $5.5B announcement ~18 months prior (mid-2024) against a $12B goal&rdquo;, 2026-02-25 · https://ir.lumen.com/news/news-details/2026/Lumen-Marks-New-Phase-of-Transformation-at-2026-Investor-Day/default.aspx · local: 2026-02-25-ir-lumen-com-investor-day-pcf-anthropic.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-34">
+<p>www.fierce-network.com &ldquo;Lumen signed approximately $2.5 billion in new PCF deals in Q4 2025, which it says raises its planned network expansion to 58 million intercity fiber miles by 2031&rdquo;, 2026-02-04 · https://www.fierce-network.com/broadband/lumen-takes-victory-lap-after-att-sale-reduces-debt-and-provides-room-focus · local: 2026-02-04-fierce-network-lumen-att-sale-debt-pcf-q4.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-35">
+<p>www.fierce-network.com &ldquo;Lumen&#x27;s named PCF / AI-network customers span the major hyperscalers (Amazon/AWS, Google Cloud, Meta, Microsoft) plus, most recently, AI lab Anthropic, which selected Lumen to build a high-capacity purpose-built fiber network across North America; about 15 PCF customers comprised the first ~$9B of deals&rdquo;, 2026-02-25 · https://www.fierce-network.com/broadband/lumen-says-neoclouds-now-fuel-its-enterprise-growth | https://ir.lumen.com/news/news-details/2026/Lumen-Marks-New-Phase-of-Transformation-at-2026-Investor-Day/default.aspx · local: 2026-02-25-ir-lumen-com-investor-day-pcf-anthropic.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-35" title="Jump back to footnote 35 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-35" title="Jump back to footnote 35 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-36">
+<p>www.lightwaveonline.com &ldquo;Lumen&#x27;s PCF deals are largely prefunded and have begun recognizing revenue: ~$41M in Q4 2025 and ~$116M full-year 2025 recognized from the ~$13B in PCF deals; PCF recurring revenue is guided to $400-500M by YE2028 and $500-600M by end-2030&rdquo;, 2026-02-10 · https://www.lightwaveonline.com/home/article/55356688/lumen-further-cements-its-ai-networking-presence-with-nearly-13b-in-pcf-deals · local: 2026-06-17-fmp-services-carriers-valuation.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-37">
+<p>financialmodelingprep.com &ldquo;THE CATCH: Lumen carries heavy balance-sheet leverage — net debt/EBITDA ran ~7.4x on a TTM basis and total debt was ~$17.7B (net debt ~$16.7B) with negative shareholders&#x27; equity of ~-$1.1B at FY2025; management says the AT&amp;T-sale-adjusted figure cuts net leverage to below 4x and total debt under $13B&rdquo;, 2026-02-20 · https://financialmodelingprep.com/ (FMP key-metrics-ttm + balance-sheet-statement LUMN, 10-K filed 2026-02-20) · local: 2026-06-17-fmp-services-carriers-valuation.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-38">
+<p>www.sec.gov &ldquo;Lumen FY2025 revenue was $12.40 billion, down ~5.4% from $13.11B in FY2024 (and from $14.56B in FY2023) — the underlying legacy business is still in secular revenue decline despite the AI/PCF growth pivot&rdquo;, 2026-02-20 · https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0000018926 (FMP income-statement, 10-K filed 2026-02-20) · local: 2026-06-17-fmp-services-carriers-valuation.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-39">
+<p>financialmodelingprep.com &ldquo;At ~$8.4B market cap and ~$20.0B TTM enterprise value, LUMN trades at ~12.8x EV/EBITDA TTM and ~1.65x EV/Sales; the equity has rerated violently — from ~$1.00 (July 2024) to ~$8.16, with a 52-week range of $3.37-$11.95 — signaling much of the AI-transport optionality is now in the price&rdquo;, 2026-06-17 · https://financialmodelingprep.com/ (FMP quote + key-metrics-ttm LUMN) · local: 2026-06-17-fmp-lumen-fy2025-income.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-39" title="Jump back to footnote 39 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-39" title="Jump back to footnote 39 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-40">
+<p>investor.uniti.com &ldquo;THE CATCH on Uniti: post-merger net leverage was ~5.75x net debt/2Q-annualized adjusted EBITDA at Q2 2025, guided to 5.5-6.0x at YE2025; the company also ceased being a REIT and will no longer report FFO/AFFO — high leverage is the structural constraint on the equity&rdquo;, 2025-08-01 · https://investor.uniti.com/news-releases/news-release-details/uniti-group-inc-reports-second-quarter-2025-results · local: 2025-08-01-uniti-windstream-merger-ai-fiber-leverage.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-40" title="Jump back to footnote 40 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-40" title="Jump back to footnote 40 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-40" title="Jump back to footnote 40 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-40" title="Jump back to footnote 40 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-41">
+<p>investor.uniti.com &ldquo;Uniti completed its merger with Windstream on Aug 1, 2025, creating a ~240,000 route-mile &#x27;insurgent fiber&#x27; provider with twin engines: Kinetic fiber-to-the-home and a hyperscaler/AI Fiber Infrastructure build; the combined Uniti+Windstream hyperscaler funnel represented ~$1.5B of total contract value&rdquo;, 2025-02-12 · https://investor.uniti.com/static-files/71dc94be-efa2-4ae3-9d96-447237c4b1c2 · local: 2025-08-01-uniti-windstream-merger-ai-fiber-leverage.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-41" title="Jump back to footnote 41 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-41" title="Jump back to footnote 41 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-42">
+<p>financialmodelingprep.com &ldquo;Uniti&#x27;s FMP TTM leverage screens lower at ~3.8x net debt/EBITDA on ~$12.8B EV, and it trades cheap at ~4.8x EV/EBITDA TTM (~$2.8B market cap) — but TTM only captures five months of Windstream, free cash flow is negative (capex-heavy FTTH+AI build), and book equity is deeply negative&rdquo;, 2026-06-17 · https://financialmodelingprep.com/ (FMP key-metrics-ttm UNIT) · local: 2026-06-17-fmp-services-carriers-valuation.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-42" title="Jump back to footnote 42 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-42" title="Jump back to footnote 42 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-42" title="Jump back to footnote 42 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-43">
+<p>www.businesswire.com &ldquo;Zayo booked more than $1 billion in AI-related long-haul fiber deals in 2024 with an additional $3 billion in pipeline, and in January 2025 committed to build more than 5,000 new long-haul route miles by 2030 to meet AI demand it forecasts will grow 2-6x&rdquo;, 2025-01-21 · https://www.businesswire.com/news/home/20250121450632/en/Zayo-Announces-Construction-of-5000-New-Fiber-Route-Miles-as-AI-Demand-is-Forecasted-to-Grow-2-6X-by-2030 · local: 2025-03-13-zayo-acquire-crown-castle-fiber-solutions.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-44">
+<p>www.zayo.com &ldquo;In April 2026 Zayo secured an anchor customer (a &#x27;leading global AI infrastructure partner&#x27;, undisclosed) for 8,000 route miles of new builds and overbuilds (~15 million fiber miles) — the largest single network investment in Zayo&#x27;s history; total build/overbuild program now spans &gt;15,000 route miles and ~20 million fiber miles&rdquo;, 2026-04-16 · https://www.zayo.com/newsroom/zayo-secures-anchor-customer-to-accelerate-network-expansion-across-critical-ai-corridors-2/ · local: 2026-04-16-zayo-anchor-customer-ai-corridors.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-44" title="Jump back to footnote 44 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-44" title="Jump back to footnote 44 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-45">
+<p>www.zayo.com &ldquo;Zayo completed its ~$4.25 billion acquisition of Crown Castle&#x27;s Fiber Solutions business on May 1, 2026, adding ~90,000 route miles and &gt;70,000 on-net locations; it is Zayo&#x27;s 50th and largest acquisition, lifting its network to ~224,000 route miles and ~32 million fiber miles across North America&rdquo;, 2026-05-01 · https://www.zayo.com/newsroom/zayo-to-acquire-crown-castles-fiber-solutions-business/ · local: 2025-03-13-zayo-acquire-crown-castle-fiber-solutions.md · investor-presentation&#160;<a class="footnote-backref" href="#fnref:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-46">
+<p>investor.crowncastle.com &ldquo;Crown Castle SOLD its fiber/AI-transport exposure: it closed the $8.5B (~$8.4B net) sale of its Fiber Solutions business to Zayo and Small Cells to EQT/Arium on May 1, 2026, using proceeds to repurchase $1.0B of stock and cut debt by &gt;$7.0B, becoming the only large publicly traded pure-play U.S. tower company&rdquo;, 2026-05-01 · https://investor.crowncastle.com/news-releases/news-release-details/crown-castle-announces-closing-sale-fiber-and-small-cell · local: 2026-05-01-crown-castle-closes-fiber-smallcell-sale.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-47">
+<p>www.zayo.com &ldquo;Zayo is PRIVATE — backed by DigitalBridge and EQT (taken private in 2019 at a $14.3B enterprise value, $35.00/share); there is no listed Zayo equity, so the &#x27;how to play&#x27; is indirect via DigitalBridge (NYSE: DBRG, the manager) or EQT, not a direct public stake&rdquo;, 2019-05-08 · https://www.zayo.com/newsroom/zayo-announces-definitive-agreement-to-be-acquired-by-digital-colony-and-eqt/ · local: 2019-05-08-zayo-digital-colony-eqt-take-private-14b.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-47" title="Jump back to footnote 47 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-47" title="Jump back to footnote 47 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-48">
+<p>www.datacenterfrontier.com &ldquo;SYNTHESIS — how to play Zayo: with Zayo private, the only listed proxy is DigitalBridge (NYSE: DBRG), the asset manager that co-controls Zayo with EQT; this is a diluted, manager-level exposure (fee streams + co-invest), not a direct claim on Zayo&#x27;s AI long-haul fiber economics — a meaningful caveat for anyone treating DBRG as &#x27;owning Zayo&#x27;&ldquo;, 2025-03-20 · https://www.datacenterfrontier.com/network/article/55274499/zayos-fiber-bet-scaling-long-haul-and-metro-networks-for-ai-data-centers · local: 2025-03-13-zayo-acquire-crown-castle-fiber-solutions.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-48" title="Jump back to footnote 48 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-48" title="Jump back to footnote 48 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-48" title="Jump back to footnote 48 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-48" title="Jump back to footnote 48 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-49">
+<p>ayarlabs.com &ldquo;Series E funding round size — co-packaged optics (CPO) TeraPHY optical engine for AI scale-up; line-system/optical-interconnect layer (PRIVATE)&rdquo;, 2026-03-03 · https://ayarlabs.com/news/ayar-labs-closes-500m-series-e-accelerates-volume-production-of-co-packaged-optics/ · local: 2026-03-03-ayarlabs-series-e-500m.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-49" title="Jump back to footnote 49 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-49" title="Jump back to footnote 49 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-49" title="Jump back to footnote 49 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-49" title="Jump back to footnote 49 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-49" title="Jump back to footnote 49 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-50">
+<p>www.businesswire.com &ldquo;Series D funding round size — Passage 3D-stacked photonic interposer / optical interconnect for AI data centers (~100 Tbps); line-system/optical-interconnect layer (PRIVATE)&rdquo;, 2024-10-16 · https://www.businesswire.com/news/home/20241016498931/en/Lightmatter-Raises-%24400M-Series-D-Quadruples-Valuation-to-%244.4B-as-Photonics-Leader-for-Next-Gen-AI-Data-Centers · local: 2024-10-16-lightmatter-series-d-400m.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-50" title="Jump back to footnote 50 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-50" title="Jump back to footnote 50 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-50" title="Jump back to footnote 50 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-50" title="Jump back to footnote 50 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-50" title="Jump back to footnote 50 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-51">
+<p>www.sdxcentral.com &ldquo;Acquired by Marvell (NASDAQ: MRVL) for upfront consideration ($1.0B cash + $2.25B stock); deal closed Feb 2 2026 — EXIT, no longer independently investible&rdquo;, 2026-02-02 · https://www.sdxcentral.com/news/marvell-completes-325b-acquisition-of-photonic-startup-celestial-ai/ · local: 2026-02-02-sdxcentral-marvell-celestial-ai-close.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-51" title="Jump back to footnote 51 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-51" title="Jump back to footnote 51 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-51" title="Jump back to footnote 51 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-52">
+<p>www.ciena.com &ldquo;Acquired by Ciena (NYSE: CIEN) for ~$270M; closed Oct 7 2025 — optical engines (CPO/NPO up to 6.4 Tbps) for AI interconnect; EXIT signal (line-system/optical-engine layer, was PRIVATE)&rdquo;, 2025-10-07 · https://www.ciena.com/about/newsroom/press-releases/ciena-to-acquire-nubis-communications-to-expand-its-inside-the-data-center-strategy-and-further-address-growing-ai-workloads · local: 2025-10-07-ciena-acquires-nubis-270m.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-52" title="Jump back to footnote 52 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-52" title="Jump back to footnote 52 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-52" title="Jump back to footnote 52 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-53">
+<p>www.congruex.com &ldquo;Record project backlog — telecom/fiber construction, OSP install-maintain &amp; engineering (the install-maintain/EPC layer); PRIVATE, PE-owned by Crestview Partners&rdquo;, 2025-11-18 · https://www.congruex.com/congruex-llc-highlights-growth-momentum-and-strong-sponsor-support/ · local: 2025-11-18-congruex-growth-crestview.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-53" title="Jump back to footnote 53 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-53" title="Jump back to footnote 53 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-53" title="Jump back to footnote 53 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-53" title="Jump back to footnote 53 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-53" title="Jump back to footnote 53 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-53" title="Jump back to footnote 53 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-53" title="Jump back to footnote 53 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-54">
+<p>www.crusoe.ai &ldquo;Series E funding round size — vertically integrated AI-factory / data-center developer driving gigawatt-scale metro + DCI optical buildout (PRIVATE neocloud/DC developer)&rdquo;, 2025-10-24 · https://www.crusoe.ai/resources/newsroom/crusoe-announces-series-e-funding · local: 2025-10-24-crusoe-series-e-and-2026-pre-ipo.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-54" title="Jump back to footnote 54 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-54" title="Jump back to footnote 54 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-54" title="Jump back to footnote 54 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-54" title="Jump back to footnote 54 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-55">
+<p>www.axios.com &ldquo;Reported pre-IPO round target valuation low end (Axios, March 2026); reported range $30B-$40B — low bound recorded as scalar&rdquo;, 2026-03-25 · https://www.axios.com/pro/climate-deals/2026/03/25/crusoe-pre-ipo-valuation-batteries-redwood-materials · local: 2025-10-24-crusoe-series-e-and-2026-pre-ipo.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-55" title="Jump back to footnote 55 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-55" title="Jump back to footnote 55 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-56">
+<p>www.zayo.com &ldquo;Committed long-haul fiber route miles to build for AI workloads — regional/metro + long-haul DCI carrier (PRIVATE; owned by EQT + DigitalBridge)&rdquo;, 2025-01-21 · https://www.zayo.com/newsroom/zayo-announces-construction-of-5000-new-fiber-route-miles-as-ai-demand-is-forecasted-to-grow-2-6x-by-2030/ · local: 2025-01-21-zayo-ai-fiber-buildout-crown-castle.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-56" title="Jump back to footnote 56 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-56" title="Jump back to footnote 56 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-57">
+<p>Cignal AI, 800ZR &ldquo;Cignal AI: pluggable coherent optics in IP-over-DWDM (predominantly 400ZR/ZR+) were already a ~$2B market in 2025, accelerating to nearly $5B by 2029; 800ZR+ demand is entirely additional DCI from hyperscalers (Meta lead)&rdquo;, 2025-07-28 · Cignal AI, 800ZR/ZR+ Forecast Update 2Q25 | https://cignal.ai/2025/07/800zr-zr-forecast-update-2q25/ · local: 2026-01-07-cignal-ai-optical-component-revenue-25b-2025.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-57" title="Jump back to footnote 57 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-57" title="Jump back to footnote 57 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-57" title="Jump back to footnote 57 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-58">
+<p>Dell&#x27;Oro Group, Optical Transport - Looking Forward to 2026 (Jimmy Yu) | https: &ldquo;Dell&#x27;Oro frames scale-across DCI - connecting the back-end of multiple AI data centers into larger virtual AI factories - as the next demand driver, arising because the largest cloud providers are nearing a power-grid ceiling in some geographies and must spread training across sites&rdquo;, 2025-12-17 · Dell&#x27;Oro Group, Optical Transport - Looking Forward to 2026 (Jimmy Yu) | https://www.delloro.com/2026-predictions-optical-transport-market/ · local: 2026-02-18-delloro-com-optical-transport-16b-2025-dci-40pct.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-58" title="Jump back to footnote 58 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-59">
+<p>Fierce Network (via Sipoch mirror), Will AI agents really raise the network traffic baseline | https: &ldquo;Cisco CEO Chuck Robbins argues agentic AI will push network traffic to unprecedented levels and keep it consistently high, as agents engage continuously rather than in spikes - the canonical vendor bull mechanism for a broader network upgrade&rdquo;, 2025-09-03 · Fierce Network (via Sipoch mirror), Will AI agents really raise the network traffic baseline | https://www.sipoch.com/en/article/300330022258347 · local: 2025-09-03-sipoch-fierce-bubley-ai-agents-traffic-baseline.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-59" title="Jump back to footnote 59 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-60">
+<p>Dell&#x27;Oro Group, Optical Transport Demand Increased by 24 Percent in North America During 1Q 2025 | https: &ldquo;WDM Metro declined for a seventh consecutive quarter in 1Q 2025; Dell&#x27;Oro attributes the decline to IPoDWDM adoption (headwind), inventory glut, and poor macro&rdquo;, 2025-05-22 · Dell&#x27;Oro Group, Optical Transport Demand Increased by 24 Percent in North America During 1Q 2025 | https://www.delloro.com/news/optical-transport-demand-increased-by-24-percent-in-north-america-during-1q-2025/ · local: 2025-05-22-delloro-com-optical-transport-na-24pct-1q25-wdm-metro-7q-decline.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-60" title="Jump back to footnote 60 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-60" title="Jump back to footnote 60 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-60" title="Jump back to footnote 60 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-60" title="Jump back to footnote 60 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-60" title="Jump back to footnote 60 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-61">
+<p>Synthesis of S630-S649 (Dell&#x27;Oro, Cignal AI, LightCounting, Bubley, Nolle, Equinix, Cisco) &ldquo;On current (mid-2026) evidence the metro inflection is REAL BUT MISATTRIBUTED: the optical-transport recovery and metro-span upgrade is driven by DCI / scale-across pluggable coherent (IPoDWDM ZR/ZR+) bought by hyperscalers and neoclouds, NOT by agentic/inference traffic forcing a regional-telco metro-access upgrade; the legacy WDM Metro segment is being cannibalized by the very IPoDWDM that is growing; the named skeptics (Bubley, Nolle) are largely vindicated on the access/metro-access thesis while the bull case is vindicated for DCI/long-haul&rdquo;, 2026-06-17 · Synthesis of S630-S649 (Dell&#x27;Oro, Cignal AI, LightCounting, Bubley, Nolle, Equinix, Cisco) · local: 2026-06-16-delloro-com-ipodwdm-27pct-cagr-disagg-wdm.md · other&#160;<a class="footnote-backref" href="#fnref:fn-61" title="Jump back to footnote 61 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-61" title="Jump back to footnote 61 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-61" title="Jump back to footnote 61 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-61" title="Jump back to footnote 61 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-62">
+<p>Dean Bubley LinkedIn, broadband &ldquo;Bubley: broadband access traffic growth is slowing to ~10%/yr long run, while intra-cloud / DC-to-DC traffic grows 30-50%+/yr; the access:intra-cloud ratio is widening to potentially 1:20 or 1:100, especially with agentic computer-to-computer connections&rdquo;, 2025-01-25 · Dean Bubley LinkedIn, broadband/cloud/genAI traffic ratio post | https://www.linkedin.com/posts/deanbubley_broadband-cloud-genai-activity-7288903451114143744-pV2d · local: 2025-01-25-linkedin-bubley-access-vs-intracloud-traffic-ratio.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-62" title="Jump back to footnote 62 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-62" title="Jump back to footnote 62 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-62" title="Jump back to footnote 62 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-63">
+<p>Tom Nolle &ldquo;Nolle&#x27;s survey of ~88 telcos / 194 professionals: no telco believes AI will materially raise its revenues; telcos see AI services as a special case of cloud/edge they cannot lead, lacking the IT knowledge and influence to drive edge-computing adoption&rdquo;, 2025-02-25 · Tom Nolle / Andover Intel, What Telcos Tell Me is the State of Telecom AI | https://andoverintel.com/2025/02/25/what-telcos-tell-me-is-the-state-of-telecom-ai/ · local: 2025-11-25-networkworld-nolle-networks-ai-metaversing.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-63" title="Jump back to footnote 63 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-63" title="Jump back to footnote 63 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-63" title="Jump back to footnote 63 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-64">
+<p>Tom Nolle, Networks, AI, and metaversing (Network World; orig. Andover Intel author archive, andoverintel.com) | https: &ldquo;Nolle: the conservative-but-most-likely view is that AI&#x27;s network impact is largely confined to the data center (all horizontal traffic); one TikTok challenge would generate way more WAN traffic; carriers won&#x27;t be carrying much new and have little service-revenue upside; he separately states AI won&#x27;t revolutionize the WAN, only the data center network&rdquo;, 2025-11-25 · Tom Nolle, Networks, AI, and metaversing (Network World; orig. Andover Intel author archive, andoverintel.com) | https://www.networkworld.com/article/4096031/networks-ai-and-metaversing.html · local: 2025-11-25-networkworld-nolle-networks-ai-metaversing.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-64" title="Jump back to footnote 64 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-64" title="Jump back to footnote 64 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-64" title="Jump back to footnote 64 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-65">
+<p>Dell&#x27;Oro Group, Optical Transport Market Surges 15 pct in 3Q25 + Looking Forward to 2026 | https: &ldquo;In 3Q 2025 non-DCI optical revenue rose 7% YoY driven by increased CSP spending, and non-DCI DWDM Long Haul rose 14% YoY; Dell&#x27;Oro reads this as CSP inventory correction complete and backbone bandwidth growing again&rdquo;, 2025-12-17 · Dell&#x27;Oro Group, Optical Transport Market Surges 15 pct in 3Q25 + Looking Forward to 2026 | https://www.delloro.com/news/optical-transport-market-surges-15-in-3q25-according-to-delloro-group/ · local: 2026-02-18-delloro-com-optical-transport-16b-2025-dci-40pct.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-65" title="Jump back to footnote 65 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-65" title="Jump back to footnote 65 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-65" title="Jump back to footnote 65 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-66">
+<p>Dean Bubley, 6G &amp; Physical AI: The Tyranny of Consensus (Substack) | https: &ldquo;Bubley concedes some edge inferencing may happen especially at aggregation points, metro sites or enterprise locations, but calls the leap to GPUs everywhere / cell-site or street-cabinet inferencing as a mass business model much less credible&rdquo;, 2026-03-10 · Dean Bubley, 6G &amp; Physical AI: The Tyranny of Consensus (Substack) | https://deanbubley.substack.com/p/6g-and-physical-ai-the-tyranny-of · local: 2025-01-25-linkedin-bubley-access-vs-intracloud-traffic-ratio.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-66" title="Jump back to footnote 66 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-66" title="Jump back to footnote 66 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-66" title="Jump back to footnote 66 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-67">
+<p>Noldor: fiber optics category digest &ldquo;FALSIFIER: bear scenario for AI-attributable fiber+optics revenue is top-down only at $22B 2026, premised on InP oversupply emerging 2027-2028, CPO scale-up pushed to 2H 2028+, and pluggable ASP compression — i.e. the spend stays with scale datacom components and the bull optical wave is a 2028+ narrative if these hit&rdquo;, 2026-05-01 · Noldor: fiber optics category digest · local: 2026-05-01-noldor-fiber-optics-digest-bearcase.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-67" title="Jump back to footnote 67 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-67" title="Jump back to footnote 67 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-68">
+<p>Dell&#x27;Oro Group, &#x27;Optical Transport Market Grew to $16 Billion in 2025&#x27;, 2026-02-18, https: &ldquo;MEASURED-TODAY: direct purchases of WDM equipment for DCI grew nearly 40% in 2025; direct cloud-provider purchases grew ~50% in 2025 (more WDM transponders, ZR optics, optical line systems). The DCI growth is hyperscaler/cloud campus-and-metro interconnect, NOT edge-inference at tier-2/3 colos.&rdquo;, 2026-02-18 · Dell&#x27;Oro Group, &#x27;Optical Transport Market Grew to $16 Billion in 2025&#x27;, 2026-02-18, https://www.delloro.com/news/optical-transport-market-grew-to-16-billion-in-2025/ · local: 2026-02-18-delloro.com-optical-transport-16b-2025.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-68" title="Jump back to footnote 68 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-69">
+<p>Cignal AI, &#x27;Optical Component Revenue Reaches Nearly $25B in 2025&#x27;, 2026-01, https: &ldquo;MEASURED-TODAY: total optical-component market revenue reached a record ~$25B in 2025 (datacom &gt;$18B, telecom coherent modules ~$6B). Telecom coherent bandwidth grew &gt;40% in 2025. Cignal does NOT publish a separate edge/metro-DWDM equipment line; these are total datacom + telecom coherent figures.&rdquo;, 2026-01-15 · Cignal AI, &#x27;Optical Component Revenue Reaches Nearly $25B in 2025&#x27;, 2026-01, https://cignal.ai/2026/01/optical-component-revenue-reaches-nearly-25b-in-2025/ · local: 2026-01-cignal.ai-optical-component-25b-2025.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-69" title="Jump back to footnote 69 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-69" title="Jump back to footnote 69 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-70">
+<p>LightCounting, Acacia is on fire and so is the broader transceiver market (Q2 Quarterly Market Update) | https: &ldquo;LightCounting: Q1 2026 was the best transceiver quarter on record (~$10B, +90% YoY); full-year 2025 sales were $26.8B (+74% YoY); growth has stayed above 70% for over a year and looks truly exponential&rdquo;, 2026-06-12 · LightCounting, Acacia is on fire and so is the broader transceiver market (Q2 Quarterly Market Update) | https://www.lightcounting.com/newsletter/en/june-2026-quarterly-market-update-375 · local: 2026-06-12-lightcounting-q2-update-acacia-on-fire.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-70" title="Jump back to footnote 70 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-71">
+<p>BusinessWire: Ciena reports fiscal fourth quarter and year-end 2025 results &ldquo;Ciena&#x27;s Optical Networking revenue was $3,246.3M in fiscal 2025 (68.1% of total revenue), up 22.8% YoY from $2,642.6M — the dominant line-system/transport-box revenue line of the leading Western optical-transport vendor; total Networking Platforms $3,676.4M (77.1%)&rdquo;, 2025-12-12 · BusinessWire: Ciena reports fiscal fourth quarter and year-end 2025 results · local: 2025-12-11-businesswire-ciena-fq4-fy2025-yearend-results.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-71" title="Jump back to footnote 71 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-72">
+<p>Noldor: CIENA CORP 10-K (2025-12-12) &ldquo;Ciena is extending into metro and edge architectures by integrating IP routing with coherent optical technologies (Routed Optical Networking) and adding optical-interconnect pluggables/components (incl. its FY2025 Nubis Communications acquisition) — positioning the systems incumbent for the IPoDWDM transition rather than being disintermediated by it&rdquo;, 2025-12-12 · Noldor: CIENA CORP 10-K (2025-12-12) · local: 2025-12-11-ciena-fq4-fy2025-earnings-call-transcript-mechanism.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-72" title="Jump back to footnote 72 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-73">
+<p>financialmodelingprep.com &ldquo;Ciena (CIEN) trailing P/E TTM (pulled 2026-06-17)&rdquo;, 2026-06-17 · https://financialmodelingprep.com/ (FMP API metrics-ratios-ttm) · local: 2026-06-17-fmp-cien-live-valuation.md · other&#160;<a class="footnote-backref" href="#fnref:fn-73" title="Jump back to footnote 73 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-74">
+<p>FMP key-metrics-ttm &ldquo;Ciena trades at ~$62.1B market cap, 11.2x EV/Sales, 94.3x EV/EBITDA and 141.8x P/E (TTM) — the purest public line-system + RON-systems exposure, priced at a high multiple reflecting a depressed-margin trough year (TTM EBITDA margin 11.9%) plus AI-transport optionality; richly valued, not overlooked&rdquo;, 2026-06-17 · FMP key-metrics-ttm/metrics-ratios-ttm (2026-06-17) · local: 2026-06-17-fmp-line-system-suppliers-valuation.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-74" title="Jump back to footnote 74 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-75">
+<p>financialmodelingprep.com &ldquo;Ciena (CIEN) sell-side price-target consensus $493.42 (median $499; high $650; low $330) — consensus PT sits only ~13% above the $438.33 price, i.e. the re-rate has largely caught up to targets&rdquo;, 2026-06-17 · https://financialmodelingprep.com/ (FMP API price-target-consensus) · local: 2026-06-17-fmp-cien-live-valuation.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-75" title="Jump back to footnote 75 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-76">
+<p>www.businesswire.com &ldquo;Ciena raised $2.875B of 0.00% Convertible Senior Notes due 2031 (closed 2026-06-11), upsized from a $2.0B initial / $2.5B priced offering — a major capital raise to fund supply-security / capacity expansion amid AI demand&rdquo;, 2026-06-11 · https://www.businesswire.com/news/home/20260611825018/en/Ciena-Corporation-Announces-Closing-of-%242.875-billion-of-0.00-Convertible-Senior-Notes · local: 2025-12-11-businesswire-ciena-fq4-fy2025-yearend-results.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-76" title="Jump back to footnote 76 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-77">
+<p>investor.uniti.com &ldquo;Uniti continues to ink AI-transport dark-fiber wins: in Jan 2026 Uniti Wholesale announced a South-Central U.S. expansion anchored by a 20-year contract with total contract value over $500 million, adding 1,100 route miles connecting Tier-1 markets (Dallas) to AI hubs (Memphis, Little Rock, Muskogee, Haskell, Amarillo)&rdquo;, 2026-01-13 · https://investor.uniti.com/news-releases/news-release-details/uniti-wholesale-adds-1100-miles-its-south-central-us-fiber · local: 2025-08-01-uniti-windstream-merger-ai-fiber-leverage.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-77" title="Jump back to footnote 77 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-78">
+<p>financialmodelingprep.com &ldquo;SYNTHESIS — pricing-in: LUMN has already rerated ~8x off its $1 trough (now ~12.8x EV/EBITDA), so most of the PCF/AI-transport optionality is in the equity; the cleaner, still-private compounding asset (Zayo) is only investable indirectly via DigitalBridge/EQT; Crown Castle exited the space entirely. The &#x27;pure&#x27; public AI-transport equities are thin&rdquo;, 2026-06-17 · https://financialmodelingprep.com/ (FMP, cross-entity synthesis) · local: 2026-06-17-fmp-services-carriers-valuation.md · other&#160;<a class="footnote-backref" href="#fnref:fn-78" title="Jump back to footnote 78 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-79">
+<p>financialmodelingprep.com &ldquo;SYNTHESIS — leverage is the structural catch: every listed AI-transport carrier carries heavy debt — LUMN net debt/EBITDA ~7.4x TTM (sub-4x only after the AT&amp;T sale) with negative book equity (~-$1.1B); UNIT ~5.75x company-reported; CCI ~9.1x. The AI demand is real and prefunded, but the equities are deleveraging/turnaround stories where the balance sheet, not the order book, is the binding constraint&rdquo;, 2026-06-17 · https://financialmodelingprep.com/ (FMP key-metrics-ttm LUMN/UNIT/CCI synthesis) · local: 2026-06-17-fmp-services-carriers-valuation.md · other&#160;<a class="footnote-backref" href="#fnref:fn-79" title="Jump back to footnote 79 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-80">
+<p>www.businesswire.com &ldquo;Series A funding round size — ChromX multi-color silicon-photonics platform / programmable laser for AI DC fabrics (line-system/optical-component layer, PRIVATE)&rdquo;, 2024-10-15 · https://www.businesswire.com/news/home/20241015348729/en/Xscape-Photonics-Raises-%2444-Million-Series-A-to-Reimagine-the-AI-Data-Center · local: 2024-10-15-xscape-photonics-series-a.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-80" title="Jump back to footnote 80 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-81">
+<p>tracxn.com &ldquo;Total funding raised to date (Tracxn) — multi-terabit CPO/NPO photonics interconnect for AI data centers (line-system/optical-component layer, PRIVATE, Ottawa Canada)&rdquo;, 2025-08-22 · https://tracxn.com/d/companies/ranovus · local: 2025-08-22-ranovus-100m-ontario-darpa.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-81" title="Jump back to footnote 81 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-82">
+<p>www.semiconductor-today.com &ldquo;Optical-semiconductor manufacturing expansion investment (Ottawa, Ontario), explicitly to power next-gen AI infrastructure&rdquo;, 2025-08-22 · https://www.semiconductor-today.com/news_items/2025/aug/ranovus-220825.shtml · local: 2025-08-22-ranovus-100m-ontario-darpa.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-82" title="Jump back to footnote 82 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-83">
+<p>convergedigest.com &ldquo;Joint DARPA contract with Cerebras (Apr 2025) to combine Wafer-Scale Engine with Ranovus co-packaged optics — AI/HPC tie&rdquo;, 2025-04-01 · https://convergedigest.com/cerebras-ranovus-wafer-sale-compute-co-packaged-optics/ · local: 2025-08-22-ranovus-100m-ontario-darpa.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-83" title="Jump back to footnote 83 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-84">
+<p>www.businesswire.com &ldquo;Series B funding round size — LightBundle microLED-based ultra-low-power optical interconnects for AI/ML &amp; disaggregated memory fabrics (line-system/optical-interconnect layer, PRIVATE)&rdquo;, 2025-05-14 · https://www.businesswire.com/news/home/20250514637615/en/Avicena-Announces-Series-B-Funding-Round-Led-by-Tiger-Global-with-Participation-from-SK-hynix · local: 2025-05-14-avicena-series-b-65m.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-84" title="Jump back to footnote 84 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-84" title="Jump back to footnote 84 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-85">
+<p>Dell&#x27;Oro Group, &#x27;Optical Transport Demand Increased by 24 Percent in North America During 1Q 2025&#x27;, https: &ldquo;MEASURED-TODAY (counter-narrative): WDM Metro — the optical segment geographically closest to edge/regional inference build — DECLINED for a seventh consecutive quarter in 1Q 2025, headwinded by IPoDWDM adoption, inventory glut and macro. Global optical transport was -1% YoY in 1Q25 even as North America grew +24% and DCI grew &gt;40%. Edge/regional is NOT yet pulling metro optical up.&rdquo;, 2025-05-15 · Dell&#x27;Oro Group, &#x27;Optical Transport Demand Increased by 24 Percent in North America During 1Q 2025&#x27;, https://www.delloro.com/news/optical-transport-demand-increased-by-24-percent-in-north-america-during-1q-2025/ · local: 2026-05-delloro.com-optical-transport-1q25-na-24pct.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-85" title="Jump back to footnote 85 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-86">
+<p>Cignal AI, Optical Component Revenue Reaches Nearly $25B in 2025 | https: &ldquo;Cignal AI: telecom coherent bandwidth grew over 40% in 2025 and faster in 2026; pluggable coherent modules expected to carry over 60% of telecom bandwidth by 2026, driven by 400ZRx/800ZRx for AI scale-across and long-haul&rdquo;, 2026-01-07 · Cignal AI, Optical Component Revenue Reaches Nearly $25B in 2025 | https://cignal.ai/2026/01/optical-component-revenue-reaches-nearly-25b-in-2025/ · local: 2026-01-07-cignal-ai-optical-component-revenue-25b-2025.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-86" title="Jump back to footnote 86 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-87">
+<p>LightCounting, $100 Billion Market for AI Cluster Optics by 2030? + Optics for AI Clusters | https: &ldquo;LightCounting: AI-cluster optics reached $16.5B in 2025 and forecast $26B in 2026 (~60% growth both years); flags a reasonable chance AI-cluster optical interconnect sales reach $100B by 2030 but only if &#x27;stars align&#x27;, with a likely flat quarter or two in late 2026&rdquo;, 2026-03-01 · LightCounting, $100 Billion Market for AI Cluster Optics by 2030? + Optics for AI Clusters | https://www.lightcounting.com/newsletter/en/march-2026-ethernet-optics-382 · local: 2026-06-12-lightcounting-q2-update-acacia-on-fire.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-87" title="Jump back to footnote 87 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<script src="../assets/vega-embed-bundle.js"></script>
+<script src="../assets/chart-embed.js"></script>
+</body>
+</html>
