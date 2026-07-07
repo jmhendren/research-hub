@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SK Hynix (KRX 000660): priced for permanent peak</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* ===== Page templates ===== */
+
+@page {
+    size: Letter;
+    margin: 0.7in 0.75in 0.8in 0.75in;
+    @top-left {
+        content: "Hendren HQ Research";
+        font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        font-weight: 600;
+        color: #1A1A1A;
+        letter-spacing: 0.04em;
+    }
+    @top-right {
+        content: string(running-title);
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6B6B6B;
+    }
+    @bottom-center {
+        content: "Hendren HQ Research  ·  Page " counter(page) " of " counter(pages);
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6B6B6B;
+    }
+}
+
+@page cover {
+    margin: 0;
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-center { content: none; }
+}
+
+/* ===== Cover page ===== */
+
+.cover-page {
+    page: cover;
+    page-break-after: always;
+    width: 100%;
+    min-height: 9.5in;
+    padding: 1.8in 1in 0.9in 1in;
+    text-align: center;
+    box-sizing: border-box;
+}
+.cover-wordmark {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: #1A1A1A;
+    text-transform: uppercase;
+    margin-bottom: 8pt;
+}
+.cover-wordmark-rule {
+    width: 36pt;
+    height: 1.5pt;
+    background: #8B2332;
+    margin: 0 auto 64pt auto;
+}
+.cover-title {
+    string-set: running-title content();
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.25;
+    margin: 0 0 12pt 0;
+    letter-spacing: -0.005em;
+}
+.cover-subtitle {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 14pt;
+    color: #3D3D3D;
+    font-style: italic;
+    font-weight: 400;
+    margin: 0 0 64pt 0;
+}
+.cover-meta {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    color: #3D3D3D;
+    letter-spacing: 0.04em;
+    margin: 4pt 0;
+}
+.cover-meta strong {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+.cover-divider {
+    width: 80pt;
+    height: 0.5pt;
+    background: #D9D9D6;
+    margin: 40pt auto;
+}
+.cover-stats {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-top: 24pt;
+    font-size: 10pt;
+    color: #3D3D3D;
+}
+.cover-stats .stat {
+    margin: 0 14pt;
+}
+.cover-stats strong {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+.cover-footer {
+    margin-top: 80pt;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    font-style: italic;
+}
+
+/* ===== Masthead (uniform across published surfaces — mirrors hub-masthead.css) ===== */
+
+.masthead {
+    border-bottom: 1px solid #1A1A1A;
+    padding: 6pt 0 14pt 0;
+    margin-bottom: 22pt;
+}
+.masthead-top {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6B6B6B;
+    font-weight: 500;
+    padding-bottom: 10pt;
+    border-bottom: 1px solid #D9D9D6;
+    margin-bottom: 14pt;
+}
+.masthead-top .doctype { color: #0E2A47; font-weight: 600; }
+.masthead-top .date { color: #8B2332; font-weight: 600; }
+.masthead h1.title {
+    string-set: running-title content();
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 24pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.15;
+    letter-spacing: -0.012em;
+    margin: 0;
+}
+.masthead .subtitle {
+    display: block;
+    margin-top: 6pt;
+    font-size: 0.5em;
+    font-weight: 400;
+    color: #6B6B6B;
+    letter-spacing: 0;
+    font-style: italic;
+    line-height: 1.3;
+}
+
+/* ===== Body ===== */
+
+html { font-size: 11pt; }
+
+body {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    line-height: 1.6;
+    color: #1A1A1A;
+    max-width: 100%;
+}
+
+/* Page break marker for section transitions (briefs in a packet) */
+.page-break {
+    page-break-before: always;
+    height: 0;
+}
+
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+}
+
+h1 {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 22pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.3;
+    margin: 0 0 6pt 0;
+    letter-spacing: -0.005em;
+    string-set: running-title content();
+}
+
+h2 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 24pt 0 8pt 0;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+}
+
+h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin: 14pt 0 4pt 0;
+}
+
+h4 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 12pt 0 4pt 0;
+    letter-spacing: 0.04em;
+}
+
+h5, h6 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    margin: 10pt 0 4pt 0;
+    color: #1A1A1A;
+}
+
+/* Paragraphs */
+
+p {
+    margin: 0 0 10pt 0;
+    orphans: 2;
+    widows: 2;
+}
+
+/* Links */
+
+a {
+    color: #0E2A47;
+    text-decoration: none;
+    border-bottom: 0.5pt solid #0E2A47;
+    word-break: break-word;
+}
+
+/* Lists */
+
+ul, ol {
+    margin: 8pt 0;
+    padding-left: 22pt;
+}
+li {
+    margin: 5pt 0;
+}
+li > ul, li > ol {
+    margin: 4pt 0;
+}
+
+/* Blockquotes — large opening quotation mark, italic serif */
+
+blockquote {
+    margin: 14pt 0 4pt 14pt;
+    padding: 0;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    color: #1A1A1A;
+    font-size: 11pt;
+    line-height: 1.55;
+    text-indent: 0;
+}
+blockquote::before {
+    content: "\201C";
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    color: #8B2332;
+    line-height: 0;
+    vertical-align: -0.35em;
+    margin-right: 4pt;
+    font-style: normal;
+}
+blockquote p { margin: 0 0 8pt 0; display: inline; }
+blockquote p:last-child { margin-bottom: 0; }
+
+/* Citation line that follows a blockquote (italic em-dashed source) */
+
+.citation {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    margin: 4pt 0 14pt 18pt;
+    font-style: normal;
+}
+
+/* BLUF callout — italic serif with accent left rule, no fill */
+
+.bluf {
+    border-left: 2pt solid #8B2332;
+    padding: 4pt 0 4pt 18pt;
+    margin: 4pt 0 18pt 0;
+    font-style: italic;
+    font-size: 11pt;
+    color: #1A1A1A;
+    page-break-inside: avoid;
+}
+.bluf h2, .bluf h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #8B2332;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 4pt 0;
+    font-style: normal;
+}
+.bluf p { margin: 0 0 8pt 0; font-style: italic; }
+.bluf p:last-child { margin-bottom: 0; }
+.bluf strong { font-style: italic; }
+
+/* "What to ask" — distinguished section (optional class wrap) */
+
+.ask {
+    border-top: 0.5pt solid #D9D9D6;
+    border-bottom: 0.5pt solid #D9D9D6;
+    padding: 12pt 0 4pt 0;
+    margin: 22pt 0;
+}
+
+/* Code (rare in briefs but supported) */
+
+code {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9.5pt;
+    background: #f3f3f0;
+    padding: 1pt 4pt;
+    border-radius: 2pt;
+}
+pre {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9pt;
+    background: #f7f5f2;
+    padding: 10pt 12pt;
+    border-radius: 3pt;
+    line-height: 1.4;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code { background: transparent; padding: 0; }
+
+/* Tables — minimal lines, no fills (editorial restraint) */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 14pt 0;
+    font-size: 10pt;
+    page-break-inside: auto;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+th, td {
+    border-bottom: 0.5pt solid #D9D9D6;
+    padding: 6pt 8pt 6pt 0;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    font-weight: 700;
+    color: #1A1A1A;
+    border-bottom: 1pt solid #1A1A1A;
+    letter-spacing: 0.02em;
+    font-size: 9.5pt;
+}
+
+/* Horizontal rule — visible separator inside a section (NOT a page break) */
+
+hr {
+    border: 0;
+    border-top: 0.5pt solid #D9D9D6;
+    margin: 18pt 0;
+}
+
+/* Images */
+
+img { max-width: 100%; height: auto; }
+
+/* Emphasis */
+
+strong { font-weight: 700; color: #1A1A1A; }
+em { font-style: italic; }
+
+/* Topic tag / meta line at top of each brief */
+
+.brief-meta-line {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    letter-spacing: 0.04em;
+    margin: 0 0 22pt 0;
+    padding-bottom: 12pt;
+    border-bottom: 0.5pt solid #D9D9D6;
+}
+.brief-meta-line .tag {
+    color: #8B2332;
+    font-style: italic;
+}
+
+/* Source list at the bottom of each brief */
+
+.sources-block {
+    margin-top: 28pt;
+    padding-top: 14pt;
+    border-top: 0.5pt solid #D9D9D6;
+    font-size: 9.5pt;
+    color: #3D3D3D;
+}
+.sources-block h2,
+.sources-block h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #1A1A1A;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 8pt 0;
+    font-weight: 700;
+}
+.sources-block ul { padding-left: 18pt; margin: 0; }
+.sources-block li { margin: 3pt 0; }
+</style>
+</head>
+<body>
+<header class="masthead">
+<div class="masthead-top"><span class="doctype">Brief</span><span class="date">Drafted 2026-07-07</span></div>
+<h1 class="title">SK Hynix (KRX 000660): priced for permanent peak</h1>
+</header>
+<p>Deeper-report / IC-memo. Subject: SK Hynix Inc., the Korean memory maker and largest supplier of high-bandwidth memory (HBM), the stacked DRAM that sits beside every AI accelerator. Lens: buy-side, AI-infrastructure. Model of record: <code>sk-hynix-comps-dcf_v1_2026-07-06.xlsx</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Reading</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Price (2026-07-06)</td>
+<td>2,343,000 won <sup id="fnref6:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup></td>
+</tr>
+<tr>
+<td>Indicative DCF fair value, bear / base / bull</td>
+<td>511,060 / 1,063,754 / 2,045,221 won [Outputs!B7-B9]</td>
+</tr>
+<tr>
+<td>Forward P/E · P/B · EV/EBITDA</td>
+<td>6.6x <sup id="fnref10:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> · 11.03x <sup id="fnref9:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> · 19.54x <sup id="fnref10:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup></td>
+</tr>
+<tr>
+<td>Through-cycle P/B median</td>
+<td>1.8x <sup id="fnref5:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup></td>
+</tr>
+<tr>
+<td>Net cash, Q1-end</td>
+<td>35T won <sup id="fnref18:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup></td>
+</tr>
+<tr>
+<td>Stance</td>
+<td>Underweight on valuation; not a short</td>
+</tr>
+</tbody>
+</table>
+<h2 id="investment-summary">Investment summary</h2>
+<p>SK Hynix is the cheapest and the most expensive large-cap in memory at the same time, and our model resolves the paradox against the stock. On forward earnings it trades at 6.6x <sup id="fnref:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, the low end of its peer group. On book value it trades at 11.03x <sup id="fnref:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, against a through-cycle median of 1.8x <sup id="fnref:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. Both readings are real; they cannot both be the right way to value the company. The forward multiple is low only because the earnings in its denominator are a cyclical peak, and the book multiple is high because the market is paying in advance for those peak earnings to become permanent. Our job is to say which lens governs, and the durable-earnings work says the book lens does.</p>
+<p>Three claims carry the view. First, the two lenses are the whole debate: a 6.6x forward P/E <sup id="fnref2:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> and an ~11x P/B <sup id="fnref2:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> describe a stock that is cheap if peak margins hold and expensive if they mean-revert, so the question is whether SK Hynix&rsquo;s win is already in the price. Second, every durable-earnings method we can build lands below the market price. The discounted-cash-flow (DCF) range runs 511,060 (bear) to 2,045,221 (bull), with a base of 1,063,754 [Outputs!B7-B9], all beneath the 2,343,000 won quote <sup id="fnref:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>; only a comps multiple applied to peak forward earnings clears the price, at a peer-median multiple of about 3,763,000 [Outputs!22-24]. Morgan Stanley&rsquo;s residual-income base of 1,700,000 <sup id="fnref:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup> — an Overweight target the stock has since run past — now sits below the quote. Third, the disagreement is concentrated in one input: the valuation&rsquo;s dominant sensitivity is the operating margin the company earns through the cycle, not rates or even next year&rsquo;s revenue [Sensitivity!27-33]. So the position is a valuation-discipline underweight. The near term is hugely cash-generative and largely locked, and the entire quarrel with the market is about the year after next.</p>
+<h2 id="variant-view">Variant view</h2>
+<p>The market is pricing SK Hynix for permanent peak-level memory margins, and that is where we differ. Consensus expresses its optimism through the forward-P/E lens: 6.6x <sup id="fnref3:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> looks like a value stock, and on FY2026 numbers that are three-to-four times last year&rsquo;s it arguably is. What that lens hides is the denominator. Full-year 2026 operating-profit consensus sits near 211T won <sup id="fnref:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> against 47.2T won actually earned in 2025 <sup id="fnref:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>, so the &ldquo;cheap&rdquo; multiple rests on earnings the company has never before produced and has printed for exactly one quarter. Price the same franchise on book value, which uses no earnings at all, and the read flips to 11.03x <sup id="fnref3:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, five-year-high territory and roughly six times the 1.8x the stock has averaged across prior cycles <sup id="fnref2:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>. The book lens is the one consensus cannot flatter with a single quarter, and on it SK Hynix has rarely been more expensive.</p>
+<p>Our variant number is the gap between those lenses expressed as fair value. Discount the cash flows of a business that normalizes toward a ~38% operating margin and the base case is 1,063,754 won [Outputs!B8], 55% below the market. Even the bull DCF, which assumes the upcycle extends into 2028 at a ~42% durable margin, reaches only 2,045,221 [Outputs!B9], still 13% under the quote. The honest way to state this is a range with a method behind each bound: durable-earnings methods cluster from 13% below at the bull to more than three-quarters below at the bear, and the only method that clears the price is a peer multiple applied to peak earnings per share (EPS). We are more aggressive than the sell-side. Morgan Stanley rates the stock Overweight and in April raised its residual-income base to 1,700,000 <sup id="fnref2:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>, a ~51% premium when the stock traded near 1,128,000 <sup id="fnref3:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>; the stock has since roughly doubled past that target, so it now sits about 27% below the 2,343,000 quote <sup id="fnref2:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> — roughly half the decline in our base case. The difference is almost entirely how hard each of us normalizes the margin.</p>
+<p>The mispricing is analytical, and it lives in valuation history rather than in any private fact. Everything here is public: the shares, the multiples, the sold-out order book. The edge, such as it is, comes from weighting the through-cycle book-value signal against the peak-earnings signal and being willing to normalize a 72% quarter <sup id="fnref:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> back toward a mid-cycle margin the industry has never sustained for long. That is a judgment about durability. It closes the way analytical gaps close, on the data printing: the 2027 contract-pricing cycle either rolls or it does not, and HBM margins either hold above the normalized assumption or compress toward it. We are wrong if they hold, and we say so plainly in the scenarios.</p>
+<h2 id="business-and-economics">Business and economics</h2>
+<p>SK Hynix earns its money from the price of memory, not the volume, and Q1 2026 made that unusually clear. Revenue was 52.6T won, up 198% year-on-year and the first quarter above 50T won in company history <sup id="fnref2:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. Operating profit was 37.6T won at a 72% margin <sup id="fnref3:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>; net profit was 40.3T won <sup id="fnref4:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, though roughly 11.5T of that — 9.9T of valuation gains on investments plus 1.6T of foreign-exchange gains <sup id="fnref:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup> — was non-operating, which is why we anchor to operating profit as the cleaner run-rate. DRAM, the working memory that holds data a processor is actively using, was about 78% of revenue, and its average selling price (ASP) rose ~65% quarter-on-quarter on flat bit shipments <sup id="fnref:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>. NAND, the slower flash memory used for storage, was the smaller balance. That 65% ASP move on flat volume <sup id="fnref2:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup> produced the record, which is the signature of a supply-driven cycle and the reason the earnings are cyclical by construction.</p>
+<p>The cycle behind that print is a genuine shortage, the most severe in DRAM in more than fifteen years. Goldman puts 2026 DRAM undersupply at ~4.9% <sup id="fnref:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup> and forecasts conventional DRAM contract ASPs up ~176% year-on-year for the year <sup id="fnref2:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>; TrendForce marked 1Q26 contract prices, the negotiated quarterly prices that set most of the industry&rsquo;s realized revenue as distinct from open-market spot, up 90-95% quarter-on-quarter, with NAND up 85-90% on the same basis <sup id="fnref:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>. Demand has shifted structurally toward AI servers, which Goldman expects to take more than half of all DRAM demand <sup id="fnref3:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>. On the supply side the constraint is physical: Micron guides industry DRAM bit growth, the volume of memory shipped measured in bits, to only the low-20s% for 2026, capped by cleanroom space and slowing node migration <sup id="fnref:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>, and SemiAnalysis estimates leading-edge capacity rising by roughly four-fifths across 2025-2027 through migration to finer process nodes rather than new fabs <sup id="fnref:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>. Even Micron&rsquo;s above-$25B FY26 capex is construction-led and framed as disciplined <sup id="fnref2:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>. Supply discipline is the structural argument the bull case rests on, and it is a real one.</p>
+<p><img alt="Consensus bakes in a roughly 4.5x jump in FY2026 operating profit, a bet on H2 acceleration" src="sk-hynix-ex4-op-acceleration.png"></p>
+<p>What consensus has done with those drivers is extrapolate them into an extraordinary full-year number. FnGuide&rsquo;s April compilation put FY2026 revenue at 287.77T won <sup id="fnref2:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> and operating profit at 210.72T won <sup id="fnref3:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>, the latter marked up to about 269T won by June <sup id="fnref:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup> after Daishin had already lifted its own estimate above 204T won in March <sup id="fnref:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>; Daol&rsquo;s single-broker estimate reaches 375.87T won of revenue <sup id="fnref:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup> and 294.24T won of operating profit <sup id="fnref2:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup>. Set the ~211T operating-profit consensus <sup id="fnref4:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> against 47.2063T won actually earned in 2025 <sup id="fnref2:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup> and the Street is baking in roughly a 4.5x jump in a single year. The proportions are easier to feel than the totals: Q1 2026 alone, at 37.6T won of operating profit <sup id="fnref5:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, was about 80% of the entire FY2025 result <sup id="fnref3:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup>. A full-year figure near 211T <sup id="fnref5:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> therefore requires prices to keep climbing through the second half, which is why we read this as a bet that the upcycle accelerates.</p>
+<p>That the estimates are diverging rather than converging is itself the tell. FnGuide&rsquo;s ~288T won revenue consensus <sup id="fnref6:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> and Daol&rsquo;s 375.87T won <sup id="fnref3:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup> sit about 90T won apart on a single year that is already more than half over, and the gap has widened as the cycle intensified. We take FnGuide as the base and Daol as the bull. Widening dispersion at a suspected peak is not noise to be averaged away. It is the market telling you the hardest thing to forecast right now is exactly the variable the valuation turns on.</p>
+<h2 id="competitive-position-and-moat">Competitive position and moat</h2>
+<p>SK Hynix sells more HBM than anyone else, and the franchise is the reason a memory maker carries an 11x book multiple. It held a 57% revenue share of the HBM market in Q3 2025 <sup id="fnref:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup> and a 62% shipment share in Q2 2025 <sup id="fnref2:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>, distinct bases that should not be conflated, and it supplies more than 70% of the HBM3E for NVIDIA&rsquo;s current Blackwell accelerators <sup id="fnref:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup>. The HBM4 lead depends on the denominator: UBS models about 70% of NVIDIA&rsquo;s Rubin allocation <sup id="fnref3:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>, while Counterpoint puts SK Hynix at 54% of the total 2026 HBM4 market once AMD and hyperscaler ASICs are counted <sup id="fnref:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>, a distinct and narrower scope we keep separate from the NVIDIA figure. On the Q1 call its HBM sales head said client requests over the next three years already exceed capacity, which is to say the HBM book is effectively sold out for about three years <sup id="fnref:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>. That order book is what the market capitalizes when it pays a through-cycle premium, and the premium is a bet the share and the margins behind it survive the next cycle.</p>
+<p>The moat under the share is process and packaging, and it is genuine today. SK Hynix&rsquo;s MR-MUF (mass-reflow molded underfill, the step that encapsulates a stack of memory dies) dissipates heat better than the non-conductive film Micron and Samsung use <sup id="fnref:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>, and a redesigned through-silicon-via network (TSV, the vertical copper columns that carry signal and power up through a stacked die) added roughly six times more power vias and cut voltage droop up to 75% <sup id="fnref2:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>. The payoff showed up where it counts: SK Hynix&rsquo;s HBM4 reached 11.7 Gbps on the older 1b DRAM node, a generation behind rivals&rsquo; 1c, yet still beat NVIDIA&rsquo;s 11 Gbps requirement <sup id="fnref2:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup>, after development completed in September 2025 above 10 Gbps per pin <sup id="fnref:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup>. Packaging maturity has been standing in for a node the competition has already passed, which is a durable-looking advantage of exactly the kind the bull needs.</p>
+<p>The advantage is also narrowing, and in our view the solo-lead era is ending even as SK Hynix keeps the allocation lead. Samsung shipped 11.7 Gbps HBM4 built on the more advanced 1c-plus-SF4 process <sup id="fnref:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup>, and SemiAnalysis judges Samsung to be closing the technology gap while still trailing on reliability <sup id="fnref:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup>. That erosion is already visible in the customer books: Samsung supplies more than 60% of Google&rsquo;s HBM3E through Broadcom-designed TPUs <sup id="fnref:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup>, winning a major AI-accelerator socket outright even as SK Hynix holds the NVIDIA book. NVIDIA&rsquo;s Jensen Huang confirmed in June that all three suppliers are qualified and in production of HBM4 for the Vera Rubin platform, with first systems shipping in Q3 2026 <sup id="fnref:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup>. The three-way &ldquo;world&rsquo;s first HBM4&rdquo; claim that broke out in early 2026 is a definitional dispute, development versus commercial versus volume shipment <sup id="fnref:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup>, and we do not adjudicate a winner; the point that matters is quantitative, and it is that two rivals are now qualified on the same socket. The judgment that the lead has narrowed is ours, drawn from those numbers, and it is the single most important threat to the durable-margin assumption the price depends on.</p>
+<p>NAND is the weaker leg, and it will not carry the thesis. Storage demand is real, with the top five NAND suppliers&rsquo; revenue up 23.8% quarter-on-quarter in 4Q25 <sup id="fnref2:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>, but SK Hynix&rsquo;s edge there is thin. Its 321-layer V9 flash holds 44% more capacity per wafer than the prior generation <sup id="fnref:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>, a real manufacturing step. But its ~21 Gb/mm2 density only matches Micron&rsquo;s fewer-layer part, which Micron builds with two decks against SK Hynix&rsquo;s three for a cost advantage at similar density <sup id="fnref2:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>. Leading on layer count is not the same as leading on cost, and in NAND the cost leader wins. HBM and DRAM have to do the work.</p>
+<h2 id="financials-and-forecast">Financials and forecast</h2>
+<p>The forecast that matters is the margin that survives into the next cycle, since this year&rsquo;s is close to locked. Near-term, the momentum is intact and dated: Q2 2026 results land July 29 <sup id="fnref:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup>, with consensus around 81-82.89T won of revenue and 63.45-66.1T won of operating profit at a 76-77% margin <sup id="fnref2:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup>, and FnGuide via the Korea Times carrying a record 63.45T operating profit on 82.89T sales <sup id="fnref:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup>. Company guidance is for DRAM bit shipments up 7-9% and NAND up 16-17% quarter-on-quarter <sup id="fnref3:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>. A margin stepping up from 72% to 76-77% <sup id="fnref6:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref3:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup> would confirm that the second-half acceleration consensus needs is actually happening, so the print is the first hard test of the whole debate.</p>
+<p>Earnings quality carries one caveat worth holding. The 40.3T won Q1 net figure <sup id="fnref7:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> flattered the headline with roughly 11.5T won of non-operating and valuation gains (9.9T investment revaluation plus 1.6T FX) <sup id="fnref2:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>, so net income is not a clean modeling baseline and operating profit, 37.6T won at a 72% margin <sup id="fnref8:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, is the number to track. Two disclosure gaps also sit inside the forecast, and we flag them rather than fill them: SK Hynix does not disclose HBM as a share of DRAM revenue, and it does not disclose customer concentration, so the NVIDIA dependence has to be inferred from allocation proxies. The July 29 print may narrow the first; the second will likely stay qualitative.</p>
+<h2 id="valuation">Valuation</h2>
+<p>The football field is the argument in one picture: every durable-earnings method values SK Hynix below its market price, and only a peak-earnings multiple clears it. The DCF spans 511,060 (bear) to 2,045,221 (bull) with a 1,063,754 base [Outputs!B7-B9], all below the 2,343,000 quote <sup id="fnref3:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>. A comps cross-check on peak forward EPS of 355,000 won implies 2,130,000 to 3,976,000 (peer-median 3,763,000, about 61% above the quote) [Outputs!22-24], the one method above price. The same comps engine on normalized book value, book value per share (BVPS) of 234,061 <sup id="fnref:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup> times an 1.8-to-3.4x through-cycle multiple, implies 421,310 to 795,807 [Outputs!22-24], roughly 66% to 82% below the market. Morgan Stanley brackets the range with a 1,700,000 base and a 2,580,000 bull against a 400,000 bear <sup id="fnref4:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref5:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>. Which lens you choose is which answer you get: every durable-earnings method — the DCF cases and the normalized-book lens — sits below today&rsquo;s price, and only a peak-earnings multiple and the top of Morgan Stanley&rsquo;s bull case clear it.</p>
+<p><img alt="Every durable-earnings method values SK Hynix below its market price" src="sk-hynix-ex1-football-field.png"></p>
+<p>The peer screen shows why &ldquo;cheap&rdquo; is a denominator illusion on two of the three lenses. On forward earnings SK Hynix screens among the cheapest in memory at 6.6x <sup id="fnref4:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, just above Samsung&rsquo;s 6.0x <sup id="fnref5:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> and well below Kioxia&rsquo;s 10.6x <sup id="fnref6:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> and Micron&rsquo;s 11.2x <sup id="fnref:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup>. On EV/EBITDA it is 19.54x <sup id="fnref4:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, below Micron&rsquo;s 24.32x <sup id="fnref:fn-35"><a class="footnote-ref" href="#fn:fn-35">35</a></sup> and Kioxia&rsquo;s 35.45x <sup id="fnref:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup> though above Samsung&rsquo;s 13.29x <sup id="fnref:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup>. Both of those flattering reads use a peak-cycle denominator. The book-value lens uses none, and it inverts the picture: 11.03x price-to-book <sup id="fnref5:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> against Samsung&rsquo;s 4.12x <sup id="fnref2:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup>, with Micron level at 11.03x <sup id="fnref2:fn-35"><a class="footnote-ref" href="#fn:fn-35">35</a></sup> and only post-loss Kioxia at 29.45x <sup id="fnref2:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup> screening richer. The forward-P/E discount and the EV/EBITDA discount are the same trap wearing two hats. The book premium is the one number that does not depend on the earnings being permanent.</p>
+<p><img alt="On forward earnings, SK Hynix screens among the cheapest in memory" src="sk-hynix-ex2a-forward-pe.png"></p>
+<p><img alt="On book value the read flips: SK Hynix screens rich, not cheap" src="sk-hynix-ex2b-price-to-book.png"></p>
+<p>Under the DCF sit a base weighted-average cost of capital (WACC) of 10.5% and terminal growth of 3.0% [Inputs!B65]; the bear uses 12% and 2%, the bull 10% and 3.5%. But rates are second-order here, and the sensitivity says so. The valuation is a bet on durable margins: an all-year operating-margin move of five points swings fair value by 386,650 won, the largest input in the tornado, ahead of capex intensity at 305,250 and the normalized through-cycle margin at 286,529, with WACC at 231,124 and even a 10% move in 2026 revenue at only 201,627 [Sensitivity!27-33]. The through-cycle margin is the low-confidence knob, and it carries most of the base-case magnitude. The company earns a 72% margin today <sup id="fnref9:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. The base normalizes that toward a roughly 38% mid-cycle assumption, and the whole valuation reduces to where that number settles.</p>
+<p><img alt="The valuation is a bet on durable margins" src="sk-hynix-ex3-tornado.png"></p>
+<h2 id="scenarios">Scenarios</h2>
+<p>The asymmetry from here is skewed down even though the near term is strong, because the market has already priced past the bull. The three cases diverge from 2027, since the near term is locked either way <sup id="fnref2:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>. In the bear, the cycle rolls in 2027, Samsung erodes share, the mid-cycle margin falls toward ~20%, and the DCF is 511,060, more than three-quarters below price [Outputs!B7]. In the base, the margin normalizes to ~38% and the DCF is 1,063,754, about 55% below [Outputs!B8]. In the bull, the upcycle extends into 2028 at a ~42% durable margin and the DCF reaches 2,045,221, still 13% below the quote [Outputs!B9]. The reason the stock can be a good business and a poor holding at once is that even the optimistic mid-cycle case does not reach today&rsquo;s price.</p>
+<p>The bull deserves real air time, because it owns the near term and might own the horizon. HBM is sold out about three years <sup id="fnref3:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>, the balance sheet holds 35T won of net cash <sup id="fnref10:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> heading toward a stated 100T-plus target <sup id="fnref:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup>, and SemiAnalysis argues this supercycle is structurally longer-lived than past ones, plausibly running through 2027 and into 2028 <sup id="fnref2:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup><sup id="fnref3:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>. If HBM margins simply hold above the 38% the base assumes, the base moves up materially: a 48% terminal margin lifts base fair value to roughly 1,350,000, and the bull DCF at 2,045,221 [Outputs!B9] closes most of the gap to the price. The pivot is entirely the durable margin, which is why the counter-thesis is not a different story about the company but the same story with one assumption dialed higher. The next 6-18 months of contract-pricing and HBM-margin disclosure will adjudicate it, and we would rather be underweight and wrong on magnitude than short and wrong on timing.</p>
+<h2 id="catalysts">Catalysts</h2>
+<p>The near-term catalysts cluster in a single month, which makes July the referendum on the thesis. Two are hard. SK Hynix&rsquo;s Nasdaq ADR listing is a $28.07B share sale <sup id="fnref:fn-39"><a class="footnote-ref" href="#fn:fn-39">39</a></sup> with first trade expected July 10, 2026 <sup id="fnref:fn-40"><a class="footnote-ref" href="#fn:fn-40">40</a></sup>, a liquidity and visibility event that widens the shareholder base without changing the fundamentals. Q2 2026 earnings on July 29 <sup id="fnref4:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup> are the fundamental test described above. The softer catalysts are capacity commitments: the 1,100T won medium-to-long-term investment plan disclosed June 29 <sup id="fnref:fn-41"><a class="footnote-ref" href="#fn:fn-41">41</a></sup>, the M15X fab&rsquo;s up-to-90,000-wafer-per-month DRAM addition earmarked largely for HBM <sup id="fnref:fn-42"><a class="footnote-ref" href="#fn:fn-42">42</a></sup>, the Yongin first-fab cleanroom pulled forward to February 2027 <sup id="fnref:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup>, and 12-layer HBM4E samples shipped June 18 <sup id="fnref:fn-44"><a class="footnote-ref" href="#fn:fn-44">44</a></sup>, ahead of a planned ramp. Together these commitments are the bull case rendered in capital: capacity that validates the shortage if demand holds and becomes fixed cost if it rolls. Management has guided 2026 capex up without disclosing a total <sup id="fnref11:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>. The ADR sets the visibility; the print sets the direction.</p>
+<h2 id="risks-and-what-would-change-my-mind">Risks and what would change my mind</h2>
+<p>The risk that matters is the one the valuation is built on, so the kill criteria attach to the margin. Each risk below pairs with a state and a date that would flip the base case.</p>
+<p>Cycle-peak timing is the dominant risk. The base case assumes the ~38% normalized margin the tornado shows is decisive [Sensitivity!27-33]. Kill criterion: if 2027 DRAM and HBM contract ASPs roll rather than hold, and HBM operating margin compresses toward the 20% bear assumption, observable through the 2027 guidance cycle beginning with Q4 2026 commentary, the base is too high and the bear governs. Conversely, and this is the change-my-mind case, if the July 29 print and subsequent quarters show HBM margins durably above 38%, the base rises toward the bull and the book premium starts to look earned rather than borrowed.</p>
+<p>Competitive erosion is the second. All three suppliers are now qualified on NVIDIA&rsquo;s Vera Rubin socket <sup id="fnref2:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup>, and Samsung is closing the technology gap <sup id="fnref2:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup><sup id="fnref2:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup>. Kill criterion: if SK Hynix&rsquo;s NVIDIA HBM4 allocation falls below roughly 50%, from the 60-70% industry estimate today <sup id="fnref3:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup>, at the next allocation disclosure, the share-durability leg of the bull case is broken. China is a bounded third: about 30-35% of DRAM output sits at the Wuxi fab <sup id="fnref:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup>, which lost Validated End-User export-control status at end-2025 <sup id="fnref:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup> but received an annual-license reprieve for 2026 <sup id="fnref:fn-47"><a class="footnote-ref" href="#fn:fn-47">47</a></sup>; Wuxi runs legacy 1z/1a nodes with the advanced HBM-feeding nodes reserved for Korea <sup id="fnref2:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup>, so a further clampdown would hit commodity memory more than HBM, and the exposure recurs at each annual renewal rather than resolving. The pre-mortem, if the thesis fails, is not that we were wrong about the peak but that HBM proves to be a structurally higher-margin product than commodity DRAM ever was, and 38% was simply the wrong normal.</p>
+<h2 id="single-name-specifics">Single-name specifics</h2>
+<p>The balance sheet keeps this a valuation underweight, and the coming float change is worth sizing around. SK Hynix held 35T won of net cash at Q1-end <sup id="fnref12:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup> with management targeting more than 100T won <sup id="fnref2:fn-38"><a class="footnote-ref" href="#fn:fn-38">38</a></sup> while still expanding returns; FY2025 paid 3,000 won per share, 2.1T won in aggregate, and cancelled 15.3M treasury shares, about 12.2T won <sup id="fnref:fn-48"><a class="footnote-ref" href="#fn:fn-48">48</a></sup>. A company generating this much cash does not face a solvency or liquidity problem, so the downside we describe is a valuation de-rating on a sound balance sheet, and it argues for disciplined underweighting into a locked-up near term. On implementation, the Nasdaq ADR at $28.07B <sup id="fnref2:fn-39"><a class="footnote-ref" href="#fn:fn-39">39</a></sup> listing around July 10 <sup id="fnref2:fn-40"><a class="footnote-ref" href="#fn:fn-40">40</a></sup> adds US float and index visibility, which can support the price independently of fundamentals through the listing window, so a valuation-discipline underweight is better expressed after that technical event clears than into it. Two notes for anyone sizing the position: the 52-week range for 000660 spans 245,000 to 2,987,000 won <sup id="fnref4:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> — not a data artifact but a genuine low-to-high move of more than ten times over the past year, which underscores how much peak-cycle optimism the market has already priced; and the current book multiple carries wide cross-provider dispersion around the 11.03x used here <sup id="fnref6:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, which is why the argument rests on the premium to the 1.8x through-cycle median <sup id="fnref3:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup> rather than on the exact multiple.</p>
+<h2 id="sources">Sources</h2>
+<p>Compact reference; the markers below index the findings sidecar <code>sk-hynix.md.findings.jsonl</code>, which carries full three-component provenance (URL, local snapshot, page) and is emitted by the renderer.<br>
+Company results and disclosure draw on the SK Hynix Q1 2026 release <sup id="fnref13:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref14:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref15:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref16:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup><sup id="fnref17:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, FY2025 results <sup id="fnref4:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref2:fn-48"><a class="footnote-ref" href="#fn:fn-48">48</a></sup>, the Q1 segment summary <sup id="fnref4:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup><sup id="fnref5:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>, the HBM4 and HBM4E product releases <sup id="fnref2:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup><sup id="fnref2:fn-44"><a class="footnote-ref" href="#fn:fn-44">44</a></sup>, and the Yongin and long-term investment disclosures <sup id="fnref2:fn-43"><a class="footnote-ref" href="#fn:fn-43">43</a></sup><sup id="fnref2:fn-41"><a class="footnote-ref" href="#fn:fn-41">41</a></sup>.<br>
+HBM position and technology draw on the 2026 market outlook and Counterpoint share data <sup id="fnref4:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup><sup id="fnref5:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>, UBS and Counterpoint HBM4 shares <sup id="fnref6:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup><sup id="fnref2:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>, NVIDIA Vera Rubin qualification <sup id="fnref4:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup><sup id="fnref5:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup>, SemiAnalysis on packaging and ISSCC <sup id="fnref3:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup><sup id="fnref4:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup><sup id="fnref3:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup>, Samsung&rsquo;s HBM4 release <sup id="fnref3:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup>, the sold-out quote <sup id="fnref4:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>, NVIDIA HBM3E share <sup id="fnref3:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup>, the HBM4-first dispute <sup id="fnref2:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup>, and NAND V9 <sup id="fnref3:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup><sup id="fnref4:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup>.<br>
+The cycle and supply rest on Goldman <sup id="fnref4:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref5:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup><sup id="fnref6:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>, TrendForce DRAM and NAND contract prices and supplier revenue <sup id="fnref2:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup><sup id="fnref3:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup><sup id="fnref4:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup>, the Micron call <sup id="fnref3:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup><sup id="fnref4:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>, and SemiAnalysis memory-mania <sup id="fnref4:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup><sup id="fnref5:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup><sup id="fnref6:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>.<br>
+Estimates, valuation and peers rest on FnGuide <sup id="fnref7:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup><sup id="fnref8:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup><sup id="fnref2:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup>, Daishin <sup id="fnref2:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>, Daol <sup id="fnref4:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup><sup id="fnref5:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup>, the Q2 preview <sup id="fnref5:fn-31"><a class="footnote-ref" href="#fn:fn-31">31</a></sup><sup id="fnref2:fn-32"><a class="footnote-ref" href="#fn:fn-32">32</a></sup>, Hanwha/Bloomberg forward P/E <sup id="fnref7:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref8:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup><sup id="fnref9:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup>, stockanalysis.com ratios <sup id="fnref7:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref8:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup><sup id="fnref3:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup><sup id="fnref4:fn-37"><a class="footnote-ref" href="#fn:fn-37">37</a></sup><sup id="fnref3:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup><sup id="fnref4:fn-36"><a class="footnote-ref" href="#fn:fn-36">36</a></sup>, Micron ratios and forward P/E <sup id="fnref3:fn-35"><a class="footnote-ref" href="#fn:fn-35">35</a></sup><sup id="fnref2:fn-34"><a class="footnote-ref" href="#fn:fn-34">34</a></sup>, Tiger Brokers P/B history <sup id="fnref4:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>, Mirae BVPS <sup id="fnref2:fn-33"><a class="footnote-ref" href="#fn:fn-33">33</a></sup>, Morgan Stanley targets <sup id="fnref6:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup><sup id="fnref7:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>, and the current price <sup id="fnref5:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>.<br>
+Risk and catalysts rest on the BIS VEU rule <sup id="fnref2:fn-46"><a class="footnote-ref" href="#fn:fn-46">46</a></sup>, the annual-license reprieve <sup id="fnref2:fn-47"><a class="footnote-ref" href="#fn:fn-47">47</a></sup>, the Wuxi footprint and node mix <sup id="fnref3:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup><sup id="fnref4:fn-45"><a class="footnote-ref" href="#fn:fn-45">45</a></sup>, M15X <sup id="fnref2:fn-42"><a class="footnote-ref" href="#fn:fn-42">42</a></sup>, and the Nasdaq ADR <sup id="fnref3:fn-39"><a class="footnote-ref" href="#fn:fn-39">39</a></sup><sup id="fnref3:fn-40"><a class="footnote-ref" href="#fn:fn-40">40</a></sup>.<br>
+All valuation, scenario, comps-implied and sensitivity figures trace to the model of record, <code>/Users/johnhendren/Desktop/Projects/vault/kb/outputs/models/sk-hynix-comps-dcf_v1_2026-07-06.xlsx</code>, via its named ranges (Outputs, Calc, Inputs, Sensitivity).</p>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:fn-1">
+<p>FMP company &ldquo;SK Hynix (000660.KS) traded at 2,343,000 KRW per share with a market capitalization of approximately 1,659.5 trillion KRW as of 2026-07-06.&rdquo;, 2026-07-06 · FMP company/profile-symbol 000660.KS (2026-07-06) · local: 2026-07-06-fmp-profile-symbol-000660.KS.json · other&#160;<a class="footnote-backref" href="#fnref:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-2">
+<p>finance.biggo.com &ldquo;Hanwha Investment &amp; Securities&#x27; compilation of Bloomberg forecasts, reported by BigGo Finance on June 27, 2026, put SK Hynix&#x27;s 12-month forward P/E at 6.6x &ndash; a 56-60% discount to the average of TSMC (23.1x), Micron (11.2x), and Kioxia (10.6x).&rdquo;, 2026-06-27 · https://finance.biggo.com/news/72722ac7-ead5-4ded-b516-a895882dd3d7 · local: 2026-06-27-finance.biggo.com-pe-6x-dream-100-trillion.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-3">
+<p>stockanalysis.com &ldquo;stockanalysis.com&#x27;s ratios page (data as of the Jul 1, 2026 close, price 2,560,000 won) put SK Hynix&#x27;s trailing price-to-book (P/B) ratio at 11.03x.&rdquo;, 2026-07-01 · https://stockanalysis.com/quote/krx/000660/financials/ratios/ · local: 2026-07-01-stockanalysis.com-000660-ratios.md · other&#160;<a class="footnote-backref" href="#fnref:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-4">
+<p>www.itiger.com &ldquo;A Tiger Brokers &#x27;Deep News&#x27; analysis published May 11, 2026 states SK Hynix&#x27;s price-to-book ratio was 9.6x &ndash; the highest point in five years &ndash; versus just 0.8x four years earlier and a historical median of 1.8x, reflecting the market&#x27;s substantial AI-driven premium on the stock.&rdquo;, 2026-05-11 · https://www.itiger.com/hans/news/1141582885 · local: 2026-05-11-itiger.com-sk-hynix-pb-historical-range.md · other&#160;<a class="footnote-backref" href="#fnref:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-5">
+<p>news.skhynix.com &ldquo;At the end of Q1 2026, SK Hynix held 54.3 trillion KRW in cash and cash equivalents (up 19.4 trillion KRW quarter-on-quarter) against 19.3 trillion KRW in interest-bearing debt (down 2.9 trillion KRW quarter-on-quarter), giving a net cash position of 35 trillion KRW; management has set a financial goal of exceeding 100 trillion KRW in net cash while simultaneously expanding shareholder returns.&rdquo;, 2026-04-22 · https://news.skhynix.com/q1-2026-business-results/ · local: 2026-04-22-news-skhynix-com-q1-2026-business-results.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref9:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref10:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref11:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref12:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref13:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref14:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref15:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref16:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref17:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a><a class="footnote-backref" href="#fnref18:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-6">
+<p>Noldor: Morgan Stanley - Rise of the AI Agent (Global Insight) &ldquo;Morgan Stanley rates SK Hynix Overweight with a residual-income-based base-case price target of 1,700,000 KRW (raised 31% from prior), implying roughly 3.8x 2027E P/E on the back of 2026-28 EPS estimates raised 24%, 37%, and 78% respectively.&rdquo;, 2026-04-19 · Noldor: Morgan Stanley - Rise of the AI Agent (Global Insight) · local: 2026-04-19-morgan-stanley-rise-of-the-ai-agent-global.pdf · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-7">
+<p>en.sedaily.com &ldquo;FnGuide&#x27;s compilation of securities-firm estimates, as reported by Seoul Economic Daily on April 22, 2026, put SK Hynix&#x27;s full-year 2026 operating profit consensus at 210.72 trillion won &ndash; three to four times higher than 2025&#x27;s actual 97.15 trillion won revenue and 47.21 trillion won operating profit.&rdquo;, 2026-04-22 · https://en.sedaily.com/finance/2026/04/23/sk-hynix-annual-operating-profit-projected-at-200-trillion · local: 2026-04-22-en.sedaily.com-annual-op-210t-revenue-288t-consensus.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref7:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref8:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-8">
+<p>Noldor: SK Hynix FY2025 results &ldquo;SK Hynix reported FY2025 (year ended December 2025) revenue of 97.1467 trillion KRW, operating profit of 47.2063 trillion KRW, and net profit of 42.9479 trillion KRW, all-time highs, driven by AI memory competitiveness including HBM; 4Q25 alone contributed 32.8267 trillion KRW revenue, 19.1696 trillion KRW operating profit, and 15.2460 trillion KRW net profit.&rdquo;, 2026-01-01 · Noldor: SK Hynix FY2025 results · local: 2026-01-skhynix-fy25-results.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-9">
+<p>finance.biggo.com &ldquo;SK Hynix&#x27;s Q1 2026 non-operating profit of 14.1 trillion won included 9.9 trillion won of valuation gains on investment assets and 1.6 trillion won of FX gains, per its Q1 2026 earnings call.&rdquo;, 2026-04-24 · https://finance.biggo.com/news/KR_000660.KS_2026-04-24 (SK Hynix Q1 2026 earnings call notes) · local: 2026-04-24-finance-biggo-com-q1-2026-earnings-call.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-10">
+<p>www.memorymarket.com &ldquo;DRAM accounted for approximately 78% of SK Hynix&#x27;s Q1 2026 revenue (about 41 trillion KRW), with DRAM bit shipments flat quarter-on-quarter and DRAM ASP up approximately 65% quarter-on-quarter; NAND accounted for approximately 21% of revenue (about 11 trillion KRW), with NAND bit shipments down about 10% quarter-on-quarter and NAND ASP up approximately 75% quarter-on-quarter.&rdquo;, 2026-04-24 · https://www.memorymarket.com/a/14742 · local: 2026-04-24-memorymarket-com-sk-hynix-q1-2026-segment.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-11">
+<p>www.sahmcapital.com &ldquo;Goldman Sachs raised its DRAM undersupply forecast to about 4.9 percent in 2026 and 2.5 percent in 2027, above prior forecasts, describing it as the most severe DRAM shortage in more than 15 years, alongside a NAND undersupply of about 4.2 percent in 2026 and 2.1 percent in 2027.&rdquo;, 2026-02-09 · https://www.sahmcapital.com/news/content/the-memory-shortage-trade-7-stocks-goldman-says-can-keep-running-2026-02-09?lang=en_US&amp;ref=share · local: 2026-02-09-sahmcapital.com-goldman-memory-shortage-trade.html · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-12">
+<p>www.trendforce.com &ldquo;TrendForce sharply raised its 1Q26 conventional DRAM contract price forecast to a 90 to 95 percent quarter over quarter increase, up from a prior estimate of 55 to 60 percent, with server DRAM prices projected to rise around 90 percent quarter over quarter and PC DRAM prices to more than double quarter over quarter, both record quarterly increases.&rdquo;, 2026-02-02 · https://www.trendforce.com/presscenter/news/20260202-12911.html · local: 2026-02-02-trendforce.com-memory-price-outlook-1q26-sharply-upgraded.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-13">
+<p>www.trendforce.com &ldquo;TrendForce further raised its 1Q26 NAND Flash contract price forecast to 85 to 90 percent quarter over quarter growth, up from an already-upgraded 55 to 60 percent estimate a month earlier, citing persistent supply-demand imbalance and suppliers&#x27; resolve to keep raising prices.&rdquo;, 2026-03-03 · https://www.trendforce.com/presscenter/news/20260303-12943.html · local: 2026-03-03-trendforce.com-nand-storage-4q25-suppliers-revenue.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-14">
+<p>www.fool.com &ldquo;Micron management said it expects industry-wide DRAM bit shipments to grow in the low-twenties percent range in calendar 2026, slightly above its prior outlook, constrained by cleanroom limits, long construction lead times, a rising HBM trade ratio, and declining bits-per-wafer growth from node migration, with industry NAND bit shipments expected to grow about 20 percent.&rdquo;, 2026-03-18 · https://www.fool.com/earnings/call-transcripts/2026/03/18/micron-mu-q2-2026-earnings-call-transcript/ · local: 2026-03-18-fool.com-micron-mu-q2-2026-earnings-call-transcript.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-15">
+<p>newsletter.semianalysis.com &ldquo;SemiAnalysis estimates that combined leading-edge 1b and 1c node DRAM wafer capacity across the three major suppliers, Samsung, SK hynix, and Micron, will increase by roughly 80 percent from year-end 2025 through year-end 2027, since node migration &ndash; not greenfield wafer capacity additions &ndash; is the primary lever left for bit growth in a cleanroom-constrained industry.&rdquo;, 2026-02-06 · https://newsletter.semianalysis.com/p/memory-mania-how-a-once-in-four-decades · local: 2026-02-06-newsletter.semianalysis.com-memory-mania.html · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-16">
+<p>finance.biggo.com &ldquo;BigGo Finance reported on June 22, 2026 that FnGuide&#x27;s rolling one-month compilation of securities-firm estimates raised SK Hynix&#x27;s full-year 2026 operating profit consensus to approximately 269 trillion won, up from the ~210.72 trillion won April consensus (S075), tracking the accelerating memory supercycle.&rdquo;, 2026-06-22 · https://finance.biggo.com/news/a0fa6bfc-eb23-43a3-b7b3-b25c164e261d · local: 2026-06-22-finance.biggo.com-q2-op-forecasts-full-year-269t.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-17">
+<p>biggo.com &ldquo;On 2026-03-16, Daishin Securities raised its 2026 SK Hynix operating-profit forecast from 174 trillion KRW to over 204 trillion KRW (~$135.8 billion), while maintaining an aggressive Buy rating and a 1.45 million KRW price target, and forecast SK Hynix&#x27;s cash and cash-equivalent assets to surge from 125 trillion KRW at end-2025 to 229 trillion KRW by end-2026 and 297 trillion KRW by end-2027.&rdquo;, 2026-03-16 · https://biggo.com/news/ (Daishin via BigGo Finance, 2026-03-16) · local: 2026-03-16-biggo-daishin-skhynix-204t-2026-op.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-18">
+<p>www.asiae.co.kr &ldquo;Daol Investment &amp; Securities&#x27; June 23, 2026 report (via Asia Business Daily) projected SK Hynix&#x27;s full-year 2026 revenue at 375.8694 trillion won, up 287% year-on-year &ndash; a single-broker estimate above the FnGuide consensus, marking the bullish end of current analyst dispersion.&rdquo;, 2026-06-23 · https://www.asiae.co.kr/en/article/2026062314413522937 · local: 2026-06-23-asiae.co.kr-daol-target-price-annual-estimate.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-19">
+<p>news.skhynix.com &ldquo;SK Hynix held a 57 percent revenue share of the global HBM market in Q3 2025, per Counterpoint Research data cited in SK Hynix&#x27;s own 2026 market outlook.&rdquo;, 2026-01-05 · https://news.skhynix.com/2026-market-outlook-focus-on-the-hbm-led-memory-supercycle · local: 2026-01-05-news.skhynix.com-2026-market-outlook-hbm-supercycle.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-20">
+<p>en.sedaily.com &ldquo;SK Hynix currently controls more than 70 percent of HBM3E supply for NVIDIA&#x27;s current-generation Blackwell accelerators and is projected to capture at least 60 percent of the HBM4 market for NVIDIA&#x27;s Vera Rubin platform, per industry sources cited by Seoul Economic Daily as SK Hynix began mass-shipping 12-layer HBM4 in February 2026.&rdquo;, 2026-02-10 · https://en.sedaily.com/finance/2026/02/10/sk-hynix-to-ship-hbm4-this-month-set-to-remain-nvidias · local: 2026-02-10-en.sedaily.com-hbm4-ship-this-month-nvidia-priority.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-21">
+<p>en.yna.co.kr &ldquo;Industry tracker Counterpoint Research forecasts SK hynix will hold 54% of the global HBM4 market in calendar 2026, versus 28% for Samsung Electronics and 18% for Micron Technology &ndash; a lower share estimate than the ~65-70% Nvidia-specific allocation figures, reflecting SK hynix&#x27;s narrower lead once non-Nvidia HBM4 customers (AMD, hyperscaler ASICs) are included.&rdquo;, 2026-01-28 · https://en.yna.co.kr/view/AEN20260128002800320 · local: 2026-01-28-en.yna.co.kr-sk-hynix-70pct-nvidia-hbm4-allocation.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-22">
+<p>en.sedaily.com &ldquo;SK Hynix&#x27;s HBM sales head Kim Ki-tae said on the company&#x27;s Q1 2026 earnings call (April 23, 2026) that client requests for HBM chip supplies over the next three years already far exceed the company&#x27;s production capacity, i.e. roughly three years of HBM capacity is effectively sold out.&rdquo;, 2026-04-23 · https://en.sedaily.com/NewsView/ · local: 2026-04-23-en.sedaily.com-hbm-sells-out-three-years-dram-supply-short.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-23">
+<p>newsletter.semianalysis.com &ldquo;SK Hynix&#x27;s proprietary MR-MUF packaging process, co-developed with NAMICS, uses a molded underfill material offering better thermal dissipation than the Non-Conductive Film used by both Micron and Samsung, letting Hynix skip thermal compression bonding via a more productive batch mass-reflow and single overmold step.&rdquo;, 2025-08-12 · https://newsletter.semianalysis.com/p/scaling-the-memory-wall-the-rise-and-roadmap-of-hbm · local: 2025-08-12-newsletter.semianalysis.com-scaling-the-memory-wall-hbm.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-24">
+<p>news.skhynix.com &ldquo;SK Hynix&#x27;s HBM4, whose development it announced as complete on September 12 2025, uses the Advanced MR-MUF packaging process and the 1b nm (fifth-generation 10nm-class) DRAM process, exceeding 10 Gbps per-pin operating speed versus JEDEC&#x27;s 8 Gbps standard and improving power efficiency by more than 40% versus the prior generation.&rdquo;, 2025-09-12 · https://news.skhynix.com/sk-hynix-completes-worlds-first-hbm4-development-and-readies-mass-production/ · local: 2025-09-12-news.skhynix.com-hbm4-development-complete.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-25">
+<p>news.samsung.com &ldquo;Samsung announced on February 12 2026 that it had begun mass production and shipped commercial HBM4 to customers using the 1c DRAM and 4nm logic process, achieving 11.7 Gbps per pin (46% above the 8 Gbps industry standard), 3.3 TB/s bandwidth per stack, and a 40% power-efficiency improvement versus HBM3E, framing it as the industry&#x27;s first commercial HBM4.&rdquo;, 2026-02-12 · https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing · local: 2026-02-12-news.samsung.com-industry-first-commercial-hbm4.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-26">
+<p>newsletter.semianalysis.com &ldquo;At ISSCC 2026 the three HBM4 vendors showed diverging base-die sourcing strategies &ndash; SK Hynix uses TSMC&#x27;s N12 external logic process, Samsung uses its own near-leading-edge SF4 internal foundry node (higher cost, stronger pin-speed performance), and Micron uses its own internal CMOS base-die technology (lowest cost, lowest performance) &ndash; and SemiAnalysis assessed Samsung&#x27;s 1c-DRAM-plus-SF4 HBM4 as closing the technology gap on SK Hynix even though it still lags on reliability and stability.&rdquo;, 2026-04-15 · https://newsletter.semianalysis.com/p/isscc-2026-nvidia-and-broadcom-cpo · local: 2026-04-15-newsletter.semianalysis.com-isscc-2026-hbm4-lpddr6.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-27">
+<p>Noldor: trendforce samsung hbm3e google tpu &ldquo;Samsung reportedly supplies more than 60 percent of Google&#x27;s HBM3E shipments (via Broadcom-designed TPU chips) in 2025 and is expected to remain Google&#x27;s primary HBM supplier in 2026, while SK Hynix&#x27;s own core source of HBM4 demand in 2026 continues to be its main customer, with no anticipated major change in SK Hynix&#x27;s customer mix next year.&rdquo;, 2025-12-01 · Noldor: trendforce samsung hbm3e google tpu · local: 2025-12-01-noldor-trendforce-samsung-google-tpu-hbm3e-skhynix-customer-mix.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-28">
+<p>www.techtimes.com &ldquo;Nvidia CEO Jensen Huang confirmed in Seoul on June 5, 2026 that Samsung, SK hynix, and Micron are all qualified and in active production of HBM4 for the Vera Rubin AI platform, with the first Vera Rubin systems scheduled to ship in Q3 2026 &ndash; the first Nvidia GPU generation to enter volume production with all three HBM suppliers simultaneously.&rdquo;, 2026-06-05 · https://www.techtimes.com/articles/317855/20260605/nvidia-vera-rubin-hbm4-jensen-huang-confirms-all-three-suppliers-production-q3-ship.htm · local: 2026-06-05-techtimes.com-vera-rubin-hbm4-all-three-qualified.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-29">
+<p>www.koreaherald.com &ldquo;A three-way world&#x27;s first HBM4 dispute erupted in early 2026: SK Hynix disclosed at-scale HBM4 production during its January 2026 earnings briefing, Samsung shipped commercial HBM4 on February 12 after moving its schedule up about a week, and Micron announced volume production and shipments the same week with its full-year HBM4 allocation already sold out.&rdquo;, 2026-02-12 · https://www.koreaherald.com/article/10675738 · local: 2026-02-12-koreaherald.com-samsung-wins-worlds-first-hbm4-race.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-30">
+<p>newsletter.semianalysis.com &ldquo;SK Hynix&#x27;s 321-layer V9 3D NAND has 44% more memory capacity per wafer than its 238-layer V8 predecessor.&rdquo;, 2026-01-13 · https://newsletter.semianalysis.com/p/interconnects-beyond-copper-1000 · local: 2026-01-13-newsletter.semianalysis.com-v9-nand-44pct-21gbmm2-full.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-31">
+<p>www.weex.com &ldquo;SK Hynix&#x27;s Q2 2026 earnings release is scheduled for July 29, 2026; brokerage consensus cited ahead of the print points to record results of approximately 81.0-82.89 trillion KRW in revenue and approximately 63.45-66.1 trillion KRW in operating profit, with operating margin expected near 76%-77%, up from Q1 2026&#x27;s 72%.&rdquo;, 2026-07-06 · https://www.weex.com/wiki/article/sk-hynix-earnings-july-29-what-investors-should-watch-before-q2-results-zvs3uszzdvujmn611mg0mv4r (SK Hynix Q2 2026 earnings preview, 2026-06-29) · local: 2026-06-29-weex-com-q2-2026-earnings-preview.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-31" title="Jump back to footnote 31 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-32">
+<p>www.investing.com &ldquo;SK hynix is expected to release its Q2 2026 earnings in late July 2026 (Investing.com&#x27;s tracked date is July 29, 2026), with brokerage consensus (FnGuide, via The Korea Times) forecasting a record 63.45 trillion won operating profit and 82.89 trillion won in sales, up 589% and 273% year-on-year respectively, surpassing the Q1 2026 records set three months earlier.&rdquo;, 2026-06-28 · https://www.investing.com/equities/sk-hynix-inc-earnings · local: 2026-06-28-koreatimes.co.kr-q2-2026-earnings-preview.md · news-aggregator&#160;<a class="footnote-backref" href="#fnref:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-32" title="Jump back to footnote 32 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-33">
+<p>Noldor: Mirae Asset Securities - SK Hynix Capacity fully booked (Oct 29 2025) &ldquo;Mirae Asset Securities (Oct 29, 2025) valued SK Hynix at a 2025F P/E of 10.5x versus a KOSPI market P/E of 14.6x, and applied a target P/B of 2.9x (lifted 16% from prior) against a 2026F book value per share of 234,061 KRW.&rdquo;, 2025-10-29 · Noldor: Mirae Asset Securities - SK Hynix Capacity fully booked (Oct 29 2025) · local: 2025-10-29-mirae-skhynix-capacity-fully-booked.pdf · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-33" title="Jump back to footnote 33 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-34">
+<p>finance.biggo.com &ldquo;Micron&#x27;s 12-month forward price-to-earnings ratio was 11.2x per Hanwha Investment &amp; Securities&#x27; compilation of Bloomberg forecasts, the same June 27, 2026 peer table that put SK Hynix at 6.6x, Samsung at 6.0x and Kioxia at 10.6x.&rdquo;, 2026-06-27 · https://finance.biggo.com/news/72722ac7-ead5-4ded-b516-a895882dd3d7 (Hanwha/Bloomberg via BigGo, 2026-06-27) · local: 2026-06-27-finance.biggo.com-pe-6x-dream-100-trillion.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-34" title="Jump back to footnote 34 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-35">
+<p>FMP statements &ldquo;Micron trades at a trailing P/E of 21.98x, trailing price-to-book of 11.03x, and trailing EV/EBITDA of 24.32x on a TTM basis as of 2026-07-06.&rdquo;, 2026-07-06 · FMP statements/metrics-ratios-ttm MU (2026-07-06) · local: 2026-07-06-fmp-metrics-ratios-ttm-MU.json · other&#160;<a class="footnote-backref" href="#fnref:fn-35" title="Jump back to footnote 35 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-35" title="Jump back to footnote 35 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-35" title="Jump back to footnote 35 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-36">
+<p>stockanalysis.com &ldquo;stockanalysis.com&#x27;s ratios page (data as of the Jun 11, 2026 period, last trade Jun 12, 2026 at 81,200 yen) put Kioxia&#x27;s EV/EBITDA ratio at 35.45x.&rdquo;, 2026-06-11 · https://stockanalysis.com/quote/tyo/285A/financials/ratios/ · local: 2026-06-11-stockanalysis.com-285A-ratios.md · other&#160;<a class="footnote-backref" href="#fnref:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-36" title="Jump back to footnote 36 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-37">
+<p>stockanalysis.com &ldquo;stockanalysis.com&#x27;s ratios page (data as of the Jul 1, 2026 close, price 314,500 won) put Samsung Electronics&#x27; EV/EBITDA ratio at 13.29x.&rdquo;, 2026-07-01 · https://stockanalysis.com/quote/krx/005930/financials/ratios/ · local: 2026-07-01-stockanalysis.com-005930-ratios.md · other&#160;<a class="footnote-backref" href="#fnref:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-37" title="Jump back to footnote 37 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-38">
+<p>www.asiae.co.kr &ldquo;On its Q1 2026 conference call SK Hynix said it is targeting a net-cash position of over 100 trillion won while expanding shareholder returns.&rdquo;, 2026-04-23 · https://www.asiae.co.kr/en/article/2026042311080757777 (SK Hynix Q1 2026 conference call) · local: 2026-04-23-asiae-co-kr-q1-2026-conference-call.md · earnings-transcript&#160;<a class="footnote-backref" href="#fnref:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-38" title="Jump back to footnote 38 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-39">
+<p>www.aol.com &ldquo;Reuters reported on July 6, 2026 that SK Hynix launched its U.S. share sale (Nasdaq ADR listing, ticker SKHY) to raise 43 trillion won ($28.07 billion), trimmed from the ~$29-29.4 billion target announced June 24, with indications of interest for up to $7 billion already drawn from major investors including Baillie Gifford, Coatue Management, and Situational Awareness Partners.&rdquo;, 2026-07-06 · https://www.aol.com/articles/sk-hynix-launches-28-billion-104117000.html · local: 2026-07-06-aol.com-reuters-sk-hynix-28-billion-launch.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-39" title="Jump back to footnote 39 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-39" title="Jump back to footnote 39 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-39" title="Jump back to footnote 39 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-40">
+<p>www.cnbc.com &ldquo;SK Hynix said in its June 24, 2026 regulatory filing (per CNBC/Reuters) that it expects its Nasdaq ADR listing (ticker SKHY) to begin trading on July 10, 2026, though the company cautioned the date is tentative and subject to change; Reuters confirmed on July 6, 2026 that final pricing is due Thursday (July 9) ahead of trading starting Friday (July 10).&rdquo;, 2026-06-24 · https://www.cnbc.com/2026/06/24/sk-hynix-nasdaq-adr-listing-south-korea.html · local: 2026-06-24-cnbc.com-sk-hynix-29-billion-adr-july10.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-40" title="Jump back to footnote 40 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-40" title="Jump back to footnote 40 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-40" title="Jump back to footnote 40 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-41">
+<p>biz.heraldcorp.com &ldquo;On June 29, 2026, SK Hynix disclosed a medium-to-long-term investment plan totaling 1,100 trillion KRW (approximately 712 billion USD) via a regulatory filing with Korea&#x27;s Financial Supervisory Service, allocating 600 trillion won to the Yongin semiconductor cluster, 100 trillion won to Cheongju, and 400 trillion won to a newly announced cluster in South Korea&#x27;s southwest region; the company said its capex-discipline cap of 30% of sales (introduced end-2024) remains unchanged and that the plan will be executed in stages over a long period based on demand visibility, not all at once.&rdquo;, 2026-06-29 · https://biz.heraldcorp.com/article/10792010 · local: 2026-06-29-heraldcorp-com-1100t-investment-plan.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-41" title="Jump back to footnote 41 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-41" title="Jump back to footnote 41 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-42">
+<p>dbr.donga.com &ldquo;SK hynix moved up the equipment-installation start of the second cleanroom at its M15X fab in Cheongju by two months (to March 2026), and once M15X reaches full utilization the company expects to add up to 90,000 12-inch wafers per month of DRAM capacity, primarily earmarked for HBM production.&rdquo;, 2026-03-23 · https://dbr.donga.com/kfocus/view/en/article_no/2274 · local: 2026-03-23-dbr.donga.com-m15x-cleanroom-acceleration.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-42" title="Jump back to footnote 42 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-42" title="Jump back to footnote 42 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-43">
+<p>news.skhynix.com &ldquo;SK hynix accelerated the Yongin Semiconductor Cluster&#x27;s first-fab cleanroom opening from May 2027 to February 2027, alongside a new 21.6 trillion KRW (~$15.1B) facility investment that brings total committed spend on the first Yongin fab to approximately 31 trillion KRW (~$21.5B).&rdquo;, 2026-02-25 · https://news.skhynix.com/new-facility-investment-for-yongin-semiconductor-cluster/ · local: 2026-02-25-news.skhynix.com-yongin-new-facility-investment.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-43" title="Jump back to footnote 43 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-44">
+<p>news.skhynix.com &ldquo;SK Hynix shipped 12-layer HBM4E samples to major customers on June 18, 2026, reaching 16 gigabits-per-second per pin and a 48GB capacity in a 12-layer stack, the next roadmap step after HBM4.&rdquo;, 2026-06-18 · https://news.skhynix.com/12-layer-hbm4e-sample/ · local: 2026-06-18-news.skhynix.com-hbm4e-12-layer-samples.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-44" title="Jump back to footnote 44 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-44" title="Jump back to footnote 44 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-45">
+<p>www.trendforce.com &ldquo;TrendForce estimates roughly 30-35% of SK hynix&#x27;s total DRAM output is produced at its Wuxi, China fab, with China playing an even larger NAND role: SK hynix&#x27;s Dalian NAND fab is projected to supply 40-45% of the company&#x27;s total NAND output in 2025, producing about 100,000 wafers per month.&rdquo;, 2025-12-30 · https://www.trendforce.com/news/2025/12/30/news-samsung-sk-hynix-escape-worst-case-as-china-veu-ends-annual-review-risks-loom/ · local: 2025-12-30-trendforce.com-china-veu-footprint-share.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-45" title="Jump back to footnote 45 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-46">
+<p>www.govinfo.gov &ldquo;SK hynix&#x27;s China facilities &ndash; SK hynix Semiconductor (China) Ltd, covering the Wuxi DRAM fab and the (ex-Intel) Dalian NAND fab &ndash; lost Validated End-User (VEU) export-control status under a US Bureau of Industry and Security final rule effective December 31, 2025, requiring individual export licenses for US-origin fab equipment going forward.&rdquo;, 2025-09-02 · https://www.govinfo.gov/content/pkg/FR-2025-09-02/html/2025-16735.htm · local: 2025-09-02-govinfo.gov-veu-revocation-federal-register.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-46" title="Jump back to footnote 46 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-47">
+<p>en.sedaily.com &ldquo;One day before VEU revocation took effect, US BIS replaced full individual licensing with an annual-review equipment-import system for SK hynix&#x27;s (and Samsung&#x27;s) China fabs covering calendar 2026, easing but not eliminating the export-control compliance risk, which recurs at each annual renewal.&rdquo;, 2025-12-30 · https://en.sedaily.com/finance/2025/12/30/us-eases-equipment-export-rules-for-samsung-sk-hynix-china · local: 2025-12-30-en.sedaily.com-veu-annual-license-china.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-47" title="Jump back to footnote 47 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-47" title="Jump back to footnote 47 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-48">
+<p>news.skhynix.com &ldquo;SK Hynix&#x27;s FY2025 total shareholder dividend was 3,000 KRW per share (2.1 trillion KRW in aggregate), comprising a 375 KRW/share regular quarterly dividend plus a 1,875 KRW/share year-end dividend (which itself included a special additional dividend of 1,500 KRW/share); the company also announced cancellation of 15.3 million treasury shares (approximately 12.2 trillion KRW, 2.1% of shares outstanding).&rdquo;, 2026-01-28 · https://news.skhynix.com/sk-hynix-announces-fy25-financial-results/ · local: 2026-01-28-news-skhynix-com-fy25-financial-results.md · Primary&#160;<a class="footnote-backref" href="#fnref:fn-48" title="Jump back to footnote 48 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-48" title="Jump back to footnote 48 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<script src="../assets/vega-embed-bundle.js"></script>
+<script src="../assets/chart-embed.js"></script>
+</body>
+</html>
