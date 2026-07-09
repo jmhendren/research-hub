@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Is NVIDIA historically cheap on a relative basis? (as of 2026-07-08)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* ===== Page templates ===== */
+
+@page {
+    size: Letter;
+    margin: 0.7in 0.75in 0.8in 0.75in;
+    @top-left {
+        content: "Hendren HQ Research";
+        font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        font-weight: 600;
+        color: #1A1A1A;
+        letter-spacing: 0.04em;
+    }
+    @top-right {
+        content: string(running-title);
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6B6B6B;
+    }
+    @bottom-center {
+        content: "Hendren HQ Research  ·  Page " counter(page) " of " counter(pages);
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 9pt;
+        color: #6B6B6B;
+    }
+}
+
+@page cover {
+    margin: 0;
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-center { content: none; }
+}
+
+/* ===== Cover page ===== */
+
+.cover-page {
+    page: cover;
+    page-break-after: always;
+    width: 100%;
+    min-height: 9.5in;
+    padding: 1.8in 1in 0.9in 1in;
+    text-align: center;
+    box-sizing: border-box;
+}
+.cover-wordmark {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: #1A1A1A;
+    text-transform: uppercase;
+    margin-bottom: 8pt;
+}
+.cover-wordmark-rule {
+    width: 36pt;
+    height: 1.5pt;
+    background: #8B2332;
+    margin: 0 auto 64pt auto;
+}
+.cover-title {
+    string-set: running-title content();
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.25;
+    margin: 0 0 12pt 0;
+    letter-spacing: -0.005em;
+}
+.cover-subtitle {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 14pt;
+    color: #3D3D3D;
+    font-style: italic;
+    font-weight: 400;
+    margin: 0 0 64pt 0;
+}
+.cover-meta {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    color: #3D3D3D;
+    letter-spacing: 0.04em;
+    margin: 4pt 0;
+}
+.cover-meta strong {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+.cover-divider {
+    width: 80pt;
+    height: 0.5pt;
+    background: #D9D9D6;
+    margin: 40pt auto;
+}
+.cover-stats {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin-top: 24pt;
+    font-size: 10pt;
+    color: #3D3D3D;
+}
+.cover-stats .stat {
+    margin: 0 14pt;
+}
+.cover-stats strong {
+    color: #1A1A1A;
+    font-weight: 600;
+}
+.cover-footer {
+    margin-top: 80pt;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    font-style: italic;
+}
+
+/* ===== Masthead (uniform across published surfaces — mirrors hub-masthead.css) ===== */
+
+.masthead {
+    border-bottom: 1px solid #1A1A1A;
+    padding: 6pt 0 14pt 0;
+    margin-bottom: 22pt;
+}
+.masthead-top {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6B6B6B;
+    font-weight: 500;
+    padding-bottom: 10pt;
+    border-bottom: 1px solid #D9D9D6;
+    margin-bottom: 14pt;
+}
+.masthead-top .doctype { color: #0E2A47; font-weight: 600; }
+.masthead-top .date { color: #8B2332; font-weight: 600; }
+.masthead h1.title {
+    string-set: running-title content();
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 24pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.15;
+    letter-spacing: -0.012em;
+    margin: 0;
+}
+.masthead .subtitle {
+    display: block;
+    margin-top: 6pt;
+    font-size: 0.5em;
+    font-weight: 400;
+    color: #6B6B6B;
+    letter-spacing: 0;
+    font-style: italic;
+    line-height: 1.3;
+}
+
+/* ===== Body ===== */
+
+html { font-size: 11pt; }
+
+body {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    line-height: 1.6;
+    color: #1A1A1A;
+    max-width: 100%;
+}
+
+/* Page break marker for section transitions (briefs in a packet) */
+.page-break {
+    page-break-before: always;
+    height: 0;
+}
+
+/* Headings */
+
+h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+}
+
+h1 {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 22pt;
+    font-weight: 400;
+    color: #1A1A1A;
+    line-height: 1.3;
+    margin: 0 0 6pt 0;
+    letter-spacing: -0.005em;
+    string-set: running-title content();
+}
+
+h2 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 24pt 0 8pt 0;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+}
+
+h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #1A1A1A;
+    margin: 14pt 0 4pt 0;
+}
+
+h4 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 12pt 0 4pt 0;
+    letter-spacing: 0.04em;
+}
+
+h5, h6 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10pt;
+    margin: 10pt 0 4pt 0;
+    color: #1A1A1A;
+}
+
+/* Paragraphs */
+
+p {
+    margin: 0 0 10pt 0;
+    orphans: 2;
+    widows: 2;
+}
+
+/* Links */
+
+a {
+    color: #0E2A47;
+    text-decoration: none;
+    border-bottom: 0.5pt solid #0E2A47;
+    word-break: break-word;
+}
+
+/* Lists */
+
+ul, ol {
+    margin: 8pt 0;
+    padding-left: 22pt;
+}
+li {
+    margin: 5pt 0;
+}
+li > ul, li > ol {
+    margin: 4pt 0;
+}
+
+/* Blockquotes — large opening quotation mark, italic serif */
+
+blockquote {
+    margin: 14pt 0 4pt 14pt;
+    padding: 0;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    color: #1A1A1A;
+    font-size: 11pt;
+    line-height: 1.55;
+    text-indent: 0;
+}
+blockquote::before {
+    content: "\201C";
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 30pt;
+    color: #8B2332;
+    line-height: 0;
+    vertical-align: -0.35em;
+    margin-right: 4pt;
+    font-style: normal;
+}
+blockquote p { margin: 0 0 8pt 0; display: inline; }
+blockquote p:last-child { margin-bottom: 0; }
+
+/* Citation line that follows a blockquote (italic em-dashed source) */
+
+.citation {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    margin: 4pt 0 14pt 18pt;
+    font-style: normal;
+}
+
+/* BLUF callout — italic serif with accent left rule, no fill */
+
+.bluf {
+    border-left: 2pt solid #8B2332;
+    padding: 4pt 0 4pt 18pt;
+    margin: 4pt 0 18pt 0;
+    font-style: italic;
+    font-size: 11pt;
+    color: #1A1A1A;
+    page-break-inside: avoid;
+}
+.bluf h2, .bluf h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #8B2332;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 4pt 0;
+    font-style: normal;
+}
+.bluf p { margin: 0 0 8pt 0; font-style: italic; }
+.bluf p:last-child { margin-bottom: 0; }
+.bluf strong { font-style: italic; }
+
+/* "What to ask" — distinguished section (optional class wrap) */
+
+.ask {
+    border-top: 0.5pt solid #D9D9D6;
+    border-bottom: 0.5pt solid #D9D9D6;
+    padding: 12pt 0 4pt 0;
+    margin: 22pt 0;
+}
+
+/* Code (rare in briefs but supported) */
+
+code {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9.5pt;
+    background: #f3f3f0;
+    padding: 1pt 4pt;
+    border-radius: 2pt;
+}
+pre {
+    font-family: 'SF Mono', 'Menlo', 'Consolas', monospace;
+    font-size: 9pt;
+    background: #f7f5f2;
+    padding: 10pt 12pt;
+    border-radius: 3pt;
+    line-height: 1.4;
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code { background: transparent; padding: 0; }
+
+/* Tables — minimal lines, no fills (editorial restraint) */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 14pt 0;
+    font-size: 10pt;
+    page-break-inside: auto;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+th, td {
+    border-bottom: 0.5pt solid #D9D9D6;
+    padding: 6pt 8pt 6pt 0;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    font-weight: 700;
+    color: #1A1A1A;
+    border-bottom: 1pt solid #1A1A1A;
+    letter-spacing: 0.02em;
+    font-size: 9.5pt;
+}
+
+/* Horizontal rule — visible separator inside a section (NOT a page break) */
+
+hr {
+    border: 0;
+    border-top: 0.5pt solid #D9D9D6;
+    margin: 18pt 0;
+}
+
+/* Images */
+
+img { max-width: 100%; height: auto; }
+
+/* Emphasis */
+
+strong { font-weight: 700; color: #1A1A1A; }
+em { font-style: italic; }
+
+/* Topic tag / meta line at top of each brief */
+
+.brief-meta-line {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #6B6B6B;
+    letter-spacing: 0.04em;
+    margin: 0 0 22pt 0;
+    padding-bottom: 12pt;
+    border-bottom: 0.5pt solid #D9D9D6;
+}
+.brief-meta-line .tag {
+    color: #8B2332;
+    font-style: italic;
+}
+
+/* Source list at the bottom of each brief */
+
+.sources-block {
+    margin-top: 28pt;
+    padding-top: 14pt;
+    border-top: 0.5pt solid #D9D9D6;
+    font-size: 9.5pt;
+    color: #3D3D3D;
+}
+.sources-block h2,
+.sources-block h3 {
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9pt;
+    color: #1A1A1A;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 8pt 0;
+    font-weight: 700;
+}
+.sources-block ul { padding-left: 18pt; margin: 0; }
+.sources-block li { margin: 3pt 0; }
+</style>
+</head>
+<body>
+<header class="masthead">
+<div class="masthead-top"><span class="doctype">Brief</span><span class="date">Drafted 2026-07-09</span></div>
+<h1 class="title">Is NVIDIA historically cheap on a relative basis? (as of 2026-07-08)</h1>
+</header>
+<p><strong>Short answer: yes — decisively so against its own 5–10-year multiple history and against the large-cap AI-semi peers compared here (AMD, Broadcom, TSMC), especially growth-adjusted. Two honest caveats: the discount shrinks over a 20-year window, and &ldquo;cheap&rdquo; leans entirely on consensus estimates that assume revenue nearly doubles again.</strong></p>
+<p><strong>The tape.</strong> NVDA closed at $204.12 on 2026-07-08 <sup id="fnref:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup> (≈$4.94T market cap <sup id="fnref2:fn-1"><a class="footnote-ref" href="#fn:fn-1">1</a></sup>). That is ≈31x trailing earnings <sup id="fnref:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> and roughly 18–23x forward earnings depending on the denominator: 19.82x per stockanalysis.com <sup id="fnref:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>, 21.7x per YCharts <sup id="fnref:fn-4"><a class="footnote-ref" href="#fn:fn-4">4</a></sup>, 23.0x per GuruFocus (as of June 15) <sup id="fnref:fn-5"><a class="footnote-ref" href="#fn:fn-5">5</a></sup>, and 18x on next-12-month earnings per Bloomberg data — its lowest since early 2019, and now below the S&amp;P 500&rsquo;s 20x-plus forward multiple <sup id="fnref:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>. Part of that spread is denominator choice (which fiscal year, which estimate set) and part is genuine vendor disagreement on the same next-twelve-month basis; the four readings above all land in the high-teens-to-low-20s.</p>
+<p><strong>Versus its own history — the core test.</strong> NVDA&rsquo;s fiscal-year-end trailing P/E ran 73.6x (FY2021) <sup id="fnref:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> → 62.8x <sup id="fnref2:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> → 106.4x (depressed-EPS FY2023) <sup id="fnref3:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> → 51.6x <sup id="fnref4:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> → 39.9x <sup id="fnref5:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup> → 37.8x (FY2026) <sup id="fnref6:fn-7"><a class="footnote-ref" href="#fn:fn-7">7</a></sup>; today&rsquo;s ≈31x <sup id="fnref2:fn-2"><a class="footnote-ref" href="#fn:fn-2">2</a></sup> is about half the 5-year average of ~63x <sup id="fnref:fn-8"><a class="footnote-ref" href="#fn:fn-8">8</a></sup><sup id="fnref:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup> and well under the 10-year average of ~58x <sup id="fnref2:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>. Forward tells the same story: a May 26 BofA note puts the stock at 17.5x its calendar-2027 estimate <sup id="fnref:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup> against its own five-year average multiple of 33.6x <sup id="fnref2:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup> — nearly 48% below <sup id="fnref3:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>; Deutsche Bank&rsquo;s late-March chartbook had it at ~16x projected 2027 earnings <sup id="fnref:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>, some 45% below its historical median on a two-year-forward basis <sup id="fnref2:fn-11"><a class="footnote-ref" href="#fn:fn-11">11</a></sup>; and the NTM multiple (22.22x on July 8) is the lowest since June 2019 <sup id="fnref:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>. The caveat: over 20 years the average trailing multiple is ~41x <sup id="fnref3:fn-9"><a class="footnote-ref" href="#fn:fn-9">9</a></sup>, so the &ldquo;historically cheap&rdquo; claim is strongest on the AI-era 5–10-year window, more modest against all time.</p>
+<p><strong>Versus peers and the market.</strong> Comparing within the same vendor and basis: on stockanalysis.com NVDA&rsquo;s 19.82x forward <sup id="fnref2:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup> sits below Broadcom&rsquo;s 24.68x <sup id="fnref:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup> and TSMC&rsquo;s 22.77x <sup id="fnref:fn-14"><a class="footnote-ref" href="#fn:fn-14">14</a></sup>; on finviz&rsquo;s next-fiscal-year basis NVDA is 16.2x <sup id="fnref:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup> against AMD&rsquo;s 38.9x <sup id="fnref:fn-16"><a class="footnote-ref" href="#fn:fn-16">16</a></sup> and Broadcom&rsquo;s 20.0x <sup id="fnref:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>; on Yahoo&rsquo;s NTM basis NVDA&rsquo;s 22.22x <sup id="fnref2:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup> compares with AMD&rsquo;s 73.5x <sup id="fnref3:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup>. NVDA also trades ~42% below the semis-sector median forward multiple of 38.78x (as of June 24) <sup id="fnref:fn-18"><a class="footnote-ref" href="#fn:fn-18">18</a></sup> and below BofA&rsquo;s late-May SOX reading of ~25.6x <sup id="fnref4:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup>, while carrying only a ~9% premium to the S&amp;P 500&rsquo;s 20.4x forward (NVDA&rsquo;s 22.22x NTM <sup id="fnref4:fn-12"><a class="footnote-ref" href="#fn:fn-12">12</a></sup> against the S&amp;P&rsquo;s 20.4x <sup id="fnref:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>; on Bloomberg&rsquo;s lower 18x reading NVDA sits below the market <sup id="fnref2:fn-6"><a class="footnote-ref" href="#fn:fn-6">6</a></sup>) — a market multiple that itself sits above its own 5- and 10-year averages <sup id="fnref2:fn-19"><a class="footnote-ref" href="#fn:fn-19">19</a></sup>. On trailing earnings NVDA (≈31x <sup id="fnref:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup>) is now the cheapest of the set outright — AMD 168x <sup id="fnref:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>, Broadcom 62.8x <sup id="fnref:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>, TSMC 33.1x <sup id="fnref:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>. Growth-adjusted the gap widens: forward PEG ≈0.76 <sup id="fnref2:fn-20"><a class="footnote-ref" href="#fn:fn-20">20</a></sup> versus AMD 2.15 <sup id="fnref2:fn-21"><a class="footnote-ref" href="#fn:fn-21">21</a></sup>, Broadcom 0.92 <sup id="fnref2:fn-22"><a class="footnote-ref" href="#fn:fn-22">22</a></sup>, TSMC 1.16 <sup id="fnref2:fn-23"><a class="footnote-ref" href="#fn:fn-23">23</a></sup>; BofA frames it as a 0.28 PEG on 2027 estimates — one of the lowest among major semis <sup id="fnref5:fn-10"><a class="footnote-ref" href="#fn:fn-10">10</a></sup> — and calls the forward multiple a 7-year low, a 30–35% discount to mega-cap tech <sup id="fnref:fn-24"><a class="footnote-ref" href="#fn:fn-24">24</a></sup>. Only EV/Sales cuts the other way — NVDA&rsquo;s 19.5x <sup id="fnref:fn-25"><a class="footnote-ref" href="#fn:fn-25">25</a></sup> tops TSMC&rsquo;s 15.1x <sup id="fnref:fn-26"><a class="footnote-ref" href="#fn:fn-26">26</a></sup>, a reminder that the &ldquo;cheap&rdquo; case is an earnings-multiple case, made possible by NVDA&rsquo;s extreme margins.</p>
+<p><strong>Why the multiple is compressed — and the real caveat.</strong> The de-rating is a denominator story, not a price collapse: fiscal Q1 2027 (ended April 2026) revenue was $81.6B, up 85% year over year <sup id="fnref:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup>, data center $75.2B, up 92% <sup id="fnref2:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup>, with $91.0B guided for Q2 <sup id="fnref3:fn-27"><a class="footnote-ref" href="#fn:fn-27">27</a></sup>. Consensus has FY2027 EPS at ~$8.98 <sup id="fnref:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup> on ~$392.9B revenue <sup id="fnref2:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup>, rising to ~$12.63 on ~$560.4B in FY2028 <sup id="fnref3:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup>. So a ~20x forward multiple prices a revenue base consensus expects to nearly double this fiscal year ($215.9B FY2026 <sup id="fnref:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup> → ~$392.9B FY2027 <sup id="fnref4:fn-28"><a class="footnote-ref" href="#fn:fn-28">28</a></sup>), off FY2026 GAAP diluted EPS of $4.90 <sup id="fnref2:fn-29"><a class="footnote-ref" href="#fn:fn-29">29</a></sup>. That is the trade: the multiple is only &ldquo;cheap&rdquo; if those estimates broadly hold — the market is discounting AI-capex cyclicality and decel risk, not overlooking the growth. Your premise checks out on the evidence; the low multiple is the market&rsquo;s way of charging for estimate risk rather than a free discount.</p>
+<hr>
+<p><em>Method note: all four research questions closed ANSWERED on independent sources at round 1 (Q1: 7, Q2: 9, Q3: 17, Q4: 6; a later gap-fill round added four stated-vendor findings) — coverage log at <code>vault/process/research-notes/nvda/coverage-round1.json</code>, run narrative at <code>vault/process/research-notes/nvda/run-notes.md</code>. Known conflicts are documented in the findings store: forward-P/E spread (NTM vs FY1 vs CY2027 bases, plus same-basis vendor disagreement), enterprise-value cash-netting (~$4.87–4.94T <sup id="fnref:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup><sup id="fnref2:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>), EV/EBITDA broad-vs-operating (~25.6x <sup id="fnref2:fn-30"><a class="footnote-ref" href="#fn:fn-30">30</a></sup> vs ~29.4x <sup id="fnref3:fn-15"><a class="footnote-ref" href="#fn:fn-15">15</a></sup>), a ~21% same-day vendor spread on Broadcom&rsquo;s stated forward P/E <sup id="fnref2:fn-13"><a class="footnote-ref" href="#fn:fn-13">13</a></sup><sup id="fnref2:fn-17"><a class="footnote-ref" href="#fn:fn-17">17</a></sup>, and stockanalysis multiples that appear computed on the prior close, per the capture note on that snapshot <sup id="fnref3:fn-3"><a class="footnote-ref" href="#fn:fn-3">3</a></sup>. Five agent-computed ratios were excluded in favor of stated-source figures. Sources: 42 snapshots in <code>vault/raw/research-nvda/primaries/</code> plus one reused prior-packet snapshot; findings: <code>vault/raw/research-nvda/findings.jsonl</code> (77 entries).</em></p>
+<h2 id="sources">Sources</h2>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:fn-1">
+<p>FMP quote (symbol=NVDA), retrieved 2026-07-08 &ldquo;NVDA share price at the 2026-07-08 market close (4:00 PM ET) was $204.12, up 3.65% from the prior close of $196.93&rdquo;, 2026-07-08 · FMP quote (symbol=NVDA), retrieved 2026-07-08 · local: 2026-07-08-fmp-quote-NVDA.json · other&#160;<a class="footnote-backref" href="#fnref:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-2">
+<p>FMP metrics-ratios-ttm (symbol=NVDA), retrieved 2026-07-08 &ldquo;NVDA trailing (TTM) P/E was 31.12 as of 2026-07-08 per FMP&rdquo;, 2026-07-08 · FMP metrics-ratios-ttm (symbol=NVDA), retrieved 2026-07-08 · local: 2026-07-08-fmp-metrics-ratios-ttm-NVDA.json · other&#160;<a class="footnote-backref" href="#fnref:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-3">
+<p>stockanalysis.com &ldquo;NVDA forward P/E per stockanalysis.com was 19.82 as of 2026-07-08 (next-twelve-month consensus EPS basis)&rdquo;, 2026-07-08 · https://stockanalysis.com/stocks/nvda/statistics/ · local: 2026-07-08-stockanalysis-com-nvda-statistics.md · other&#160;<a class="footnote-backref" href="#fnref:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-4">
+<p>www.fool.com &ldquo;NVDA forward P/E per YCharts data as cited by The Motley Fool, 2026-07-08 — equal to the S&amp;P 500 forward multiple&rdquo;, 2026-07-08 · https://www.fool.com/investing/2026/07/08/nvidia-stock-is-down-17-from-its-high-is-the-artif/ · local: 2026-07-08-fool-com-nvidia-down-17-finally-cheap.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-5">
+<p>www.gurufocus.com &ldquo;NVDA forward P/E per GuruFocus, as of 2026-06-15&rdquo;, 2026-06-15 · https://www.gurufocus.com/term/forward-pe-ratio/NVDA · local: 2026-07-08-gurufocus-com-nvda-forward-pe.md · other&#160;<a class="footnote-backref" href="#fnref:fn-5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-6">
+<p>financialpost.com &ldquo;NVDA forward P/E on next-12-month consensus earnings (Bloomberg data) after the mid-2026 selloff, as of 2026-07-08 — lowest since early 2019&rdquo;, 2026-07-08 · https://financialpost.com/investing/nvidias-slide-sends-valuation-to-pre-ai-boom-levels · local: 2026-07-08-financialpost-com-nvidia-valuation-pre-ai-boom.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-7">
+<p>FMP metrics-ratios (symbol=NVDA, period=annual, limit=12), retrieved 2026-07-08 &ldquo;NVDA trailing P/E at fiscal-year-end FY2021 (fiscal year ended 2021-01-31)&rdquo;, 2026-07-08 · FMP metrics-ratios (symbol=NVDA, period=annual, limit=12), retrieved 2026-07-08 · local: 2026-07-08-fmp-metrics-ratios-nvda-annual-limit12.json · other&#160;<a class="footnote-backref" href="#fnref:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a><a class="footnote-backref" href="#fnref6:fn-7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-8">
+<p>vcpscanner.com &ldquo;NVDA five-year average trailing P/E per VCP Scanner, as of 2026-07-04&rdquo;, 2026-07-04 · https://vcpscanner.com/stock/nvda/pe-history · local: 2026-07-08-vcpscanner-com-nvda-pe-history.md · other&#160;<a class="footnote-backref" href="#fnref:fn-8" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-9">
+<p>tgmcharts.com &ldquo;NVDA five-year average trailing P/E per TGMCharts, as of 2026-06-26&rdquo;, 2026-06-26 · https://tgmcharts.com/stocks/NVDA/pe-ratio · local: 2026-07-08-tgmcharts-com-nvda-pe-ratio.md · other&#160;<a class="footnote-backref" href="#fnref:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-9" title="Jump back to footnote 9 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-10">
+<p>www.benzinga.com &ldquo;NVDA P/E on calendar-2027 estimated earnings per BofA (Vivek Arya) semiconductor note, as of 2026-05-26&rdquo;, 2026-05-26 · https://www.benzinga.com/analyst-stock-ratings/analyst-color/26/05/52782870/bofa-nvidia-micron-cheap-ai-bubble-chip-rally · local: 2026-07-08-benzinga-com-bofa-ai-bubble-nvda-cheap-5yr-avg.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a><a class="footnote-backref" href="#fnref5:fn-10" title="Jump back to footnote 10 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-11">
+<p>www.investopedia.com &ldquo;NVDA P/E on projected 2027 earnings per Deutsche Bank semiconductor valuation chartbook, as cited by Investopedia 2026-03-24&rdquo;, 2026-03-24 · https://www.investopedia.com/here-s-why-nvidia-s-stock-looks-relatively-cheap-according-to-these-experts-nvda-11933637 · local: 2026-07-08-investopedia-com-deutsche-bank-nvda-relatively-cheap.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-11" title="Jump back to footnote 11 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-12">
+<p>rollingout.com &ldquo;NVIDIA&#x27;s next-twelve-months forward P/E slipped to 22.22 times on July 8, 2026 — its lowest level since June 2019, when the ratio sat at 22.47x&rdquo;, 2026-07-08 · https://rollingout.com/2026/07/08/nvidia-stock-valuation-multiyear/ · local: 2026-07-08-rollingout-com-nvidia-stock-valuation-multiyear.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-12" title="Jump back to footnote 12 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-13">
+<p>stockanalysis.com &ldquo;Broadcom (AVGO) trades at 24.68 times forward earnings as stated by stockanalysis.com&#x27;s AVGO quote page (&#x27;Forward PE&#x27; statistic), market data through the 2026-07-08 close&rdquo;, 2026-07-08 · https://stockanalysis.com/stocks/avgo/ · local: 2026-07-08-stockanalysis-com-avgo-quote.html · other&#160;<a class="footnote-backref" href="#fnref:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-13" title="Jump back to footnote 13 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-14">
+<p>stockanalysis.com &ldquo;TSMC (TSM) trades at 22.77 times forward earnings as stated by stockanalysis.com&#x27;s TSM quote page (&#x27;Forward PE&#x27; statistic), market data through the 2026-07-08 close&rdquo;, 2026-07-08 · https://stockanalysis.com/stocks/tsm/ · local: 2026-07-08-stockanalysis-com-tsm-quote.html · other&#160;<a class="footnote-backref" href="#fnref:fn-14" title="Jump back to footnote 14 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-15">
+<p>finviz.com &ldquo;NVDA forward P/E per finviz.com was 16.16 as of the 2026-07-08 close, on finviz&#x27;s &#x27;EPS next Y&#x27; basis of $12.63 (= FY2028 consensus, fiscal year ending January 2028)&rdquo;, 2026-07-08 · https://finviz.com/quote.ashx?t=NVDA · local: 2026-07-08-finviz-com-nvda-quote.md · other&#160;<a class="footnote-backref" href="#fnref:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-15" title="Jump back to footnote 15 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-16">
+<p>finviz.com &ldquo;AMD trades at 38.93 times next-fiscal-year earnings as stated by finviz.com&#x27;s AMD quote page (&#x27;Forward P/E&#x27;, defined on-page as next fiscal year), retrieved 2026-07-08&rdquo;, 2026-07-08 · https://finviz.com/quote.ashx?t=AMD · local: 2026-07-08-finviz-com-amd-quote.html · other&#160;<a class="footnote-backref" href="#fnref:fn-16" title="Jump back to footnote 16 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-17">
+<p>finviz.com &ldquo;Broadcom (AVGO) trades at 20.00 times next-fiscal-year earnings as stated by finviz.com&#x27;s AVGO quote page (&#x27;Forward P/E&#x27;, defined on-page as next fiscal year), retrieved 2026-07-08&rdquo;, 2026-07-08 · https://finviz.com/quote.ashx?t=AVGO · local: 2026-07-08-finviz-com-avgo-quote.html · other&#160;<a class="footnote-backref" href="#fnref:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-17" title="Jump back to footnote 17 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-18">
+<p>pomegra.io &ldquo;The semiconductor sector median forward P/E stood at 38.78 times in late June 2026, with NVIDIA&#x27;s roughly 22x forward multiple representing a 41.8 percent discount to that median&rdquo;, 2026-06-24 · https://pomegra.io/news/nvda-cheaper-than-semis-how-to-play-the-gap · local: 2026-07-08-pomegra-io-nvda-cheaper-than-semis.md · Trade press&#160;<a class="footnote-backref" href="#fnref:fn-18" title="Jump back to footnote 18 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-19">
+<p>advantage.factset.com &ldquo;The forward 12-month P/E ratio for the S&amp;P 500 is 20.4 as of the FactSet Earnings Insight report dated July 2, 2026 — above the 5-year average of 19.9 and the 10-year average of 19.0&rdquo;, 2026-07-02 · https://advantage.factset.com/hubfs/Website/Resources%20Section/Research%20Desk/Earnings%20Insight/EarningsInsight_070226.pdf · local: 2026-07-08-advantage-factset-com-earnings-insight-070226.txt · other&#160;<a class="footnote-backref" href="#fnref:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-19" title="Jump back to footnote 19 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-20">
+<p>FMP metrics-ratios-ttm (NVDA), retrieved 2026-07-08 &ldquo;NVIDIA trades at 31.1 times trailing (TTM GAAP) earnings as of 2026-07-08 (FMP priceToEarningsRatioTTM 31.12; TTM EPS $6.57)&rdquo;, 2026-07-08 · FMP metrics-ratios-ttm (NVDA), retrieved 2026-07-08 · local: 2026-07-08-fmp-metrics-ratios-ttm-nvda-amd-avgo-tsm.json · other&#160;<a class="footnote-backref" href="#fnref:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-20" title="Jump back to footnote 20 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-21">
+<p>FMP metrics-ratios-ttm (AMD), retrieved 2026-07-08 &ldquo;AMD trades at 168.0 times trailing (TTM GAAP) earnings as of 2026-07-08 (FMP priceToEarningsRatioTTM 167.99; TTM EPS $3.07)&rdquo;, 2026-07-08 · FMP metrics-ratios-ttm (AMD), retrieved 2026-07-08 · local: 2026-07-08-fmp-metrics-ratios-ttm-nvda-amd-avgo-tsm.json · other&#160;<a class="footnote-backref" href="#fnref:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-21" title="Jump back to footnote 21 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-22">
+<p>FMP metrics-ratios-ttm (AVGO), retrieved 2026-07-08 &ldquo;Broadcom trades at 62.8 times trailing (TTM GAAP) earnings as of 2026-07-08 (FMP priceToEarningsRatioTTM 62.79; TTM EPS $6.18)&rdquo;, 2026-07-08 · FMP metrics-ratios-ttm (AVGO), retrieved 2026-07-08 · local: 2026-07-08-fmp-metrics-ratios-ttm-nvda-amd-avgo-tsm.json · other&#160;<a class="footnote-backref" href="#fnref:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-22" title="Jump back to footnote 22 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-23">
+<p>FMP metrics-ratios-ttm (TSM), retrieved 2026-07-08 &ldquo;TSMC trades at 33.1 times trailing (TTM) earnings as of 2026-07-08 (FMP priceToEarningsRatioTTM 33.14)&rdquo;, 2026-07-08 · FMP metrics-ratios-ttm (TSM), retrieved 2026-07-08 · local: 2026-07-08-fmp-metrics-ratios-ttm-nvda-amd-avgo-tsm.json · other&#160;<a class="footnote-backref" href="#fnref:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-23" title="Jump back to footnote 23 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-24">
+<p>www.benzinga.com &ldquo;BofA Global Research (July 8, 2026) says NVIDIA is trading at a 7-year-low 18 times forward P/E, a 30 to 35 percent valuation discount to its mega-cap technology peers&rdquo;, 2026-07-08 · https://www.benzinga.com/markets/equities/26/07/60326448/is-nvda-stock-a-buy-bofa-says-tech-giants-massive-moat-is-completely-unappreciated-sees-78-upside · local: 2026-07-08-benzinga-com-bofa-nvda-moat-unappreciated.md · Sell-side&#160;<a class="footnote-backref" href="#fnref:fn-24" title="Jump back to footnote 24 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-25">
+<p>FMP key-metrics-ttm (NVDA), retrieved 2026-07-08 &ldquo;NVIDIA trades at an enterprise value of 19.5 times trailing-twelve-month revenue as of 2026-07-08 (EV $4.944 trillion against TTM revenue of roughly $253 billion)&rdquo;, 2026-07-08 · FMP key-metrics-ttm (NVDA), retrieved 2026-07-08 · local: 2026-07-08-fmp-key-metrics-ttm-nvda-amd-avgo-tsm.json · other&#160;<a class="footnote-backref" href="#fnref:fn-25" title="Jump back to footnote 25 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-26">
+<p>FMP key-metrics-ttm (TSM), retrieved 2026-07-08 &ldquo;TSMC trades at an enterprise value of 15.1 times trailing-twelve-month revenue as of 2026-07-08 (EV TWD 61.90 trillion against TTM revenue of roughly TWD 4.10 trillion)&rdquo;, 2026-07-08 · FMP key-metrics-ttm (TSM), retrieved 2026-07-08 · local: 2026-07-08-fmp-key-metrics-ttm-nvda-amd-avgo-tsm.json · other&#160;<a class="footnote-backref" href="#fnref:fn-26" title="Jump back to footnote 26 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-27">
+<p>nvidianews.nvidia.com &ldquo;Q1 FY2027 total revenue (GAAP), quarter ended 2026-04-26, reported 2026-05-20&rdquo;, 2026-05-20 · https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027 · local: 2026-07-08-nvidianews.nvidia.com-q1-fy2027-earnings.html · Primary&#160;<a class="footnote-backref" href="#fnref:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-27" title="Jump back to footnote 27 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-28">
+<p>FMP analyst &ldquo;FY2027 consensus EPS estimate (fiscal year ending 2027-01-25), FMP consensus set&rdquo;, 2026-07-08 · FMP analyst/financial-estimates (symbol=NVDA, period=annual, limit=6), retrieved 2026-07-08 · local: 2026-07-08-fmp-analyst-financial-estimates-nvda-annual.json · other&#160;<a class="footnote-backref" href="#fnref:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a><a class="footnote-backref" href="#fnref4:fn-28" title="Jump back to footnote 28 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-29">
+<p>FMP statements &ldquo;FY2026 full-year revenue (GAAP), fiscal year ended 2026-01-25&rdquo;, 2026-07-08 · FMP statements/income-statement (symbol=NVDA, period=annual, limit=3), retrieved 2026-07-08 · local: 2026-07-08-fmp-statements-income-statement-nvda-annual.json · other&#160;<a class="footnote-backref" href="#fnref:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-29" title="Jump back to footnote 29 in the text">&#8617;</a></p>
+</li>
+<li id="fn:fn-30">
+<p>FMP key-metrics-ttm (symbol=NVDA), retrieved 2026-07-08 &ldquo;NVDA enterprise value per FMP (market cap minus cash-and-cash-equivalents plus total debt) was $4,943.57 billion as of 2026-07-08&rdquo;, 2026-07-08 · FMP key-metrics-ttm (symbol=NVDA), retrieved 2026-07-08 · local: 2026-07-08-fmp-key-metrics-ttm-NVDA.json · other&#160;<a class="footnote-backref" href="#fnref:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:fn-30" title="Jump back to footnote 30 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+<script src="../assets/vega-embed-bundle.js"></script>
+<script src="../assets/chart-embed.js"></script>
+</body>
+</html>
